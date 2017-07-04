@@ -1,0 +1,11 @@
+{
+  "name": "postit",
+  "version": "1.0.0",
+  "description": "andela bootcamp project ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jimoh hadi",
+  "license": "ISC"
+}

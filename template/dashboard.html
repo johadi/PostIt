@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Cover Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/custom.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">PostIt</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Dashboard</a></li>
+            <li><a href="#">Groups</a></li>
+            <li><a href="#">Friends</a></li>
+        </ul>
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Message</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jimoh <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+
+<div class="container" id="group-body">
+    <div class="row">
+        <div class="col-md-1 hidden-sm hidden-xs"></div>
+        <div class="col-md-3 col-sm-5 col-xs-12 well">
+            <img class="img-responsive img-circle img-centered" src="images/jimoh.jpg" alt="">
+            <div class="clearfix"></div>
+            <ul class="list-group text-center" style="margin-top: 20px">
+                <li class="list-group-item">johadi</li>
+                <li class="list-group-item">jimoh hadi</li>
+                <li class="list-group-item">jimoh@gmail.com</li>
+                <li class="list-group-item">09189456789</li>
+            </ul>
+        </div>
+        <div class="col-md-4 col-sm-3 hidden-xs" style="padding-bottom: 15px">
+            <img class="img-responsive img-centered hidden-sm" src="/template/img/social.gif" alt="">
+            <hr/>
+            <h5 class="list-group-item-heading text-center">Your recent Quotes</h5>
+            <hr/>
+            <p class="list-group-item" style="font-size: inherit; background-color: #e1e1e1; margin: 0px 0px 5px 0px">
+                Hello
+            </p>
+            <p class="list-group-item" style="font-size: inherit; background-color: #e1e1e1; margin: 0px 0px 5px 0px">
+                Hello
+            </p>
+            <p class="list-group-item" style="font-size: inherit; background-color: #e1e1e1; margin: 0px 0px 5px 0px">
+                Hello
+            </p>
+        </div>
+        <div class="col-md-3 col-sm-4 col-xs-12 well">
+            <p>
+                <a data-toggle="modal" href="#chat-modal" class="btn btn-primary btn-lg btn-block">Join a Chat</a>
+                <a href="/nodes" class="btn btn-default btn-lg btn-block">My Tree Nodes</a>
+                <a data-toggle="modal" href="#quote-modal" class="btn btn-default btn-lg btn-block">Make a Quote</a>
+            </p>
+            <hr/>
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    <h5 class="list-group-item-heading">Top Quotes Today</h5>
+                </a>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item">
+                    <h5 class="list-group-item-heading">Jimoh Hadi</h5>
+                    <p class="list-group-item-text" style="font-size: inherit">
+                        hello
+                    </p>
+                </a>
+            </div>
+            <div class="list-group">
+                <a href="#" class="list-group-item">
+                    <h5 class="list-group-item-heading">Jimoh Hadi</h5>
+                    <p class="list-group-item-text" style="font-size: inherit">
+                        hello
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-1 hidden-sm hidden-xs"></div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

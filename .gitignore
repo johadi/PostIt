@@ -6,3 +6,4 @@
 .env
 server/database/config/config.json
 
+npm-debug.log

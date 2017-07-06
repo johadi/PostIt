@@ -4,19 +4,28 @@ const Message = require('../database/models').Message;
 
 module.exports = {
   createGroup(req, res) {
-    Message.create({ body: 'hello jim', userId: 2, groupId: 1 })
-            .then(msg => res.status(201).send(msg))
-            .catch(err => res.status(400).send(err));
-        // res.send('hello');
+    if (req.user) {
+      return res.status(200).send(req.user);
+    }
+    return res.status(400).send({ message: 'oops! Something went qrong' });
   },
   addUser(req, res) {
-    res.send('update here');
+    if (req.user) {
+      return res.status(200).send(req.user);
+    }
+    return res.status(400).send({ message: 'oops! Something went qrong' });
   },
   postMessage(req, res) {
-    res.send('delete here');
+    if (req.user) {
+      return res.status(200).send(req.user);
+    }
+    return res.status(400).send({ message: 'oops! Something went qrong' });
   },
   getMessage(req, res) {
-    res.send('delete here');
+    if (req.user) {
+      return res.status(200).send(req.user);
+    }
+    return res.status(400).send({ message: 'oops! Something went qrong' });
   }
 };
 

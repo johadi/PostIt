@@ -21,22 +21,15 @@ module.exports = {
         type: Sequelize.DATE
       },
       userId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id'
-        }
+        type: Sequelize.INTEGER
       },
       groupId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Groups',
-          key: 'id'
-        }
+        type: Sequelize.INTEGER
       }
     });
   },
   down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Messages');
+    return queryInterface.dropTable('Messages',
+        { force: true, cascade: false });
   }
 };

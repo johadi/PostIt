@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const groupController = require('../controllers/group');
+const authenticate = require('../middlewares/authenticate');
 
+router.use(authenticate);
 router.route('/api/group')
     .post(groupController.createGroup);
 router.route('/api/group/:group_id/user')

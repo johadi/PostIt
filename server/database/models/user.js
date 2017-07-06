@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     password: { type: DataTypes.STRING, allowNull: false }
   });
   User.associate = (models) => {
-    User.belongsToMany(models.Group, { through: 'UserGroup' });
-    User.hasMany(models.Message);
+    User.belongsToMany(models.Group, { through: 'UserGroup', foreignKey: 'userId' });
+    User.hasMany(models.Message, { foreignKey: 'userId' });
   };
   return User;
 };

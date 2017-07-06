@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 4000);
 
 // Api routes
-// require('./server/routes/index')(app);
+require('./server/routes/index')(app);
 
 const server = http.createServer(app);
 

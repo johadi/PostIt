@@ -10,8 +10,7 @@ Andela Bootcamp project for user notification
 DEV_DB_NAME=yourdbname
 DEV_HOST=localhost
 NODE_ENV=development
-JWT_SECRET=yoursecret```
-
-
-4. run `npm install`
-5. run `npm start`
+JWT_SECRET=yoursecret
+```
+4. run npm install
+5. run npm start

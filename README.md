@@ -9,7 +9,7 @@ This an Andela Bootcamp project which allows firends and colleagues send notific
 6. Users can logout of the system whenever they want to.
 7. Users can receieve notification via SMS, EMAIL or both depending on the message level.
 
-#H ow to install this project
+# How to install this project
 
 1. create a .env file
 2. inside the .env file,copy the code snippet below, fill it details with your values. don't change the keys 

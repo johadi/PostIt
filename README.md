@@ -12,5 +12,5 @@ DEV_HOST=localhost
 NODE_ENV=development
 JWT_SECRET=yoursecret
 ```
-4. run npm install
-5. run npm start
+4. run `npm install`
+5. run `npm start`

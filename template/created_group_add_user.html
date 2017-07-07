@@ -13,6 +13,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/font-awesome.min.css" rel="stylesheet">
     <link href="styles/custom.css" rel="stylesheet">
 
 
@@ -61,39 +62,71 @@
 
 <div class="container" id="group-body">
     <div class="row">
-        <div class="col-md-offset-1 col-md-7 col-sm-8 col-xs-12 panel panel-default" style="margin-top: 30px;">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-offset-1 col-md-10 well well-lg" id="add-user-div">
-                        <form class="form-horizontal" role="form">
-                            <p class="text-success text-center"><strong>Add User to Group (ensure you enter a valid user's information)</strong></p>
-                            <div class="form-group">
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control" id="username" placeholder="Enter username or email or mobile number of a user">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-12">
-                                    <select class="form-control" id="groups">
-                                        <option>-Select Group-</option>
-                                        <option>Andela</option>
-                                        <option>Bootcamp 24</option>
-                                        <option>Sport</option>
-                                        <option>Entertainment</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-block btn-primary">Add User to Andela Group</button>
-                                </div>
-                            </div>
-                        </form>
+        <div class="col-md-offset-1 col-md-7 col-sm-8 col-xs-12 panel panel-default" style="margin-top: 30px;padding-top: 20px">
+            <form class="form-horizontal" role="form">
+                <div class="row well well-sm" >
+                    <div class="col-lg-10 col-lg-offset-1">
+                        <div class="input-group">
+                            <input type="text" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Search User</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-striped">
+                            <caption><h3>List of users</h3></caption>
+                            <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Add</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Jimoh</td>
+                                <td>John Samuel</td>
+                                <td><a class="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+                            </tr>
+                            <tr>
+                                <td>Johadi</td>
+                                <td>Mary Yan</td>
+                                <td><a class="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+                            </tr>
+                            <tr>
+                                <td>Johadi</td>
+                                <td>Sanni Ali</td>
+                                <td><a class="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+                            </tr>
+                            <tr>
+                                <td>Johadi</td>
+                                <td>Muhammed Ali</td>
+                                <td><a class="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+                            </tr>
 
+                            <tr>
+                                <td colspan="3">
+                                    <ul class="pagination">
+                                        <li><a href="#">&laquo;</a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">&raquo;</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </form>
         </div>
 
         <div class="col-md-offset-1 col-md-3 col-sm-4 col-xs-12 well">

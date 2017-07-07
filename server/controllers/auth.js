@@ -54,7 +54,7 @@ module.exports = {
             return res.status(404).send({ message: 'User not found' });
           }
           const data = _.pick(user, ['username', 'email']);
-          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 60 });
+          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 });
           return res.status(200).send({ token, message: 'Sign in successful' });
         })
         .catch(err => res.status(400).send(err));

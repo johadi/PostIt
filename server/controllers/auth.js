@@ -59,7 +59,7 @@ module.exports = {
             return res.status(404).send({ message: 'Incorrect password' });
           }
           const data = _.pick(user, ['id', 'username', 'email']);
-          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 });
+          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 86400 }); // should expire in 24 hours
           return res.status(200).send({ token, message: 'Sign in successful' });
         })
         .catch(err => res.status(400).send(err));

@@ -12,6 +12,6 @@ module.exports = (req, res, next) => {
       next();
     });
   } else {
-    return res.status(400).send({ message: 'No Token provided' });
+    return res.status(401).send({ message: 'Unauthorized access: Provided a token' });
   }
 };

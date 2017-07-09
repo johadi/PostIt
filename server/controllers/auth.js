@@ -13,7 +13,7 @@ module.exports = {
     const validator = new Validator(obj, User.signupRules());
     if (validator.passes() && obj.confirm_password) {
       if (obj.confirm_password !== obj.password) {
-        return res.status(400).send({ message: ' password not matched' });
+        return res.status(400).send({ message: 'password not matched' });
       }
       User.findOne({
         where: {

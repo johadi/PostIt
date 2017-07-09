@@ -22,3 +22,5 @@ server.listen(app.get('port'), (err) => {
   }
   console.log('App running on port', app.get('port'));
 });
+
+module.exports = app;

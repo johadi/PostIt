@@ -1,7 +1,7 @@
 
 module.exports = {
   up(queryInterface, Sequelize) {
-    return queryInterface.createTable('userGroups', {
+    return queryInterface.createTable('UserGroups', {
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false

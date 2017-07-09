@@ -45,9 +45,22 @@ module.exports = {
     if (!req.user || !req.params.groupId) {
       return res.status(400).send({ message: 'Oops! Something went wrong' });
     }
+    // let us check if groupId is a valid group id
+    Group.findByPrimary(req.params.groupId)
+        .then((group) => {
+          if (!group) {
+            return res.status(404).send({ message: 'invalid group' });
+          }
+          return Promise.resolve();// resolve nothing and go on
+        })
+        .catch(err => res.status(400).send(err));
     // check to ensure detail of the user to add is provided
     if (!req.body.user) {
       return res.status(400).send({ message: 'Provide Valid user detail to add to group' });
+    }
+    // let us check if the user is trying to add him/her self as that is not possible
+    if (req.body.user === req.user.username || req.body.user === req.user.email || req.body.user === req.user.mobile) {
+      return res.status(400).send({ message: 'Invalid operation. You can not add yourself' });
     }
     /* let us check to ensure provided detail is a detail of a valid user.
     /* NOTE: The detail of a user can either be Username or Email or Mobile number
@@ -64,7 +77,8 @@ module.exports = {
           if (!foundUser) {
             return res.status(404).send({ message: 'User not found' });
           }
-          foundUserId = foundUser.id; // let us quickly get our user-to-add  ID for reuse
+            // let us quickly get our user-to-add  ID for reuse
+          foundUserId = foundUser.id;
           return foundUser;
         })
         // Let us check again if this user has not been added to the group he's to be added to
@@ -74,19 +88,19 @@ module.exports = {
         .then((foundUserGroup) => {
           // If user is a member of this group. notify the person trying to add
           if (foundUserGroup) {
-            return res.status(400).send({ message: 'user already belongs to group' });
+            return res.status(400).send({ message: 'User already belongs to this group' });
           }
-          // if user not a member of the group. time to add him to group and also update the user UserGroupAdd table
+          // if user not a member of the group. time to add him to group and also update the UserGroupAdd table
           // Add user to group
           const userGroup = UserGroup.create({ groupId, userId: foundUserId });
           // Add user to User-Group-Add table so we can know who added the user to the group he is just been added to
           const userGroupAdd = UserGroupAdd.create({ groupId, addedById: req.user.id, addedToId: foundUserId });
-          return Promise.all([userGroup, userGroupAdd]); // resolve all and return values to next then()
+          return Promise.all([userGroup, userGroupAdd]); // resolve all promises and return values to next then()
         })
         .then((allResolved) => {
-          // set data to send since all our promises have been resolved
+          // set data to be sent since all our promises have been resolved
           const data = {
-            message: 'user added successfully',
+            message: 'User added successfully',
             userGroup: allResolved[0],
             userGroupAdd: allResolved[1]
           };

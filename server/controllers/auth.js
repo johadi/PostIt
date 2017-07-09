@@ -58,7 +58,7 @@ module.exports = {
           if (!user.comparePassword(body.password)) {
             return res.status(404).send({ message: 'Incorrect password' });
           }
-          const data = _.pick(user, ['id', 'username', 'email']);
+          const data = _.pick(user, ['id', 'username', 'email', 'mobile']);
           const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 86400 }); // should expire in 24 hours
           return res.status(200).send({ token, message: 'Sign in successful' });
         })

@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha server/tests/*.test.js"
   },
   "author": "jimoh hadi",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.0.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint-plugin-import": "^2.2.0",
+    "expect": "^1.20.2",
+    "mocha": "^3.4.2",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -26,6 +30,6 @@
     "pg": "^6.4.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.30.2",
-    "validator": "^7.2.0"
+    "validatorjs": "^3.13.3"
   }
 }

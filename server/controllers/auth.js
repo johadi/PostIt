@@ -2,6 +2,7 @@ require('dotenv').config();
 const User = require('../database/models').User;
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
+const Validator = require('validatorjs');
 
 module.exports = {
   index(req, res) {
@@ -9,9 +10,10 @@ module.exports = {
   },
   signup(req, res) {
     const obj = req.body;
-    if (obj.password && obj.email && obj.username && obj.fullname && obj.confirm_password) {
+    const validator = new Validator(obj, User.signupRules());
+    if (validator.passes() && obj.confirm_password) {
       if (obj.confirm_password !== obj.password) {
-        return res.status(400).send({ message: ' password not matched' });
+        return res.status(400).send({ message: 'password not matched' });
       }
       User.findOne({
         where: {
@@ -22,8 +24,8 @@ module.exports = {
             if (existingUser) {
               let message = '';
               if (existingUser.email === obj.email) message = 'A user with this email already exists';
-              if (existingUser.mobile === obj.mobile) message = 'This Number  has been used';
-              if (existingUser.username === obj.username) message = 'This Username  has been used';
+              if (existingUser.mobile === obj.mobile) message = 'This Mobile Number has been used';
+              if (existingUser.username === obj.username) message = 'This Username has been used';
               return res.status(400).send({ message });
             }
             // if user does not exist and he/she registering for the first time
@@ -32,26 +34,29 @@ module.exports = {
             }
             return User.create(obj, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
           })
-          .then(savedUser => res.status(200).send(savedUser))
+          .then(savedUser => res.status(201).send(savedUser))
           .catch(err => res.status(400).send(err));
     } else {
-      return res.status(400).send({ message: 'problems with your input' });
+      return res.status(400).send({ message: 'There are problems with your input' });
     }
   },
   signin(req, res) {
-    if (!req.body.password || !req.body.username) {
-      return res.status(400).send({ message: 'all fields required' });
-    }
     const body = _.pick(req.body, ['username', 'password']);
+    const validator = new Validator(body, User.loginRules());
+    if (!validator.passes()) {
+      return res.status(400).send({ message: 'There are problems with your input' });
+    }
     User.findOne({
       where: {
-        username: body.username,
-        password: body.password
+        username: body.username
       }
     })
         .then((user) => {
           if (!user) {
             return res.status(404).send({ message: 'User not found' });
+          }
+          if (!user.comparePassword(body.password)) {
+            return res.status(404).send({ message: 'Incorrect password' });
           }
           const data = _.pick(user, ['id', 'username', 'email']);
           const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 });

@@ -4,7 +4,7 @@ const Message = require('../database/models').Message;
 
 module.exports = {
   createGroup(req, res) {
-    if (req.user) {
+    if (req.user && req.user.id) {
       return res.status(200).send(req.user);
     }
     return res.status(400).send({ message: 'oops! Something went qrong' });

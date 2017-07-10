@@ -7,7 +7,7 @@ router.route('/api/group')
     .post(groupController.createGroup);
 router.route('/api/group/:groupId/user')
     .post(groupController.groupAddUser);
-router.route('/api/group/:group_id/message')
-    .get(groupController.postMessage)
-    .post(groupController.getMessage);
+router.route('/api/group/:groupId/message')
+    .get(groupController.getMessage)
+    .post(groupController.postMessage);
 module.exports = router;

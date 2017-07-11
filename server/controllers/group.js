@@ -83,24 +83,29 @@ module.exports = {
           if (!group) {
             return Promise.reject({ code: 404, message: 'Invalid group' });
           }
-          // All is well. Resolve nothing and go on
-          return Promise.resolve();
+          // Check if User that wants to add belongs to the group
+          return UserGroup.findOne({
+            where: { userId: req.user.id, groupId }
+          });
         })
-        // let us check to ensure provided detail is a detail of a valid user.
-        // NOTE: The detail of a user can either be Username or Email or Mobile number
-        .then(() => User.findOne({
-          where: {
-            $or: [{ username: user }, { email: user }, { mobile: user }]
+        .then((foundUserAndGroup) => {
+          // If he doesn't belong to the group, reject him from adding user unless he/she joined
+          if (!foundUserAndGroup) {
+            return Promise.reject('Invalid operation: you do not belong to this group');
           }
-        }))
+          // Check to ensure provided detail is a detail of a valid user.
+          // NOTE: The detail of a user can either be Username or Email or Mobile number
+          return User.findOne({
+            where: {
+              $or: [{ username: user }, { email: user }, { mobile: user }]
+            }
+          });
+        })
         .then((foundUser) => {
           if (!foundUser) {
             return Promise.reject({ code: 404, message: 'User not found' });
           }
-          return foundUser;
-        })
-        // Check again if this user has not been added to the group he's to be added to
-        .then((foundUser) => {
+          // Check again if this user has not been added to the group he's to be added to
           const userGroup = UserGroup.findOne({
             where: { groupId, userId: foundUser.id }
           });

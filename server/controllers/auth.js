@@ -33,7 +33,7 @@ module.exports = {
             return User.create(obj, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
           })
           .then(savedUser => handleSuccess(201, savedUser, res))
-          .catch(err => res.status(400).send(err));
+          .catch(err => handleError(err, res));
     } else {
       return handleError('There are problems with your input', res);
     }

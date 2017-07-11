@@ -5,17 +5,23 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "set NODE_ENV=test&& set TEST_DB_NAME=testpostit&& mocha server/tests/*.test.js"
+    "test": "SET NODE_ENV=test&& sequelize db:migrate&& mocha server/tests/*.test.js&& nyc report --reporter=text --reporter=html",
+    "cover": "istanbul cover _mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "jimoh hadi",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.0.2",
+    "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.2.0",
     "expect": "^1.20.2",
+    "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.0.3",
     "supertest": "^3.0.0"
   },
   "dependencies": {

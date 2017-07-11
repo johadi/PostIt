@@ -3,7 +3,7 @@ const Group = require('../database/models').Group;
 const UserGroup = require('../database/models').UserGroup;
 const UserGroupAdd = require('../database/models').UserGroupAdd;
 const Message = require('../database/models').Message;
-const { handleError, handleSuccess, isValidId } = require('../helpers/helpers');
+const { handleError, handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
   // Controller method for creating group

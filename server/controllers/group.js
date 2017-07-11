@@ -187,7 +187,7 @@ module.exports = {
               { groupId: req.params.groupId }
             ];
             return Message.findAndCountAll({ where: { $and: criteria } });
-            // Another to get user messages . by using their model relation
+            // Another method to get user messages . by using their model relation
             // User.find({
             //   where: { id: req.user.id, },
             //   include: [{ model: Message }]
@@ -201,7 +201,7 @@ module.exports = {
           })
           .catch(err => handleError(err, res));
     } else {
-      return handleError('oops! Something went qrong', res);
+      return handleError('oops! Something went wrong', res);
     }
   }
 };

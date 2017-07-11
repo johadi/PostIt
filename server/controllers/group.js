@@ -3,7 +3,7 @@ const Group = require('../database/models').Group;
 const UserGroup = require('../database/models').UserGroup;
 const UserGroupAdd = require('../database/models').UserGroupAdd;
 const Message = require('../database/models').Message;
-const { handleError, handleSuccess } = require('../helpers/helpers');
+const { handleError, handleSuccess, isValidId } = require('../helpers/helpers');
 
 module.exports = {
   // Controller method for creating group
@@ -61,6 +61,10 @@ module.exports = {
   },
   // Controller method for adding user to group
   addUserToGroup(req, res) {
+    // Check to ensure groupId is not a String
+    if (isNaN(parseInt(req.params.groupId, 10))) {
+      return handleError('Oops! Something went wrong, Check your route', res);
+    }
     // check to ensure is a logged in user and group id is provided
     if (!req.user || !req.params.groupId) {
       return handleError('Oops! Something went wrong', res);
@@ -141,6 +145,10 @@ module.exports = {
   },
   // Controller method that allows User post messages to created group
   postMessage(req, res) {
+    // Check to ensure groupId is not a String
+    if (isNaN(parseInt(req.params.groupId, 10))) {
+      return handleError('Oops! Something went wrong, Check your route', res);
+    }
     if (req.user && req.params.groupId) {
       if (!req.body.message) {
         return handleError('Message body required', res);
@@ -172,6 +180,10 @@ module.exports = {
   },
   // Controller method that allow users retrieve messages from group
   getMessages(req, res) {
+    // Check to ensure groupId is not a String
+    if (isNaN(parseInt(req.params.groupId, 10))) {
+      return handleError('Oops! Something went wrong, Check your route', res);
+    }
     if (req.user && req.params.groupId) {
       Group.findById(req.params.groupId)
           .then((group) => {

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "mocha server/tests/*.test.js"
+    "test": "set NODE_ENV=test&& set TEST_DB_NAME=testpostit&& mocha server/tests/*.test.js"
   },
   "author": "jimoh hadi",
   "license": "ISC",

@@ -15,7 +15,7 @@ module.exports = {
       const name = req.body.name.toLowerCase();// to save all group name in lowercase
       const creatorId = req.user.id;
 
-      // let us check if group user wants to create already exist
+      // Check if the group user wants to create already exists
       Group.findOne({
         where: { name }
       })
@@ -23,18 +23,35 @@ module.exports = {
             if (foundGroup) {
               return Promise.reject('This Group already exists');
             }
-            return Group.create({// create group if it doesn't exist before
+            // Create group if it doesn't exist before
+            return Group.create({
               name,
               creator_id: creatorId
             });
           })
           .then((createdGroup) => {
-            if (createdGroup) {
-              // send group details to creator for use
-              return handleSuccess(201, createdGroup, res);
+            // Send an error if it doesn't exist before
+            if (!createdGroup) {
+              return Promise.reject('Group not created...Try again');
             }
-            return Promise.reject('Group not created...Try again');
+            // If created,
+            // Automatically adds user to the group he/she created
+            const userAndGroups = UserGroup.create({
+              userId: creatorId,
+              groupId: createdGroup.id
+            });
+            // Automatically Adds user to the Table that indicates who adds another user to group
+            // This is like User adds himself
+            const userAddedBy = UserGroupAdd.create({
+              addedById: creatorId,
+              addedToId: creatorId,
+              groupId: createdGroup.id
+            });
+            // Resolve everything and pass some info to next then.
+            return Promise.all([userAndGroups, userAddedBy, createdGroup]);
           })
+          // Returns only information of the group the user created if successful
+          .then(allResolved => handleSuccess(201, allResolved[2], res))
           .catch(err => handleError(err, res));
     } else {
       // our middleware takes care of this action but

@@ -8,6 +8,6 @@ router.route('/api/group')
 router.route('/api/group/:groupId/user')
     .post(groupController.addUserToGroup);
 router.route('/api/group/:groupId/message')
-    .get(groupController.getMessage)
+    .get(groupController.getMessages)
     .post(groupController.postMessage);
 module.exports = router;

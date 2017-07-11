@@ -149,7 +149,7 @@ module.exports = {
     }
   },
   // Controller method that allow users retrieve messages from group
-  getMessage(req, res) {
+  getMessages(req, res) {
     if (req.user && req.params.groupId) {
       Group.findById(req.params.groupId)
           .then((group) => {
@@ -175,13 +175,11 @@ module.exports = {
             if (messages.rows.length === 0) {
               return Promise.reject({ code: 404, message: 'User has no message in this group' });
             }
-            // return res.status(200).json(user.message);
-            //  return res.status(200).json(messages);
-            handleSuccess(200, messages, res);
+            return handleSuccess(200, messages, res);
           })
           .catch(err => handleError(err, res));
     } else {
-      handleError('oops! Something went qrong', res);
+      return handleError('oops! Something went qrong', res);
     }
   }
 };

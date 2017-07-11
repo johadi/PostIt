@@ -116,6 +116,35 @@ module.exports = {
           handleSuccess(201, data, res);
         })
         .catch(err => handleError(err, res));
+  },
+  // Controller method that allows user post message to created group
+  postMessage(req, res) {
+    if (req.user && req.params.groupId) {
+      if (!req.body.message) {
+        handleError('Message body required', res);
+      }
+      const userId = req.user.id;
+      const body = req.body.message;
+      const groupId = req.params.groupId;
+      // let us check if groupId is a valid group id
+      Group.findById(groupId)
+          .then((group) => {
+            if (!group) {
+              return Promise.reject({ code: 404, message: 'invalid group' });
+            }
+            return Promise.resolve(); // resolve nothing and go on
+          })
+          .then(() => Message.create({ userId, body, groupId }))
+          .then((message) => {
+            if (!message) {
+              return Promise.reject({ code: 400, message: 'Problem creating message...Try again' });
+            }
+            handleSuccess(201, 'message created successfully', res);
+          })
+          .catch(err => handleError(err, res));
+    } else {
+      handleError('Oops! Something went wrong');
+    }
   }
 };
 

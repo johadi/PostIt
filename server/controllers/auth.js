@@ -35,7 +35,7 @@ module.exports = {
           .then(savedUser => handleSuccess(201, savedUser, res))
           .catch(err => res.status(400).send(err));
     } else {
-      return res.status(400).send({ message: 'There are problems with your input' });
+      return handleError('There are problems with your input', res);
     }
   },
   signin(req, res) {

@@ -4,10 +4,7 @@ const User = require('./../../database/models').User;
 module.exports = {
   emptyDB(done) {
     User.destroy({ truncate: true })
-        .then((rows) => {
-          console.log(rows);
-          return done();
-        })
+        .then(() => done())
         .catch(err => done(err));
   },
   setData(fullname, username, email, mobile, password, confirmPassword) {

@@ -17,7 +17,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'There are problems with your input');
+          assert.equal(res.body, 'There are problems with your input');
           done();
         });
   });
@@ -28,7 +28,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'password not matched');
+          assert.equal(res.body, 'password not matched');
           done();
         });
   });
@@ -39,7 +39,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'This Username has been used');
+          assert.equal(res.body, 'This Username has been used');
           done();
         });
   });
@@ -50,7 +50,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'A user with this email already exists');
+          assert.equal(res.body, 'A user with this email already exists');
           done();
         });
   });
@@ -61,7 +61,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'This Mobile Number has been used');
+          assert.equal(res.body, 'This Mobile Number has been used');
           done();
         });
   });

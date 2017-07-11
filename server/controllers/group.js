@@ -50,13 +50,13 @@ module.exports = {
     }
     // check to ensure detail of the user to add is provided
     if (!req.body.user) {
-      handleError('Provide Valid user detail to add to group', res);
+      return handleError('Provide Valid user detail to add to group', res);
     }
     // let us check if the user is trying to add him/her self as that is not possible
     if (req.body.user === req.user.username ||
         req.body.user === req.user.email ||
         req.body.user === req.user.mobile) {
-      handleError('Invalid operation. You can not add yourself', res);
+      return handleError('Invalid operation. You can not add yourself', res);
     }
     const user = req.body.user;
     const groupId = req.params.groupId;
@@ -66,11 +66,11 @@ module.exports = {
           if (!group) {
             return Promise.reject({ code: 404, message: 'Invalid group' });
           }
-          return Promise.resolve();// resolve nothing and go on
+          // All is well. Resolve nothing and go on
+          return Promise.resolve();
         })
-        /* let us check to ensure provided detail is a detail of a valid user.
-         /* NOTE: The detail of a user can either be Username or Email or Mobile number
-         */
+        // let us check to ensure provided detail is a detail of a valid user.
+        // NOTE: The detail of a user can either be Username or Email or Mobile number
         .then(() => User.findOne({
           where: {
             $or: [{ username: user }, { email: user }, { mobile: user }]
@@ -82,28 +82,28 @@ module.exports = {
           }
           return foundUser;
         })
-        // Let us check again if this user has not been added to the group he's to be added to
+        // Check again if this user has not been added to the group he's to be added to
         .then((foundUser) => {
           const userGroup = UserGroup.findOne({
             where: { groupId, userId: foundUser.id }
           });
           return Promise.all([userGroup, foundUser.id]);
         })
-        .then((foundUserGroup) => {
-          // If user is a member of this group. notify the person trying to add
-          if (foundUserGroup[0]) {
+        .then((foundUserGroupAndId) => {
+          // If User is a member of this group. notify the person trying to add him/her
+          if (foundUserGroupAndId[0]) {
             return Promise.reject('User already belongs to this group');
           }
-          // if user not a member of the group. time to add him to group
+          // if user not a member of the group, time to add him/her to group
           // and also update the UserGroupAdd table
-          // Add user to group. foundUserGroup[1] = ID of user to add to the group
-          const userGroup = UserGroup.create({ groupId, userId: foundUserGroup[1] });
+          // Add user to group. foundUserGroupAndId[1] == ID of user to add to the group
+          const userGroup = UserGroup.create({ groupId, userId: foundUserGroupAndId[1] });
           // Add user to User-Group-Add table so we can know who added the
           // user to the group he is just been added to
           const userGroupAdd = UserGroupAdd.create({
-            groupId, addedById: req.user.id, addedToId: foundUserGroup[1]
+            groupId, addedById: req.user.id, addedToId: foundUserGroupAndId[1]
           });
-          // resolve all promises and return values to next then()
+          // Resolve all promises and return values to next then()
           return Promise.all([userGroup, userGroupAdd]);
         })
         .then((allResolved) => {
@@ -113,7 +113,7 @@ module.exports = {
             userGroup: allResolved[0],
             userGroupAdd: allResolved[1]
           };
-          handleSuccess(201, data, res);
+          return handleSuccess(201, data, res);
         })
         .catch(err => handleError(err, res));
   },

@@ -43,7 +43,7 @@ module.exports = {
     }
   },
   // Controller method for adding user to group
-  groupAddUser(req, res) {
+  addUserToGroup(req, res) {
     // check to ensure is a logged in user and group id is provided
     if (!req.user || !req.params.groupId) {
       return handleError('Oops! Something went wrong', res);
@@ -117,33 +117,35 @@ module.exports = {
         })
         .catch(err => handleError(err, res));
   },
-  // Controller method that allows user post message to created group
+  // Controller method that allows User post messages to created group
   postMessage(req, res) {
     if (req.user && req.params.groupId) {
       if (!req.body.message) {
-        handleError('Message body required', res);
+        return handleError('Message body required', res);
       }
       const userId = req.user.id;
       const body = req.body.message;
       const groupId = req.params.groupId;
-      // let us check if groupId is a valid group id
+      // Check if groupId is a valid group id
       Group.findById(groupId)
           .then((group) => {
             if (!group) {
-              return Promise.reject({ code: 404, message: 'invalid group' });
+              return Promise.reject({ code: 404, message: 'Invalid group' });
             }
-            return Promise.resolve(); // resolve nothing and go on
+            // resolve nothing and go on
+            return Promise.resolve();
           })
+          // Create the message
           .then(() => Message.create({ userId, body, groupId }))
-          .then((message) => {
-            if (!message) {
+          .then((messageCreated) => {
+            if (!messageCreated) {
               return Promise.reject({ code: 400, message: 'Problem creating message...Try again' });
             }
-            handleSuccess(201, 'message created successfully', res);
+            return handleSuccess(201, 'Message created successfully', res);
           })
           .catch(err => handleError(err, res));
     } else {
-      handleError('Oops! Something went wrong');
+      return handleError('Oops! Something went wrong');
     }
   },
   // Controller method that allow users retrieve messages from group

@@ -6,7 +6,7 @@ router.use(authenticate);
 router.route('/api/group')
     .post(groupController.createGroup);
 router.route('/api/group/:groupId/user')
-    .post(groupController.groupAddUser);
+    .post(groupController.addUserToGroup);
 router.route('/api/group/:groupId/message')
     .get(groupController.getMessage)
     .post(groupController.postMessage);

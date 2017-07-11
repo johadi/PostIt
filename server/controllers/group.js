@@ -10,7 +10,7 @@ module.exports = {
   createGroup(req, res) {
     if (req.user && req.user.id) {
       if (!req.body.name) {
-        handleError('Group name required', res);
+        return handleError('Group name required', res);
       }
       const name = req.body.name.toLowerCase();// to save all group name in lowercase
       const creatorId = req.user.id;
@@ -21,7 +21,7 @@ module.exports = {
       })
           .then((foundGroup) => {
             if (foundGroup) {
-              return Promise.resolve('This Group already exists');
+              return Promise.reject('This Group already exists');
             }
             return Group.create({// create group if it doesn't exist before
               name,
@@ -31,7 +31,7 @@ module.exports = {
           .then((createdGroup) => {
             if (createdGroup) {
               // send group details to creator for use
-              handleSuccess(201, createdGroup, res);
+              return handleSuccess(201, createdGroup, res);
             }
             return Promise.reject('Group not created...Try again');
           })
@@ -39,14 +39,14 @@ module.exports = {
     } else {
       // our middleware takes care of this action but
       // let us still validate in case if middleware is bypassed
-      handleError({ code: 401, message: 'oops! Something went wrong...Try again' }, res);
+      return handleError({ code: 401, message: 'oops! Something went wrong...Try again' }, res);
     }
   },
   // Controller method for adding user to group
   groupAddUser(req, res) {
     // check to ensure is a logged in user and group id is provided
     if (!req.user || !req.params.groupId) {
-      handleError('Oops! Something went wrong', res);
+      return handleError('Oops! Something went wrong', res);
     }
     // check to ensure detail of the user to add is provided
     if (!req.body.user) {
@@ -144,6 +144,42 @@ module.exports = {
           .catch(err => handleError(err, res));
     } else {
       handleError('Oops! Something went wrong');
+    }
+  },
+  // Controller method that allow users retrieve messages from group
+  getMessage(req, res) {
+    if (req.user && req.params.groupId) {
+      Group.findById(req.params.groupId)
+          .then((group) => {
+            if (!group) {
+              return Promise.reject({ code: 404, message: 'invalid group' });
+            }
+            // User.find({
+            //   where: { id: req.user.id },
+            //   include: [{ model: Message, as: 'message' }]
+            // })
+            const criteria = [
+              { userId: req.user.id },
+              { groupId: req.params.groupId }
+            ];
+            return Message.findAndCountAll({ where: { $and: criteria } });
+            // Another to get user messages . by using their model relation
+            // User.find({
+            //   where: { id: req.user.id, },
+            //   include: [{ model: Message }]
+            // })
+          })
+          .then((messages) => {
+            if (messages.rows.length === 0) {
+              return Promise.reject({ code: 404, message: 'User has no message in this group' });
+            }
+            // return res.status(200).json(user.message);
+            //  return res.status(200).json(messages);
+            handleSuccess(200, messages, res);
+          })
+          .catch(err => handleError(err, res));
+    } else {
+      handleError('oops! Something went qrong', res);
     }
   }
 };

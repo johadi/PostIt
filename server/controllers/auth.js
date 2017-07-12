@@ -42,7 +42,7 @@ module.exports = {
     const body = _.pick(req.body, ['username', 'password']);
     const validator = new Validator(body, User.loginRules());
     if (!validator.passes()) {
-      return res.status(400).send({ message: 'There are problems with your input' });
+      return handleError('There are problems with your input', res);
     }
     User.findOne({
       where: {
@@ -51,16 +51,18 @@ module.exports = {
     })
         .then((user) => {
           if (!user) {
-            return res.status(404).send({ message: 'User not found' });
+            return Promise.reject({ code: 404, message: 'User not found' });
           }
           if (!user.comparePassword(body.password)) {
-            return res.status(404).send({ message: 'Incorrect password' });
+            return Promise.reject('Incorrect password');
           }
+          // If all is well
           const data = _.pick(user, ['id', 'username', 'email', 'mobile']);
-          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 86400 }); // should expire in 24 hours
-          return res.status(200).send({ token, message: 'Sign in successful' });
+          // Give the user token and should expire in the next 24 hours
+          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 86400 });
+          return handleSuccess(200, { token, message: 'Sign in successful' }, res);
         })
-        .catch(err => res.status(400).send(err));
+        .catch(err => handleError(err, res));
   }
 };
 

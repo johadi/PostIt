@@ -7,10 +7,10 @@ script:
 services:
   - postgresql
 env:
-  - TEST_DB_PASSWORD=""
-  - TEST_DB_NAME=testpostit
+  - TEST_DB_PASSWORD=''
+  - TEST_DB_NAME=travis
 before_script:
-  - psql -c 'CREATE DATABASE testpostit;' -U postgres
+  - psql -c 'CREATE DATABASE travis;' -U postgres
 before_install:
  - export CHROME_BIN=/usr/bin/google-chrome
  - export DISPLAY=:99.0

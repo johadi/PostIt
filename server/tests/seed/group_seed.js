@@ -81,9 +81,9 @@ module.exports = {
   addUserToDb(done) {
     User.create({
       fullname: 'jimoh hadi',
-      username: 'ovenje',
-      email: 'ovenje@yahoo.com',
-      mobile: '8163041269',
+      username: 'johadi10',
+      email: 'johadi10@yahoo.com',
+      mobile: '81630412699',
       password: '11223344' })
         .then(user => done())
         .catch(err => done(err));

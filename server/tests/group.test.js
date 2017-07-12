@@ -1,38 +1,39 @@
-// require('dotenv').config();
-// // auth.test.js
-// const request = require('supertest');
-// const assert = require('chai').assert;
-// const app = require('./../../app');
-// const seeder = require('./seed/group_seed');
-// const User = require('./../database/models').User;
-// const Group = require('./../database/models').Group;
-// const UserGroup = require('./../database/models').UserGroup;
-// const UserGroupAdd = require('./../database/models').UserGroupAdd;
-// const Message = require('./../database/models').Message;
-//
-// describe('POST: api/group', () => {
-//   // Clear Test database
-//   before(seeder.emptyUserDB);
-//   before(seeder.emptyMessageDB);
-//   before(seeder.emptyGroupDB);
-//   before(seeder.emptyUserGroupDB);
-//   // Start adding users to DB
-//   before(seeder.addUserToDb);
-//   before(seeder.addUserToDb2);
-//   // Create a group
-//   before(seeder.createGroup);
-//   let token = ''; // To hold our token for authentication
-//   it('Should Sign the user in and get the token.', (done) => {
-//     request(app)
-//         .post('/api/user/signin')
-//         .send({ username: 'ovenje', password: '11223344' })
-//         .expect(200)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           token = res.body.token;
-//           done();
-//         });
-//   });
+require('dotenv').config();
+// auth.test.js
+const request = require('supertest');
+const assert = require('chai').assert;
+const app = require('./../../app');
+const seeder = require('./seed/group_seed');
+const User = require('./../database/models').User;
+const Group = require('./../database/models').Group;
+const UserGroup = require('./../database/models').UserGroup;
+const UserGroupAdd = require('./../database/models').UserGroupAdd;
+const Message = require('./../database/models').Message;
+
+describe('POST: api/group', () => {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Start adding users to DB
+  before(seeder.addUserToDb);
+  // before(seeder.addUserToDb2);
+  // Create a group
+  // before(seeder.createGroup);
+  let token = ''; // To hold our token for authentication
+  it('Should Sign the user in and get the token.', (done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          token = res.body.token;
+          done();
+        });
+  });
+});
 //   it('Should return status code 400 and a message when input are invalid. i.e some empty fields', (done) => {
 //     request(app)
 //         .post('/api/group')

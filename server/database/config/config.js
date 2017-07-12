@@ -13,7 +13,7 @@ const config = {
   },
   test: {
     username: 'postgres',
-    password: process.env.DEV_DB_PASSWORD,
+    password: process.env.TEST_DB_PASSWORD,
     database: process.env.TEST_DB_NAME,
     host: process.env.DEV_HOST,
     dialect: 'postgres',

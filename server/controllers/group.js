@@ -15,7 +15,8 @@ module.exports = {
       const name = req.body.name.toLowerCase();// to save all group name in lowercase
       const creatorId = req.user.id;
 
-      // Check if the group user wants to create already exists
+      // Check if the
+      // group user wants to create already exists
       Group.findOne({
         where: { name }
       })

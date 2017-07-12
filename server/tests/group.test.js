@@ -4,6 +4,7 @@ const request = require('supertest');
 const assert = require('chai').assert;
 const app = require('./../../app');
 const seeder = require('./seed/group_seed');
+const db = require('./../database/models');
 const User = require('./../database/models').User;
 const Group = require('./../database/models').Group;
 const UserGroup = require('./../database/models').UserGroup;
@@ -31,6 +32,7 @@ describe('POST: api/group', () => {
         .end((err, res) => {
           if (err) return done(err);
           token = res.body.token;
+          db.sequelize.sync({ force: true });
           done();
         });
   });

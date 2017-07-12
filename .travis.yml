@@ -7,7 +7,6 @@ script:
 services:
   - postgresql
 env:
-  - TEST_DB_PASSWORD=''
   - TEST_DB_NAME=travis
 before_script:
   - psql -c 'CREATE DATABASE travis;' -U postgres

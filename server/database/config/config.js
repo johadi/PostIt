@@ -18,6 +18,11 @@ const config = {
     host: process.env.DEV_HOST,
     dialect: 'postgres',
     logging: false
+  },
+  production: {
+    use_env_variable: 'DATABASE_URL',
+    dialect: 'postgres',
+    logging: false
   }
 };
 module.exports = config[process.env.NODE_ENV || 'development'];

@@ -7,5 +7,4 @@
 server/database/config/config.json
 
 npm-debug.log
-.nyc_output/
 coverage/

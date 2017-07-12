@@ -144,18 +144,16 @@ describe('POST api/user/signin', () => {
         });
   });
   it('Should return 200 and give the user token if credentials are correct.', (done) => {
-    // request(app)
-    //     .post('/api/user/signin')
-    //     .send(seeder.setLoginData('ovenje', '11223344'))
-    //     .expect(200)
-    //     .end((err, res) => {
-    //       if (err) return done(err);
-    //       assert.equal(res.body.message, 'Sign in successful');
-    //       assert.exists(res.body.token);
-    //       done();
-    //     });
-    db.sequelize.sync({ force: true });
-    done();
+    request(app)
+        .post('/api/user/signin')
+        .send(seeder.setLoginData('ovenje', '11223344'))
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'Sign in successful');
+          assert.exists(res.body.token);
+          done();
+        });
   });
 });
 

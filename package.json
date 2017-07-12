@@ -4,12 +4,15 @@
   "description": "andela bootcamp project ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "sequelize db:migrate && nodemon app.js",
     "test": "NODE_ENV=test && sequelize db:migrate && mocha server/tests/*.test.js && nyc report --reporter=text --slow 5000",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "jimoh hadi",
   "license": "ISC",
+  "engines": {
+    "node": "4.6.0"
+  },
   "devDependencies": {
     "chai": "^4.0.2",
     "coveralls": "^2.13.1",

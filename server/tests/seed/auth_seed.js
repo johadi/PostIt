@@ -4,7 +4,9 @@ const User = require('./../../database/models').User;
 module.exports = {
   emptyDB(done) {
     User.destroy({ truncate: true })
-        .then(() => done())
+        .then(() => {
+          return done();
+        })
         .catch(err => done(err));
   },
   setData(fullname, username, email, mobile, password, confirmPassword) {
@@ -16,6 +18,9 @@ module.exports = {
       password,
       confirm_password: confirmPassword
     };
+  },
+  setLoginData(username, password) {
+    return { username, password };
   },
   addUserToDb(done) {
     User.create({

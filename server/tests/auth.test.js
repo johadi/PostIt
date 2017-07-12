@@ -97,4 +97,62 @@ describe('POST api/user/signup', () => {
         });
   });
 });
+describe('POST api/user/signin', () => {
+  // Empty our database
+  before(seeder.emptyDB);
+  // Seed database for this testing
+  /* User: {
+  fullname: 'jimoh hadi',
+      username: 'ovenje',
+      email: 'ovenje@yahoo.com',
+      mobile: '8163041269',
+      password: '11223344' }
+  */
+  before(seeder.addUserToDb);
+  it('Should return status code 400 and a message when input are invalid. i.e some empty fields', (done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send(seeder.setLoginData('', '11223344'))
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body, 'There are problems with your input');
+          done();
+        });
+  });
+  it('Should return status code 404 and a message if User not found', (done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send(seeder.setLoginData('jimoh', '11223344'))
+        .expect(404)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body, 'User not found');
+          done();
+        });
+  });
+  it('Should return status code 400 and a message when password is incorrect.', (done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send(seeder.setLoginData('ovenje', '11223366'))
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body, 'Incorrect password');
+          done();
+        });
+  });
+  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send(seeder.setLoginData('ovenje', '11223344'))
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'Sign in successful');
+          assert.exists(res.body.token);
+          done();
+        });
+  });
+});
 

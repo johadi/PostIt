@@ -6,6 +6,9 @@ script:
   - npm test
 services:
   - postgresql
+env:
+  - TEST_DB_PASSWORD=""
+  - TEST_DB_NAME=testpostit
 before_script:
   - psql -c 'CREATE DATABASE testpostit;' -U postgres
 before_install:

@@ -8,3 +8,4 @@ server/database/config/config.json
 .nyc_output
 coverage
 npm-debug.log
+coverage/

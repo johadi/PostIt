@@ -18,6 +18,7 @@ describe('POST: api/group', () => {
   before(seeder.emptyUserGroupDB);
   // Start adding users to DB
   before(seeder.addUserToDb);
+  after(seeder.emptyUserDB);
   // before(seeder.addUserToDb2);
   // Create a group
   // before(seeder.createGroup);

@@ -229,6 +229,49 @@ module.exports = {
     } else {
       return handleError('oops! Something went wrong', res);
     }
+  },
+  // Controller method that allow users retrieve messages from group
+  getUserMessages(req, res) {
+    // Check to ensure groupId is not a String
+    if (isNaN(parseInt(req.params.groupId, 10))) {
+      return handleError('Oops! Something went wrong, Check your route', res);
+    }
+    if (req.user && req.params.groupId) {
+      const userId = req.user.id;
+      const groupId = req.params.groupId;
+      Group.findById(req.params.groupId)
+          .then((group) => {
+            if (!group) {
+              return Promise.reject({ code: 404, message: 'invalid group' });
+            }
+            // to check if User belongs to the group
+            return UserGroup.findOne({
+              where: { userId, groupId }
+            });
+          })
+          .then((foundUserAndGroup) => {
+            if (!foundUserAndGroup) {
+              return Promise.reject('Invalid Operation: You don\'t belong to this group');
+            }
+            // Let the user have his/her messages if he/she belongs to the group
+            const criteria = [{ userId }, { groupId }];
+            return Message.findAndCountAll({ where: { $and: criteria } });
+            // Another method to get user messages . by using their model relation
+            // User.find({
+            //   where: { id: req.user.id, },
+            //   include: [{ model: Message }]
+            // })
+          })
+          .then((messages) => {
+            if (messages.rows.length === 0) {
+              return Promise.reject({ code: 404, message: 'You have no message in this group' });
+            }
+            return handleSuccess(200, messages, res);
+          })
+          .catch(err => handleError(err, res));
+    } else {
+      return handleError('oops! Something went wrong', res);
+    }
   }
 };
 

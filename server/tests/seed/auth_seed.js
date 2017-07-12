@@ -4,9 +4,7 @@ const User = require('./../../database/models').User;
 module.exports = {
   emptyDB(done) {
     User.destroy({ truncate: true })
-        .then(() => {
-          return done();
-        })
+        .then(() => done())
         .catch(err => done(err));
   },
   setData(fullname, username, email, mobile, password, confirmPassword) {
@@ -29,11 +27,7 @@ module.exports = {
       email: 'ovenje@yahoo.com',
       mobile: '8163041269',
       password: '11223344' })
-        .then((user) => {
-          done();
-        })
-        .catch((err) => {
-          done(err);
-        });
+        .then(user => done())
+        .catch(err => done(err));
   }
 };

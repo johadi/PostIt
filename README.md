@@ -1,4 +1,6 @@
 # PostIt
+[![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=develop)](https://travis-ci.org/johadi10/PostIt)
+
 This an Andela Bootcamp project which allows firends and colleagues send notification to one another via a group they belong to.
 # What Users can do with this project
 1. User can sign up for the system

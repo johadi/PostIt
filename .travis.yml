@@ -8,6 +8,7 @@ services:
   - postgresql
 env:
   - TEST_DB_NAME=travis
+  - JWT_SECRET=abcxyz
 before_script:
   - psql -c 'CREATE DATABASE travis;' -U postgres
 before_install:

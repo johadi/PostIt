@@ -1,4 +1,5 @@
-# PostIt
+# PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=master)](https://coveralls.io/github/johadi10/PostIt?branch=master) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=master)](https://travis-ci.org/johadi10/PostIt)
+
 
 This an Andela Bootcamp project which allows firends and colleagues send notification to one another via a group they belong to.
 # What Users can do with this project

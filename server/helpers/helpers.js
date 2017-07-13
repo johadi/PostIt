@@ -1,3 +1,4 @@
+// error message handler
 const handleError = (err, res) => {
   switch (err.code) {
     case 401:
@@ -8,6 +9,7 @@ const handleError = (err, res) => {
       return res.status(400).json(err);
   }
 };
+// success message handler
 const handleSuccess = (code, body, res) => {
   switch (code) {
     case 201:

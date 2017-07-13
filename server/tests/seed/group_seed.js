@@ -51,6 +51,19 @@ module.exports = {
         })
         .catch(err => done(err));
   },
+  createGroup2(done) {
+    Group.create({
+      name: 'react',
+      creator_id: 7
+    })
+        .then((group) => {
+          if (!group) {
+            return Promise.reject('Error');
+          }
+          return done();
+        })
+        .catch(err => done(err));
+  },
   addMessageToDb(done) {
     Message.create({
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
@@ -75,7 +88,7 @@ module.exports = {
             return Promise.reject('Error');
           }
           return UserGroupAdd.create({
-            addedById: 2,
+            addedById: 1,
             addedToId: 1,
             groupId: 1
           });

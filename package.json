@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "sequelize db:migrate && node app.js",
-    "dev": "nodemon app",
+    "dev": "NODE_ENV=development && nodemon app",
+    "testdev": "NODE_ENV=test && mocha server/tests/*.test.js",
     "test": "NODE_ENV=test && sequelize db:migrate && mocha server/tests/*.test.js && nyc report --reporter=text --slow 5000",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },

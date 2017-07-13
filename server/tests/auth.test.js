@@ -5,6 +5,7 @@ const assert = require('chai').assert;
 const app = require('./../../app');
 const seeder = require('./seed/auth_seed');
 const User = require('./../database/models').User;
+const db = require('./../database/models');
 
 describe('POST api/user/signup', () => {
   beforeEach(seeder.emptyDB);

@@ -6,7 +6,7 @@ const handleError = (err, res) => {
     case 404:
       return res.status(404).json({ status: 404, message: err.message });
     default:
-      return res.status(400).json({ status: 400, message: err.message });
+      return res.status(400).json({ status: 400, message: err });
   }
 };
 // success message handler

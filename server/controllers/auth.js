@@ -32,7 +32,10 @@ module.exports = {
             }
             return User.create(obj, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
           })
-          .then(savedUser => handleSuccess(201, savedUser, res))
+          .then((savedUser) => {
+            const data = _.pick(savedUser, ['id', 'username', 'email', 'mobile']);
+            return handleSuccess(201, data, res);
+          })
           .catch(err => handleError(err, res));
     } else {
       return handleError('There are problems with your input', res);

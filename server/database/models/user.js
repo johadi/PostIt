@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt-nodejs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -11,14 +12,34 @@ module.exports = (sequelize, DataTypes) => {
       associate: (models) => {
         User.belongsToMany(models.Group, { through: 'UserGroup', foreignKey: 'userId' });
         User.hasMany(models.Message, { foreignKey: 'userId' });
-      }
+      },
+      signupRules: () => ({
+        password: 'required|min:6',
+        username: 'required',
+        email: 'required|email',
+        fullname: 'required'
+      }),
+      loginRules: () => ({
+        password: 'required|min:6',
+        username: 'required',
+      })
     },
     instanceMethods: {
-      name() {
-        return this.fullname;
+      comparePassword(password) {
+        return bcrypt.compareSync(password, this.password);
+      }
+    },
+    hooks: {
+      beforeCreate: (user) => {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(user.password, salt);
+
+        user.password = hash;
       },
-      printEmail() {
-        return `hello ${this.name()}`;
+      beforeUpdate: (user) => {
+        if (user.password) {
+          console.log(`updated ${user.username}`);
+        }
       }
     }
   });

@@ -1,7 +1,9 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Message = sequelize.define('Message', {
-    body: { type: DataTypes.TEXT, allowNull: false }
+    body: { type: DataTypes.TEXT, allowNull: false },
+    userId: { type: DataTypes.INTEGER, allowNull: false },
+    groupId: { type: DataTypes.TEXT, allowNull: false }
   }, {
     classMethods: {
       associate: (models) => {

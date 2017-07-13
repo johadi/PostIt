@@ -12,7 +12,7 @@ module.exports = {
       if (!req.body.name) {
         return handleError('Group name required', res);
       }
-      const name = req.body.name.toLowerCase();// to save all group name in lowercase
+      const name = (req.body.name).toLowerCase();// to save all groups name in lowercase
       const creatorId = req.user.id;
 
       // Check if the
@@ -57,7 +57,7 @@ module.exports = {
     } else {
       // our middleware takes care of this action but
       // let us still validate in case if middleware is bypassed
-      return handleError({ code: 401, message: 'oops! Something went wrong...Try again' }, res);
+      return handleError({ code: 400, message: 'oops! Something went wrong...Try again' }, res);
     }
   },
   // Controller method for adding user to group

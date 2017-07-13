@@ -6,7 +6,7 @@ const config = {
   development: {
     username: 'postgres',
     password: process.env.DEV_DB_PASSWORD,
-    database: process.env.DEV_DB_NAME,
+    database: process.env.TEST_DB_NAME,
     host: process.env.DEV_HOST,
     dialect: 'postgres',
     logging: false

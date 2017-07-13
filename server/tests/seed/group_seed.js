@@ -17,12 +17,17 @@ module.exports = {
         .catch(err => done(err));
   },
   emptyGroupDB(done) {
-    User.destroy({ truncate: true })
+    Group.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   emptyUserGroupDB(done) {
-    User.destroy({ truncate: true })
+    UserGroup.destroy({ truncate: true })
+        .then(() => done())
+        .catch(err => done(err));
+  },
+  emptyUserGroupDBAdd(done) {
+    UserGroupAdd.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
@@ -35,7 +40,7 @@ module.exports = {
   },
   createGroup(done) {
     Group.create({
-      name: 'Andela',
+      name: 'andela',
       creator_id: 1
     })
         .then((group) => {

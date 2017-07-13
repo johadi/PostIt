@@ -1,7 +1,7 @@
 # PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=master)](https://coveralls.io/github/johadi10/PostIt?branch=master) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=master)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
 
 
-This an Andela Bootcamp project which allows friends and colleagues send notification to one another via groups they belong to.
+**Postit** is an Andela Bootcamp project where friends and colleagues send notifications to one another via groups they belong to.
 
 ## What Users can do with this project
 
@@ -19,15 +19,15 @@ This an Andela Bootcamp project which allows friends and colleagues send notific
 -   Change into the directory `$ cd /PostIt`
 -   Install all required dependencies with `$ npm install`
 -   Create a `.env` file in your root directory and follow the pattern in the .env.sample file below to create environmental variables
--   Migrate your database by running this command `npm run db_migrate`
--   You can undo your migrations by running this command `npm run db:migrate:test:undo`.
+-   Migrate your database by running this command `npm run db:migrate`
+-   You can undo your migrations by running this command `npm run db:migrate:undo`.
 -   Run `npm start` to start the application
 
 >   .env file sample
 ```DEV_DB_PASSWORD=yourpassword
      DEV_DB_NAME=yourdbname
-     TEST_DB_PASSWORD
-     TEST_DB_NAME
+     TEST_DB_PASSWORD=yourtestdbpassword
+     TEST_DB_NAME=yourtestdbname
      DEV_HOST=localhost
      NODE_ENV=development
      JWT_SECRET=yoursecret 
@@ -44,8 +44,8 @@ This an Andela Bootcamp project which allows friends and colleagues send notific
   become invalid when it expires.
   * On successful logged in, Users can add other registered users to group.
   * On successful logged in, Users can create message in a group they belong to
-  * On successful logged in, Users can create a group and other users to it
-  * Users cannot themselves to a group they already belong
+  * On successful logged in, Users can create a group and add other users to it
+  * Users cannot add themselves to a group they already belong
   * Users cannot access protected routes until they return a token given to them when they signed in
   * Invalid group Id in any route ,like `api/group/y/user` will be rejected
   * Invalid routes are rejected

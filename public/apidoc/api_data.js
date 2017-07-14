@@ -236,7 +236,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/group/:groupId/message",
-    "title": "POST messages to group",
+    "title": "Post messages to group",
     "group": "Message",
     "header": {
       "fields": {

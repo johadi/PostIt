@@ -12,6 +12,12 @@
 * Users can logout of the system whenever they want to.
 * Users can read messages they have created in a particular group.
 
+## Technology Stack
+* Nodejs
+* Sequelize
+* Postgres ORM
+* Bootstrap
+
 ## How to install this project
 
 -   Install NodeJs and Postgres on your machine

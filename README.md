@@ -56,6 +56,9 @@
   * Invalid group Id in any route ,like `api/group/y/user` will be rejected
   * Invalid routes are rejected
   
+  # API Documentation
+  You can find the API Documentation at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com/apidoc/)
+  
   # Want to Contribute ?
   * Fork the repository
   * Make your contributions

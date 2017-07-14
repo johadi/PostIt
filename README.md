@@ -14,8 +14,8 @@
 
 ## Technology Stack
 * Nodejs
-* Sequelize
-* Postgres ORM
+* Sequelize ORM
+* Postgres
 * Bootstrap
 
 ## How to install this project

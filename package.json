@@ -6,16 +6,30 @@
   "scripts": {
     "start": "sequelize db:migrate && node app.js",
     "dev": "NODE_ENV=development && nodemon app",
+    "apidoc": "apidoc -i server/routes/ -o public/apidoc",
     "testdev": "NODE_ENV=test && mocha server/tests/*.test.js",
     "test": "NODE_ENV=test && sequelize db:migrate && mocha server/tests/*.test.js && nyc report --reporter=text --slow 5000",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "apidoc": {
+    "name": "PostIt API - Documentation",
+    "template": {
+      "forceLanguage": "en"
+    }
   },
   "author": "jimoh hadi",
   "license": "ISC",
   "engines": {
     "node": "6.10.3"
   },
+  "nyc": {
+    "exclude": [
+      "server/tests",
+      "server/database"
+    ]
+  },
   "devDependencies": {
+    "apidoc": "^0.15.1",
     "chai": "^4.0.2",
     "coveralls": "^2.13.1",
     "eslint": "^3.19.0",

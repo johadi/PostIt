@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  app.get('/api', (req, res) => res.status(200)
+  app.get('/', (req, res) => res.status(200)
       .send('Welcome to PostIt. A Place to Send notification to your love ones...Cheers!'));
   app.get('/api', (req, res) => res.status(200)
       .send('Welcome to PostIt API. An App for Sending notification to your love ones'));

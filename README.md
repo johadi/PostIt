@@ -25,8 +25,8 @@
 -   Change into the directory `$ cd /PostIt`
 -   Install all required dependencies with `$ npm install`
 -   Create a `.env` file in your root directory and follow the pattern in the .env.sample file below to create environmental variables
--   Migrate your database by running this command `npm run db:migrate`
--   You can undo your migrations by running this command `npm run db:migrate:undo`.
+-   Migrate your database by running this command `sequelize db:migrate`
+-   You can undo your migrations by running this command `sequelize db:migrate:undo`.
 -   Run `npm start` to start the application
 
 >   .env file sample

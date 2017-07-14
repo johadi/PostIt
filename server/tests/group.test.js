@@ -216,64 +216,105 @@ describe('POST api/group/:groupId/user', () => {
 //         });
 //   });
 }); // end
-// describe('POST api/group/groupId/message', () => {
-//   // Empty our database
-//   before(seeder.emptyDB);
-//   // Seed database for this testing
-//   /* User: {
-//    fullname: 'jimoh hadi',
-//    username: 'ovenje',
-//    email: 'ovenje@yahoo.com',
-//    mobile: '8163041269',
-//    password: '11223344' }
-//    */
-//   before(seeder.addUserToDb);
-//   it('Should return status code 400 and a message when groupId is not a number.', (done) => {
-//     request(app)
-//         .post('/api/group/x/user')
-//         .send({ user: 'johadi10', token })
-//         .expect(400)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'Oops! Something went wrong, Check your route');
-//           done();
-//         });
-//   });
-//   it('Should return status code 400 and a message if no message body', (done) => {
-//     request(app)
-//         .post('/api/group/1/message')
-//         .send(seeder.setLoginData('jimoh', '11223344'))
-//         .expect(404)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'User not found');
-//           done();
-//         });
-//   });
-//   it('Should return status code 400 and a message when groupId is invalid.', (done) => {
-//     request(app)
-//         .post('/api/group/2/message')
-//         .send(seeder.setLoginData('ovenje', '11223366'))
-//         .expect(400)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'Incorrect password');
-//           done();
-//         });
-//   });
-//   it('Should return 200 and.', (done) => {
-//     request(app)
-//         .post('/api/user/signin')
-//         .send(seeder.setLoginData('ovenje', '11223344'))
-//         .expect(200)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body.message, 'Sign in successful');
-//           assert.exists(res.body.token);
-//           done();
-//         });
-//   });
-// });
+describe('POST api/group/:groupId/message', () => {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Start adding users to DB
+  before(seeder.addUserToDb);
+  before(seeder.addUserToDb2);
+  // Create a group
+  before(seeder.createGroup);
+  before(seeder.createGroup2);
+  before(seeder.addUserToGroup);
+  let token = ''; // To hold our token for authentication
+  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          token = res.body.data.token;
+          done();
+        });
+  });
+  // Create group and get a sample for it from DB
+  let groupId = '';
+  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+    Group.create({
+      name: 'london',
+      creator_id: 1
+    })
+        .then((group) => {
+          if (!group) {
+            return Promise.reject('Error');
+          }
+          groupId = group.id;
+          return done();
+        })
+        .catch(err => done(err));
+  });
+  it('Should return status code 400 and a message when groupId is not a number.', (done) => {
+    request(app)
+        .post('/api/group/x/message')
+        .send({ user: 'johadi10', token })
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          done();
+        });
+  });
+  it('Should return 400 and a message if no message body', (done) => {
+    request(app)
+        .post('/api/group/1/message')
+        .send({ message: '', token })
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'Message body required');
+          done();
+        });
+  });
+  it('Should return 404 and a message if groupId is invalid.', (done) => {
+    request(app)
+        .post('/api/group/8/message')
+        .send({ message: 'hello', token })
+        .expect(404)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'Invalid group');
+          done();
+        });
+  });
+  // it('Should return status code 400 and a ' +
+  //     'message when User tries to add himself to group he belongs.', (done) => {
+  //   request(app)
+  //       .post('/api/group/1/user')
+  //       .send({ user: 'johadi10', token })
+  //       .expect(400)
+  //       .end((err, res) => {
+  //         if (err) return done(err);
+  //         assert.equal(res.body.message, 'Already a member. You can\'t add yourself to the group again');
+  //         done();
+  //       });
+  // });
+  // it('Should return 200 and.', (done) => {
+  //   request(app)
+  //       .post('/api/user/signin')
+  //       .send(seeder.setLoginData('ovenje', '11223344'))
+  //       .expect(200)
+  //       .end((err, res) => {
+  //         if (err) return done(err);
+  //         assert.equal(res.body.message, 'Sign in successful');
+  //         assert.exists(res.body.token);
+  //         done();
+  //       });
+  // });
+});
 // describe('Get api/group/groupId/message', () => {
 //   // Empty our database
 //   before(seeder.emptyDB);

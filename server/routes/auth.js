@@ -5,27 +5,50 @@ router.route('/api/user/signup')
 /**
  * @api {post} /api/user/signup Register a new user
  * @apiGroup User
- * @apiParam {String} name User name
+ * @apiParam {String} username User name
+ * @apiParam {String} fullname Name of user
+ * @apiParam {String} mobile Mobile number of user
  * @apiParam {String} email User email
  * @apiParam {String} password User password
  * @apiParamExample {json} Input
  *    {
-   *      "name": "John Connor",
-   *      "email": "john@connor.net",
+   *      "fullname": "Jimoh Hadi",
+   *      "username": "Johadi",
+   *      "mobile": "0816304xxxx",
+   *      "email": "jimoh@gmail.com",
    *      "password": "123456"
    *    }
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
+   *      "status": 200,
    *      "id": 1,
-   *      "name": "John Connor",
+   *      "fullname": "John Connor",
    *      "email": "john@connor.net",
-   *      "password": "$2a$10$SK1B1",
-   *      "updated_at": "2016-02-10T15:20:11.700Z",
-   *      "created_at": "2016-02-10T15:29:11.700Z"
+   *      "username": "John12",
+   *      "mobile": "08056784567"
    *    }
  */
     .post(authController.signup);
 router.route('/api/user/signin')
+/**
+ * @api {post} /api/user/signin Login user
+ * @apiGroup Authentication
+ * @apiParam {String} username Username of registered user
+ * @apiParam {String} password User password
+ * @apiParamExample {json} Input
+ *    {
+   *      "username": "johadi",
+   *      "password": "123456"
+   *    }
+ * @apiSuccess {String} token Token of authenticated user
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+     *     "status": 200
+     *     "token": "xyz.abc.123.hgf"
+     *     "message": "Sign in successful"
+     *     }
+ */
     .post(authController.signin);
 module.exports = router;

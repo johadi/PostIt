@@ -4,12 +4,86 @@ const authenticate = require('../middlewares/authenticate');
 
 router.use(authenticate);
 router.route('/api/group')
+/**
+ * @api {post} /api/group Create a group
+ * @apiGroup Group
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {String} name Group title
+ * @apiParamExample {json} Input
+ *    {"name": "Study"}
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+     *      "status": 200
+     *      "id": 1,
+     *      "name": "Andela",
+     *      "updated_at": "2016-02-10T15:46:51.778Z",
+     *      "created_at": "2016-02-10T15:46:51.778Z"
+     *    }
+ */
     .post(groupController.createGroup);
 router.route('/api/group/:groupId/user')
+/**
+ * @api {post} /api/group/:groupId/user Add user to group
+ * @apiGroup Group
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {id} Id of group
+ * @apiParamExample {json} Input
+ *    {"name": "Study"}
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+     *      "status": 200
+     *      "message": "User added successfully",
+     *      "name": "Andela",
+     *      "groupId": "1",
+     *      "addedById": "2"
+     *    }
+ */
     .post(groupController.addUserToGroup);
 router.route('/api/group/:groupId/message')
+/**
+ * @api {get} /api/group/:groupId/message Get group messages
+ * @apiGroup Message
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {id} Id of group
+ * @apiParam {String} Message to send to group
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *        "status": 200,
+   *      "count": 1,
+   *      "rows" : [{
+   *        "id": 1,
+   *        "message": "Study",
+   *        "updated_at": "2016-02-10T15:46:51.778Z",
+   *        "created_at": "2016-02-10T15:46:51.778Z",
+   *      }]
+   *    }
+ */
     .get(groupController.getMessages)
+    /**
+     * @api {get} /api/group/:groupId/message Get group messages
+     * @apiGroup Message
+     * @apiHeader {String} Token of authenticated user
+     * @apiHeaderExample {json} Header
+     *    {"x-auth": "JWT xyz.abc.123.hgf"}
+     * @apiParam {id} Id of group
+     * @apiParam {String} Message to send to group
+     * @apiSuccessExample {json} Success
+     *    HTTP/1.1 201 CREATED
+     *    {
+   *      "status": 1,
+   *       "message": "created successfully"
+   *    }
+     */
     .post(groupController.postMessage);
-router.route('/api/group/:groupId/user/message')
-    .get(groupController.getUserMessages);
+// router.route('/api/group/:groupId/user/message')
+//     .get(groupController.getUserMessages);
 module.exports = router;

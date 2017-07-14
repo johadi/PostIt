@@ -33,7 +33,7 @@ module.exports = {
             return User.create(obj, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
           })
           .then((savedUser) => {
-            const data = _.pick(savedUser, ['id', 'username', 'email', 'mobile']);
+            const data = _.pick(savedUser, ['id', 'username', 'email', 'mobile', 'fullname']);
             return handleSuccess(201, data, res);
           })
           .catch(err => handleError(err, res));

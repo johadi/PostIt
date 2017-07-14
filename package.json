@@ -22,6 +22,12 @@
   "engines": {
     "node": "6.10.3"
   },
+  "nyc": {
+    "exclude": [
+      "server/tests",
+      "server/database"
+    ]
+  },
   "devDependencies": {
     "apidoc": "^0.15.1",
     "chai": "^4.0.2",

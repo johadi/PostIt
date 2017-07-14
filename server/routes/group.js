@@ -73,9 +73,10 @@ router.route('/api/group/:groupId/message')
  *        }
    *    }
  */
-    .get(groupController.getMessages)
+    .get(groupController.getMessages);
+router.route('/api/group/:groupId/message')
     /**
-     * @api {get} /api/group/:groupId/message Get group messages
+     * @api {post} /api/group/:groupId/message Post messages to group
      * @apiGroup Message
      * @apiHeader {String} Token of authenticated user
      * @apiHeaderExample {json} Header

@@ -234,9 +234,9 @@ define({ "api": [
     "name": "GetApiGroupGroupidMessage"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/api/group/:groupId/message",
-    "title": "Get group messages",
+    "title": "POST messages to group",
     "group": "Message",
     "header": {
       "fields": {
@@ -290,7 +290,7 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "server/routes/group.js",
     "groupTitle": "Message",
-    "name": "GetApiGroupGroupidMessage"
+    "name": "PostApiGroupGroupidMessage"
   },
   {
     "type": "post",

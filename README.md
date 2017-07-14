@@ -57,7 +57,8 @@
   * Invalid routes are rejected
   
   # API Documentation
-  You can find the API Documentation at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com/apidoc/)
+  * You can find the API Documentation at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com/apidoc/)
+  * Access API at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com)
   
   # Want to Contribute ?
   * Fork the repository

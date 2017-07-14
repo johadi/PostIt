@@ -12,15 +12,17 @@ router.route('/api/group')
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
  * @apiParam {String} name Group title
  * @apiParamExample {json} Input
- *    {"name": "Study"}
+ *    {"name": "Andela"}
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
-     *      "status": 200
-     *      "id": 1,
-     *      "name": "Andela",
-     *      "updated_at": "2016-02-10T15:46:51.778Z",
-     *      "created_at": "2016-02-10T15:46:51.778Z"
+     *      "status": 200,
+     *      "data": {
+     *        "id": 1,
+     *        "name": "Andela",
+     *        "updated_at": "2016-02-10T15:46:51.778Z",
+     *        "created_at": "2016-02-10T15:46:51.778Z"
+     *      }
      *    }
  */
     .post(groupController.createGroup);
@@ -33,15 +35,17 @@ router.route('/api/group/:groupId/user')
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
  * @apiParam {id} Id of group
  * @apiParamExample {json} Input
- *    {"name": "Study"}
+ *    {"name": "Ortwel"}
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
-     *      "status": 200
-     *      "message": "User added successfully",
-     *      "name": "Andela",
-     *      "groupId": "1",
-     *      "addedById": "2"
+     *      "status": 200,
+     *      "data": {
+     *         "message": "User added successfully",
+     *         "name": "Ortwel",
+     *         "groupId": "1",
+     *         "addedById": "2"
+     *      }
      *    }
  */
     .post(groupController.addUserToGroup);
@@ -53,18 +57,20 @@ router.route('/api/group/:groupId/message')
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
  * @apiParam {id} Id of group
- * @apiParam {String} Message to send to group
+ * @apiParam {String} Username
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
  *        "status": 200,
-   *      "count": 1,
-   *      "rows" : [{
+ *        "data": {
+ *          "count": 1,
+   *        "rows" : [{
    *        "id": 1,
-   *        "message": "Study",
+   *        "message": "Programming is in the mind",
    *        "updated_at": "2016-02-10T15:46:51.778Z",
    *        "created_at": "2016-02-10T15:46:51.778Z",
    *      }]
+ *        }
    *    }
  */
     .get(groupController.getMessages)

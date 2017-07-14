@@ -15,18 +15,20 @@ router.route('/api/user/signup')
    *      "fullname": "Jimoh Hadi",
    *      "username": "Johadi",
    *      "mobile": "0816304xxxx",
-   *      "email": "jimoh@gmail.com",
+   *      "email": "jimoh@program.com",
    *      "password": "123456"
    *    }
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
    *      "status": 200,
-   *      "id": 1,
-   *      "fullname": "John Connor",
-   *      "email": "john@connor.net",
-   *      "username": "John12",
-   *      "mobile": "08056784567"
+   *      "data": {
+   *       "id": 1,
+   *      "fullname": "Jimoh Hadi",
+   *      "email": "john@program.com",
+   *      "username": "Johdi",
+   *      "mobile": "0816304xxxx"
+   *      }
    *    }
  */
     .post(authController.signup);
@@ -45,10 +47,12 @@ router.route('/api/user/signin')
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
-     *     "status": 200
-     *     "token": "xyz.abc.123.hgf"
-     *     "message": "Sign in successful"
+     *     "status": 200,
+     *     "data": {
+     *        "token": "xyz.abc.123.hgf"
+     *        "message": "Sign in successful"
      *     }
+     *  }
  */
     .post(authController.signin);
 module.exports = router;

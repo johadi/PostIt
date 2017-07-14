@@ -279,17 +279,17 @@ describe('POST api/group/:groupId/message', () => {
           done();
         });
   });
-  it('Should return 404 and a message if groupId is invalid.', (done) => {
-    request(app)
-        .post('/api/group/8/message')
-        .send({ message: 'hello', token })
-        .expect(404)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body.message, 'Invalid group');
-          done();
-        });
-  });
+  // it('Should return 404 and a message if groupId is invalid.', (done) => {
+  //   request(app)
+  //       .post('/api/group/8/message')
+  //       .send({ message: 'hello', token })
+  //       .expect(404)
+  //       .end((err, res) => {
+  //         if (err) return done(err);
+  //         assert.equal(res.body.message, 'Invalid group');
+  //         done();
+  //       });
+  // });
   // it('Should return status code 400 and a ' +
   //     'message when User tries to add himself to group he belongs.', (done) => {
   //   request(app)

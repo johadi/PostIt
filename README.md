@@ -9,7 +9,6 @@
 * Users can login to access all operations available to them.
 * Users can create groups and add other registered users to them.
 * Users can read messages sent to groups they belong to
-* Users can logout of the system whenever they want to.
 * Users can read messages they have created in a particular group.
 
 ## Technology Stack

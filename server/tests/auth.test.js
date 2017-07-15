@@ -18,7 +18,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'There are problems with your input');
+          assert.equal(res.body.message, 'There are problems with your input');
           done();
         });
   });
@@ -29,7 +29,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'password not matched');
+          assert.equal(res.body.message, 'password not matched');
           done();
         });
   });
@@ -40,7 +40,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'This Username has been used');
+          assert.equal(res.body.message, 'This Username has been used');
           done();
         });
   });
@@ -51,7 +51,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'A user with this email already exists');
+          assert.equal(res.body.message, 'A user with this email already exists');
           done();
         });
   });
@@ -62,7 +62,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'This Mobile Number has been used');
+          assert.equal(res.body.message, 'This Mobile Number has been used');
           done();
         });
   });
@@ -73,10 +73,10 @@ describe('POST api/user/signup', () => {
         .expect(201)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.email, 'jimoh@gmail.com');
-          assert.equal(res.body.username, 'johadi11');
+          assert.equal(res.body.data.email, 'jimoh@gmail.com');
+          assert.equal(res.body.data.username, 'johadi11');
           const password = { password: '11223344' };
-          assert.notInclude(res.body, password);
+          assert.notInclude(res.body.data, password);
           done();
         });
   });
@@ -117,7 +117,7 @@ describe('POST api/user/signin', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'There are problems with your input');
+          assert.equal(res.body.message, 'There are problems with your input');
           done();
         });
   });
@@ -128,7 +128,7 @@ describe('POST api/user/signin', () => {
         .expect(404)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'User not found');
+          assert.equal(res.body.message, 'User not found');
           done();
         });
   });
@@ -139,7 +139,7 @@ describe('POST api/user/signin', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'Incorrect password');
+          assert.equal(res.body.message, 'Incorrect password');
           done();
         });
   });
@@ -150,8 +150,8 @@ describe('POST api/user/signin', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Sign in successful');
-          assert.exists(res.body.token);
+          assert.equal(res.body.data.message, 'Sign in successful');
+          assert.exists(res.body.data.token);
           done();
         });
   });

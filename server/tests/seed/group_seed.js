@@ -40,6 +40,7 @@ module.exports = {
   },
   createGroup(done) {
     Group.create({
+      id: 99,
       name: 'andela',
       creator_id: 1
     })
@@ -53,7 +54,22 @@ module.exports = {
   },
   createGroup2(done) {
     Group.create({
+      id: 100,
       name: 'react',
+      creator_id: 7
+    })
+        .then((group) => {
+          if (!group) {
+            return Promise.reject('Error');
+          }
+          return done();
+        })
+        .catch(err => done(err));
+  },
+  createGroup4(done) {
+    Group.create({
+      id: 101,
+      name: 'lord',
       creator_id: 7
     })
         .then((group) => {
@@ -67,8 +83,36 @@ module.exports = {
   addMessageToDb(done) {
     Message.create({
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
-      groupId: 1,
+      groupId: 100,
       userId: 1
+    })
+        .then((message) => {
+          if (!message) {
+            return Promise.reject('Error');
+          }
+          return done();
+        })
+        .catch(err => done(err));
+  },
+  addMessageToDb2(done) {
+    Message.create({
+      body: 'Carry something more than a brain to Andela Bootcamp..lol',
+      groupId: 100,
+      userId: 1
+    })
+        .then((message) => {
+          if (!message) {
+            return Promise.reject('Error');
+          }
+          return done();
+        })
+        .catch(err => done(err));
+  },
+  addMessageToDb3(done) {
+    Message.create({
+      body: 'Learners are leaders',
+      groupId: 99,
+      userId: 5
     })
         .then((message) => {
           if (!message) {
@@ -80,8 +124,8 @@ module.exports = {
   },
   addUserToGroup(done) {
     UserGroup.create({
-      groupId: 1,
-      userId: 1
+      groupId: 100,
+      userId: 10
     })
         .then((userToGroup) => {
           if (!userToGroup) {
@@ -96,8 +140,45 @@ module.exports = {
         .then(() => done())
         .catch(err => done(err));
   },
+  addUserToGroup2(done) {
+    UserGroup.create({
+      groupId: 99,
+      userId: 5
+    })
+        .then((userToGroup) => {
+          if (!userToGroup) {
+            return Promise.reject('Error');
+          }
+          return UserGroupAdd.create({
+            addedById: 5,
+            addedToId: 5,
+            groupId: 99
+          });
+        })
+        .then(() => done())
+        .catch(err => done(err));
+  },
+  addUserToGroup4(done) {
+    UserGroup.create({
+      groupId: 101,
+      userId: 5
+    })
+        .then((userToGroup) => {
+          if (!userToGroup) {
+            return Promise.reject('Error');
+          }
+          return UserGroupAdd.create({
+            addedById: 5,
+            addedToId: 5,
+            groupId: 101
+          });
+        })
+        .then(() => done())
+        .catch(err => done(err));
+  },
   addUserToDb(done) {
     User.create({
+      id: 5,
       fullname: 'jimoh hadi',
       username: 'johadi10',
       email: 'johadi10@yahoo.com',

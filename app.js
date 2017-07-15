@@ -1,8 +1,10 @@
 require('dotenv').config();
-const app = require('express')();
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const http = require('http');
+const path = require('path');
 
 
 app.use(logger('dev'));
@@ -10,6 +12,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 4000);
+app.use(express.static(path.join(__dirname, './public')));
 
 // Api routes
 require('./server/routes/index')(app);

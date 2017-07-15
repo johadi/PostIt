@@ -114,31 +114,31 @@ module.exports = {
           const userGroup = UserGroup.findOne({
             where: { groupId, userId: foundUser.id }
           });
-          return Promise.all([userGroup, foundUser.id]);
+          return Promise.all([userGroup, foundUser]);
         })
-        .then((foundUserGroupAndId) => {
+        .then((foundUserAndGroup) => {
           // If User is a member of this group. notify the person trying to add him/her
-          if (foundUserGroupAndId[0]) {
+          if (foundUserAndGroup[0]) {
             return Promise.reject('User already belongs to this group');
           }
           // if user not a member of the group, time to add him/her to group
           // and also update the UserGroupAdd table
           // Add user to group. foundUserGroupAndId[1] == ID of user to add to the group
-          const userGroup = UserGroup.create({ groupId, userId: foundUserGroupAndId[1] });
+          const userGroup = UserGroup.create({ groupId, userId: foundUserAndGroup[1].id });
           // Add user to User-Group-Add table so we can know who added the
           // user to the group he is just been added to
           const userGroupAdd = UserGroupAdd.create({
-            groupId, addedById: req.user.id, addedToId: foundUserGroupAndId[1]
+            groupId, addedById: req.user.id, addedToId: foundUserAndGroup[1].id
           });
           // Resolve all promises and return values to next then()
-          return Promise.all([userGroup, userGroupAdd]);
+          return Promise.all([userGroup, userGroupAdd, foundUserAndGroup[1]]);
         })
         .then((allResolved) => {
           // set data to be sent since all our promises have been resolved
           const data = {
             message: 'User added successfully',
-            userGroup: allResolved[0],
-            userGroupAdd: allResolved[1]
+            addedUser: allResolved[2].username,
+            addedBy: req.user.username
           };
           return handleSuccess(201, data, res);
         })
@@ -184,8 +184,6 @@ module.exports = {
             return handleSuccess(201, 'Message created successfully', res);
           })
           .catch(err => handleError(err, res));
-    } else {
-      return handleError('Oops! Something went wrong');
     }
   },
   // Controller method that allow users retrieve messages from group
@@ -227,52 +225,50 @@ module.exports = {
             return handleSuccess(200, messages, res);
           })
           .catch(err => handleError(err, res));
-    } else {
-      return handleError('oops! Something went wrong', res);
     }
   },
   // Controller method that allow users retrieve messages from group
-  getUserMessages(req, res) {
-    // Check to ensure groupId is not a String
-    if (isNaN(parseInt(req.params.groupId, 10))) {
-      return handleError('Oops! Something went wrong, Check your route', res);
-    }
-    if (req.user && req.params.groupId) {
-      const userId = req.user.id;
-      const groupId = req.params.groupId;
-      Group.findById(req.params.groupId)
-          .then((group) => {
-            if (!group) {
-              return Promise.reject({ code: 404, message: 'invalid group' });
-            }
-            // to check if User belongs to the group
-            return UserGroup.findOne({
-              where: { userId, groupId }
-            });
-          })
-          .then((foundUserAndGroup) => {
-            if (!foundUserAndGroup) {
-              return Promise.reject('Invalid Operation: You don\'t belong to this group');
-            }
-            // Let the user have his/her messages if he/she belongs to the group
-            const criteria = [{ userId }, { groupId }];
-            return Message.findAndCountAll({ where: { $and: criteria } });
-            // Another method to get user messages . by using their model relation
-            // User.find({
-            //   where: { id: req.user.id, },
-            //   include: [{ model: Message }]
-            // })
-          })
-          .then((messages) => {
-            if (messages.rows.length === 0) {
-              return Promise.reject({ code: 404, message: 'You have no message in this group' });
-            }
-            return handleSuccess(200, messages, res);
-          })
-          .catch(err => handleError(err, res));
-    } else {
-      return handleError('oops! Something went wrong', res);
-    }
-  }
+  // getUserMessages(req, res) {
+  //   // Check to ensure groupId is not a String
+  //   if (isNaN(parseInt(req.params.groupId, 10))) {
+  //     return handleError('Oops! Something went wrong, Check your route', res);
+  //   }
+  //   if (req.user && req.params.groupId) {
+  //     const userId = req.user.id;
+  //     const groupId = req.params.groupId;
+  //     Group.findById(req.params.groupId)
+  //         .then((group) => {
+  //           if (!group) {
+  //             return Promise.reject({ code: 404, message: 'invalid group' });
+  //           }
+  //           // to check if User belongs to the group
+  //           return UserGroup.findOne({
+  //             where: { userId, groupId }
+  //           });
+  //         })
+  //         .then((foundUserAndGroup) => {
+  //           if (!foundUserAndGroup) {
+  //             return Promise.reject('Invalid Operation: You don\'t belong to this group');
+  //           }
+  //           // Let the user have his/her messages if he/she belongs to the group
+  //           const criteria = [{ userId }, { groupId }];
+  //           return Message.findAndCountAll({ where: { $and: criteria } });
+  //           // Another method to get user messages . by using their model relation
+  //           // User.find({
+  //           //   where: { id: req.user.id, },
+  //           //   include: [{ model: Message }]
+  //           // })
+  //         })
+  //         .then((messages) => {
+  //           if (messages.rows.length === 0) {
+  //             return Promise.reject({ code: 404, message: 'You have no message in this group' });
+  //           }
+  //           return handleSuccess(200, messages, res);
+  //         })
+  //         .catch(err => handleError(err, res));
+  //   } else {
+  //     return handleError('oops! Something went wrong', res);
+  //   }
+  // }
 };
 

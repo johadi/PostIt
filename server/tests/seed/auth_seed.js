@@ -27,11 +27,7 @@ module.exports = {
       email: 'ovenje@yahoo.com',
       mobile: '8163041269',
       password: '11223344' })
-        .then((user) => {
-          done();
-        })
-        .catch((err) => {
-          done(err);
-        });
+        .then(user => done())
+        .catch(err => done(err));
   }
 };

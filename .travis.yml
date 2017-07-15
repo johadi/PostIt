@@ -7,8 +7,7 @@ script:
 services:
   - postgresql
 env:
-  - TEST_DB_PASSWORD=''
-  - TEST_DB_NAME=travis
+  - JWT_SECRET=abcxyz
 before_script:
   - psql -c 'CREATE DATABASE travis;' -U postgres
 before_install:
@@ -16,3 +15,5 @@ before_install:
  - export DISPLAY=:99.0
  - sh -e /etc/init.d/xvfb start
 after_success: npm run coverage
+notifications:
+  webhooks: https://coveralls.io/webhook?repo_token=QAjIoAVn2SN25gTUxdOENVxjiALZSw9UP

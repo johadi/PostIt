@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for PostIt/server/controllers/group.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\index.html">All files</a> / <a href="index.html">PostIt/server/controllers</a> group.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>7/84</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/53</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>7/84</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const User = require('../database/models').User;
+const Group = require('../database/models').Group;
+const UserGroup = require('../database/models').UserGroup;
+const UserGroupAdd = require('../database/models').UserGroupAdd;
+const Message = require('../database/models').Message;
+const { handleError, handleSuccess } = require('../helpers/helpers');
+&nbsp;
+module.exports = {
+  // Controller method for creating group
+  createGroup(req, res) {
+<span class="cstat-no" title="statement not covered" >    if (req.user &amp;&amp; req.user.id) {</span>
+<span class="cstat-no" title="statement not covered" >      if (!req.body.name) {</span>
+<span class="cstat-no" title="statement not covered" >        return handleError('Group name required', res);</span>
+      }
+      const name = <span class="cstat-no" title="statement not covered" >req.body.name.toLowerCase();</span>// to save all group name in lowercase
+      const creatorId = <span class="cstat-no" title="statement not covered" >req.user.id;</span>
+&nbsp;
+      // Check if the group user wants to create already exists
+<span class="cstat-no" title="statement not covered" >      Group.findOne({</span>
+        where: { name }
+      })
+          .then(<span class="fstat-no" title="function not covered" >(f</span>oundGroup) =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (foundGroup) {</span>
+<span class="cstat-no" title="statement not covered" >              return Promise.reject('This Group already exists');</span>
+            }
+            // Create group if it doesn't exist before
+<span class="cstat-no" title="statement not covered" >            return Group.create({</span>
+              name,
+              creator_id: creatorId
+            });
+          })
+          .then(<span class="fstat-no" title="function not covered" >(c</span>reatedGroup) =&gt; {
+            // Send an error if it doesn't exist before
+<span class="cstat-no" title="statement not covered" >            if (!createdGroup) {</span>
+<span class="cstat-no" title="statement not covered" >              return Promise.reject('Group not created...Try again');</span>
+            }
+            // If created,
+            // Automatically adds user to the group he/she created
+            const userAndGroups = <span class="cstat-no" title="statement not covered" >UserGroup.create({</span>
+              userId: creatorId,
+              groupId: createdGroup.id
+            });
+            // Automatically Adds user to the Table that indicates who adds another user to group
+            // This is like User adds himself
+            const userAddedBy = <span class="cstat-no" title="statement not covered" >UserGroupAdd.create({</span>
+              addedById: creatorId,
+              addedToId: creatorId,
+              groupId: createdGroup.id
+            });
+            // Resolve everything and pass some info to next then.
+<span class="cstat-no" title="statement not covered" >            return Promise.all([userAndGroups, userAddedBy, createdGroup]);</span>
+          })
+          // Returns only information of the group the user created if successful
+          .then(<span class="fstat-no" title="function not covered" >al</span>lResolved =&gt; <span class="cstat-no" title="statement not covered" >handleSuccess(201, allResolved[2], res))</span>
+          .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >handleError(err, res))</span>;
+    } else {
+      // our middleware takes care of this action but
+      // let us still validate in case if middleware is bypassed
+<span class="cstat-no" title="statement not covered" >      return handleError({ code: 401, message: 'oops! Something went wrong...Try again' }, res);</span>
+    }
+  },
+  // Controller method for adding user to group
+  addUserToGroup(req, res) {
+    // Check to ensure groupId is not a String
+<span class="cstat-no" title="statement not covered" >    if (isNaN(parseInt(req.params.groupId, 10))) {</span>
+<span class="cstat-no" title="statement not covered" >      return handleError('Oops! Something went wrong, Check your route', res);</span>
+    }
+    // check to ensure is a logged in user and group id is provided
+<span class="cstat-no" title="statement not covered" >    if (!req.user || !req.params.groupId) {</span>
+<span class="cstat-no" title="statement not covered" >      return handleError('Oops! Something went wrong', res);</span>
+    }
+    // check to ensure detail of the user to add is provided
+<span class="cstat-no" title="statement not covered" >    if (!req.body.user) {</span>
+<span class="cstat-no" title="statement not covered" >      return handleError('Provide Valid user detail to add to group', res);</span>
+    }
+    // let us check if the user is trying to add him/her self as that is not possible
+<span class="cstat-no" title="statement not covered" >    if (req.body.user === req.user.username ||</span>
+        req.body.user === req.user.email ||
+        req.body.user === req.user.mobile) {
+<span class="cstat-no" title="statement not covered" >      return handleError('Invalid operation. You can not add yourself', res);</span>
+    }
+    const user = <span class="cstat-no" title="statement not covered" >req.body.user;</span>
+    const groupId = <span class="cstat-no" title="statement not covered" >req.params.groupId;</span>
+    // let us check if groupId is a valid group id
+<span class="cstat-no" title="statement not covered" >    Group.findById(groupId)</span>
+        .then(<span class="fstat-no" title="function not covered" >(g</span>roup) =&gt; {
+<span class="cstat-no" title="statement not covered" >          if (!group) {</span>
+<span class="cstat-no" title="statement not covered" >            return Promise.reject({ code: 404, message: 'Invalid group' });</span>
+          }
+          // Check if User that wants to add belongs to the group
+<span class="cstat-no" title="statement not covered" >          return UserGroup.findOne({</span>
+            where: { userId: req.user.id, groupId }
+          });
+        })
+        .then(<span class="fstat-no" title="function not covered" >(f</span>oundUserAndGroup) =&gt; {
+          // If he doesn't belong to the group, reject him from adding user unless he/she joined
+<span class="cstat-no" title="statement not covered" >          if (!foundUserAndGroup) {</span>
+<span class="cstat-no" title="statement not covered" >            return Promise.reject('Invalid operation: you do not belong to this group');</span>
+          }
+          // Check to ensure provided detail is a detail of a valid user.
+          // NOTE: The detail of a user can either be Username or Email or Mobile number
+<span class="cstat-no" title="statement not covered" >          return User.findOne({</span>
+            where: {
+              $or: [{ username: user }, { email: user }, { mobile: user }]
+            }
+          });
+        })
+        .then(<span class="fstat-no" title="function not covered" >(f</span>oundUser) =&gt; {
+<span class="cstat-no" title="statement not covered" >          if (!foundUser) {</span>
+<span class="cstat-no" title="statement not covered" >            return Promise.reject({ code: 404, message: 'User not found' });</span>
+          }
+          // Check again if this user has not been added to the group he's to be added to
+          const userGroup = <span class="cstat-no" title="statement not covered" >UserGroup.findOne({</span>
+            where: { groupId, userId: foundUser.id }
+          });
+<span class="cstat-no" title="statement not covered" >          return Promise.all([userGroup, foundUser.id]);</span>
+        })
+        .then(<span class="fstat-no" title="function not covered" >(f</span>oundUserGroupAndId) =&gt; {
+          // If User is a member of this group. notify the person trying to add him/her
+<span class="cstat-no" title="statement not covered" >          if (foundUserGroupAndId[0]) {</span>
+<span class="cstat-no" title="statement not covered" >            return Promise.reject('User already belongs to this group');</span>
+          }
+          // if user not a member of the group, time to add him/her to group
+          // and also update the UserGroupAdd table
+          // Add user to group. foundUserGroupAndId[1] == ID of user to add to the group
+          const userGroup = <span class="cstat-no" title="statement not covered" >UserGroup.create({ groupId, userId: foundUserGroupAndId[1] });</span>
+          // Add user to User-Group-Add table so we can know who added the
+          // user to the group he is just been added to
+          const userGroupAdd = <span class="cstat-no" title="statement not covered" >UserGroupAdd.create({</span>
+            groupId, addedById: req.user.id, addedToId: foundUserGroupAndId[1]
+          });
+          // Resolve all promises and return values to next then()
+<span class="cstat-no" title="statement not covered" >          return Promise.all([userGroup, userGroupAdd]);</span>
+        })
+        .then(<span class="fstat-no" title="function not covered" >(a</span>llResolved) =&gt; {
+          // set data to be sent since all our promises have been resolved
+          const data = <span class="cstat-no" title="statement not covered" >{</span>
+            message: 'User added successfully',
+            userGroup: allResolved[0],
+            userGroupAdd: allResolved[1]
+          };
+<span class="cstat-no" title="statement not covered" >          return handleSuccess(201, data, res);</span>
+        })
+        .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >handleError(err, res))</span>;
+  },
+  // Controller method that allows User post messages to created group
+  postMessage(req, res) {
+    // Check to ensure groupId is not a String
+<span class="cstat-no" title="statement not covered" >    if (isNaN(parseInt(req.params.groupId, 10))) {</span>
+<span class="cstat-no" title="statement not covered" >      return handleError('Oops! Something went wrong, Check your route', res);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (req.user &amp;&amp; req.params.groupId) {</span>
+<span class="cstat-no" title="statement not covered" >      if (!req.body.message) {</span>
+<span class="cstat-no" title="statement not covered" >        return handleError('Message body required', res);</span>
+      }
+      const userId = <span class="cstat-no" title="statement not covered" >req.user.id;</span>
+      const body = <span class="cstat-no" title="statement not covered" >req.body.message;</span>
+      const groupId = <span class="cstat-no" title="statement not covered" >req.params.groupId;</span>
+      // Check if groupId is a valid group id
+<span class="cstat-no" title="statement not covered" >      Group.findById(groupId)</span>
+          .then(<span class="fstat-no" title="function not covered" >(g</span>roup) =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (!group) {</span>
+<span class="cstat-no" title="statement not covered" >              return Promise.reject({ code: 404, message: 'Invalid group' });</span>
+            }
+            // resolve nothing and go on
+<span class="cstat-no" title="statement not covered" >            return Promise.resolve();</span>
+          })
+          // Create the message
+          .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >Message.create({ userId, body, groupId }))</span>
+          .then(<span class="fstat-no" title="function not covered" >(m</span>essageCreated) =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (!messageCreated) {</span>
+<span class="cstat-no" title="statement not covered" >              return Promise.reject({ code: 400, message: 'Problem creating message...Try again' });</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return handleSuccess(201, 'Message created successfully', res);</span>
+          })
+          .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >handleError(err, res))</span>;
+    } else {
+<span class="cstat-no" title="statement not covered" >      return handleError('Oops! Something went wrong');</span>
+    }
+  },
+  // Controller method that allow users retrieve messages from group
+  getMessages(req, res) {
+    // Check to ensure groupId is not a String
+<span class="cstat-no" title="statement not covered" >    if (isNaN(parseInt(req.params.groupId, 10))) {</span>
+<span class="cstat-no" title="statement not covered" >      return handleError('Oops! Something went wrong, Check your route', res);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (req.user &amp;&amp; req.params.groupId) {</span>
+<span class="cstat-no" title="statement not covered" >      Group.findById(req.params.groupId)</span>
+          .then(<span class="fstat-no" title="function not covered" >(g</span>roup) =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (!group) {</span>
+<span class="cstat-no" title="statement not covered" >              return Promise.reject({ code: 404, message: 'invalid group' });</span>
+            }
+            // User.find({
+            //   where: { id: req.user.id },
+            //   include: [{ model: Message, as: 'message' }]
+            // })
+            const criteria = <span class="cstat-no" title="statement not covered" >[</span>
+              { userId: req.user.id },
+              { groupId: req.params.groupId }
+            ];
+<span class="cstat-no" title="statement not covered" >            return Message.findAndCountAll({ where: { $and: criteria } });</span>
+            // Another method to get user messages . by using their model relation
+            // User.find({
+            //   where: { id: req.user.id, },
+            //   include: [{ model: Message }]
+            // })
+          })
+          .then(<span class="fstat-no" title="function not covered" >(m</span>essages) =&gt; {
+<span class="cstat-no" title="statement not covered" >            if (messages.rows.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >              return Promise.reject({ code: 404, message: 'User has no message in this group' });</span>
+            }
+<span class="cstat-no" title="statement not covered" >            return handleSuccess(200, messages, res);</span>
+          })
+          .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >handleError(err, res))</span>;
+    } else {
+<span class="cstat-no" title="statement not covered" >      return handleError('oops! Something went wrong', res);</span>
+    }
+  }
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 11 2017 22:59:26 GMT+0100 (W. Central Africa Standard Time)
+</div>
+</div>
+<script src="..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\sorter.js"></script>
+</body>
+</html>

@@ -35,11 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         const hash = bcrypt.hashSync(user.password, salt);
 
         user.password = hash;
-      },
-      beforeUpdate: (user) => {
-        if (user.password) {
-          console.log(`updated ${user.username}`);
-        }
       }
     }
   });

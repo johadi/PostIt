@@ -1,4 +1,4 @@
-# PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=group-routes-develop)](https://coveralls.io/github/johadi10/PostIt?branch=group-routes-develop) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=master)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
+# PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=master)](https://coveralls.io/github/johadi10/PostIt?branch=master) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=master)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
 
 
 **Postit** is an Andela Bootcamp project where friends and colleagues send notifications to one another via groups they belong to.

@@ -23,12 +23,12 @@
 -   Clone the repository `$ git clone https://github.com/johadi10/PostIt.git`
 -   Change into the directory `$ cd /PostIt`
 -   Install all required dependencies with `$ npm install`
--   Create a `.env` file in your root directory and follow the pattern in the .env.sample file below to create environmental variables
+-   Create a `.env` file in your root directory and follow the pattern in the .env sample file depicted below to create environmental variables
 -   Migrate your database by running this command `sequelize db:migrate`
 -   You can undo your migrations by running this command `sequelize db:migrate:undo`.
 -   Run `npm start` to start the application
 
->   .env file sample
+>   .env sample file
 ```DEV_DB_PASSWORD=yourpassword
      DEV_DB_NAME=yourdbname
      TEST_DB_PASSWORD=yourtestdbpassword
@@ -57,7 +57,7 @@
   
   # API Documentation
   * You can find the API Documentation at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com/apidoc/)
-  * Access API at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com)
+  * Access API at [https://jimoh-postit.herokuapp.com/api/](https://jimoh-postit.herokuapp.com/api)
   
   # Want to Contribute ?
   * Fork the repository

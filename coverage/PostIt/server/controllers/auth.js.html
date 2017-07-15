@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">65.85% </span>
+        <span class="strong">97.62% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>27/41</span>
+        <span class='fraction'>41/42</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.18% </span>
+        <span class="strong">95.45% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>15/22</span>
+        <span class='fraction'>21/22</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/5</span>
+        <span class='fraction'>5/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">63.16% </span>
+        <span class="strong">97.44% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>24/38</span>
+        <span class='fraction'>38/39</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -109,7 +109,12 @@
 64
 65
 66
-67</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+67
+68
+69
+70
+71
+72</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -143,35 +148,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,35 +219,40 @@ module.exports = {
             }
             return User.create(obj, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
           })
-          .then(savedUser =&gt; handleSuccess(201, savedUser, res))
+          .then((savedUser) =&gt; {
+            const data = _.pick(savedUser, ['id', 'username', 'email', 'mobile', 'fullname']);
+            return handleSuccess(201, data, res);
+          })
           .catch(err =&gt; handleError(err, res));
     } else {
       return handleError('There are problems with your input', res);
     }
   },
   signin(req, res) {
-    const body = <span class="cstat-no" title="statement not covered" >_.pick(req.body, ['username', 'password']);</span>
-    const validator = <span class="cstat-no" title="statement not covered" >new Validator(body, User.loginRules());</span>
-<span class="cstat-no" title="statement not covered" >    if (!validator.passes()) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(400).send({ message: 'There are problems with your input' });</span>
+    const body = _.pick(req.body, ['username', 'password']);
+    const validator = new Validator(body, User.loginRules());
+    if (!validator.passes()) {
+      return handleError('There are problems with your input', res);
     }
-<span class="cstat-no" title="statement not covered" >    User.findOne({</span>
+    User.findOne({
       where: {
         username: body.username
       }
     })
-        .then(<span class="fstat-no" title="function not covered" >(u</span>ser) =&gt; {
-<span class="cstat-no" title="statement not covered" >          if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(404).send({ message: 'User not found' });</span>
+        .then((user) =&gt; {
+          if (!user) {
+            return Promise.reject({ code: 404, message: 'User not found' });
           }
-<span class="cstat-no" title="statement not covered" >          if (!user.comparePassword(body.password)) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(404).send({ message: 'Incorrect password' });</span>
+          if (!user.comparePassword(body.password)) {
+            return Promise.reject('Incorrect password');
           }
-          const data = <span class="cstat-no" title="statement not covered" >_.pick(user, ['id', 'username', 'email', 'mobile']);</span>
-          const token = <span class="cstat-no" title="statement not covered" >jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 86400 });</span> // should expire in 24 hours
-<span class="cstat-no" title="statement not covered" >          return res.status(200).send({ token, message: 'Sign in successful' });</span>
+          // If all is well
+          const data = _.pick(user, ['id', 'username', 'email', 'mobile']);
+          // Give the user token and should expire in the next 24 hours
+          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 86400 });
+          return handleSuccess(200, { token, message: 'Sign in successful' }, res);
         })
-        .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >res.status(400).send(err))</span>;
+        .catch(err =&gt; handleError(err, res));
   }
 };
 &nbsp;
@@ -247,7 +262,7 @@ module.exports = {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 11 2017 22:59:26 GMT+0100 (W. Central Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 15 2017 13:19:42 GMT+0100 (W. Central Africa Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

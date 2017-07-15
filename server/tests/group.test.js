@@ -75,7 +75,7 @@ describe('POST: api/group', () => {
         });
   });
 });
-// Test for adding user to group
+//* Test for adding user to group
 describe('POST api/group/:groupId/user', () => {
   // Clear Test database
   before(seeder.emptyUserDB);
@@ -101,52 +101,6 @@ describe('POST api/group/:groupId/user', () => {
           done();
         });
   });
-  // Create group and get a sample for it from DB
-  let groupId = '';
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
-    Group.create({
-      name: 'london',
-      creator_id: 1
-    })
-        .then((group) => {
-          if (!group) {
-            return Promise.reject('Error');
-          }
-          groupId = group.id;
-          return done();
-        })
-        .catch(err => done(err));
-  });
-  // let groupId2 = '';
-  // it('Should return 200 and give the user token if credentials are correct.', (done) => {
-  //   UserGroup.create({
-  //     groupId: 2,
-  //     userId: 1
-  //   })
-  //       .then((userToGroup) => {
-  //         if (!userToGroup) {
-  //           return Promise.reject('Error');
-  //         }
-  //         return UserGroupAdd.create({
-  //           addedById: 1,
-  //           addedToId: 1,
-  //           groupId: 1
-  //         });
-  //       })
-  //       .then((user) => {
-  //
-  //       })
-  //       .catch(err => done(err));
-  // });
-  // Empty our database
-  // before(seeder.emptyDB);
-  /* Seed database for this testing
-   fullname: 'jimoh hadi',
-   username: 'ovenje',
-   email: 'ovenje@yahoo.com',
-   mobile: '8163041269',
-   password: '11223344'
-   */
   // before(seeder.addUserToDb);
   it('Should return status code 400 and a message when groupId is not a number.', (done) => {
     request(app)
@@ -193,28 +147,6 @@ describe('POST api/group/:groupId/user', () => {
           done();
         });
   });
-//   it('Should return 400 and a message if user not a member of a group.', (done) => {
-//     request(app)
-//         .post(`/api/group/${groupId}/user`)
-//         .send({ user: 'oman', token })
-//         .expect(400)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'Invalid operation: you do not belong to this group');
-//           done();
-//         });
-//   });
-//   it('Should return 404 and a message if User to add does not exist.', (done) => {
-//     request(app)
-//         .post(`/api/group/${groupId}/user`)
-//         .send({ user: 'mark', token })
-//         .expect(404)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'User not found');
-//           done();
-//         });
-//   });
 }); // end
 describe('POST api/group/:groupId/message', () => {
   // Clear Test database
@@ -229,6 +161,7 @@ describe('POST api/group/:groupId/message', () => {
   before(seeder.createGroup);
   before(seeder.createGroup2);
   before(seeder.addUserToGroup);
+  before(seeder.addMessageToDb);
   let token = ''; // To hold our token for authentication
   it('Should return 200 and give the user token if credentials are correct.', (done) => {
     request(app)
@@ -240,22 +173,6 @@ describe('POST api/group/:groupId/message', () => {
           token = res.body.data.token;
           done();
         });
-  });
-  // Create group and get a sample for it from DB
-  let groupId = '';
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
-    Group.create({
-      name: 'london',
-      creator_id: 1
-    })
-        .then((group) => {
-          if (!group) {
-            return Promise.reject('Error');
-          }
-          groupId = group.id;
-          return done();
-        })
-        .catch(err => done(err));
   });
   it('Should return status code 400 and a message when groupId is not a number.', (done) => {
     request(app)
@@ -279,97 +196,95 @@ describe('POST api/group/:groupId/message', () => {
           done();
         });
   });
-  // it('Should return 404 and a message if groupId is invalid.', (done) => {
-  //   request(app)
-  //       .post('/api/group/8/message')
-  //       .send({ message: 'hello', token })
-  //       .expect(404)
-  //       .end((err, res) => {
-  //         if (err) return done(err);
-  //         assert.equal(res.body.message, 'Invalid group');
-  //         done();
-  //       });
-  // });
-  // it('Should return status code 400 and a ' +
-  //     'message when User tries to add himself to group he belongs.', (done) => {
-  //   request(app)
-  //       .post('/api/group/1/user')
-  //       .send({ user: 'johadi10', token })
-  //       .expect(400)
-  //       .end((err, res) => {
-  //         if (err) return done(err);
-  //         assert.equal(res.body.message, 'Already a member. You can\'t add yourself to the group again');
-  //         done();
-  //       });
-  // });
-  // it('Should return 200 and.', (done) => {
-  //   request(app)
-  //       .post('/api/user/signin')
-  //       .send(seeder.setLoginData('ovenje', '11223344'))
-  //       .expect(200)
-  //       .end((err, res) => {
-  //         if (err) return done(err);
-  //         assert.equal(res.body.message, 'Sign in successful');
-  //         assert.exists(res.body.token);
-  //         done();
-  //       });
-  // });
 });
-// describe('Get api/group/groupId/message', () => {
-//   // Empty our database
-//   before(seeder.emptyDB);
-//   // Seed database for this testing
-//   /* User: {
-//    fullname: 'jimoh hadi',
-//    username: 'ovenje',
-//    email: 'ovenje@yahoo.com',
-//    mobile: '8163041269',
-//    password: '11223344' }
-//    */
-//   before(seeder.addUserToDb);
-//   it('Should return status code 400 and a message when input are invalid. i.e some empty fields', (done) => {
-//     request(app)
-//         .post('/api/user/signin')
-//         .send(seeder.setLoginData('', '11223344'))
-//         .expect(400)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'There are problems with your input');
-//           done();
-//         });
-//   });
-//   it('Should return status code 404 and a message if User not found', (done) => {
-//     request(app)
-//         .post('/api/user/signin')
-//         .send(seeder.setLoginData('jimoh', '11223344'))
-//         .expect(404)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'User not found');
-//           done();
-//         });
-//   });
-//   it('Should return status code 400 and a message when password is incorrect.', (done) => {
-//     request(app)
-//         .post('/api/user/signin')
-//         .send(seeder.setLoginData('ovenje', '11223366'))
-//         .expect(400)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body, 'Incorrect password');
-//           done();
-//         });
-//   });
-//   it('Should return 200 and give the user token if credentials are correct.', (done) => {
-//     request(app)
-//         .post('/api/user/signin')
-//         .send(seeder.setLoginData('ovenje', '11223344'))
-//         .expect(200)
-//         .end((err, res) => {
-//           if (err) return done(err);
-//           assert.equal(res.body.message, 'Sign in successful');
-//           assert.exists(res.body.token);
-//           done();
-//         });
-//   });
-// });
+describe('Get api/group/groupId/message', () => {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Start adding users to DB
+  before(seeder.addUserToDb);
+  before(seeder.addUserToDb2);
+  // Create a group
+  before(seeder.createGroup);
+  before(seeder.createGroup2);
+  before(seeder.addUserToGroup);
+  before(seeder.addUserToGroup2);
+  before(seeder.addMessageToDb);
+  before(seeder.addMessageToDb2);
+  before(seeder.addMessageToDb3);
+  // this is strictly for a user to create group belongs to it but has no message in it
+  before(seeder.createGroup4);
+  before(seeder.addUserToGroup4);
+  let token = ''; // To hold our token for authentication
+  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          token = res.body.data.token;
+          done();
+        });
+  });
+  it('Should return 400 when a user access invalid route.', (done) => {
+    request(app)
+        .get('/api/group/x/message')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          done();
+        });
+  });
+  it('Should return 400 when a user access invalid route.', (done) => {
+    request(app)
+        .get('/api/group/3/message')
+        .set({ 'x-auth': token })
+        .expect(404)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'invalid group');
+          done();
+        });
+  });
+  it('Should return status code 400 when user tries to get messages from' +
+      ' group he doesn\'t belong', (done) => {
+    request(app)
+        .get('/api/group/100/message')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'Invalid Operation: You don\'t belong to this group');
+          done();
+        });
+  });
+  it('Should return status code 200 when user tries to get messages from' +
+      ' group he belongs', (done) => {
+    request(app)
+        .get('/api/group/99/message')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.exists(res.body.data);
+          done();
+        });
+  });
+  it('Should return status code 404 when user tries to get messages from' +
+      ' group he belongs but no message', (done) => {
+    request(app)
+        .get('/api/group/101/message')
+        .set({ 'x-auth': token })
+        .expect(404)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body.message, 'You have no message in this group');
+          done();
+        });
+  });
+});

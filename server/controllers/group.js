@@ -184,8 +184,6 @@ module.exports = {
             return handleSuccess(201, 'Message created successfully', res);
           })
           .catch(err => handleError(err, res));
-    } else {
-      return handleError('Oops! Something went wrong');
     }
   },
   // Controller method that allow users retrieve messages from group
@@ -227,8 +225,6 @@ module.exports = {
             return handleSuccess(200, messages, res);
           })
           .catch(err => handleError(err, res));
-    } else {
-      return handleError('oops! Something went wrong', res);
     }
   },
   // Controller method that allow users retrieve messages from group

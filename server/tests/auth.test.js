@@ -11,14 +11,14 @@ describe('POST api/user/signup', () => {
   beforeEach(seeder.emptyDB);
   beforeEach(seeder.addUserToDb);
 
-  it('Should return status code 400 and a message when input are invalid. i.e some empty fields', (done) => {
+  it('Should return status code 400 and a message when some inputs are invalid. i.e Username', (done) => {
     request(app)
         .post('/api/user/signup')
         .send(seeder.setData('jimoh hadi', '', 'jimoh@gmail.com', '0908736521', '11223344', '11223344'))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'There are problems with your input');
+          assert.equal(res.body.username[0], 'The username field is required.');
           done();
         });
   });
@@ -29,7 +29,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'password not matched');
+          assert.equal(res.body, 'password not matched');
           done();
         });
   });
@@ -40,7 +40,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'This Username has been used');
+          assert.equal(res.body, 'This Username has been used');
           done();
         });
   });
@@ -51,7 +51,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'A user with this email already exists');
+          assert.equal(res.body, 'A user with this email already exists');
           done();
         });
   });
@@ -62,7 +62,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'This Mobile Number has been used');
+          assert.equal(res.body, 'This Mobile Number has been used');
           done();
         });
   });
@@ -73,10 +73,10 @@ describe('POST api/user/signup', () => {
         .expect(201)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.data.email, 'jimoh@gmail.com');
-          assert.equal(res.body.data.username, 'johadi11');
+          assert.equal(res.body.email, 'jimoh@gmail.com');
+          assert.equal(res.body.username, 'johadi11');
           const password = { password: '11223344' };
-          assert.notInclude(res.body.data, password);
+          assert.notInclude(res.body, password);
           done();
         });
   });
@@ -110,14 +110,14 @@ describe('POST api/user/signin', () => {
       password: '11223344' }
   */
   before(seeder.addUserToDb);
-  it('Should return status code 400 and a message when input are invalid. i.e some empty fields', (done) => {
+  it('Should return status code 400 and a message when any input is invalid. i.e username field', (done) => {
     request(app)
         .post('/api/user/signin')
         .send(seeder.setLoginData('', '11223344'))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'There are problems with your input');
+          assert.equal(res.body.username[0], 'The username field is required.');
           done();
         });
   });
@@ -128,7 +128,7 @@ describe('POST api/user/signin', () => {
         .expect(404)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'User not found');
+          assert.equal(res.body, 'User not found');
           done();
         });
   });
@@ -139,7 +139,7 @@ describe('POST api/user/signin', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Incorrect password');
+          assert.equal(res.body, 'Incorrect password');
           done();
         });
   });
@@ -150,8 +150,8 @@ describe('POST api/user/signin', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.data.message, 'Sign in successful');
-          assert.exists(res.body.data.token);
+          assert.equal(res.body.message, 'Sign in successful');
+          assert.exists(res.body.token);
           done();
         });
   });

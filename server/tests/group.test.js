@@ -30,7 +30,7 @@ describe('POST: api/group', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          token = res.body.data.token;
+          token = res.body.token;
           done();
         });
   });
@@ -42,7 +42,7 @@ describe('POST: api/group', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Group name required');
+          assert.equal(res.body, 'Group name required');
           done();
         });
   });
@@ -53,7 +53,7 @@ describe('POST: api/group', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'This Group already exists');
+          assert.equal(res.body, 'This Group already exists');
           done();
         });
   });
@@ -97,7 +97,7 @@ describe('POST api/group/:groupId/user', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          token = res.body.data.token;
+          token = res.body.token;
           done();
         });
   });
@@ -109,7 +109,7 @@ describe('POST api/group/:groupId/user', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
           done();
         });
   });
@@ -120,7 +120,7 @@ describe('POST api/group/:groupId/user', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Provide Valid user detail to add to group');
+          assert.equal(res.body, 'Provide Valid user detail to add to group');
           done();
         });
   });
@@ -132,7 +132,7 @@ describe('POST api/group/:groupId/user', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Already a member. You can\'t add yourself to the group again');
+          assert.equal(res.body, 'Already a member. You can\'t add yourself to the group again');
           done();
         });
   });
@@ -143,7 +143,7 @@ describe('POST api/group/:groupId/user', () => {
         .expect(404)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Invalid group');
+          assert.equal(res.body, 'Invalid group');
           done();
         });
   });
@@ -170,7 +170,7 @@ describe('POST api/group/:groupId/message', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          token = res.body.data.token;
+          token = res.body.token;
           done();
         });
   });
@@ -181,7 +181,7 @@ describe('POST api/group/:groupId/message', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
           done();
         });
   });
@@ -192,7 +192,7 @@ describe('POST api/group/:groupId/message', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Message body required');
+          assert.equal(res.body, 'Message body required');
           done();
         });
   });
@@ -225,7 +225,7 @@ describe('Get api/group/groupId/message', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          token = res.body.data.token;
+          token = res.body.token;
           done();
         });
   });
@@ -236,7 +236,7 @@ describe('Get api/group/groupId/message', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
           done();
         });
   });
@@ -247,7 +247,7 @@ describe('Get api/group/groupId/message', () => {
         .expect(404)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'invalid group');
+          assert.equal(res.body, 'invalid group');
           done();
         });
   });
@@ -259,7 +259,7 @@ describe('Get api/group/groupId/message', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Invalid Operation: You don\'t belong to this group');
+          assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
           done();
         });
   });
@@ -271,7 +271,7 @@ describe('Get api/group/groupId/message', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          assert.exists(res.body.data);
+          assert.exists(res.body);
           done();
         });
   });
@@ -283,7 +283,7 @@ describe('Get api/group/groupId/message', () => {
         .expect(404)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'You have no message in this group');
+          assert.equal(res.body, 'You have no message in this group');
           done();
         });
   });

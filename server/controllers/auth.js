@@ -37,15 +37,17 @@ module.exports = {
             return handleSuccess(201, data, res);
           })
           .catch(err => handleError(err, res));
+    } else if (validator.fails()) {
+      return handleError(validator.errors.all(), res);
     } else {
-      return handleError('There are problems with your input', res);
+      return handleError('Confirm password field can\'t be empty', res);
     }
   },
   signin(req, res) {
     const body = _.pick(req.body, ['username', 'password']);
     const validator = new Validator(body, User.loginRules());
-    if (!validator.passes()) {
-      return handleError('There are problems with your input', res);
+    if (validator.fails()) {
+      return handleError(validator.errors.all(), res);
     }
     User.findOne({
       where: {

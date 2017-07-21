@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">63.33% </span>
+        <span class="strong">62.92% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>57/90</span>
+        <span class='fraction'>56/89</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">66.67% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>38/57</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">52.63% </span>
+        <span class="strong">60.87% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>10/19</span>
+        <span class='fraction'>14/23</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">63.33% </span>
+        <span class="strong">62.92% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>57/90</span>
+        <span class='fraction'>56/89</span>
       </div>
     </div>
   </div>
@@ -322,7 +322,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -686,7 +686,7 @@ module.exports = {
             where: { userId: req.user.id, groupId }
           });
         })
-        .then(<span class="fstat-no" title="function not covered" >(f</span>oundUserAndGroup) =&gt; {
+        .then(<span class="fstat-no" title="function not covered" >(</span>foundUserAndGroup) =&gt; {
           // If he doesn't belong to the group, reject him from adding user unless he/she joined
 <span class="cstat-no" title="statement not covered" >          if (!foundUserAndGroup) {</span>
 <span class="cstat-no" title="statement not covered" >            return Promise.reject('Invalid operation: you do not belong to this group');</span>
@@ -699,17 +699,17 @@ module.exports = {
             }
           });
         })
-        .then(<span class="fstat-no" title="function not covered" >(f</span>oundUser) =&gt; {
+        .then(<span class="fstat-no" title="function not covered" >(</span>foundUser) =&gt; {
 <span class="cstat-no" title="statement not covered" >          if (!foundUser) {</span>
 <span class="cstat-no" title="statement not covered" >            return Promise.reject({ code: 404, message: 'User not found' });</span>
           }
           // Check again if this user has not been added to the group he's to be added to
-          const userGroup = <span class="cstat-no" title="statement not covered" >UserGroup.findOne({</span>
+          c</span>onst userGroup = <span class="cstat-no" title="statement not covered" >UserGroup.findOne({
             where: { groupId, userId: foundUser.id }
           });
 <span class="cstat-no" title="statement not covered" >          return Promise.all([userGroup, foundUser]);</span>
         })
-        .then(<span class="fstat-no" title="function not covered" >(f</span>oundUserAndGroup) =&gt; {
+        .then(<span class="fstat-no" title="function not covered" >(</span>foundUserAndGroup) =&gt; {
           // If User is a member of this group. notify the person trying to add him/her
 <span class="cstat-no" title="statement not covered" >          if (foundUserAndGroup[0]) {</span>
 <span class="cstat-no" title="statement not covered" >            return Promise.reject('User already belongs to this group');</span>
@@ -717,18 +717,18 @@ module.exports = {
           // if user not a member of the group, time to add him/her to group
           // and also update the UserGroupAdd table
           // Add user to group. foundUserGroupAndId[1] == ID of user to add to the group
-          const userGroup = <span class="cstat-no" title="statement not covered" >UserGroup.create({ groupId, userId: foundUserAndGroup[1].id });</span>
+          c</span>onst userGroup = <span class="cstat-no" title="statement not covered" >UserGroup.create({ groupId, userId: foundUserAndGroup[1].id });
           // Add user to User-Group-Add table so we can know who added the
           // user to the group he is just been added to
-          const userGroupAdd = <span class="cstat-no" title="statement not covered" >UserGroupAdd.create({</span>
+          c</span>onst userGroupAdd = <span class="cstat-no" title="statement not covered" >UserGroupAdd.create({
             groupId, addedById: req.user.id, addedToId: foundUserAndGroup[1].id
           });
           // Resolve all promises and return values to next then()
 <span class="cstat-no" title="statement not covered" >          return Promise.all([userGroup, userGroupAdd, foundUserAndGroup[1]]);</span>
         })
-        .then(<span class="fstat-no" title="function not covered" >(a</span>llResolved) =&gt; {
+        .then(<span class="fstat-no" title="function not covered" >(</span>allResolved) =&gt; {
           // set data to be sent since all our promises have been resolved
-          const data = <span class="cstat-no" title="statement not covered" >{</span>
+          c</span>onst data = <span class="cstat-no" title="statement not covered" >{
             message: 'User added successfully',
             addedUser: allResolved[2].username,
             addedBy: req.user.username
@@ -747,12 +747,12 @@ module.exports = {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!req.body.message) {
         return handleError('Message body required', res);
       }
-      const userId = <span class="cstat-no" title="statement not covered" >req.user.id;</span>
-      const body = <span class="cstat-no" title="statement not covered" >req.body.message;</span>
-      const groupId = <span class="cstat-no" title="statement not covered" >req.params.groupId;</span>
+      c</span>onst userId = <span class="cstat-no" title="statement not covered" >req.user.id;
+      c</span>onst body = <span class="cstat-no" title="statement not covered" >req.body.message;
+      c</span>onst groupId = <span class="cstat-no" title="statement not covered" >req.params.groupId;
       // Check if groupId is a valid group id
 <span class="cstat-no" title="statement not covered" >      Group.findById(groupId)</span>
-          .then(<span class="fstat-no" title="function not covered" >(g</span>roup) =&gt; {
+          .then(<span class="fstat-no" title="function not covered" >(</span>group) =&gt; {
 <span class="cstat-no" title="statement not covered" >            if (!group) {</span>
 <span class="cstat-no" title="statement not covered" >              return Promise.reject({ code: 404, message: 'Invalid group' });</span>
             }
@@ -760,23 +760,23 @@ module.exports = {
 <span class="cstat-no" title="statement not covered" >            return Promise.resolve();</span>
           })
           // Check if User belongs to this group
-          .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >UserGroup.findOne({</span>
+          .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =&gt; UserGroup.findOne({</span></span>
             where: { userId, groupId }
           }))
-          .then(<span class="fstat-no" title="function not covered" >(f</span>oundUserAndGroup) =&gt; {
+          .then(<span class="fstat-no" title="function not covered" >(</span>foundUserAndGroup) =&gt; {
 <span class="cstat-no" title="statement not covered" >            if (!foundUserAndGroup) {</span>
 <span class="cstat-no" title="statement not covered" >              return Promise.reject('Invalid Operation: You can\'t post to group You don\'t belong');</span>
             }
             // Create Message if he belongs to this group
 <span class="cstat-no" title="statement not covered" >            return Message.create({ userId, body, groupId });</span>
           })
-          .then(<span class="fstat-no" title="function not covered" >(m</span>essageCreated) =&gt; {
+          .then(<span class="fstat-no" title="function not covered" >(</span>messageCreated) =&gt; {
 <span class="cstat-no" title="statement not covered" >            if (!messageCreated) {</span>
 <span class="cstat-no" title="statement not covered" >              return Promise.reject({ code: 400, message: 'Problem creating message...Try again' });</span>
             }
 <span class="cstat-no" title="statement not covered" >            return handleSuccess(201, 'Message created successfully', res);</span>
           })
-          .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >handleError(err, res))</span>;
+          .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >err =&gt; handleError(err, res));</span></span>
     }
   },
   // Controller method that allow users retrieve messages from group
@@ -871,7 +871,7 @@ module.exports = {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 15 2017 13:19:42 GMT+0100 (W. Central Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 20 2017 21:40:33 GMT+0100 (W. Central Africa Standard Time)
 </div>
 </div>
 <script src="..\..\..\prettify.js"></script>

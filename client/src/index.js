@@ -1,14 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './build/static/styles/custom.scss';
+import { Router, browserHistory } from 'react-router';
+import './build/static/styles/cover.css';
+import routes from './routes';
 
-export default class App extends React.Component {
-  render() {
-    return (
-        <div className="well alert">
-          <h2>Welcome Jim!</h2>
-        </div>
-    );
-  }
-}
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<Router history={browserHistory}>{routes}</Router>,
+document.getElementById('app'));

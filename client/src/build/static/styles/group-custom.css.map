@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAwBA,WAAW;EACT,UAAU,EAAE,IAAI;;AAElB,iBAAiB;EACf,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;;AAElB,aAAa;EACX,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;;AAElB,iBAAiB;EACf,UAAU,EAAE,IAAI;;AAElB,oBAAoB;EAClB,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,OAAO",
-"sources": ["group-custom.scss"],
-"names": [],
-"file": "group-custom.css"
-}

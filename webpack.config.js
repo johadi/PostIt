@@ -58,6 +58,18 @@ const common = {
         },
         include: PATHS.app
       },
+      {
+        test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file'
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url?limit=10000&mimetype=application/font-woff'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'url-loader?limit=250000'
+      }
       // {
       //   test: /\.jsx?$/,
       //   exclude: /node_modules/,

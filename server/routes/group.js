@@ -3,7 +3,7 @@ const groupController = require('../controllers/group');
 const authenticate = require('../middlewares/authenticate');
 
 router.use(authenticate);
-router.route('/api/group')
+router.route('/group')
 /**
  * @api {post} /api/group Create a group
  * @apiGroup Group
@@ -26,7 +26,7 @@ router.route('/api/group')
      *    }
  */
     .post(groupController.createGroup);
-router.route('/api/group/:groupId/user')
+router.route('/group/:groupId/user')
 /**
  * @api {post} /api/group/:groupId/user Add user to group
  * @apiGroup Group
@@ -49,7 +49,7 @@ router.route('/api/group/:groupId/user')
      *    }
  */
     .post(groupController.addUserToGroup);
-router.route('/api/group/:groupId/message')
+router.route('/group/:groupId/message')
 /**
  * @api {get} /api/group/:groupId/message Get group messages
  * @apiGroup Message
@@ -74,7 +74,7 @@ router.route('/api/group/:groupId/message')
    *    }
  */
     .get(groupController.getMessages);
-router.route('/api/group/:groupId/message')
+router.route('/group/:groupId/message')
     /**
      * @api {post} /api/group/:groupId/message POST messages to group
      * @apiGroup Message

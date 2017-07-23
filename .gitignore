@@ -4,6 +4,5 @@
 /*.xml
 /playground
 .env
-/production
 server/database/config/config.json
 npm-debug.log

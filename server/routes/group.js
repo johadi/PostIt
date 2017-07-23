@@ -2,8 +2,7 @@ const router = require('express').Router();
 const groupController = require('../controllers/group');
 const authenticate = require('../middlewares/authenticate');
 
-router.use(authenticate);
-router.route('/api/group')
+router.route('/group')
 /**
  * @api {post} /api/group Create a group
  * @apiGroup Group
@@ -25,8 +24,8 @@ router.route('/api/group')
      *      }
      *    }
  */
-    .post(groupController.createGroup);
-router.route('/api/group/:groupId/user')
+    .post(authenticate, groupController.createGroup);
+router.route('/group/:groupId/user')
 /**
  * @api {post} /api/group/:groupId/user Add user to group
  * @apiGroup Group
@@ -48,8 +47,8 @@ router.route('/api/group/:groupId/user')
      *      }
      *    }
  */
-    .post(groupController.addUserToGroup);
-router.route('/api/group/:groupId/message')
+    .post(authenticate, groupController.addUserToGroup);
+router.route('/group/:groupId/message')
 /**
  * @api {get} /api/group/:groupId/message Get group messages
  * @apiGroup Message
@@ -73,8 +72,8 @@ router.route('/api/group/:groupId/message')
  *        }
    *    }
  */
-    .get(groupController.getMessages);
-router.route('/api/group/:groupId/message')
+    .get(authenticate, groupController.getMessages);
+router.route('/group/:groupId/message')
     /**
      * @api {post} /api/group/:groupId/message POST messages to group
      * @apiGroup Message
@@ -90,7 +89,7 @@ router.route('/api/group/:groupId/message')
    *       "message": "created successfully"
    *    }
      */
-    .post(groupController.postMessage);
-// router.route('/api/group/:groupId/user/message')
+    .post(authenticate, groupController.postMessage);
+// router.route('/group/:groupId/user/message')
 //     .get(groupController.getUserMessages);
 module.exports = router;

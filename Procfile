@@ -1,0 +1,1 @@
+web: babel-node tools/build.js

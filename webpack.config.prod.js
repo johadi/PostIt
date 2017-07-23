@@ -1,3 +1,71 @@
+// // webpack.config.prod.js
+// const path = require('path')
+// const webpack = require('webpack')
+//
+// export default {
+//   devtool: 'source-map',
+//
+//   entry: [
+//     './client/src/index'
+//   ],
+//
+//   output: {
+//     path: path.join(__dirname, 'production'),
+//     filename: 'bundle.js',
+//     publicPath: '/production/'
+//   },
+//
+//   plugins: [
+//     // new webpack.optimize.UglifyJsPlugin({
+//     //   compress: {
+//     //     warnings: false
+//     //   }
+//     // }),
+//     new webpack.DefinePlugin({
+//       'process.env': {
+//         NODE_ENV: JSON.stringify('production'),
+//         API_HOST: 'https://jimoh-postit-api.herokuapp.com'
+//       }
+//     })
+//   ],
+//
+//   module: {
+//     loaders: [
+//       {
+//         test: /\.scss$/,
+//         loaders: ['style-loader', 'css-loader', 'sass-loader'],
+//         include: path.join(__dirname, 'client/src/build/static/styles')
+//       },
+//       {
+//         test: /\.css$/,
+//         loaders: ['style-loader', 'css-loader'],
+//         include: path.join(__dirname, 'client/src/build/static/styles')
+//       },
+//       // Set up jsx. This accepts js too thanks to RegExp
+//       {
+//         test: /\.jsx?$/,
+//         loader: 'babel-loader',
+//         query: {
+//           cacheDirectory: true,
+//           presets: ['react', 'es2015', 'survivejs-kanban']
+//         },
+//         include: path.join(__dirname, 'client/src')
+//       },
+//       {
+//         test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+//         loader: 'file'
+//       },
+//       {
+//         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+//         loader: 'url?limit=10000&mimetype=application/font-woff'
+//       },
+//       {
+//         test: /\.(png|jpg|gif)$/,
+//         loader: 'url-loader?limit=250000'
+//       }
+//     ]
+//   }
+// };
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -5,7 +73,7 @@ const merge = require('webpack-merge');
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'client/src'),
-  build: path.join(__dirname, 'client/src/build'),
+  build: path.join(__dirname, 'production'),
   styles: path.join(__dirname, 'client/src/build/static/styles')
 };
 process.env.BABEL_ENV = TARGET;
@@ -85,7 +153,7 @@ const common = {
 };
 
 // Default configuration
-if (TARGET === 'build:dev' || !TARGET) {
+if (TARGET === 'build:start' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {
@@ -110,11 +178,16 @@ if (TARGET === 'build:dev' || !TARGET) {
       port: process.env.PORT
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production'),
+          API_HOST: 'https://jimoh-postit-api.herokuapp.com'
+        }
+      })
     ]
   });
 }
-if (TARGET === 'start:build') {
+if (TARGET === 'build') {
   module.exports = merge(common, {});
 }
 

@@ -2,12 +2,13 @@ import React from 'react';
 
 const CreateGroupAddUser = props => (
     <form className="form-horizontal" role="form">
+      <h3 className="text-center">Add Users to Andela Group</h3>
       <div className="row well well-sm">
         <div className="col-lg-10 col-lg-offset-1">
           <div className="input-group">
-            <input placeholder="Search Users in your list" type="text" className="form-control"/>
+            <input placeholder="Search Users you want to add" type="text" className="form-control"/>
             <span className="input-group-btn">
-              <button className="btn btn-default" type="button">Search User</button>
+              <button className="btn btn-post" type="button">Search</button>
             </span>
           </div>
         </div>
@@ -15,7 +16,7 @@ const CreateGroupAddUser = props => (
       <div className="row">
         <div className="col-lg-12">
           <table className="table table-striped">
-            <caption><h3>List of users you can add</h3></caption>
+            <caption><h3>Search result appears here</h3></caption>
             <thead>
             <tr>
               <th>Username</th>
@@ -37,7 +38,7 @@ const CreateGroupAddUser = props => (
             <tr>
               <td>Johadi</td>
               <td>Sanni Ali</td>
-              <td><a className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+              <td><a className="btn btn-primary btn-sm btn-block" href="">Already Member</a></td>
             </tr>
             <tr>
               <td>Johadi</td>

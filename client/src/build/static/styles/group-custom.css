@@ -16,4 +16,18 @@
   margin-top: 20px;
   padding: 0 0 0 0; }
 
+.btn-post {
+  background-color: lightseagreen !important;
+  color: #ffffff; }
+
+.navy-header, .navy-header:hover {
+  background-color: lightseagreen !important;
+  border-color: lightseagreen !important;
+  color: #ffffff; }
+
+a,
+a:focus,
+a:hover {
+  color: lightseagreen; }
+
 /*# sourceMappingURL=group-custom.css.map */

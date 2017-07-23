@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const GroupMessageBoard = props => (
     <div className="col-md-12" id="message-board-div">
@@ -9,12 +10,12 @@ const GroupMessageBoard = props => (
         </div>
         <div className="media-body">
           <h4 className="media-heading">Jimoh Hadi
-            <small> <i>Andela Group</i> . 4:56 PM</small>
+            <small> posted at 4:56 PM</small>
           </h4>
-          <p><a>In a world changing faster than you imagine, the only guarantee to failure is not
+          <p><Link to="/message">In a world changing faster than you imagine, the only guarantee to failure is not
             taking
             any risk...
-          </a></p>
+          </Link></p>
         </div>
       </div>
       <hr/>
@@ -23,7 +24,7 @@ const GroupMessageBoard = props => (
         </div>
         <div className="media-body">
           <h4 className="media-heading">Nnamdi Azikwe
-            <small> <i>Bootcamp 24 Group</i> . 4:56 PM</small>
+            <small> posted at 3:04 AM</small>
           </h4>
           <p><a>In a world changing faster than you imagine, the only guarantee to failure is not
             taking
@@ -37,7 +38,7 @@ const GroupMessageBoard = props => (
         </div>
         <div className="media-body">
           <h4 className="media-heading">Obafemi Awolowo
-            <small> <i>Chilling Group</i> . 4:56 PM</small>
+            <small> posted at 5:00 PM</small>
           </h4>
           <p><a>In a world changing faster than you imagine, the only guarantee to failure is not
             taking
@@ -51,7 +52,7 @@ const GroupMessageBoard = props => (
         </div>
         <div className="media-body">
           <h4 className="media-heading">Sir Ahmadu Bello
-            <small> <i>Game Group</i> . 4:56 PM</small>
+            <small> posted at 4:23 PM</small>
           </h4>
           <p><a>In a world changing faster than you imagine, the only guarantee to failure is
             not taking

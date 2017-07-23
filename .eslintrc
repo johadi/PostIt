@@ -10,6 +10,13 @@
     "react",
     "import"
   ],
+  "globals": {
+    "document": true,
+    "window": true,
+    "localStorage": true,
+    "swal": true,
+    "$": true
+  },
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,

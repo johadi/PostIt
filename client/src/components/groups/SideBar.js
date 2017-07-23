@@ -1,34 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const SideBar = props => (
       <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
         <p>
-          <a href="/group" className="btn btn-primary btn-lg btn-block">Join Group</a>
-          <a href="/messages" className="btn btn-default btn-lg btn-block">Messages</a>
-          <a href="/user" className="btn btn-default btn-lg btn-block">Find User</a>
+          <a className="btn navy-header btn-lg btn-block">Quick Links</a>
+          <Link to="/create-group" className="btn btn-default btn-block">Create Group</Link>
+          <Link to="/groups" className="btn btn-default btn-block">All My Groups</Link>
         </p>
         <hr/>
         <div className="list-group">
-          <a href="#" className="list-group-item active">
-            <h5 className="list-group-item-heading">Trending</h5>
-          </a>
+          <Link className="list-group-item active navy-header">
+            <h5 className="list-group-item-heading">Your top groups</h5>
+          </Link>
         </div>
         <div className="list-group">
-          <a href="#" className="list-group-item">
-            <h5 className="list-group-item-heading">Jimoh Hadi</h5>
-            <p className="list-group-item-text">
-              I love coding. It brings the man in you
-            </p>
-          </a>
-        </div>
-        <div className="list-group">
-          <a href="#" className="list-group-item">
-            <h5 className="list-group-item-heading">Jimoh Hadi</h5>
-            <p className="list-group-item-text">
-              In a world changing so rapidly, the only guanrantee to fail is not taking any risk.
-              Mark Zuckerberg
-            </p>
-          </a>
+          <Link to="/group-messages" className="list-group-item">
+            <h5 className="list-group-item-heading">Andela</h5>
+          </Link>
+          <Link to="/group-messages" className="list-group-item">
+            <h5 className="list-group-item-heading">Bootcamp 24</h5>
+          </Link>
+          <Link to="/group-messages" className="list-group-item">
+            <h5 className="list-group-item-heading">Jimoh Family</h5>
+          </Link>
+          <Link to="/group-messages" className="list-group-item">
+            <h5 className="list-group-item-heading">Johadi Club</h5>
+          </Link>
+          <Link to="/groups" className="list-group-item btn btn-primary">
+            <h5 className="list-group-item-heading"><strong><a>See all groups</a></strong></h5>
+          </Link>
         </div>
       </div>
   );

@@ -4,7 +4,8 @@ import PostMessagePage from './PostMessagePage';
 import GroupMessageBoardPage from './GroupMessageBoardPage';
 import CreateGroupPage from './CreateGroupPage';
 import CreatedGroupAddUserPage from './CreatedGroupAddUserPage';
-import AddUserToGroupPage from './AddUserToGroupPage';
+import GroupsPage from './GroupsPage';
+import GroupUsersPage from './GroupUsersPage';
 
 export default {
   DashboardPage,
@@ -13,5 +14,6 @@ export default {
   GroupMessageBoardPage,
   CreateGroupPage,
   CreatedGroupAddUserPage,
-  AddUserToGroupPage
+  GroupsPage,
+  GroupUsersPage
 };

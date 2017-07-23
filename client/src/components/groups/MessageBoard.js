@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const MessageBoard = props => (
       <div className="col-md-12" id="message-board-div">
@@ -11,10 +12,10 @@ const MessageBoard = props => (
             <h4 className="media-heading">Jimoh Hadi
               <small> <i>Andela Group</i> . 4:56 PM</small>
             </h4>
-            <p><a>In a world changing faster than you imagine, the only guarantee to failure is not
+            <p><Link to="/message">In a world changing faster than you imagine, the only guarantee to failure is not
               taking
               any risk...
-            </a></p>
+            </Link></p>
           </div>
         </div>
         <hr/>

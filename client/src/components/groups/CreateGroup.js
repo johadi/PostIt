@@ -12,7 +12,7 @@ const CreateGroup = props => (
 
         <div className="form-group">
           <div className="col-md-12">
-            <button type="submit" className="btn btn-block btn-primary btn-lg">Create Group</button>
+            <button type="submit" className="btn btn-block btn-post btn-lg">Create Group</button>
           </div>
         </div>
       </form>

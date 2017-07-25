@@ -51,7 +51,7 @@ module.exports = {
     const body = _.pick(req.body, ['username', 'password']);
     const validator = new Validator(body, User.loginRules());
     if (validator.fails()) {
-      return handleError(validator.errors.all(), res);
+      return handleError({ validateError: validator.errors.all() }, res);
     }
     User.findOne({
       where: {
@@ -66,10 +66,10 @@ module.exports = {
             return Promise.reject('Incorrect password');
           }
           // If all is well
-          const data = _.pick(user, ['id', 'username', 'email', 'mobile']);
+          const data = _.pick(user, ['id', 'username', 'email', 'fullname']);
           // Give the user token and should expire in the next 24 hours
           const token = jwt.sign(data, process.env.JWT_SECRET);
-          return handleSuccess(200, { token, message: 'Sign in successful' }, res);
+          return handleSuccess(200, token, res);
         })
         .catch(err => handleError(err, res));
   }

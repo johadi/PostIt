@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import AuthHeader from '../headers/AuthHeader';
 import '../../build/static/styles/auth-custom.scss';
 import {signupAction} from '../../actions/auth/signupAction';
-import FormField from './FormFields';
+import FormField from './SignUpFormField';
 import ErrorComponent from '../ErrorComponent';
 
 class SignupPage extends React.Component {

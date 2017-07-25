@@ -22,6 +22,14 @@ class SignupPage extends React.Component {
       }
     }
   }
+  // handles the background of signup page
+  componentDidMount() {
+    const body = document.getElementById('body');
+    const app = document.getElementById('app');
+    app.className = 'site-wrapper';
+    body.className = 'body';
+    body.style.height = '100%';
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.signupAction(this.state.user);

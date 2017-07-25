@@ -12,7 +12,7 @@ const FormField = props => (
             id={ props.name } placeholder={ props.placeholder }
             value={ props.value }
         />
-        { props.errors ? <span className="help-block">{props.errors[props.name]}</span> : false }
+        { props.errors ? <strong><span className="help-block">{props.errors[props.name]}</span></strong> : false }
       </div>
     </div>
 );

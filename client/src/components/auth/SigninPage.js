@@ -18,6 +18,7 @@ class SigninPage extends React.Component {
       }
     };
   }
+  // handles the background of signin page
   componentDidMount(){
     const body = document.getElementById('body');
     const app = document.getElementById('app');

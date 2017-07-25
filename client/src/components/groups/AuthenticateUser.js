@@ -11,8 +11,6 @@ class AuthenticateUser extends React.Component {
     this.props.verifyToken();
   }
   render() {
-    console.log('AFTER MOUNT');
-    console.log(this.props.tokenStatus);
     return this.props.tokenStatus.success ? this.props.children : <NullPage/>;
   }
 }

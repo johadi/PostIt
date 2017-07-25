@@ -97,6 +97,19 @@ const common = {
     path: PATHS.build,
     filename: 'bundle.js'
   },
+  plugins: [
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // }), https://jimoh-postit-api.herokuapp.com
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+        API_HOST: JSON.stringify('https://jimoh-postit-api.herokuapp.com')
+      }
+    })
+  ],
   module: {
     // preLoaders: [
     //   {

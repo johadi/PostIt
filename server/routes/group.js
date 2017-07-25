@@ -2,6 +2,13 @@ const router = require('express').Router();
 const groupController = require('../controllers/group');
 const authenticate = require('../middlewares/authenticate');
 
+router.route('/verify-token')
+    .get(authenticate, (req, res) => {
+      if (req.user) {
+        return res.status(200).json('user verified');
+      }
+      return res.status(404).json('user not verified');
+    });
 router.route('/group')
 /**
  * @api {post} /api/group Create a group

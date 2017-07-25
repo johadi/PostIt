@@ -70,6 +70,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "cheerio": "^0.20.0",
+    "classnames": "^2.2.5",
     "colors": "1.1.2",
     "compression": "^1.6.1",
     "cors": "^2.8.4",

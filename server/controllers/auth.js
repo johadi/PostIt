@@ -7,22 +7,25 @@ const { handleError, handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
   signup(req, res) {
+    // return res.json(req.body);
+    // const token = jwt.sign(req.body, process.env.JWT_SECRET);
+    // return handleSuccess(201, token, res);
+    // return handleError('Username already exists', res);
     const obj = req.body;
     const validator = new Validator(obj, User.signupRules());
-    if (validator.passes() && obj.confirm_password) {
+    if (validator.passes()) {
       if (obj.confirm_password !== obj.password) {
         return handleError('password not matched', res);
       }
       User.findOne({
         where: {
-          $or: [{ email: obj.email }, { mobile: obj.mobile }, { username: obj.username }]
+          $or: [{ email: obj.email }, { username: obj.username }]
         }
       })
           .then((existingUser) => {
             if (existingUser) {
               let message = '';
               if (existingUser.email === obj.email) message = 'A user with this email already exists';
-              if (existingUser.mobile === obj.mobile) message = 'This Mobile Number has been used';
               if (existingUser.username === obj.username) message = 'This Username has been used';
               return Promise.reject(message);
             }
@@ -34,13 +37,14 @@ module.exports = {
           })
           .then((savedUser) => {
             const data = _.pick(savedUser, ['id', 'username', 'email', 'mobile', 'fullname']);
-            return handleSuccess(201, data, res);
+            const token = jwt.sign(data, process.env.JWT_SECRET);
+            return handleSuccess(201, token, res);
           })
           .catch(err => handleError(err, res));
     } else if (validator.fails()) {
-      return handleError(validator.errors.all(), res);
+      return handleError({ validateError: validator.errors.all() }, res);
     } else {
-      return handleError('Confirm password field can\'t be empty', res);
+      return handleError('There are Problems in your input', res);
     }
   },
   signin(req, res) {
@@ -64,7 +68,7 @@ module.exports = {
           // If all is well
           const data = _.pick(user, ['id', 'username', 'email', 'mobile']);
           // Give the user token and should expire in the next 24 hours
-          const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 86400 });
+          const token = jwt.sign(data, process.env.JWT_SECRET);
           return handleSuccess(200, { token, message: 'Sign in successful' }, res);
         })
         .catch(err => handleError(err, res));

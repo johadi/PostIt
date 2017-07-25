@@ -107,7 +107,13 @@ if (TARGET === 'build:dev' || !TARGET) {
 // 0.0.0.0 is available to all network devices unlike default
 // localhost
       host: process.env.HOST,
-      port: process.env.PORT
+      port: process.env.PORT,
+      proxy: {
+        '/api/**': {
+          target: 'http://localhost:4000',
+          secure: false
+        }
+      }
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()

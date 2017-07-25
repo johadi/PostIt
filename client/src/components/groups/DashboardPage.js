@@ -1,14 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { cancelModal } from '../../actions/auth/signupAction';
 import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import MessageBoard from './MessageBoard';
 import groupBackGround from '../../utils/groupPagesBackground';
+import SignupModal from './SignupModal';
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   componentDidMount() {
     groupBackGround(); // Change background of pages to suit user pages
+    if (this.props.signupState.welcome) { // Show modal when user just signup
+      const signupModal = $('#myModal');
+      signupModal.modal('show');
+      signupModal.on('hidden.bs.modal', (e) => { // Cancel Modal state whenever user cancel modal
+        this.props.cancelModal();
+      });
+    }
   }
   render() {
     return (
@@ -24,7 +34,13 @@ export default class Dashboard extends React.Component {
             </div>
             <SideBar/>
           </div>
+          <SignupModal/>
         </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  signupState: state.signupReducer
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ cancelModal }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

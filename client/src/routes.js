@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './App';
 import AuthPages from './components/auth';
-import groupPages from './components/groups';
+import groupPages from './components/groups/groupAuthentications';
 import IndexPage from './components/IndexPage';
 import NotFoundPage from './components/NotFoundPage';
 
@@ -11,14 +11,16 @@ export default (
       <IndexRoute component={IndexPage}/>
       <Route path="/signup" component={AuthPages.SignupPage}/>
       <Route path="/signin" component={AuthPages.SigninPage}/>
-      <Route path="/dashboard" component={groupPages.DashboardPage}/>
-      <Route path="/message" component={groupPages.MessageViewPage}/>
-      <Route path="/post-message" component={groupPages.PostMessagePage}/>
-      <Route path="/group-messages" component={groupPages.GroupMessageBoardPage}/>
-      <Route path="/create-group" component={groupPages.CreateGroupPage}/>
-      <Route path="/add-user-group" component={groupPages.CreatedGroupAddUserPage}/>
-      <Route path="/groups" component={groupPages.GroupsPage}/>
-      <Route path="/group-users" component={groupPages.GroupUsersPage}/>
+      <Route component={groupPages.AuthenticateUser}>
+        <Route path="/dashboard" component={groupPages.DashboardAuthPage}/>
+        <Route path="/message" component={groupPages.MessageViewAuthPage}/>
+        <Route path="/post-message" component={groupPages.PostMessageAuthPage}/>
+        <Route path="/group-messages" component={groupPages.GroupMessageBoardAuthPage}/>
+        <Route path="/create-group" component={groupPages.CreateGroupAuthPage}/>
+        <Route path="/add-user-group" component={groupPages.CreatedGroupAddUserAuthPage}/>
+        <Route path="/groups" component={groupPages.GroupsAuthPage}/>
+        <Route path="/group-users" component={groupPages.GroupUsersAuthPage}/>
+      </Route>
       <Route path="*" component={NotFoundPage}/>
     </Route>
 );

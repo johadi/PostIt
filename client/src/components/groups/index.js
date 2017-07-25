@@ -6,6 +6,7 @@ import CreateGroupPage from './CreateGroupPage';
 import CreatedGroupAddUserPage from './CreatedGroupAddUserPage';
 import GroupsPage from './GroupsPage';
 import GroupUsersPage from './GroupUsersPage';
+import AuthenticateUser from './AuthenticateUser';
 
 export default {
   DashboardPage,
@@ -15,5 +16,6 @@ export default {
   CreateGroupPage,
   CreatedGroupAddUserPage,
   GroupsPage,
-  GroupUsersPage
+  GroupUsersPage,
+  AuthenticateUser
 };

@@ -7,7 +7,13 @@ export default class SigninPage extends React.Component {
   constructor(props) {
     super(props);
   }
-
+  componentDidMount(){
+    const body = document.getElementById('body');
+    const app = document.getElementById('app');
+    app.className = 'site-wrapper';
+    body.className = 'body';
+    body.style.height = '100%';
+  }
   render() {
     return (
         <div className="site-wrapper-inner">

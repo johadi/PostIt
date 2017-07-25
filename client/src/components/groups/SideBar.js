@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 const SideBar = props => (
       <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
         <p>
-          <a className="btn navy-header btn-lg btn-block">Quick Links</a>
+          <Link className="btn navy-header btn-lg btn-block">Quick Links</Link>
           <Link to="/create-group" className="btn btn-default btn-block">Create Group</Link>
           <Link to="/groups" className="btn btn-default btn-block">All My Groups</Link>
         </p>

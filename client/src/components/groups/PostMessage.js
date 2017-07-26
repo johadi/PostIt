@@ -41,7 +41,7 @@ class PostMessage extends React.Component {
             <p className="text-center"><strong>Post to Andela group</strong></p>
             {(!!this.props.groupState.post_message_error && <h4 className="text-danger text-center">
               {this.props.groupState.post_message_error}</h4>) ||
-            (!this.state.isValid && <h4 className="text-danger text-center">Group name required.</h4>)}
+            (!this.state.isValid && <h4 className="text-danger text-center">Message body required.</h4>)}
             <div className="form-group">
               <div className="col-lg-12">
                 <textarea value={this.state.input.message} onChange={this.handleChange} rows="5"

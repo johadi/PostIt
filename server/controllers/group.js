@@ -75,11 +75,6 @@ module.exports = {
       return handleError('Provide Valid user detail to add to group', res);
     }
     // let us check if the user is trying to add him/her self as that is not possible
-    if (req.body.user === req.user.username ||
-        req.body.user === req.user.email ||
-        req.body.user === req.user.mobile) {
-      return handleError('Already a member. You can\'t add yourself to the group again', res);
-    }
     const user = req.body.user;
     const groupId = req.params.groupId;
     // let us check if groupId is a valid group id
@@ -98,11 +93,15 @@ module.exports = {
           if (!foundUserAndGroup) {
             return Promise.reject('Invalid operation: you do not belong to this group');
           }
+          // Reject a User trying to add himself
+          if (req.body.user === req.user.username || req.body.user === req.user.email) {
+            return Promise.reject('You can\'t add yourself to group you already belong');
+          }
           // Check to ensure provided detail is a detail of a valid user.
-          // NOTE: The detail of a user can either be Username or Email or Mobile number
+          // NOTE: The detail of a user can either be Username or Email
           return User.findOne({
             where: {
-              $or: [{ username: user }, { email: user }, { mobile: user }]
+              $or: [{ username: user }, { email: user }]
             }
           });
         })

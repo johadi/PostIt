@@ -11,7 +11,7 @@ class PostMessageAuthPage extends React.Component {
     this.props.verifyToken();
   }
   render() {
-    return this.props.tokenStatus.success ? <PostMessagePage/> : <NullPage/>;
+    return this.props.tokenStatus.success ? <PostMessagePage groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
 const mapStateToProps = state => ({

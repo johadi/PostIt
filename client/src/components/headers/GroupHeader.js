@@ -6,7 +6,6 @@ const GroupHeader = (props) => {
   const logout = () => {
     window.sessionStorage.removeItem('token');
     browserHistory.push('/');
-    console.log(window.sessionStorage.token);
   };
   return (
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">

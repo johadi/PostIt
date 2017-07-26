@@ -5,8 +5,9 @@ const GroupSideBar = props => (
     <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
       <p>
         <Link className="btn btn-block btn-lg navy-header">Activities</Link>
-        <Link to="/post-message" className="btn btn-default btn-block">Post Message here</Link>
-        <Link to="/add-user-group" className="btn btn-default btn-block">Add User to Group</Link>
+        <Link to="/group/23/board" className="btn btn-default btn-block">Group Messages</Link>
+        <Link to="/group/45/message" className="btn btn-default btn-block">Post Message here</Link>
+        <Link to="/group/45/add" className="btn btn-default btn-block">Add User to Group</Link>
         <Link to="/group-users" className="btn btn-default btn-block">Group Members</Link>
         <Link to="/dashboard" className="btn btn-default btn-block"><span className="text-danger"><strong>Leave Group</strong></span></Link>
       </p>

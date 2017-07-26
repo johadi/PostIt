@@ -11,7 +11,7 @@ class CreatedGroupAddUserAuthPage extends React.Component {
     this.props.verifyToken();
   }
   render() {
-    return this.props.tokenStatus.success ? <CreatedGroupAddUserPage/> : <NullPage/>;
+    return this.props.tokenStatus.success ? <CreatedGroupAddUserPage groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
 const mapStateToProps = state => ({

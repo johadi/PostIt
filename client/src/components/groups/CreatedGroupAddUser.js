@@ -16,7 +16,11 @@ const CreateGroupAddUser = props => (
       <div className="row">
         <div className="col-lg-12">
           <table className="table table-striped">
-            <caption><h3>Search result appears here</h3></caption>
+            <caption>
+              <h3>Search result appears here</h3>
+              {(props.addUserError && <h4 className="text-center text-danger">{props.addUserError}</h4>) ||
+              (props.addUserSuccess && <h4 className="text-center text-success">User addedd successfully</h4>)}
+            </caption>
             <thead>
             <tr>
               <th>Username</th>
@@ -28,24 +32,23 @@ const CreateGroupAddUser = props => (
             <tr>
               <td>Jimoh</td>
               <td>John Samuel</td>
-              <td><a className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+              <td><a onClick={props.onAddUser} id={'johadi'} className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
             </tr>
             <tr>
               <td>Johadi</td>
               <td>Mary Yan</td>
-              <td><a className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+              <td><a onClick={props.onAddUser} id={'jimoh'} className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
             </tr>
             <tr>
               <td>Johadi</td>
               <td>Sanni Ali</td>
-              <td><a className="btn btn-primary btn-sm btn-block" href="">Already Member</a></td>
+              <td><a onClick={props.onAddUser} id={'sanni'} className="btn btn-primary btn-sm btn-block" href="">Already Member</a></td>
             </tr>
             <tr>
               <td>Johadi</td>
               <td>Muhammed Ali</td>
-              <td><a className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+              <td><a onClick={props.onAddUser} id={'kamil'} className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
             </tr>
-
             <tr>
               <td colSpan="3">
                 <ul className="pagination">

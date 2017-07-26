@@ -14,10 +14,10 @@ export default (
       <Route component={groupPages.AuthenticateUser}>
         <Route path="/dashboard" component={groupPages.DashboardAuthPage}/>
         <Route path="/message" component={groupPages.MessageViewAuthPage}/>
-        <Route path="/post-message" component={groupPages.PostMessageAuthPage}/>
-        <Route path="/group-messages" component={groupPages.GroupMessageBoardAuthPage}/>
+        <Route path="/group/:groupId/message" component={groupPages.PostMessageAuthPage}/>
+        <Route path="/group/:groupId/board" component={groupPages.GroupMessageBoardAuthPage}/>
         <Route path="/create-group" component={groupPages.CreateGroupAuthPage}/>
-        <Route path="/add-user-group" component={groupPages.CreatedGroupAddUserAuthPage}/>
+        <Route path="/group/:groupId/add" component={groupPages.CreatedGroupAddUserAuthPage}/>
         <Route path="/groups" component={groupPages.GroupsAuthPage}/>
         <Route path="/group-users" component={groupPages.GroupUsersAuthPage}/>
       </Route>

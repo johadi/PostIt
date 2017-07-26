@@ -15,16 +15,16 @@ const SideBar = props => (
           </Link>
         </div>
         <div className="list-group">
-          <Link to="/group-messages" className="list-group-item">
+          <Link to="/group/23/board" className="list-group-item">
             <h5 className="list-group-item-heading">Andela</h5>
           </Link>
-          <Link to="/group-messages" className="list-group-item">
+          <Link to="/group/25/board" className="list-group-item">
             <h5 className="list-group-item-heading">Bootcamp 24</h5>
           </Link>
-          <Link to="/group-messages" className="list-group-item">
+          <Link to="/group/26/board" className="list-group-item">
             <h5 className="list-group-item-heading">Jimoh Family</h5>
           </Link>
-          <Link to="/group-messages" className="list-group-item">
+          <Link to="/group/45/board" className="list-group-item">
             <h5 className="list-group-item-heading">Johadi Club</h5>
           </Link>
           <Link to="/groups" className="list-group-item btn btn-primary">

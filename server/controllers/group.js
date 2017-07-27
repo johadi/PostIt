@@ -187,7 +187,6 @@ module.exports = {
   },
   // Controller method that allow users retrieve messages from group
   getMessages(req, res) {
-    // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.groupId, 10))) {
       return handleError('Oops! Something went wrong, Check your route', res);
     }
@@ -210,18 +209,50 @@ module.exports = {
             }
             // Let the user have his/her messages if he/she belongs to the group
             const criteria = [{ groupId }];
-            return Message.findAndCountAll({ where: { $and: criteria } });
+            return Message.findAndCountAll({ where: { $and: criteria },
+              order: [['createdAt', 'DESC']],
+              include: [{ model: User, attributes: ['id', 'username', 'fullname'] }] });
             // Another method to get user messages . by using their model relation
             // User.find({
             //   where: { id: req.user.id, },
             //   include: [{ model: Message }]
             // })
           })
-          .then((messages) => {
-            if (messages.rows.length === 0) {
-              return Promise.reject({ code: 404, message: 'You have no message in this group' });
+          .then(messages => handleSuccess(200, messages, res))
+          .catch(err => handleError(err, res));
+    }
+  },
+  // to view a particular message
+  viewMessage(req, res) {
+    if (isNaN(parseInt(req.params.groupId, 10))) {
+      return handleError('Oops! Something went wrong, Check your route', res);
+    }
+    if (req.user && req.params.groupId && req.params.messageId) {
+      const userId = req.user.id;
+      const groupId = req.params.groupId;
+      const messageId = req.params.messageId;
+      Group.findById(req.params.groupId)
+          .then((group) => {
+            if (!group) {
+              return Promise.reject({ code: 404, message: 'invalid group' });
             }
-            return handleSuccess(200, messages, res);
+            // Check if User belongs to the group
+            return UserGroup.findOne({
+              where: { userId, groupId }
+            });
+          })
+          .then((foundUserAndGroup) => {
+            if (!foundUserAndGroup) {
+              return Promise.reject('Invalid Operation: You don\'t belong to this group');
+            }
+            // Let the user read the message he satisfies all the criteria
+            return Message.findOne({ where: {id: messageId, groupId}, include: [{model: User, attributes: ['id','username','fullname']}] });
+          })
+          .then((message) => {
+            if (!message) {
+              return Promise.reject('message not found');
+            }
+            return handleSuccess(200, message, res);
           })
           .catch(err => handleError(err, res));
     }

@@ -99,4 +99,6 @@ router.route('/group/:groupId/message')
     .post(authenticate, groupController.postMessage);
 // router.route('/group/:groupId/user/message')
 //     .get(groupController.getUserMessages);
+router.route('/group/:groupId/message/:messageId')
+    .get(authenticate, groupController.viewMessage)
 module.exports = router;

@@ -1,76 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Moment from 'react-moment';
+import { getGroupMessages, clearGetGroupMessagesError } from '../../actions/group/groupActions';
 
-const GroupMessageBoard = props => (
-    <div className="col-md-12" id="message-board-div">
-      <h2>Andela Group</h2>
-      <hr/>
-      <div className="media">
-        <div className="media-left">
-        </div>
-        <div className="media-body">
-          <h4 className="media-heading">Jimoh Hadi
-            <small> posted at 4:56 PM</small>
-          </h4>
-          <p><Link to="/message">In a world changing faster than you imagine, the only guarantee to failure is not
-            taking
-            any risk...
-          </Link></p>
-        </div>
-      </div>
-      <hr/>
-      <div className="media">
-        <div className="media-left">
-        </div>
-        <div className="media-body">
-          <h4 className="media-heading">Nnamdi Azikwe
-            <small> posted at 3:04 AM</small>
-          </h4>
-          <p><a>In a world changing faster than you imagine, the only guarantee to failure is not
-            taking
-            any risk...
-          </a></p>
-        </div>
-      </div>
-      <hr/>
-      <div className="media">
-        <div className="media-left">
-        </div>
-        <div className="media-body">
-          <h4 className="media-heading">Obafemi Awolowo
-            <small> posted at 5:00 PM</small>
-          </h4>
-          <p><a>In a world changing faster than you imagine, the only guarantee to failure is not
-            taking
-            any risk...
-          </a></p>
-        </div>
-      </div>
-      <hr/>
-      <div className="media">
-        <div className="media-left">
-        </div>
-        <div className="media-body">
-          <h4 className="media-heading">Sir Ahmadu Bello
-            <small> posted at 4:23 PM</small>
-          </h4>
-          <p><a>In a world changing faster than you imagine, the only guarantee to failure is
-            not taking
-            any risk...
-          </a></p>
-        </div>
-      </div>
-      <hr/>
-      <ul className="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
-    </div>
-);
-export default GroupMessageBoard;
+class GroupMessageBoard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.dateOptions = {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+  }
+  showTime(date){
+    const postDate=new Date(date);
+    const diff=new Date().valueOf() - postDate.valueOf();
+    return new Date(diff).getHours();
+  }
 
+
+render() {
+    const {count, rows} =this.props.groupState.group_messages;
+    return (
+        <div className="col-md-12" id="message-board-div">
+          <h2>Andela Group {this.props.groupId}</h2>
+          <p>({count}) notifications</p>
+          <hr/>
+          {rows.map(message => (
+                <div key={message.id} className="media">
+                  <div className="media-left">
+                  </div>
+                  <div className="media-body">
+                    <h4 className="media-heading">{message.User.username}
+                      {this.showTime(message.createdAt) >= 24 ? <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
+                      </small> : <small> posted <Moment fromNow>{message.createdAt}</Moment></small>}
+                    </h4>
+                    <p className="text-overflow"><Link to={`/message/${this.props.groupId}/${message.id}`}>{message.body}</Link></p>
+                  </div>
+                  <hr/>
+                </div>
+            ))}
+          <ul className="pagination">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">&raquo;</a></li>
+          </ul>
+        </div>
+    );
+  }
+}
+const mapStateToProps = state => ({
+  groupState: state.groupReducer
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ getGroupMessages, clearGetGroupMessagesError }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupMessageBoard);

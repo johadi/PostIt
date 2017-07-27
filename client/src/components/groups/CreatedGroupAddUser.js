@@ -30,13 +30,13 @@ const CreateGroupAddUser = props => (
             </thead>
             <tbody>
             <tr>
-              <td>Jimoh</td>
-              <td>John Samuel</td>
+              <td>Johadi</td>
+              <td>Jimoh hadi</td>
               <td><a onClick={props.onAddUser} id={'johadi'} className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
             </tr>
             <tr>
-              <td>Johadi</td>
-              <td>Mary Yan</td>
+              <td>Jimoh</td>
+              <td>Jimoh Ovenje</td>
               <td><a onClick={props.onAddUser} id={'jimoh'} className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
             </tr>
             <tr>

@@ -4,7 +4,11 @@ const initialState = {
   error: null,
   add_user_error: null,
   add_user_success: false,
-  post_message_error: null
+  post_message_error: null,
+  get_group_messages_error: null,
+  group_messages: null,
+  group_view_message: null, // hold all messages for individual view
+  group_view_message_error: null
 };
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -55,6 +59,49 @@ const groupReducer = (state = initialState, action) => {
       state = {
         ...state,
         post_message_error: null
+      };
+      break;
+    case actionTypes.GET_GROUP_MESSAGES_SUCCESSFUL:
+      state = {
+        ...state,
+        group_messages: action.payload,
+        get_group_messages_error: null,
+      };
+      break;
+    case actionTypes.GET_GROUP_MESSAGES_ERROR:
+      state = {
+        ...state,
+        group_messages: null,
+        group_view_message: null,
+        get_group_messages_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_GET_GROUP_MESSAGES_ERROR:
+      state = {
+        ...state,
+        group_messages: null,
+        get_group_messages_error: null
+      };
+      break;
+    case actionTypes.VIEW_MESSAGE_SUCCESSFUL:
+      state = {
+        ...state,
+        group_view_message: action.payload, // hold all messages to be used in message/:id route
+        group_view_message_error: null
+      };
+      break;
+    case actionTypes.VIEW_MESSAGE_ERROR:
+      state = {
+        ...state,
+        group_view_message: null,
+        group_view_message_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_VIEW_MESSAGE_ERROR:
+      state = {
+        ...state,
+        group_view_message: null,
+        group_view_message_error: null
       };
       break;
     default:

@@ -13,7 +13,7 @@ export default (
       <Route path="/signin" component={AuthPages.SigninPage}/>
       <Route component={groupPages.AuthenticateUser}>
         <Route path="/dashboard" component={groupPages.DashboardAuthPage}/>
-        <Route path="/message" component={groupPages.MessageViewAuthPage}/>
+        <Route path="/message/:groupId/:messageId" component={groupPages.MessageViewAuthPage}/>
         <Route path="/group/:groupId/message" component={groupPages.PostMessageAuthPage}/>
         <Route path="/group/:groupId/board" component={groupPages.GroupMessageBoardAuthPage}/>
         <Route path="/create-group" component={groupPages.CreateGroupAuthPage}/>

@@ -54,3 +54,11 @@ a:focus,
 a:hover {
   color: lightseagreen;
 }
+
+.text-overflow {
+  white-space: nowrap;
+  width: 45em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}

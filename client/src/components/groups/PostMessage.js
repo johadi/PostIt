@@ -34,13 +34,13 @@ class PostMessage extends React.Component {
     this.setState({ input });
   }
   render() {
+    const {post_message_error} = this.props.groupState;
     return (
         <div className="col-sm-offset-1 col-sm-10 well well-lg" id="post-message-div">
-          <p>{this.props.groupId} </p>
           <form onSubmit={this.handleSubmit} className="form-horizontal" role="form">
-            <p className="text-center"><strong>Post to Andela group</strong></p>
-            {(!!this.props.groupState.post_message_error && <h4 className="text-danger text-center">
-              {this.props.groupState.post_message_error}</h4>) ||
+            <p className="text-center"><strong>Post to <span style={{textTransform: 'capitalize'}}>
+              {this.props.name} group</span></strong></p>
+            {(!!post_message_error && <h4 className="text-danger text-center">{post_message_error}</h4>) ||
             (!this.state.isValid && <h4 className="text-danger text-center">Message body required.</h4>)}
             <div className="form-group">
               <div className="col-lg-12">

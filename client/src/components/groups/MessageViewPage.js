@@ -11,6 +11,7 @@ export default class MessageViewPage extends React.Component {
     groupBackGround(); // Change background of pages to suit user pages
   }
   render() {
+    const {id, name, Users}=this.props.groupUsers;
     return (
         <div className="container">
           <GroupHeader/>
@@ -18,11 +19,11 @@ export default class MessageViewPage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <Message message={this.props.message}/>
+                  <Message name={name} message={this.props.message}/>
                 </div>
               </div>
             </div>
-            <GroupSideBar/>
+            <GroupSideBar groupId={this.props.groupId} users={Users}/>
           </div>
         </div>
     );

@@ -19,7 +19,7 @@ export default (
         <Route path="/create-group" component={groupPages.CreateGroupAuthPage}/>
         <Route path="/group/:groupId/add" component={groupPages.CreatedGroupAddUserAuthPage}/>
         <Route path="/groups" component={groupPages.GroupsAuthPage}/>
-        <Route path="/group-users" component={groupPages.GroupUsersAuthPage}/>
+        <Route path="/group/:groupId/users" component={groupPages.GroupUsersAuthPage}/>
       </Route>
       <Route path="*" component={NotFoundPage}/>
     </Route>

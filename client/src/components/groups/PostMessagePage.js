@@ -12,6 +12,7 @@ export default class PostMessagePage extends React.Component {
   }
   // we have to pass our groupId params down to PostMessage since we have a lot to do there
   render() {
+    const {id, name, Users}=this.props.groupUsers;
     return (
         <div className="container">
           <GroupHeader/>
@@ -19,11 +20,11 @@ export default class PostMessagePage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <PostMessage groupId={this.props.groupId}/>
+                  <PostMessage name={name} groupId={this.props.groupId}/>
                 </div>
               </div>
             </div>
-            <GroupSideBar/>
+            <GroupSideBar groupId={this.props.groupId} users={Users}/>
           </div>
         </div>
     );

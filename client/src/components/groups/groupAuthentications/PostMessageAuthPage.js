@@ -3,20 +3,26 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { verifyToken } from '../../../actions/verifyTokenAction';
+import { getGroupUsers } from '../../../actions/group/groupActions';
+
 import NullPage from '../NullPage';
 import PostMessagePage from '../PostMessagePage';
 
 class PostMessageAuthPage extends React.Component {
   componentWillMount() {
     this.props.verifyToken();
+    this.props.getGroupUsers(this.props.params.groupId);
   }
   render() {
-    return this.props.tokenStatus.success ? <PostMessagePage groupId={this.props.params.groupId}/> : <NullPage/>;
+    const {group_users} = this.props.groupState;
+    return this.props.tokenStatus.success && group_users ? <PostMessagePage
+        groupUsers={group_users} groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
 const mapStateToProps = state => ({
-  tokenStatus: state.verifyTokenReducer
+  tokenStatus: state.verifyTokenReducer,
+  groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken, getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PostMessageAuthPage);
 

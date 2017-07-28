@@ -8,7 +8,11 @@ const initialState = {
   get_group_messages_error: null,
   group_messages: null,
   group_view_message: null, // hold all messages for individual view
-  group_view_message_error: null
+  group_view_message_error: null,
+  group_users: null,
+  group_users_error: null,
+  groups_user_belongs: null,
+  groups_user_belongs_error: null
 };
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -102,6 +106,46 @@ const groupReducer = (state = initialState, action) => {
         ...state,
         group_view_message: null,
         group_view_message_error: null
+      };
+      break;
+    case actionTypes.GET_GROUP_USERS_SUCCESSFUL:
+      state = {
+        ...state,
+        group_users: action.payload,
+        group_users_error: null
+      };
+      break;
+    case actionTypes.GET_GROUP_USERS_ERROR:
+      state = {
+        ...state,
+        group_users_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_GET_GROUP_USERS_ERROR:
+      state = {
+        ...state,
+        group_users_error: null
+      };
+      break;
+    case actionTypes.GET_GROUPS_USER_BELONGS_TO_SUCCESSFUL:
+      state = {
+        ...state,
+        groups_user_belongs: action.payload,
+        groups_user_belongs_error: null
+      };
+      break;
+    case actionTypes.GET_GROUPS_USER_BELONGS_TO_ERROR:
+      state = {
+        ...state,
+        groups_user_belongs: null,
+        groups_user_belongs_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_GET_GROUPS_USER_BELONGS_TO_ERROR:
+      state = {
+        ...state,
+        groups_user_belongs: null,
+        groups_user_belongs_error: null
       };
       break;
     default:

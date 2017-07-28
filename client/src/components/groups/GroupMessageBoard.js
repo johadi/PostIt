@@ -28,7 +28,7 @@ render() {
     const {count, rows} =this.props.groupState.group_messages;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2>Andela Group {this.props.groupId}</h2>
+          <h2 style={{ textTransform: 'capitalize' }}>{this.props.name} Group</h2>
           <p>({count}) notifications</p>
           <hr/>
           {rows.map(message => (

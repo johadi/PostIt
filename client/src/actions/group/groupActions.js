@@ -98,3 +98,43 @@ export const viewMessage = (groupId, messageId) => (dispatch) => {
 export const clearViewMessageError = () => ({
   type: actionTypes.CLEAR_VIEW_MESSAGE_ERROR
 });
+// action for getting all users in a particular group for a user
+export const getGroupUsers = groupId => (dispatch) => {
+  axios.get(`/api/group/${groupId}/group-users`, { headers: { 'x-auth': window.sessionStorage.token } })
+      .then((res) => {
+        dispatch({ type: actionTypes.GET_GROUP_USERS_SUCCESSFUL, payload: res.data });
+      })
+      .catch((err) => {
+        if (err.response.data.name === 'SequelizeConnectionError') {
+          browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR, payload: 'Error Occurred...Try again' });
+        } else {
+          browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR, payload: err.response.data });
+        }
+      });
+};
+// action for clearing errors when getting all users in a particular group for a user
+export const clearGetGroupUsersError = () => ({
+  type: actionTypes.CLEAR_GET_GROUP_USERS_ERROR
+});
+// action for getting all users in a particular group for a user
+export const getGroupsUserBelongsTo = () => (dispatch) => {
+  axios.get('/api/group/user/groups', { headers: { 'x-auth': window.sessionStorage.token } })
+      .then((res) => {
+        dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_SUCCESSFUL, payload: res.data });
+      })
+      .catch((err) => {
+        if (err.response.data.name === 'SequelizeConnectionError') {
+          browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: 'Error Occurred...Try again' });
+        } else {
+          browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: err.response.data });
+        }
+      });
+};
+// action for clearing errors when getting all users in a particular group for a user
+export const clearGetGroupsUserBelongsToError = () => ({
+  type: actionTypes.CLEAR_GET_GROUPS_USER_BELONGS_TO_ERROR
+});

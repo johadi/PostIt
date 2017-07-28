@@ -26,19 +26,20 @@ class CreatedGroupAddUserPage extends React.Component {
     this.props.addUserToGroup(groupId,username);
   }
   render() {
+    const {id, name, Users}=this.props.groupUsers;
     return (
         <div className="container">
           <GroupHeader/>
           <div id="group-body" className="row">
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"style={{ marginTop: '30px', paddingTop: '20px' }}>
-              <p>{this.props.groupId}</p>
               <CreatedGroupAddUser
                   onAddUser={this.handleAddUser}
                   addUserError={this.props.groupState.add_user_error}
                   addUserSuccess={this.props.groupState.add_user_success}
+                  name={name}
               />
             </div>
-            <GroupSideBar/>
+            <GroupSideBar groupId={this.props.groupId} users={Users}/>
           </div>
         </div>
     );

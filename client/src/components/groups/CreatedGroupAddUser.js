@@ -2,7 +2,7 @@ import React from 'react';
 
 const CreateGroupAddUser = props => (
     <form className="form-horizontal" role="form">
-      <h3 className="text-center">Add Users to Andela Group</h3>
+      <h3 className="text-center">Add Users to <span className="text-capitalize">{props.name} Group</span></h3>
       <div className="row well well-sm">
         <div className="col-lg-10 col-lg-offset-1">
           <div className="input-group">

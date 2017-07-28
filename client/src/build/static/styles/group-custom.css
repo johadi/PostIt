@@ -36,4 +36,7 @@ a:hover {
   overflow: hidden;
   text-overflow: ellipsis; }
 
+.text-capitalize {
+  text-transform: capitalize; }
+
 /*# sourceMappingURL=group-custom.css.map */

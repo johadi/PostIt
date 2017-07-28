@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const User = require('../database/models').User;
 const Group = require('../database/models').Group;
 const UserGroup = require('../database/models').UserGroup;
@@ -297,7 +298,7 @@ module.exports = {
             if (!group) {
               return Promise.reject('group not found'); // this is redundant
             }
-            return handleSuccess(200, group, res);
+            return handleSuccess(200, _.pick(group, ['Users','name','id']), res);
           })
           .catch(err => handleError(err, res));
     }

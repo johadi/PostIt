@@ -4710,7 +4710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -4908,6 +4908,42 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /***/ }),
 /* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(375);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(376);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(127);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "applyMiddleware", function() { return __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return __WEBPACK_IMPORTED_MODULE_4__compose__["a"]; });
+
+
+
+
+
+
+
+/*
+* This is a dummy function to check if the function name has been altered by minification.
+* If the function has been minified and NODE_ENV !== 'production', warn the user.
+*/
+function isCrushed() {}
+
+if (false) {
+  warning('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+}
+
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5107,42 +5143,6 @@ var ReactDOMComponentTree = {
 module.exports = ReactDOMComponentTree;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(124);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(375);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(376);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(128);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(127);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "applyMiddleware", function() { return __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return __WEBPACK_IMPORTED_MODULE_4__compose__["a"]; });
-
-
-
-
-
-
-
-/*
-* This is a dummy function to check if the function name has been altered by minification.
-* If the function has been minified and NODE_ENV !== 'production', warn the user.
-*/
-function isCrushed() {}
-
-if (false) {
-  warning('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
-}
-
-
-
-/***/ }),
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5163,6 +5163,179 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.clearGetGroupsUserBelongsToError = exports.getGroupsUserBelongsTo = exports.clearGetGroupUsersError = exports.getGroupUsers = exports.clearViewMessageError = exports.viewMessage = exports.clearGetGroupMessagesError = exports.getGroupMessages = exports.clearPostMessageError = exports.postMessage = exports.clearAddUserToGroupError = exports.addUserToGroup = exports.createGroup = undefined;
+
+var _axios = __webpack_require__(43);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouter = __webpack_require__(3);
+
+var _actionTypes = __webpack_require__(25);
+
+var _actionTypes2 = _interopRequireDefault(_actionTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// action for creating group
+var createGroup = exports.createGroup = function createGroup(name) {
+  return function (dispatch) {
+    _axios2.default.post('/api/group', { name: name }, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
+      _reactRouter.browserHistory.push('/group/' + res.data.id + '/add');
+      dispatch({ type: _actionTypes2.default.GROUP_CREATE_SUCCESSFUL });
+    }).catch(function (err) {
+      if (err.response.data.name === 'SequelizeConnectionError') {
+        dispatch({ type: _actionTypes2.default.GROUP_CREATE_ERROR, payload: 'Error Occurred...Try again' });
+      } else {
+        dispatch({ type: _actionTypes2.default.GROUP_CREATE_ERROR, payload: err.response.data });
+      }
+    });
+  };
+};
+// action for adding user to a group
+var addUserToGroup = exports.addUserToGroup = function addUserToGroup(groupId, username) {
+  return function (dispatch) {
+    _axios2.default.post('/api/group/' + groupId + '/user', { user: username }, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
+      dispatch({ type: _actionTypes2.default.GROUP_ADD_USER_SUCCESSFUL });
+    }).catch(function (err) {
+      if (err.response.data.name === 'SequelizeConnectionError') {
+        dispatch({ type: _actionTypes2.default.GROUP_ADD_USER_ERROR, payload: 'Error Occurred...Try again' });
+      } else {
+        dispatch({ type: _actionTypes2.default.GROUP_ADD_USER_ERROR, payload: err.response.data });
+      }
+    });
+  };
+};
+// action for clearing error when adding user to group
+var clearAddUserToGroupError = exports.clearAddUserToGroupError = function clearAddUserToGroupError() {
+  return {
+    type: _actionTypes2.default.CLEAR_ADD_USER_TO_GROUP_ERROR
+  };
+};
+// action for posting message to a group
+var postMessage = exports.postMessage = function postMessage(groupId, message) {
+  return function (dispatch) {
+    _axios2.default.post('/api/group/' + groupId + '/message', { message: message }, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
+      _reactRouter.browserHistory.push('/group/' + groupId + '/board');
+      dispatch({ type: _actionTypes2.default.POST_MESSAGE_SUCCESSFUL });
+    }).catch(function (err) {
+      if (err.response.data.name === 'SequelizeConnectionError') {
+        dispatch({ type: _actionTypes2.default.POST_MESSAGE_ERROR, payload: 'Error Occurred...Try again' });
+      } else {
+        dispatch({ type: _actionTypes2.default.POST_MESSAGE_ERROR, payload: err.response.data });
+      }
+    });
+  };
+};
+// action for clearing errors when posting message to a group
+var clearPostMessageError = exports.clearPostMessageError = function clearPostMessageError() {
+  return {
+    type: _actionTypes2.default.CLEAR_POST_MESSAGE_ERROR
+  };
+};
+
+// action for getting all messages in a particular group for a user
+var getGroupMessages = exports.getGroupMessages = function getGroupMessages(groupId) {
+  return function (dispatch) {
+    _axios2.default.get('/api/group/' + groupId + '/message', { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
+      dispatch({ type: _actionTypes2.default.GET_GROUP_MESSAGES_SUCCESSFUL, payload: res.data });
+      // console.log(res.data, groupId);
+    }).catch(function (err) {
+      if (err.response.data.name === 'SequelizeConnectionError') {
+        _reactRouter.browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.GET_GROUP_MESSAGES_ERROR, payload: 'Error Occurred...Try again' });
+        // console.log(err.response.data.name);
+      } else {
+        _reactRouter.browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.GET_GROUP_MESSAGES_ERROR, payload: err.response.data });
+        // console.log(err.response.data);
+      }
+    });
+  };
+};
+// action for clearing errors when getting messages in a particular group for a user
+var clearGetGroupMessagesError = exports.clearGetGroupMessagesError = function clearGetGroupMessagesError() {
+  return {
+    type: _actionTypes2.default.CLEAR_GET_GROUP_MESSAGES_ERROR
+  };
+};
+// action for getting all messages in a particular group for a user
+var viewMessage = exports.viewMessage = function viewMessage(groupId, messageId) {
+  return function (dispatch) {
+    _axios2.default.get('/api/group/' + groupId + '/message/' + messageId, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
+      dispatch({ type: _actionTypes2.default.VIEW_MESSAGE_SUCCESSFUL, payload: res.data });
+    }).catch(function (err) {
+      if (err.response.data.name === 'SequelizeConnectionError') {
+        _reactRouter.browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.VIEW_MESSAGE_ERROR, payload: 'Error Occurred...Try again' });
+      } else {
+        _reactRouter.browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.VIEW_MESSAGE_ERROR, payload: err.response.data });
+      }
+    });
+  };
+};
+// action for clearing errors when getting messages in a particular group for a user
+var clearViewMessageError = exports.clearViewMessageError = function clearViewMessageError() {
+  return {
+    type: _actionTypes2.default.CLEAR_VIEW_MESSAGE_ERROR
+  };
+};
+// action for getting all users in a particular group for a user
+var getGroupUsers = exports.getGroupUsers = function getGroupUsers(groupId) {
+  return function (dispatch) {
+    _axios2.default.get('/api/group/' + groupId + '/group-users', { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
+      dispatch({ type: _actionTypes2.default.GET_GROUP_USERS_SUCCESSFUL, payload: res.data });
+    }).catch(function (err) {
+      if (err.response.data.name === 'SequelizeConnectionError') {
+        // browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.GET_GROUP_USERS_ERROR, payload: 'Error Occurred...Try again' });
+      } else {
+        // browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.GET_GROUP_USERS_ERROR, payload: err.response.data });
+      }
+    });
+  };
+};
+// action for clearing errors when getting all users in a particular group for a user
+var clearGetGroupUsersError = exports.clearGetGroupUsersError = function clearGetGroupUsersError() {
+  return {
+    type: _actionTypes2.default.CLEAR_GET_GROUP_USERS_ERROR
+  };
+};
+// action for getting all users in a particular group for a user
+var getGroupsUserBelongsTo = exports.getGroupsUserBelongsTo = function getGroupsUserBelongsTo() {
+  return function (dispatch) {
+    _axios2.default.get('/api/group/user/groups', { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
+      dispatch({ type: _actionTypes2.default.GET_GROUPS_USER_BELONGS_TO_SUCCESSFUL, payload: res.data });
+    }).catch(function (err) {
+      if (err.response.data.name === 'SequelizeConnectionError') {
+        // browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: 'Error Occurred...Try again' });
+      } else {
+        // browserHistory.goBack();
+        dispatch({ type: _actionTypes2.default.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: err.response.data });
+      }
+    });
+  };
+};
+// action for clearing errors when getting all users in a particular group for a user
+var clearGetGroupsUserBelongsToError = exports.clearGetGroupsUserBelongsToError = function clearGetGroupsUserBelongsToError() {
+  return {
+    type: _actionTypes2.default.CLEAR_GET_GROUPS_USER_BELONGS_TO_ERROR
+  };
+};
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5220,7 +5393,7 @@ module.exports = invariant;
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5261,7 +5434,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5305,7 +5478,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5615,7 +5788,7 @@ module.exports = {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5642,179 +5815,6 @@ if (false) {
 }
 
 module.exports = { debugTool: debugTool };
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.clearGetGroupsUserBelongsToError = exports.getGroupsUserBelongsTo = exports.clearGetGroupUsersError = exports.getGroupUsers = exports.clearViewMessageError = exports.viewMessage = exports.clearGetGroupMessagesError = exports.getGroupMessages = exports.clearPostMessageError = exports.postMessage = exports.clearAddUserToGroupError = exports.addUserToGroup = exports.createGroup = undefined;
-
-var _axios = __webpack_require__(43);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _reactRouter = __webpack_require__(3);
-
-var _actionTypes = __webpack_require__(25);
-
-var _actionTypes2 = _interopRequireDefault(_actionTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// action for creating group
-var createGroup = exports.createGroup = function createGroup(name) {
-  return function (dispatch) {
-    _axios2.default.post('/api/group', { name: name }, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
-      _reactRouter.browserHistory.push('/group/' + res.data.id + '/add');
-      dispatch({ type: _actionTypes2.default.GROUP_CREATE_SUCCESSFUL });
-    }).catch(function (err) {
-      if (err.response.data.name === 'SequelizeConnectionError') {
-        dispatch({ type: _actionTypes2.default.GROUP_CREATE_ERROR, payload: 'Error Occurred...Try again' });
-      } else {
-        dispatch({ type: _actionTypes2.default.GROUP_CREATE_ERROR, payload: err.response.data });
-      }
-    });
-  };
-};
-// action for adding user to a group
-var addUserToGroup = exports.addUserToGroup = function addUserToGroup(groupId, username) {
-  return function (dispatch) {
-    _axios2.default.post('/api/group/' + groupId + '/user', { user: username }, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
-      dispatch({ type: _actionTypes2.default.GROUP_ADD_USER_SUCCESSFUL });
-    }).catch(function (err) {
-      if (err.response.data.name === 'SequelizeConnectionError') {
-        dispatch({ type: _actionTypes2.default.GROUP_ADD_USER_ERROR, payload: 'Error Occurred...Try again' });
-      } else {
-        dispatch({ type: _actionTypes2.default.GROUP_ADD_USER_ERROR, payload: err.response.data });
-      }
-    });
-  };
-};
-// action for clearing error when adding user to group
-var clearAddUserToGroupError = exports.clearAddUserToGroupError = function clearAddUserToGroupError() {
-  return {
-    type: _actionTypes2.default.CLEAR_ADD_USER_TO_GROUP_ERROR
-  };
-};
-// action for posting message to a group
-var postMessage = exports.postMessage = function postMessage(groupId, message) {
-  return function (dispatch) {
-    _axios2.default.post('/api/group/' + groupId + '/message', { message: message }, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
-      _reactRouter.browserHistory.push('/group/' + groupId + '/board');
-      dispatch({ type: _actionTypes2.default.POST_MESSAGE_SUCCESSFUL });
-    }).catch(function (err) {
-      if (err.response.data.name === 'SequelizeConnectionError') {
-        dispatch({ type: _actionTypes2.default.POST_MESSAGE_ERROR, payload: 'Error Occurred...Try again' });
-      } else {
-        dispatch({ type: _actionTypes2.default.POST_MESSAGE_ERROR, payload: err.response.data });
-      }
-    });
-  };
-};
-// action for clearing errors when posting message to a group
-var clearPostMessageError = exports.clearPostMessageError = function clearPostMessageError() {
-  return {
-    type: _actionTypes2.default.CLEAR_POST_MESSAGE_ERROR
-  };
-};
-
-// action for getting all messages in a particular group for a user
-var getGroupMessages = exports.getGroupMessages = function getGroupMessages(groupId) {
-  return function (dispatch) {
-    _axios2.default.get('/api/group/' + groupId + '/message', { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
-      dispatch({ type: _actionTypes2.default.GET_GROUP_MESSAGES_SUCCESSFUL, payload: res.data });
-      // console.log(res.data, groupId);
-    }).catch(function (err) {
-      if (err.response.data.name === 'SequelizeConnectionError') {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.GET_GROUP_MESSAGES_ERROR, payload: 'Error Occurred...Try again' });
-        // console.log(err.response.data.name);
-      } else {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.GET_GROUP_MESSAGES_ERROR, payload: err.response.data });
-        // console.log(err.response.data);
-      }
-    });
-  };
-};
-// action for clearing errors when getting messages in a particular group for a user
-var clearGetGroupMessagesError = exports.clearGetGroupMessagesError = function clearGetGroupMessagesError() {
-  return {
-    type: _actionTypes2.default.CLEAR_GET_GROUP_MESSAGES_ERROR
-  };
-};
-// action for getting all messages in a particular group for a user
-var viewMessage = exports.viewMessage = function viewMessage(groupId, messageId) {
-  return function (dispatch) {
-    _axios2.default.get('/api/group/' + groupId + '/message/' + messageId, { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
-      dispatch({ type: _actionTypes2.default.VIEW_MESSAGE_SUCCESSFUL, payload: res.data });
-    }).catch(function (err) {
-      if (err.response.data.name === 'SequelizeConnectionError') {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.VIEW_MESSAGE_ERROR, payload: 'Error Occurred...Try again' });
-      } else {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.VIEW_MESSAGE_ERROR, payload: err.response.data });
-      }
-    });
-  };
-};
-// action for clearing errors when getting messages in a particular group for a user
-var clearViewMessageError = exports.clearViewMessageError = function clearViewMessageError() {
-  return {
-    type: _actionTypes2.default.CLEAR_VIEW_MESSAGE_ERROR
-  };
-};
-// action for getting all users in a particular group for a user
-var getGroupUsers = exports.getGroupUsers = function getGroupUsers(groupId) {
-  return function (dispatch) {
-    _axios2.default.get('/api/group/' + groupId + '/group-users', { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
-      dispatch({ type: _actionTypes2.default.GET_GROUP_USERS_SUCCESSFUL, payload: res.data });
-    }).catch(function (err) {
-      if (err.response.data.name === 'SequelizeConnectionError') {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.GET_GROUP_USERS_ERROR, payload: 'Error Occurred...Try again' });
-      } else {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.GET_GROUP_USERS_ERROR, payload: err.response.data });
-      }
-    });
-  };
-};
-// action for clearing errors when getting all users in a particular group for a user
-var clearGetGroupUsersError = exports.clearGetGroupUsersError = function clearGetGroupUsersError() {
-  return {
-    type: _actionTypes2.default.CLEAR_GET_GROUP_USERS_ERROR
-  };
-};
-// action for getting all users in a particular group for a user
-var getGroupsUserBelongsTo = exports.getGroupsUserBelongsTo = function getGroupsUserBelongsTo() {
-  return function (dispatch) {
-    _axios2.default.get('/api/group/user/groups', { headers: { 'x-auth': window.sessionStorage.token } }).then(function (res) {
-      dispatch({ type: _actionTypes2.default.GET_GROUPS_USER_BELONGS_TO_SUCCESSFUL, payload: res.data });
-    }).catch(function (err) {
-      if (err.response.data.name === 'SequelizeConnectionError') {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: 'Error Occurred...Try again' });
-      } else {
-        _reactRouter.browserHistory.goBack();
-        dispatch({ type: _actionTypes2.default.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: err.response.data });
-      }
-    });
-  };
-};
-// action for clearing errors when getting all users in a particular group for a user
-var clearGetGroupsUserBelongsToError = exports.clearGetGroupsUserBelongsToError = function clearGetGroupsUserBelongsToError() {
-  return {
-    type: _actionTypes2.default.CLEAR_GET_GROUPS_USER_BELONGS_TO_ERROR
-  };
-};
 
 /***/ }),
 /* 16 */
@@ -6127,7 +6127,7 @@ var _assign = __webpack_require__(6);
 
 var PooledClass = __webpack_require__(28);
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var warning = __webpack_require__(4);
 
 var didWarnForAddedNewProperty = false;
@@ -7805,7 +7805,7 @@ module.exports = DOMProperty;
 
 
 var ReactRef = __webpack_require__(290);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 
 var warning = __webpack_require__(4);
 
@@ -8127,7 +8127,7 @@ function _resetWarned() {
 /* harmony export (immutable) */ __webpack_exports__["b"] = getParamNames;
 /* unused harmony export getParams */
 /* harmony export (immutable) */ __webpack_exports__["a"] = formatPattern;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 
 
@@ -8375,7 +8375,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _invariant = __webpack_require__(10);
+var _invariant = __webpack_require__(11);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -9103,11 +9103,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9200,11 +9200,11 @@ var GroupSideBar = function (_React$Component) {
           this.props.users.splice(0, 5).map(function (user) {
             return _react2.default.createElement(
               _reactRouter.Link,
-              { key: user.id, className: 'list-group-item' },
+              { key: user.User.id, className: 'list-group-item' },
               _react2.default.createElement(
                 'h5',
                 { className: 'list-group-item-heading' },
-                user.fullname
+                user.User.fullname
               )
             );
           }),
@@ -9595,7 +9595,7 @@ module.exports = SyntheticMouseEvent;
 
 
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 var DOMNamespaces = __webpack_require__(60);
 
 var WHITESPACE_TEST = /^[ \r\n\t\f]/;
@@ -10847,7 +10847,7 @@ module.exports = getEventTarget;
 
 
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 
 var useHasFeature;
 if (ExecutionEnvironment.canUseDOM) {
@@ -10962,8 +10962,8 @@ module.exports = getEventModifierState;
 
 var DOMLazyTree = __webpack_require__(33);
 var Danger = __webpack_require__(296);
-var ReactDOMComponentTree = __webpack_require__(7);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactDOMComponentTree = __webpack_require__(8);
+var ReactInstrumentation = __webpack_require__(15);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(61);
 var setInnerHTML = __webpack_require__(48);
@@ -11823,7 +11823,7 @@ var _prodInvariant = __webpack_require__(5);
 
 var ReactCurrentOwner = __webpack_require__(17);
 var ReactInstanceMap = __webpack_require__(41);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 var ReactUpdates = __webpack_require__(16);
 
 var invariant = __webpack_require__(2);
@@ -12060,7 +12060,7 @@ module.exports = ReactUpdateQueue;
 
 var _assign = __webpack_require__(6);
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var warning = __webpack_require__(4);
 
 var validateDOMNesting = emptyFunction;
@@ -12695,7 +12695,7 @@ function mapAsync(array, work, callback) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -13873,7 +13873,7 @@ if(false) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 var normalizeHeaderName = __webpack_require__(427);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -14032,111 +14032,129 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
+var _redux = __webpack_require__(7);
+
+var _reactRedux = __webpack_require__(9);
+
+var _groupActions = __webpack_require__(10);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SideBar = function SideBar(props) {
-  return _react2.default.createElement(
-    'div',
-    { className: 'col-md-push-2 col-md-3 col-sm-12 col-xs-12 well' },
-    _react2.default.createElement(
-      'p',
-      null,
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { className: 'btn navy-header btn-lg btn-block' },
-        'Quick Links'
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/create-group', className: 'btn btn-default btn-block' },
-        'Create Group'
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/groups', className: 'btn btn-default btn-block' },
-        'All My Groups'
-      )
-    ),
-    _react2.default.createElement('hr', null),
-    _react2.default.createElement(
-      'div',
-      { className: 'list-group' },
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { className: 'list-group-item active navy-header' },
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SideBar = function (_React$Component) {
+  _inherits(SideBar, _React$Component);
+
+  function SideBar() {
+    _classCallCheck(this, SideBar);
+
+    return _possibleConstructorReturn(this, (SideBar.__proto__ || Object.getPrototypeOf(SideBar)).apply(this, arguments));
+  }
+
+  _createClass(SideBar, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.getGroupsUserBelongsTo();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'col-md-push-2 col-md-3 col-sm-12 col-xs-12 well' },
         _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Your top groups'
-        )
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'list-group' },
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group/23/board', className: 'list-group-item' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Andela'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group/25/board', className: 'list-group-item' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Bootcamp 24'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group/26/board', className: 'list-group-item' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Jimoh Family'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group/45/board', className: 'list-group-item' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Johadi Club'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/groups', className: 'list-group-item btn btn-primary' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
+          'p',
+          null,
           _react2.default.createElement(
-            'strong',
-            null,
+            _reactRouter.Link,
+            { className: 'btn navy-header btn-lg btn-block' },
+            'Quick Links'
+          ),
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/create-group', className: 'btn btn-default btn-block' },
+            'Create Group'
+          ),
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/groups', className: 'btn btn-default btn-block' },
+            'All My Groups'
+          )
+        ),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement(
+          'div',
+          { className: 'list-group' },
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { className: 'list-group-item active navy-header' },
             _react2.default.createElement(
-              'a',
-              null,
-              'See all groups'
+              'h5',
+              { className: 'list-group-item-heading' },
+              'Your top groups'
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'list-group' },
+          this.props.userGroups.splice(0, 5).map(function (userGroup) {
+            return _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/group/' + userGroup.Group.id + '/board', key: userGroup.Group.id, className: 'list-group-item' },
+              _react2.default.createElement(
+                'h5',
+                { className: 'list-group-item-heading' },
+                userGroup.Group.name
+              )
+            );
+          }),
+          _react2.default.createElement(
+            _reactRouter.Link,
+            { to: '/group-users', className: 'list-group-item btn btn-primary' },
+            _react2.default.createElement(
+              'h5',
+              { className: 'list-group-item-heading' },
+              _react2.default.createElement(
+                'strong',
+                null,
+                _react2.default.createElement(
+                  _reactRouter.Link,
+                  { to: '/groups' },
+                  'See all you groups'
+                )
+              )
             )
           )
         )
-      )
-    )
-  );
+      );
+    }
+  }]);
+
+  return SideBar;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    groupState: state.groupReducer
+  };
 };
-exports.default = SideBar;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({ getGroupsUserBelongsTo: _groupActions.getGroupsUserBelongsTo }, dispatch);
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SideBar);
 
 /***/ }),
 /* 89 */
@@ -14630,7 +14648,7 @@ module.exports = forEachAccumulated;
 
 
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 
 var contentKey = null;
 
@@ -14819,7 +14837,7 @@ module.exports = ReactFeatureFlags;
 
 
 
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 
 function isCheckable(elem) {
   var type = elem.type;
@@ -15033,7 +15051,7 @@ module.exports = ViewportMetrics;
 
 
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 var escapeTextContentForBrowser = __webpack_require__(49);
 var setInnerHTML = __webpack_require__(48);
 
@@ -15282,8 +15300,8 @@ module.exports = CSSProperty;
 
 
 var DOMProperty = __webpack_require__(31);
-var ReactDOMComponentTree = __webpack_require__(7);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactDOMComponentTree = __webpack_require__(8);
+var ReactInstrumentation = __webpack_require__(15);
 
 var quoteAttributeValueForBrowser = __webpack_require__(310);
 var warning = __webpack_require__(4);
@@ -15524,7 +15542,7 @@ module.exports = DOMPropertyOperations;
 var _assign = __webpack_require__(6);
 
 var LinkedValueUtils = __webpack_require__(62);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactUpdates = __webpack_require__(16);
 
 var warning = __webpack_require__(4);
@@ -16586,7 +16604,7 @@ module.exports = ReactComponentTreeHook;
  * @typechecks
  */
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 
 /**
  * Upstream version of event listener. Does not take into account specific
@@ -16846,12 +16864,12 @@ var DOMProperty = __webpack_require__(31);
 var React = __webpack_require__(29);
 var ReactBrowserEventEmitter = __webpack_require__(50);
 var ReactCurrentOwner = __webpack_require__(17);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactDOMContainerInfo = __webpack_require__(351);
 var ReactDOMFeatureFlags = __webpack_require__(352);
 var ReactFeatureFlags = __webpack_require__(100);
 var ReactInstanceMap = __webpack_require__(41);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 var ReactMarkupChecksum = __webpack_require__(353);
 var ReactReconciler = __webpack_require__(32);
 var ReactUpdateQueue = __webpack_require__(68);
@@ -17468,7 +17486,7 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
 /* harmony export (immutable) */ __webpack_exports__["a"] = connectAdvanced;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
@@ -18577,7 +18595,7 @@ function assignRouterState(router, _ref) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PropTypes__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ContextUtils__ = __webpack_require__(76);
@@ -18733,7 +18751,7 @@ var Link = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__RouteUtils__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__PatternUtils__ = __webpack_require__(35);
@@ -19255,7 +19273,7 @@ module.exports = function bind(fn, thisArg) {
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 var settle = __webpack_require__(428);
 var buildURL = __webpack_require__(430);
 var parseHeaders = __webpack_require__(431);
@@ -30801,7 +30819,7 @@ module.exports = lowPriorityWarning;
 var PooledClass = __webpack_require__(269);
 var ReactElement = __webpack_require__(30);
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var traverseAllChildren = __webpack_require__(270);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
@@ -31599,7 +31617,7 @@ module.exports = factory(isValidElement);
 
 
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var invariant = __webpack_require__(2);
 var warning = __webpack_require__(4);
 
@@ -33168,7 +33186,7 @@ module.exports = __webpack_require__(282);
 
 
 
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactDefaultInjection = __webpack_require__(283);
 var ReactMount = __webpack_require__(118);
 var ReactReconciler = __webpack_require__(32);
@@ -33290,7 +33308,7 @@ var EnterLeaveEventPlugin = __webpack_require__(293);
 var HTMLDOMPropertyConfig = __webpack_require__(294);
 var ReactComponentBrowserEnvironment = __webpack_require__(295);
 var ReactDOMComponent = __webpack_require__(301);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactDOMEmptyComponent = __webpack_require__(326);
 var ReactDOMTreeTraversal = __webpack_require__(327);
 var ReactDOMTextComponent = __webpack_require__(328);
@@ -33453,7 +33471,7 @@ module.exports = ARIADOMPropertyConfig;
 
 
 var EventPropagators = __webpack_require__(38);
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 var FallbackCompositionState = __webpack_require__(286);
 var SyntheticCompositionEvent = __webpack_require__(287);
 var SyntheticInputEvent = __webpack_require__(288);
@@ -34026,8 +34044,8 @@ module.exports = SyntheticInputEvent;
 
 var EventPluginHub = __webpack_require__(39);
 var EventPropagators = __webpack_require__(38);
-var ExecutionEnvironment = __webpack_require__(11);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(12);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactUpdates = __webpack_require__(16);
 var SyntheticEvent = __webpack_require__(18);
 
@@ -34565,7 +34583,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 var EventPropagators = __webpack_require__(38);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var SyntheticMouseEvent = __webpack_require__(47);
 
 var eventTypes = {
@@ -34944,10 +34962,10 @@ module.exports = ReactComponentBrowserEnvironment;
 var _prodInvariant = __webpack_require__(5);
 
 var DOMLazyTree = __webpack_require__(33);
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 
 var createNodesFromMarkup = __webpack_require__(297);
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var invariant = __webpack_require__(2);
 
 var Danger = {
@@ -34995,7 +35013,7 @@ module.exports = Danger;
 
 /*eslint-disable fb-www/unsafe-html*/
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 
 var createArrayFromMixed = __webpack_require__(298);
 var getMarkupWrap = __webpack_require__(299);
@@ -35215,7 +35233,7 @@ module.exports = createArrayFromMixed;
 
 /*eslint-disable fb-www/unsafe-html */
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 
 var invariant = __webpack_require__(2);
 
@@ -35314,7 +35332,7 @@ module.exports = getMarkupWrap;
 
 
 var DOMChildrenOperations = __webpack_require__(59);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 
 /**
  * Operations used to process updates to DOM nodes.
@@ -35366,16 +35384,16 @@ var EventPluginHub = __webpack_require__(39);
 var EventPluginRegistry = __webpack_require__(53);
 var ReactBrowserEventEmitter = __webpack_require__(50);
 var ReactDOMComponentFlags = __webpack_require__(95);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactDOMInput = __webpack_require__(313);
 var ReactDOMOption = __webpack_require__(315);
 var ReactDOMSelect = __webpack_require__(108);
 var ReactDOMTextarea = __webpack_require__(316);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 var ReactMultiChild = __webpack_require__(317);
 var ReactServerRenderingTransaction = __webpack_require__(324);
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var escapeTextContentForBrowser = __webpack_require__(49);
 var invariant = __webpack_require__(2);
 var isEventSupported = __webpack_require__(57);
@@ -36366,7 +36384,7 @@ module.exports = ReactDOMComponent;
 
 
 
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 
 var focusNode = __webpack_require__(105);
 
@@ -36396,8 +36414,8 @@ module.exports = AutoFocusUtils;
 
 
 var CSSProperty = __webpack_require__(106);
-var ExecutionEnvironment = __webpack_require__(11);
-var ReactInstrumentation = __webpack_require__(14);
+var ExecutionEnvironment = __webpack_require__(12);
+var ReactInstrumentation = __webpack_require__(15);
 
 var camelizeStyleName = __webpack_require__(304);
 var dangerousStyleValue = __webpack_require__(306);
@@ -36966,7 +36984,7 @@ module.exports = ReactEventEmitterMixin;
 
 
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 
 /**
  * Generate a mapping of standard vendor prefixes using the defined style property and event name.
@@ -37077,7 +37095,7 @@ var _prodInvariant = __webpack_require__(5),
 
 var DOMPropertyOperations = __webpack_require__(107);
 var LinkedValueUtils = __webpack_require__(62);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactUpdates = __webpack_require__(16);
 
 var invariant = __webpack_require__(2);
@@ -37389,7 +37407,7 @@ module.exports = ReactPropTypesSecret;
 var _assign = __webpack_require__(6);
 
 var React = __webpack_require__(29);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactDOMSelect = __webpack_require__(108);
 
 var warning = __webpack_require__(4);
@@ -37517,7 +37535,7 @@ var _prodInvariant = __webpack_require__(5),
     _assign = __webpack_require__(6);
 
 var LinkedValueUtils = __webpack_require__(62);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactUpdates = __webpack_require__(16);
 
 var invariant = __webpack_require__(2);
@@ -37682,13 +37700,13 @@ var _prodInvariant = __webpack_require__(5);
 
 var ReactComponentEnvironment = __webpack_require__(63);
 var ReactInstanceMap = __webpack_require__(41);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 
 var ReactCurrentOwner = __webpack_require__(17);
 var ReactReconciler = __webpack_require__(32);
 var ReactChildReconciler = __webpack_require__(318);
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var flattenChildren = __webpack_require__(323);
 var invariant = __webpack_require__(2);
 
@@ -38296,7 +38314,7 @@ var ReactComponentEnvironment = __webpack_require__(63);
 var ReactCurrentOwner = __webpack_require__(17);
 var ReactErrorUtils = __webpack_require__(55);
 var ReactInstanceMap = __webpack_require__(41);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 var ReactNodeTypes = __webpack_require__(110);
 var ReactReconciler = __webpack_require__(32);
 
@@ -39376,7 +39394,7 @@ var _assign = __webpack_require__(6);
 
 var PooledClass = __webpack_require__(28);
 var Transaction = __webpack_require__(46);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 var ReactServerUpdateQueue = __webpack_require__(325);
 
 /**
@@ -39614,7 +39632,7 @@ module.exports = ReactServerUpdateQueue;
 var _assign = __webpack_require__(6);
 
 var DOMLazyTree = __webpack_require__(33);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 
 var ReactDOMEmptyComponent = function (instantiate) {
   // ReactCompositeComponent uses this:
@@ -39822,7 +39840,7 @@ var _prodInvariant = __webpack_require__(5),
 
 var DOMChildrenOperations = __webpack_require__(59);
 var DOMLazyTree = __webpack_require__(33);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 
 var escapeTextContentForBrowser = __webpack_require__(49);
 var invariant = __webpack_require__(2);
@@ -39989,7 +40007,7 @@ var _assign = __webpack_require__(6);
 var ReactUpdates = __webpack_require__(16);
 var Transaction = __webpack_require__(46);
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 
 var RESET_BATCHED_UPDATES = {
   initialize: emptyFunction,
@@ -40060,9 +40078,9 @@ module.exports = ReactDefaultBatchingStrategy;
 var _assign = __webpack_require__(6);
 
 var EventListener = __webpack_require__(115);
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 var PooledClass = __webpack_require__(28);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactUpdates = __webpack_require__(16);
 
 var getEventTarget = __webpack_require__(56);
@@ -40306,7 +40324,7 @@ var CallbackQueue = __webpack_require__(99);
 var PooledClass = __webpack_require__(28);
 var ReactBrowserEventEmitter = __webpack_require__(50);
 var ReactInputSelection = __webpack_require__(116);
-var ReactInstrumentation = __webpack_require__(14);
+var ReactInstrumentation = __webpack_require__(15);
 var Transaction = __webpack_require__(46);
 var ReactUpdateQueue = __webpack_require__(68);
 
@@ -40483,7 +40501,7 @@ module.exports = ReactReconcileTransaction;
 
 
 
-var ExecutionEnvironment = __webpack_require__(11);
+var ExecutionEnvironment = __webpack_require__(12);
 
 var getNodeForCharacterOffset = __webpack_require__(335);
 var getTextContentAccessor = __webpack_require__(98);
@@ -41192,8 +41210,8 @@ module.exports = SVGDOMPropertyConfig;
 
 
 var EventPropagators = __webpack_require__(38);
-var ExecutionEnvironment = __webpack_require__(11);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ExecutionEnvironment = __webpack_require__(12);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactInputSelection = __webpack_require__(116);
 var SyntheticEvent = __webpack_require__(18);
 
@@ -41389,7 +41407,7 @@ var _prodInvariant = __webpack_require__(5);
 
 var EventListener = __webpack_require__(115);
 var EventPropagators = __webpack_require__(38);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var SyntheticAnimationEvent = __webpack_require__(342);
 var SyntheticClipboardEvent = __webpack_require__(343);
 var SyntheticEvent = __webpack_require__(18);
@@ -41402,7 +41420,7 @@ var SyntheticTransitionEvent = __webpack_require__(349);
 var SyntheticUIEvent = __webpack_require__(40);
 var SyntheticWheelEvent = __webpack_require__(350);
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var getEventCharCode = __webpack_require__(70);
 var invariant = __webpack_require__(2);
 
@@ -42328,7 +42346,7 @@ module.exports = '15.6.1';
 var _prodInvariant = __webpack_require__(5);
 
 var ReactCurrentOwner = __webpack_require__(17);
-var ReactDOMComponentTree = __webpack_require__(7);
+var ReactDOMComponentTree = __webpack_require__(8);
 var ReactInstanceMap = __webpack_require__(41);
 
 var getHostComponentFromComposite = __webpack_require__(119);
@@ -42496,7 +42514,7 @@ function createProvider() {
 
 
 
-var emptyFunction = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
 var invariant = __webpack_require__(2);
 var ReactPropTypesSecret = __webpack_require__(94);
 
@@ -42803,7 +42821,7 @@ function shallowEqual(objA, objB) {
 /* unused harmony export whenMapDispatchToPropsIsFunction */
 /* unused harmony export whenMapDispatchToPropsIsMissing */
 /* unused harmony export whenMapDispatchToPropsIsObject */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__ = __webpack_require__(129);
 
 
@@ -43590,7 +43608,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -44504,7 +44522,7 @@ var IndexLink = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = withRouter;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
@@ -44578,7 +44596,7 @@ function withRouter(WrappedComponent, options) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routerWarning__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Redirect__ = __webpack_require__(135);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(42);
@@ -44636,7 +44654,7 @@ var IndexRedirect = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routerWarning__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__RouteUtils__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__InternalPropTypes__ = __webpack_require__(42);
@@ -44692,7 +44710,7 @@ var IndexRoute = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__RouteUtils__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__InternalPropTypes__ = __webpack_require__(42);
@@ -44748,7 +44766,7 @@ var Route = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_history_lib_Actions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_history_lib_Actions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__createMemoryHistory__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__createTransitionManager__ = __webpack_require__(131);
@@ -45050,7 +45068,7 @@ var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(10);
+var _invariant = __webpack_require__(11);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -45317,7 +45335,7 @@ exports.__esModule = true;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _invariant = __webpack_require__(10);
+var _invariant = __webpack_require__(11);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -45475,7 +45493,7 @@ var _warning = __webpack_require__(22);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _invariant = __webpack_require__(10);
+var _invariant = __webpack_require__(11);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -45766,7 +45784,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reduxThunk = __webpack_require__(407);
 
@@ -45833,7 +45851,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _signinReducer = __webpack_require__(410);
 
@@ -46529,7 +46547,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
@@ -46780,7 +46798,7 @@ var signinAction = exports.signinAction = function signinAction(userCredentials)
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 var bind = __webpack_require__(143);
 var Axios = __webpack_require__(426);
 var defaults = __webpack_require__(86);
@@ -46867,7 +46885,7 @@ function isSlowBuffer (obj) {
 
 
 var defaults = __webpack_require__(86);
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 var InterceptorManager = __webpack_require__(435);
 var dispatchRequest = __webpack_require__(436);
 var isAbsoluteURL = __webpack_require__(438);
@@ -46959,7 +46977,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -47039,7 +47057,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -47114,7 +47132,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 
 /**
  * Parse headers into an object
@@ -47158,7 +47176,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -47276,7 +47294,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -47336,7 +47354,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -47395,7 +47413,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 var transformData = __webpack_require__(437);
 var isCancel = __webpack_require__(146);
 var defaults = __webpack_require__(86);
@@ -47481,7 +47499,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(13);
+var utils = __webpack_require__(14);
 
 /**
  * Transform the data for a request or a response
@@ -47709,7 +47727,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
@@ -48043,11 +48061,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
+
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -48078,11 +48098,14 @@ var DashboardAuthPage = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.verifyToken();
+      this.props.getGroupsUserBelongsTo();
     }
   }, {
     key: 'render',
     value: function render() {
-      return this.props.tokenStatus.success ? _react2.default.createElement(_DashboardPage2.default, null) : _react2.default.createElement(_NullPage2.default, null);
+      var groups_user_belongs = this.props.groupState.groups_user_belongs;
+
+      return this.props.tokenStatus.success && groups_user_belongs ? _react2.default.createElement(_DashboardPage2.default, { groupsUserBelongsTo: groups_user_belongs }) : _react2.default.createElement(_NullPage2.default, null);
     }
   }]);
 
@@ -48091,11 +48114,12 @@ var DashboardAuthPage = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    tokenStatus: state.verifyTokenReducer
+    tokenStatus: state.verifyTokenReducer,
+    groupState: state.groupReducer
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ verifyToken: _verifyTokenAction.verifyToken }, dispatch);
+  return (0, _redux.bindActionCreators)({ verifyToken: _verifyTokenAction.verifyToken, getGroupsUserBelongsTo: _groupActions.getGroupsUserBelongsTo }, dispatch);
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DashboardAuthPage);
 
@@ -48116,7 +48140,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
@@ -48180,6 +48204,10 @@ var Dashboard = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _props$groupsUserBelo = this.props.groupsUserBelongsTo,
+          Groups = _props$groupsUserBelo.Groups,
+          fullname = _props$groupsUserBelo.fullname;
+
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -48200,7 +48228,7 @@ var Dashboard = function (_React$Component) {
               )
             )
           ),
-          _react2.default.createElement(_SideBar2.default, null)
+          _react2.default.createElement(_SideBar2.default, { userGroups: Groups })
         ),
         _react2.default.createElement(_SignupModal2.default, null)
       );
@@ -48581,13 +48609,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -49103,13 +49131,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -49284,11 +49312,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49434,13 +49462,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -49620,7 +49648,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
@@ -49628,7 +49656,7 @@ var _reactMoment = __webpack_require__(150);
 
 var _reactMoment2 = _interopRequireDefault(_reactMoment);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49834,11 +49862,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
+
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -49869,11 +49899,15 @@ var CreateGroupAuthPage = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.verifyToken();
+      this.props.getGroupsUserBelongsTo();
     }
   }, {
     key: 'render',
     value: function render() {
-      return this.props.tokenStatus.success ? _react2.default.createElement(_CreateGroupPage2.default, null) : _react2.default.createElement(_NullPage2.default, null);
+      var groups_user_belongs = this.props.groupState.groups_user_belongs;
+
+      return this.props.tokenStatus.success && groups_user_belongs ? _react2.default.createElement(_CreateGroupPage2.default, {
+        groupsUserBelongsTo: groups_user_belongs }) : _react2.default.createElement(_NullPage2.default, null);
     }
   }]);
 
@@ -49882,11 +49916,12 @@ var CreateGroupAuthPage = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    tokenStatus: state.verifyTokenReducer
+    tokenStatus: state.verifyTokenReducer,
+    groupState: state.groupReducer
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ verifyToken: _verifyTokenAction.verifyToken }, dispatch);
+  return (0, _redux.bindActionCreators)({ verifyToken: _verifyTokenAction.verifyToken, getGroupsUserBelongsTo: _groupActions.getGroupsUserBelongsTo }, dispatch);
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateGroupAuthPage);
 
@@ -49953,6 +49988,10 @@ var CreateGroupPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _props$groupsUserBelo = this.props.groupsUserBelongsTo,
+          Groups = _props$groupsUserBelo.Groups,
+          fullname = _props$groupsUserBelo.fullname;
+
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -49973,7 +50012,7 @@ var CreateGroupPage = function (_React$Component) {
               )
             )
           ),
-          _react2.default.createElement(_SideBar2.default, null)
+          _react2.default.createElement(_SideBar2.default, { userGroups: Groups })
         )
       );
     }
@@ -50001,11 +50040,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50129,13 +50168,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -50210,11 +50249,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 __webpack_require__(26);
 
@@ -50623,11 +50662,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
+
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -50643,7 +50684,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import React from 'react';
+// import { browserHistory } from 'react-router';
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import { verifyToken } from '../../../actions/verifyTokenAction';
+// import { getGroupsUserBelongsTo } from '../../../actions/group/groupActions';
+// import NullPage from '../NullPage';
+// import GroupsPage from '../GroupsPage';
+//
+// class GroupsAuthPage extends React.Component {
+//   componentWillMount() {
+//     this.props.verifyToken();
+//     this.props.getGroupsUserBelongsTo();
+//   }
+//   render() {
+//     const {groups_user_belongs} = this.props.groupState;
+//     return this.props.tokenStatus.success && groups_user_belongs ? <GroupsPage groupsUserBelongsTo={groups_user_belongs}/> : <NullPage/>;
+//   }
+// }
+// const mapStateToProps = state => ({
+//   tokenStatus: state.verifyTokenReducer,
+//   groupState: state.groupReducer
+// });
+// const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken, getGroupsUserBelongsTo }, dispatch);
+// export default connect(mapStateToProps, mapDispatchToProps)(GroupsAuthPage);
 
 var GroupsAuthPage = function (_React$Component) {
   _inherits(GroupsAuthPage, _React$Component);
@@ -50658,11 +50723,15 @@ var GroupsAuthPage = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.verifyToken();
+      this.props.getGroupsUserBelongsTo();
     }
   }, {
     key: 'render',
     value: function render() {
-      return this.props.tokenStatus.success ? _react2.default.createElement(_GroupsPage2.default, null) : _react2.default.createElement(_NullPage2.default, null);
+      var groups_user_belongs = this.props.groupState.groups_user_belongs;
+
+      return this.props.tokenStatus.success && groups_user_belongs ? _react2.default.createElement(_GroupsPage2.default, {
+        groupsUserBelongsTo: groups_user_belongs }) : _react2.default.createElement(_NullPage2.default, null);
     }
   }]);
 
@@ -50671,11 +50740,12 @@ var GroupsAuthPage = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    tokenStatus: state.verifyTokenReducer
+    tokenStatus: state.verifyTokenReducer,
+    groupState: state.groupReducer
   };
 };
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ verifyToken: _verifyTokenAction.verifyToken }, dispatch);
+  return (0, _redux.bindActionCreators)({ verifyToken: _verifyTokenAction.verifyToken, getGroupsUserBelongsTo: _groupActions.getGroupsUserBelongsTo }, dispatch);
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GroupsAuthPage);
 
@@ -50723,7 +50793,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import React from 'react';
+// import { Link } from 'react-router';
+// import '../../build/static/styles/group-custom.scss';
+// import GroupHeader from '../headers/GroupHeader';
+// import SideBar from './SideBar';
+// import Groups from './Groups';
+// import groupBackGround from '../../utils/groupPagesBackground';
+//
+// export default class GroupsPage extends React.Component {
+//   componentDidMount() {
+//     groupBackGround();
+//   }
+//   render() {
+//     const {Groups,fullname} = this.props.groupsUserBelongsTo;
+//     return (
+//         <div className="container">
+//           <GroupHeader/>
+//           <div id="group-body" className="row">
+//             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
+//               <div className="panel-body">
+//                 <h2>{fullname}</h2>
+//                 <div className="row">
+//                   <Groups/>
+//                 </div>
+//               </div>
+//             </div>
+//             <SideBar userGroups={Groups}/>
+//           </div>
+//         </div>
+//     );
+//   }
+// }
 
 var GroupsPage = function (_React$Component) {
   _inherits(GroupsPage, _React$Component);
@@ -50737,11 +50838,15 @@ var GroupsPage = function (_React$Component) {
   _createClass(GroupsPage, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      (0, _groupPagesBackground2.default)(); // Change background of pages to suit user pages
+      (0, _groupPagesBackground2.default)();
     }
   }, {
     key: 'render',
     value: function render() {
+      var _props$groupsUserBelo = this.props.groupsUserBelongsTo,
+          Groups = _props$groupsUserBelo.Groups,
+          fullname = _props$groupsUserBelo.fullname;
+
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -50758,11 +50863,11 @@ var GroupsPage = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'row' },
-                _react2.default.createElement(_Groups2.default, null)
+                _react2.default.createElement(_Groups2.default, { userGroups: Groups })
               )
             )
           ),
-          _react2.default.createElement(_SideBar2.default, null)
+          _react2.default.createElement(_SideBar2.default, { userGroups: Groups })
         )
       );
     }
@@ -50784,153 +50889,153 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
+var _redux = __webpack_require__(7);
+
+var _reactRedux = __webpack_require__(9);
+
+var _groupActions = __webpack_require__(10);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Groups = function Groups(props) {
-  return _react2.default.createElement(
-    'div',
-    { className: 'col-md-12', id: 'message-board-div' },
-    _react2.default.createElement(
-      'h2',
-      null,
-      'All Your Groups'
-    ),
-    _react2.default.createElement('hr', null),
-    _react2.default.createElement(
-      'div',
-      { className: 'list-group' },
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group-messages', className: 'list-group-item' },
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Groups = function (_React$Component) {
+  _inherits(Groups, _React$Component);
+
+  function Groups() {
+    _classCallCheck(this, Groups);
+
+    return _possibleConstructorReturn(this, (Groups.__proto__ || Object.getPrototypeOf(Groups)).apply(this, arguments));
+  }
+
+  _createClass(Groups, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.getGroupsUserBelongsTo();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'col-md-12', id: 'message-board-div' },
         _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Andela'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group-messages', className: 'list-group-item' },
+          'h2',
+          null,
+          'All Your Groups'
+        ),
+        _react2.default.createElement('hr', null),
         _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Bootcamp 24'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group-messages', className: 'list-group-item' },
+          'div',
+          { className: 'list-group' },
+          this.props.userGroups.map(function (userGroup) {
+            return _react2.default.createElement(
+              _reactRouter.Link,
+              { to: '/group/' + userGroup.Group.id + '/board', key: userGroup.Group.id, className: 'list-group-item' },
+              _react2.default.createElement(
+                'h5',
+                { className: 'list-group-item-heading' },
+                userGroup.Group.name
+              )
+            );
+          })
+        ),
+        _react2.default.createElement('hr', null),
         _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Jimoh Family'
+          'ul',
+          { className: 'pagination' },
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '\xAB'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '1'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '2'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '3'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '4'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '5'
+            )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '\xBB'
+            )
+          )
         )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group-messages', className: 'list-group-item' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Johadi Club'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group-messages', className: 'list-group-item' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Lagos Flexers'
-        )
-      ),
-      _react2.default.createElement(
-        _reactRouter.Link,
-        { to: '/group-messages', className: 'list-group-item' },
-        _react2.default.createElement(
-          'h5',
-          { className: 'list-group-item-heading' },
-          'Andela Chilling Club'
-        )
-      )
-    ),
-    _react2.default.createElement('hr', null),
-    _react2.default.createElement(
-      'ul',
-      { className: 'pagination' },
-      _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'a',
-          { href: '#' },
-          '\xAB'
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'a',
-          { href: '#' },
-          '1'
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'a',
-          { href: '#' },
-          '2'
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'a',
-          { href: '#' },
-          '3'
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'a',
-          { href: '#' },
-          '4'
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'a',
-          { href: '#' },
-          '5'
-        )
-      ),
-      _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'a',
-          { href: '#' },
-          '\xBB'
-        )
-      )
-    )
-  );
+      );
+    }
+  }]);
+
+  return Groups;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    groupState: state.groupReducer
+  };
 };
-exports.default = Groups;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({ getGroupsUserBelongsTo: _groupActions.getGroupsUserBelongsTo }, dispatch);
+};
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Groups);
 
 /***/ }),
 /* 470 */
@@ -50951,13 +51056,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
 var _verifyTokenAction = __webpack_require__(19);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 var _NullPage = __webpack_require__(20);
 
@@ -50988,7 +51093,7 @@ var GroupUsersAuthPage = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.verifyToken();
-      var ty = this.props.getGroupUsers(this.props.params.groupId);
+      this.props.getGroupUsers(this.props.params.groupId);
     }
   }, {
     key: 'render',
@@ -51131,11 +51236,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(3);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 
-var _groupActions = __webpack_require__(15);
+var _groupActions = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51178,11 +51283,11 @@ var GroupUsers = function (_React$Component) {
           this.props.users.map(function (user) {
             return _react2.default.createElement(
               _reactRouter.Link,
-              { key: user.id, className: 'list-group-item' },
+              { key: user.User.id, className: 'list-group-item' },
               _react2.default.createElement(
                 'h5',
                 { className: 'list-group-item-heading' },
-                user.fullname
+                user.User.fullname
               )
             );
           })
@@ -51295,7 +51400,7 @@ var _axios = __webpack_require__(43);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _redux = __webpack_require__(8);
+var _redux = __webpack_require__(7);
 
 var _reactRedux = __webpack_require__(9);
 

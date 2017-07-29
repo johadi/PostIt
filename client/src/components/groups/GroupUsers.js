@@ -16,8 +16,8 @@ class GroupUsers extends React.Component{
           <hr/>
           <div className="list-group">
             {this.props.users.map(user => (
-                <Link key={user.id} className="list-group-item">
-                  <h5 className="list-group-item-heading">{user.fullname}</h5>
+                <Link key={user.User.id} className="list-group-item">
+                  <h5 className="list-group-item-heading">{user.User.fullname}</h5>
                 </Link>
             ))}
           </div>

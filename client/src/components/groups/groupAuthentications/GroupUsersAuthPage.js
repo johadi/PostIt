@@ -10,7 +10,7 @@ import GroupUsersPage from '../GroupUsersPage';
 class GroupUsersAuthPage extends React.Component {
   componentWillMount() {
     this.props.verifyToken();
-    const ty = this.props.getGroupUsers(this.props.params.groupId);
+    this.props.getGroupUsers(this.props.params.groupId);
   }
   render() {
     const { group_users } = this.props.groupState;

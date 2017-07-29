@@ -28,8 +28,8 @@ class GroupSideBar extends React.Component{
           </div>
           <div className="list-group">
             {this.props.users.splice(0,5).map(user => (
-                <Link key={user.id} className="list-group-item">
-                  <h5 className="list-group-item-heading">{user.fullname}</h5>
+                <Link key={user.User.id} className="list-group-item">
+                  <h5 className="list-group-item-heading">{user.User.fullname}</h5>
                 </Link>
             ))}
             <Link to="/group-users" className="list-group-item btn btn-primary">

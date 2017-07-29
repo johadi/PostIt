@@ -106,10 +106,10 @@ export const getGroupUsers = groupId => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          browserHistory.goBack();
+          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR, payload: 'Error Occurred...Try again' });
         } else {
-          browserHistory.goBack();
+          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR, payload: err.response.data });
         }
       });
@@ -126,10 +126,10 @@ export const getGroupsUserBelongsTo = () => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          browserHistory.goBack();
+          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: 'Error Occurred...Try again' });
         } else {
-          browserHistory.goBack();
+          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_ERROR, payload: err.response.data });
         }
       });

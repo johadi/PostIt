@@ -21,6 +21,7 @@ class Dashboard extends React.Component {
     }
   }
   render() {
+    const {Groups,fullname} = this.props.groupsUserBelongsTo;
     return (
         <div className="container">
           <GroupHeader/>
@@ -32,7 +33,7 @@ class Dashboard extends React.Component {
                 </div>
               </div>
             </div>
-            <SideBar/>
+            <SideBar userGroups={Groups}/>
           </div>
           <SignupModal/>
         </div>

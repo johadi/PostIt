@@ -277,28 +277,44 @@ module.exports = {
               return Promise.reject({ code: 404, message: 'invalid group' });
             }
             // Check if User belongs to the group
-            return UserGroup.findOne({
+            const userGroup=UserGroup.findOne({
               where: { userId, groupId }
             });
+            return Promise.all([userGroup, group]);
           })
           .then((foundUserAndGroup) => {
             if (!foundUserAndGroup) {
               return Promise.reject('Invalid Operation: You don\'t belong to this group');
             }
             // Let the user read the message he satisfies all the criteria
-            return Group.findOne({
-              where: { id: groupId },
+            // return Group.findOne({
+            //   where: { id: groupId },
+            //   include: [{
+            //     model: User,
+            //     attributes: ['id', 'username', 'fullname']
+            //   }]
+            // });
+            UserGroup.findAndCountAll({
+              where: { groupId },
               include: [{
                 model: User,
                 attributes: ['id', 'username', 'fullname']
               }]
-            });
-          })
-          .then((group) => {
-            if (!group) {
-              return Promise.reject('group not found'); // this is redundant
-            }
-            return handleSuccess(200, _.pick(group, ['Users','name','id']), res);
+            })
+                .then((groupWithMembers) => {
+                  if (!groupWithMembers) {
+                    return Promise.reject('group not found'); //
+                  }
+                  const group = foundUserAndGroup[1]; // we got group info like this from our promise.all()
+                  const data = {
+                    id: group.id,
+                    name: group.name,
+                    Users: groupWithMembers.rows,
+                    count: groupWithMembers.count
+                  }
+                  return handleSuccess(200, data, res);
+                })
+                .catch(err => handleError(err, res));
           })
           .catch(err => handleError(err, res));
     }
@@ -307,19 +323,31 @@ module.exports = {
   getGroupsUserBelongsTo(req, res) {
     if (req.user) {
       const userId = req.user.id;
-      User.findOne({
-        where: { id: userId },
-        attributes: ['id', 'username', 'fullname'],
-        include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
-      })
-          .then((foundUser) => {
-            if (!foundUser) {
-              return Promise.reject({ code: 404, message: 'User not found' });
-            }
-            // Check if User belongs to the group
-            return handleSuccess(200, foundUser, res);
+      UserGroup.findAndCountAll({where: {userId}, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]})
+          .then((result)=>{
+            const data = {
+              Groups: result.rows,
+              count: result.count,
+              id: req.user.id,
+              username: req.user.username,
+              fullname: req.user.fullname
+            };
+            return handleSuccess(200, data, res);
           })
           .catch(err => handleError(err, res));
+      // User.findOne({
+      //   where: { id: userId },
+      //   attributes: ['id', 'username', 'fullname'],
+      //   include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
+      // })
+      //     .then((foundUser) => {
+      //       if (!foundUser) {
+      //         return Promise.reject({ code: 404, message: 'User not found' });
+      //       }
+      //       // Check if User belongs to the group
+      //       return handleSuccess(200, foundUser, res);
+      //     })
+      //     .catch(err => handleError(err, res));
     }
   },
   // Controller method that allow users retrieve messages from group

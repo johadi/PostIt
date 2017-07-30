@@ -100,9 +100,11 @@ router.route('/group/:groupId/message')
 // router.route('/group/:groupId/user/message')
 //     .get(groupController.getUserMessages);
 router.route('/group/:groupId/message/:messageId')
-    .get(authenticate, groupController.viewMessage);
+    .get(authenticate, groupController.viewMessage); // view single notification
 router.route('/group/:groupId/group-users')
     .get(authenticate, groupController.getGroupUsers);
 router.route('/group/user/groups')
     .get(authenticate, groupController.getGroupsUserBelongsTo);
+router.route('/group/user/board')
+    .get(authenticate, groupController.userMessageBoard);
 module.exports = router;

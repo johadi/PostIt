@@ -402,6 +402,48 @@ module.exports = {
       }
     }
   },
+  userMessageBoard(req, res) {
+    if (req.user) {
+      const userId = req.user.id;
+      if (req.query.page) {
+        if (isNaN(parseInt(req.query.page, 10))) {
+          return handleError('Oops! Something went wrong, page query must be a number', res);
+        }
+        // Let us find all groupIds this user belongs to first
+        UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
+            .then((result) => {
+              // We then convert the groupIds from array of object to plain arrays
+              const userGroupIds = result.map(userGroup => userGroup.groupId);
+              return userGroupIds; // arrays of group Ids i.e [23,67,89]
+            })
+            .then((userGroupIds) => {
+              const query = parseInt(req.query.page, 10); // convert the query to standard number for use
+              const perPage = 2; // = limit you want to display per page
+              const currentPage = query < 1 ? 1 : query;
+              const offset = perPage * (currentPage - 1);
+              Message.findAndCountAll({
+                where: {groupId: userGroupIds},
+                order: [['createdAt', 'DESC']],
+                include: [{model: User, attributes: ['username','fullname']}, {model: Group, attributes: ['name']}]
+              })
+                  .then((messages) => {
+                    const pages = Math.ceil(messages.count / perPage); // to round off i.e 3/2 = 1.5 = 2
+
+                    const data = {
+                      messages: messages.rows,
+                      count: messages.count,
+                      pages
+                    };
+                    return handleSuccess(200, data, res);
+                  })
+                  .catch(err => handleError(err, res));
+            })
+            .catch(err => handleError(err, res));
+      } else {
+        return handleError('This request is invalid, Check your route', res);
+      }
+    }
+  }
   // Get the list of all groups that a user belongs to but paginated
   // getGroupsUserBelongsToPaginated(req, res) {
   //   if (req.user && req.query.page) {

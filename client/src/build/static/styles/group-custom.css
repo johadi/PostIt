@@ -39,4 +39,7 @@ a:hover {
 .text-capitalize {
   text-transform: capitalize; }
 
+.text-display {
+  color: lightseagreen !important; }
+
 /*# sourceMappingURL=group-custom.css.map */

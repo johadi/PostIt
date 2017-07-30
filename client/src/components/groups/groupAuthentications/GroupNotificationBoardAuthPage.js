@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers, getGroupMessages, clearGetGroupMessagesError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage';
-import GroupMessageBoardPage from '../GroupMessageBoardPage';
+import GroupNotificationBoard from '../GroupNotificationBoardPage';
 
-class GroupMessageBoardAuthPage extends React.Component {
+class GroupNotificationBoardAuthPage extends React.Component {
   componentWillMount() {
     this.props.verifyToken();
     this.props.getGroupMessages(this.props.params.groupId);
@@ -19,7 +19,7 @@ class GroupMessageBoardAuthPage extends React.Component {
   render() {
     const {group_users, group_messages} = this.props.groupState;
     return this.props.tokenStatus.success && group_messages && group_users ?
-        <GroupMessageBoardPage groupUsers={group_users} groupId={this.props.params.groupId}/> : <NullPage/>;
+        <GroupNotificationBoard groupUsers={group_users} groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
 const mapStateToProps = state => ({
@@ -27,5 +27,5 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken, getGroupMessages, clearGetGroupMessagesError, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupMessageBoardAuthPage);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupNotificationBoardAuthPage);
 

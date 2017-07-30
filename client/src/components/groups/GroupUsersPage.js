@@ -19,7 +19,7 @@ export default class GroupUsersPage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <GroupUsers name={name} users={Users} groupId={this.props.groupId}/>
+                  <GroupUsers groupUsersPagination={this.props.groupUsersPagination} name={name} users={Users} groupId={this.props.groupId}/>
                 </div>
               </div>
             </div>

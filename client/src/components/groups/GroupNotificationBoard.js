@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import { getGroupMessages, clearGetGroupMessagesError } from '../../actions/group/groupActions';
 
-class GroupMessageBoard extends React.Component {
+class GroupNotificationBoard extends React.Component {
   constructor(props) {
     super(props);
     this.dateOptions = {
@@ -62,4 +62,4 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ getGroupMessages, clearGetGroupMessagesError }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupMessageBoard);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupNotificationBoard);

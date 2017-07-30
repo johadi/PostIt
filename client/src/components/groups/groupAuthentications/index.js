@@ -1,7 +1,7 @@
 import DashboardAuthPage from './DashboardAuthPage';
-import MessageViewAuthPage from './MessageViewAuthPage';
-import PostMessageAuthPage from './PostMessageAuthPage';
-import GroupMessageBoardAuthPage from './GroupMessageBoardAuthPage';
+import NotificationViewAuthPage from './NotificationViewAuthPage';
+import SendNotificationAuthPage from './SendNotificationAuthPage';
+import GroupNotificationBoardAuthPage from './GroupNotificationBoardAuthPage';
 import CreateGroupAuthPage from './CreateGroupAuthPage';
 import CreatedGroupAddUserAuthPage from './CreatedGroupAddUserAuthPage';
 import GroupsAuthPage from './GroupsAuthPage';
@@ -10,9 +10,9 @@ import AuthenticateUser from '../AuthenticateUser';
 
 export default {
   DashboardAuthPage,
-  MessageViewAuthPage,
-  PostMessageAuthPage,
-  GroupMessageBoardAuthPage,
+  NotificationViewAuthPage,
+  SendNotificationAuthPage,
+  GroupNotificationBoardAuthPage,
   CreateGroupAuthPage,
   CreatedGroupAddUserAuthPage,
   GroupsAuthPage,

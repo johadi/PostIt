@@ -2,35 +2,54 @@ import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getGroupUsers } from '../../actions/group/groupActions';
+import { Pagination } from 'react-bootstrap';
+import { getGroupUsers, getGroupUsersPagination } from '../../actions/group/groupActions';
 
 
 class GroupUsers extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      activePage: 1
+    };
+  }
   componentWillMount(){
     this.props.getGroupUsers(this.props.groupId);
   }
+  handleSelect=(eventKey)=>{
+    this.setState({activePage: eventKey});
+    this.props.getGroupUsersPagination(this.props.groupId, eventKey);
+    this.props.getGroupUsers(this.props.groupId); // necessary to keep users side bar state
+  }
   render(){
+    const {Users, count, pages} = this.props.groupUsersPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2 className="text-capitalize">{this.props.name} Group Members</h2>
+          <p className="text-display"><strong>{count} {count===1 ? 'member' : 'members'}</strong></p>
           <hr/>
           <div className="list-group">
-            {this.props.users.map(user => (
+            {Users.map(user => (
                 <Link key={user.User.id} className="list-group-item">
                   <h5 className="list-group-item-heading">{user.User.fullname}</h5>
                 </Link>
             ))}
           </div>
           <hr/>
-          <ul className="pagination">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-          </ul>
+          {count <= 0 ? null:
+              <Pagination
+                  prev
+                  next
+                  first
+                  last
+                  ellipsis
+                  boundaryLinks
+                  items={pages}
+                  maxButtons={10}
+                  activePage={this.state.activePage}
+                  onSelect={this.handleSelect}
+              />
+          }
         </div>
     );
   }
@@ -40,6 +59,6 @@ const mapStateToProps=(state)=>{
     groupState: state.groupReducer
   };
 }
-const mapDispatchToProps = dispatch => bindActionCreators({ getGroupUsers }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getGroupUsers, getGroupUsersPagination }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupUsers);
 

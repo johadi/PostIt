@@ -52,7 +52,7 @@ export default class GroupsPage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <AllGroups userGroups={Groups}/>
+                  <AllGroups groupsUserBelongsToPagination={this.props.groupsUserBelongsToPagination}/>
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {addUserToGroup, clearAddUserToGroupError} from '../../actions/group/groupActions';
+import {addUserToGroup, clearAddUserToGroupError, getGroupUsers} from '../../actions/group/groupActions';
 import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
@@ -24,6 +24,7 @@ class CreatedGroupAddUserPage extends React.Component {
     const username=e.target.id;
     const groupId = this.props.groupId;
     this.props.addUserToGroup(groupId,username);
+    this.props.getGroupUsers(this.props.groupId);// necessary here to keep users side bar state
   }
   render() {
     const {id, name, Users}=this.props.groupUsers;
@@ -50,5 +51,5 @@ const mapStateToProps=(state)=>{
     groupState: state.groupReducer
   }
 }
-const mapDispatchToProps = dispatch => bindActionCreators({ addUserToGroup, clearAddUserToGroupError }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addUserToGroup, clearAddUserToGroupError, getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(CreatedGroupAddUserPage);

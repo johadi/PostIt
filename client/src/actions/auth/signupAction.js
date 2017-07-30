@@ -12,7 +12,7 @@ export const signupAction = user => (dispatch) => {
         const token = res.data; // get the token
         window.sessionStorage.setItem('token', token);
         browserHistory.push('/dashboard');
-        return dispatch({ type: actionTypes.SIGNUP_SUCCESSFUL });
+        dispatch({ type: actionTypes.SIGNUP_SUCCESSFUL });
       })
       .catch((err) => {
         if (err.response.data.validateError) {

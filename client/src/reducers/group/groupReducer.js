@@ -11,8 +11,12 @@ const initialState = {
   group_view_message_error: null,
   group_users: null,
   group_users_error: null,
+  group_users_pagination: null,
+  group_users_pagination_error: null,
   groups_user_belongs: null,
-  groups_user_belongs_error: null
+  groups_user_belongs_error: null,
+  groups_user_belongs_pagination: null,
+  groups_user_belongs_pagination_error: null
 };
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -127,6 +131,27 @@ const groupReducer = (state = initialState, action) => {
         group_users_error: null
       };
       break;
+    case actionTypes.GET_GROUP_USERS_PAGINATION_SUCCESSFUL:
+      state = {
+        ...state,
+        group_users_pagination: action.payload,
+        group_users_pagination_error: null
+      };
+      break;
+    case actionTypes.GET_GROUP_USERS_PAGINATION_ERROR:
+      state = {
+        ...state,
+        group_users_pagination: null,
+        group_users_pagination_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_GET_GROUP_USERS_PAGINATION_ERROR:
+      state = {
+        ...state,
+        group_users_pagination: null,
+        group_users_pagination_error: null
+      };
+      break;
     case actionTypes.GET_GROUPS_USER_BELONGS_TO_SUCCESSFUL:
       state = {
         ...state,
@@ -146,6 +171,27 @@ const groupReducer = (state = initialState, action) => {
         ...state,
         groups_user_belongs: null,
         groups_user_belongs_error: null
+      };
+      break;
+    case actionTypes.GET_GROUPS_USER_BELONGS_TO_PAGINATION_SUCCESSFUL:
+      state = {
+        ...state,
+        groups_user_belongs_pagination: action.payload,
+        groups_user_belongs_pagination_error: null
+      };
+      break;
+    case actionTypes.GET_GROUPS_USER_BELONGS_TO_PAGINATION_ERROR:
+      state = {
+        ...state,
+        groups_user_belongs_pagination: null,
+        groups_user_belongs_pagination_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_GET_GROUPS_USER_BELONGS_TO_PAGINATION_ERROR:
+      state = {
+        ...state,
+        groups_user_belongs_pagination: null,
+        groups_user_belongs_pagination_error: null
       };
       break;
     default:

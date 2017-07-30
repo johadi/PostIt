@@ -100,7 +100,8 @@ export const clearViewMessageError = () => ({
 });
 // action for getting all users in a particular group for a user
 export const getGroupUsers = groupId => (dispatch) => {
-  axios.get(`/api/group/${groupId}/group-users`, { headers: { 'x-auth': window.sessionStorage.token } })
+  const page = 0;
+  axios.get(`/api/group/${groupId}/group-users?page=${page}`, { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GET_GROUP_USERS_SUCCESSFUL, payload: res.data });
       })
@@ -118,9 +119,32 @@ export const getGroupUsers = groupId => (dispatch) => {
 export const clearGetGroupUsersError = () => ({
   type: actionTypes.CLEAR_GET_GROUP_USERS_ERROR
 });
+// action for getting all users in a particular group for a user with pagination
+export const getGroupUsersPagination = (groupId, pageNumber) => (dispatch) => {
+  const page = pageNumber || 1;
+  axios.get(`/api/group/${groupId}/group-users?page=${page}`, { headers: { 'x-auth': window.sessionStorage.token } })
+      .then((res) => {
+        dispatch({ type: actionTypes.GET_GROUP_USERS_PAGINATION_SUCCESSFUL, payload: res.data });
+      })
+      .catch((err) => {
+        if (err.response.data.name === 'SequelizeConnectionError') {
+          // browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUP_USERS_PAGINATION_ERROR, payload: 'Error Occurred...Try again' });
+        } else {
+          // browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUP_USERS_PAGINATION_ERROR, payload: err.response.data });
+        }
+      });
+};
+// action for clearing errors when getting all users in a particular group with pagination
+export const clearGetGroupUsersPaginationError = () => ({
+  type: actionTypes.CLEAR_GET_GROUP_USERS_PAGINATION_ERROR
+});
 // action for getting all users in a particular group for a user
 export const getGroupsUserBelongsTo = () => (dispatch) => {
-  axios.get('/api/group/user/groups', { headers: { 'x-auth': window.sessionStorage.token } })
+  const page = 0;
+  // This will dispatch action that group member side bar can use
+  axios.get(`/api/group/user/groups?page=${page}`, { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_SUCCESSFUL, payload: res.data });
       })
@@ -137,4 +161,25 @@ export const getGroupsUserBelongsTo = () => (dispatch) => {
 // action for clearing errors when getting all users in a particular group for a user
 export const clearGetGroupsUserBelongsToError = () => ({
   type: actionTypes.CLEAR_GET_GROUPS_USER_BELONGS_TO_ERROR
+});
+export const getGroupsUserBelongsToPagination = pageNumber => (dispatch) => {
+  const page = pageNumber || 1;
+  // This will dispatch action that group member side bar can use
+  axios.get(`/api/group/user/groups?page=${page}`, { headers: { 'x-auth': window.sessionStorage.token } })
+      .then((res) => {
+        dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_PAGINATION_SUCCESSFUL, payload: res.data });
+      })
+      .catch((err) => {
+        if (err.response.data.name === 'SequelizeConnectionError') {
+          // browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_PAGINATION_ERROR, payload: 'Error Occurred...Try again' });
+        } else {
+          // browserHistory.goBack();
+          dispatch({ type: actionTypes.GET_GROUPS_USER_BELONGS_TO_PAGINATION_ERROR, payload: err.response.data });
+        }
+      });
+};
+// action for clearing errors when getting all users in a particular group for a user by pagination
+export const clearGetGroupsUserBelongsToPaginationError = () => ({
+  type: actionTypes.CLEAR_GET_GROUPS_USER_BELONGS_TO_PAGINATION_ERROR
 });

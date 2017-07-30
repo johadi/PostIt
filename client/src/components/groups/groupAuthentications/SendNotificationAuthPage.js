@@ -6,16 +6,16 @@ import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers } from '../../../actions/group/groupActions';
 
 import NullPage from '../NullPage';
-import PostMessagePage from '../PostMessagePage';
+import SendNotificationPage from '../SendNotificationPage';
 
-class PostMessageAuthPage extends React.Component {
+class SendNotificationAuthPage extends React.Component {
   componentWillMount() {
     this.props.verifyToken();
     this.props.getGroupUsers(this.props.params.groupId);
   }
   render() {
     const {group_users} = this.props.groupState;
-    return this.props.tokenStatus.success && group_users ? <PostMessagePage
+    return this.props.tokenStatus.success && group_users ? <SendNotificationPage
         groupUsers={group_users} groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
@@ -24,5 +24,5 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(PostMessageAuthPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SendNotificationAuthPage);
 

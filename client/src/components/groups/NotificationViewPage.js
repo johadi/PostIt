@@ -3,14 +3,13 @@ import { Link } from 'react-router';
 import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
-import PostMessage from './PostMessage';
+import Notification from './Notification';
 import groupBackGround from '../../utils/groupPagesBackground';
 
-export default class PostMessagePage extends React.Component {
+export default class NotificationViewPage extends React.Component {
   componentDidMount() {
     groupBackGround(); // Change background of pages to suit user pages
   }
-  // we have to pass our groupId params down to PostMessage since we have a lot to do there
   render() {
     const {id, name, Users}=this.props.groupUsers;
     return (
@@ -20,7 +19,7 @@ export default class PostMessagePage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <PostMessage name={name} groupId={this.props.groupId}/>
+                  <Notification name={name} message={this.props.message}/>
                 </div>
               </div>
             </div>

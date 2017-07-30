@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers,viewMessage, clearViewMessageError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage';
-import MessageViewPage from '../MessageViewPage';
+import MessageViewPage from '../NotificationViewPage';
 
-class MessageViewAuthPage extends React.Component {
+class NotificationViewAuthPage extends React.Component {
   componentWillMount() {
     this.props.verifyToken();
     this.props.viewMessage(this.props.params.groupId, this.props.params.messageId);
@@ -27,5 +27,5 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken, viewMessage, clearViewMessageError, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(MessageViewAuthPage);
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationViewAuthPage);
 

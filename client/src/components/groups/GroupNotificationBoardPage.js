@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
-import GroupMessageBoard from './GroupMessageBoard';
+import GroupNotificationBoard from './GroupNotificationBoard';
 import groupBackGround from '../../utils/groupPagesBackground';
 
 export default class GroupMessageBoardPage extends React.Component {
@@ -19,7 +19,7 @@ export default class GroupMessageBoardPage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <GroupMessageBoard name={name} groupId={this.props.groupId}/>
+                  <GroupNotificationBoard name={name} groupId={this.props.groupId}/>
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { postMessage,clearPostMessageError } from '../../actions/group/groupActions';
 
-class PostMessage extends React.Component {
+class SendNotification extends React.Component {
   constructor(props){
     super(props);
     this.state={
@@ -38,7 +38,7 @@ class PostMessage extends React.Component {
     return (
         <div className="col-sm-offset-1 col-sm-10 well well-lg" id="post-message-div">
           <form onSubmit={this.handleSubmit} className="form-horizontal" role="form">
-            <p className="text-center"><strong>Post to <span style={{textTransform: 'capitalize'}}>
+            <p className="text-center"><strong>Send notification to <span style={{textTransform: 'capitalize'}}>
               {this.props.name} group</span></strong></p>
             {(!!post_message_error && <h4 className="text-danger text-center">{post_message_error}</h4>) ||
             (!this.state.isValid && <h4 className="text-danger text-center">Message body required.</h4>)}
@@ -50,7 +50,7 @@ class PostMessage extends React.Component {
             </div>
             <div className="form-group">
               <div className="col-md-12">
-                <button type="submit" className="btn btn-block btn-post btn-lg">Send Post</button>
+                <button type="submit" className="btn btn-block btn-post btn-lg">Send Notification</button>
               </div>
             </div>
           </form>
@@ -62,4 +62,4 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ postMessage,clearPostMessageError }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(PostMessage);
+export default connect(mapStateToProps, mapDispatchToProps)(SendNotification);

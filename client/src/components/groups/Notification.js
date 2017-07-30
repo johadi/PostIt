@@ -1,7 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 
-const Message = ({message,name}) =>{
+const Notification = ({message,name}) =>{
   const showTime=(date)=>{
     const postDate=new Date(date);
     const diff=new Date().valueOf() - postDate.valueOf();
@@ -29,4 +29,4 @@ const Message = ({message,name}) =>{
       </div>
   );
 }
-export default Message;
+export default Notification;

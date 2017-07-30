@@ -271,85 +271,157 @@ module.exports = {
     if (req.user && req.params.groupId) {
       const userId = req.user.id;
       const groupId = req.params.groupId;
-      Group.findById(req.params.groupId)
-          .then((group) => {
-            if (!group) {
-              return Promise.reject({ code: 404, message: 'invalid group' });
-            }
-            // Check if User belongs to the group
-            const userGroup=UserGroup.findOne({
-              where: { userId, groupId }
-            });
-            return Promise.all([userGroup, group]);
-          })
-          .then((foundUserAndGroup) => {
-            if (!foundUserAndGroup) {
-              return Promise.reject('Invalid Operation: You don\'t belong to this group');
-            }
-            // Let the user read the message he satisfies all the criteria
-            // return Group.findOne({
-            //   where: { id: groupId },
-            //   include: [{
-            //     model: User,
-            //     attributes: ['id', 'username', 'fullname']
-            //   }]
-            // });
-            UserGroup.findAndCountAll({
-              where: { groupId },
-              include: [{
-                model: User,
-                attributes: ['id', 'username', 'fullname']
-              }]
+      if (req.query.page && !isNaN(parseInt(req.query.page, 10))) {
+        const query = parseInt(req.query.page, 10); // convert the query to standard number for use
+        Group.findById(req.params.groupId)
+            .then((group) => {
+              if (!group) {
+                return Promise.reject({ code: 404, message: 'invalid group' });
+              }
+              // Check if User belongs to the group
+              const userGroup = UserGroup.findOne({
+                where: { userId, groupId }
+              });
+              return Promise.all([userGroup, group]);
             })
-                .then((groupWithMembers) => {
-                  if (!groupWithMembers) {
-                    return Promise.reject('group not found'); //
-                  }
-                  const group = foundUserAndGroup[1]; // we got group info like this from our promise.all()
-                  const data = {
-                    id: group.id,
-                    name: group.name,
-                    Users: groupWithMembers.rows,
-                    count: groupWithMembers.count
-                  }
-                  return handleSuccess(200, data, res);
+            .then((foundUserAndGroup) => {
+              if (!foundUserAndGroup) {
+                return Promise.reject('Invalid Operation: You don\'t belong to this group');
+              }
+              // we got group info like this from our promise.all()
+              const group = foundUserAndGroup[1];
+              if (query === 0) { // get at most 6 users for side bar display
+                UserGroup.findAndCountAll({
+                  where: { groupId },
+                  include: [{
+                    model: User,
+                    attributes: ['id', 'username', 'fullname']
+                  }]
                 })
-                .catch(err => handleError(err, res));
-          })
-          .catch(err => handleError(err, res));
+                    .then((groupWithMembers) => {
+                      if (!groupWithMembers) {
+                        return Promise.reject('group not found'); //
+                      }
+                      const data = {
+                        id: group.id,
+                        name: group.name,
+                        Users: groupWithMembers.rows,
+                        count: groupWithMembers.count
+                      };
+                      return handleSuccess(200, data, res);
+                    })
+                    .catch(err => handleError(err, res));
+              } else { // Paginate result of group users
+                const perPage = 2; // = limit you want to display per page
+                const currentPage = query < 1 ? 1 : query;
+                const offset = perPage * (currentPage - 1); // items to skip
+                UserGroup.findAndCountAll({
+                  where: { groupId },
+                  offset,
+                  limit: perPage,
+                  include: [{
+                    model: User,
+                    attributes: ['id', 'username', 'fullname']
+                  }]
+                })
+                    .then((groupWithMembers) => {
+                      if (!groupWithMembers) {
+                        return Promise.reject('group not found');
+                      }
+                      const pages = Math.ceil(groupWithMembers.count / perPage); // to round up i.e 3/2 = 1.5 = 2
+                      const data = {
+                        id: group.id,
+                        name: group.name,
+                        pages,
+                        Users: groupWithMembers.rows,
+                        count: groupWithMembers.count
+                      };
+                      return handleSuccess(200, data, res);
+                    })
+                    .catch(err => handleError(err, res));
+              } // end of the else of if (query==0)
+            })
+            .catch(err => handleError(err, res));
+      } else {
+        return handleError('Oops! Error. Request url must have query string named page with number as value', res);
+      }
     }
   },
   // Get the list of all groups that a user belongs to
   getGroupsUserBelongsTo(req, res) {
     if (req.user) {
       const userId = req.user.id;
-      UserGroup.findAndCountAll({where: {userId}, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]})
-          .then((result)=>{
-            const data = {
-              Groups: result.rows,
-              count: result.count,
-              id: req.user.id,
-              username: req.user.username,
-              fullname: req.user.fullname
-            };
-            return handleSuccess(200, data, res);
-          })
-          .catch(err => handleError(err, res));
-      // User.findOne({
-      //   where: { id: userId },
-      //   attributes: ['id', 'username', 'fullname'],
-      //   include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
-      // })
-      //     .then((foundUser) => {
-      //       if (!foundUser) {
-      //         return Promise.reject({ code: 404, message: 'User not found' });
-      //       }
-      //       // Check if User belongs to the group
-      //       return handleSuccess(200, foundUser, res);
-      //     })
-      //     .catch(err => handleError(err, res));
+      if (req.query.page) {
+        if (isNaN(parseInt(req.query.page, 10))) {
+          return handleError('Oops! Something went wrong, page query must be a number', res);
+        }
+        const query = parseInt(req.query.page, 10); // convert the query to standard number for use
+        if (query === 0) { // Return groups of at most 6 . this is good for client group side bar
+          UserGroup.findAndCountAll({ where: { userId }, limit: 6, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }] })
+              .then((result) => {
+                const data = {
+                  Groups: result.rows,
+                  count: result.count,
+                  id: req.user.id,
+                  username: req.user.username,
+                  fullname: req.user.fullname
+                };
+                return handleSuccess(200, data, res);
+              })
+              .catch(err => handleError(err, res));
+        } else { // Return result as it supposed to be.
+          const perPage = 2; // = limit you want to display per page
+          const currentPage = query < 1 ? 1 : query;
+          const offset = perPage * (currentPage - 1); // i.e page2 items=9*(2-1) =9*1= 9 items will be skipped. page2 items displays from item 10
+          // const previousPage = parseInt(currentPage, 10) - 1;
+          // const nextPage = parseInt(currentPage, 10) + 1;
+          UserGroup.findAndCountAll({ where: { userId }, limit: perPage, offset, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }] })
+              .then((result) => {
+                const pages = Math.ceil(result.count / perPage); // to round off i.e 3/2 = 1.5 = 2
+                // const hasPreviousPage = previousPage >= 1;
+                // const hasNextPage = nextPage <= pages;
+                const data = {
+                  Groups: result.rows,
+                  count: result.count,
+                  pages,
+                  // currentPage,
+                  // nextPage,
+                  // previousPage,
+                  // hasNextPage,
+                  // hasPreviousPage,
+                  id: req.user.id,
+                  username: req.user.username,
+                  fullname: req.user.fullname
+                };
+                return handleSuccess(200, data, res);
+              })
+              .catch(err => handleError(err, res));
+        }
+      } else {
+        return handleError('This request is invalid, Check your route', res);
+      }
     }
   },
+  // Get the list of all groups that a user belongs to but paginated
+  // getGroupsUserBelongsToPaginated(req, res) {
+  //   if (req.user && req.query.page) {
+  //     const userId = req.user.id;
+  //     UserGroup.findAndCountAll({where: {userId}, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]})
+  //         .then((result)=>{
+  //           const data = {
+  //             Groups: result.rows,
+  //             count: result.count,
+  //             id: req.user.id,
+  //             username: req.user.username,
+  //             fullname: req.user.fullname
+  //           };
+  //           return handleSuccess(200, data, res);
+  //         })
+  //         .catch(err => handleError(err, res));
+  //   } else {
+  //     return handleError('Something went wrong', res);
+  //   }
+  // },
   // Controller method that allow users retrieve messages from group
   // getUserMessages(req, res) {
   //   // Check to ensure groupId is not a String

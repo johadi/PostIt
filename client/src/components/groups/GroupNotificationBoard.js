@@ -38,7 +38,7 @@ render() {
                   <div className="media-body">
                     <h4 className="media-heading">{message.User.username}
                       {this.showTime(message.createdAt) >= 24 ? <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
-                      </small> : <small> posted <Moment fromNow>{message.createdAt}</Moment></small>}
+                      </small> : <small> Sent <Moment fromNow>{message.createdAt}</Moment></small>}
                     </h4>
                     <p className="text-overflow"><Link to={`/message/${this.props.groupId}/${message.id}`}>{message.body}</Link></p>
                   </div>

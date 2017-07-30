@@ -25,14 +25,13 @@ const GroupHeader = (props) => {
             <li><Link href="#">Friends</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
-            <li><Link to="#">Notifications</Link></li>
             <li className="dropdown">
               <a href="#" className="dropdown-toggle" data-toggle="dropdown">Jimoh <b className="caret"></b></a>
               <ul className="dropdown-menu">
                 <li><Link href="#">Profile</Link></li>
-                <li><Link to="#" onClick={logout}>Logout</Link></li>
               </ul>
             </li>
+            <li style={{ marginRight: '10px' }}><Link to="#" onClick={logout}>Logout</Link></li>
           </ul>
         </div>
       </nav>

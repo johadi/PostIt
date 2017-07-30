@@ -33,6 +33,9 @@ class SendNotification extends React.Component {
     input[e.target.name]=e.target.value;
     this.setState({ input });
   }
+  handleKeyUp = (e)=>{
+    this.setState({isValid: true});
+  }
   render() {
     const {post_message_error} = this.props.groupState;
     return (
@@ -41,11 +44,15 @@ class SendNotification extends React.Component {
             <p className="text-center"><strong>Send notification to <span style={{textTransform: 'capitalize'}}>
               {this.props.name} group</span></strong></p>
             {(!!post_message_error && <h4 className="text-danger text-center">{post_message_error}</h4>) ||
-            (!this.state.isValid && <h4 className="text-danger text-center">Message body required.</h4>)}
+            (!this.state.isValid && <h4 className="text-danger text-center">Notification body required.</h4>)}
             <div className="form-group">
               <div className="col-lg-12">
-                <textarea value={this.state.input.message} onChange={this.handleChange} rows="5"
-                          className="form-control" name="message" id="message" placeholder="Type your Post"></textarea>
+                <textarea value={this.state.input.message}
+                          onChange={this.handleChange} rows="5"
+                          onKeyUp={this.handleKeyUp}
+                          className="form-control"
+                          name="message" id="message"
+                          placeholder="Type your Notification"></textarea>
               </div>
             </div>
             <div className="form-group">

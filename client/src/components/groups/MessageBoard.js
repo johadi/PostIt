@@ -82,7 +82,7 @@ class MessageBoard extends React.Component {
               />
           }
           {
-            count===0 ? <p>You have no message yet. Create group and start adding members to share notifications.</p> : null
+            count===0 ? <p>You have no unread notifications yet. Only notifications you have not read are shown here.</p> : null
           }
         </div>
     );

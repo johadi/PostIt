@@ -9,17 +9,28 @@ class GroupSideBar extends React.Component{
     this.props.getGroupUsers(this.props.groupId);
   }
   render(){
-    const usersLength=this.props.users.length;
+    const usersLength = this.props.users.length;
     return (
         <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
             <Link className="btn btn-block btn-lg navy-header">Activities</Link>
-            <Link to={`/group/${this.props.groupId}/board`} className="btn btn-default btn-block">Group Notifications</Link>
-            <Link to={`/group/${this.props.groupId}/message`} className="btn btn-default btn-block">Send Notification here</Link>
-            <Link to={`/group/${this.props.groupId}/add`} className="btn btn-default btn-block">Add User to Group</Link>
-            <Link to={`/group/${this.props.groupId}/users`} className="btn btn-default btn-block">Group Members</Link>
-            <Link to="/dashboard" className="btn btn-default btn-block"><span
-                className="text-danger"><strong>Leave Group</strong></span></Link>
+            <Link to={`/group/${this.props.groupId}/board`} className="btn btn-default btn-block">
+              <i className="fa fa-envelope-open text-display" aria-hidden="true"></i> Group Notifications
+            </Link>
+            <Link to={`/group/${this.props.groupId}/message`} className="btn btn-default btn-block">
+              <i className="fa fa-pencil-square text-display" aria-hidden="true"></i> Send Notification here
+            </Link>
+            <Link to={`/group/${this.props.groupId}/add`} className="btn btn-default btn-block">
+              <i className="fa fa-user-plus text-display" aria-hidden="true"></i> Add User to Group
+            </Link>
+            <Link to={`/group/${this.props.groupId}/users`} className="btn btn-default btn-block">
+              <i className="fa fa-users text-display" aria-hidden="true"></i> Group Members
+            </Link>
+            <Link to="/dashboard" className="btn btn-default btn-block">
+              <span
+                className="text-danger"><strong> <i className="fa fa-user-times" aria-hidden="true"></i> Leave Group</strong>
+              </span>
+            </Link>
           </p>
           <hr/>
           <div className="list-group">

@@ -28,7 +28,7 @@ class CreateGroupAddUser extends React.Component{
                 <input ref={input=>this.search=input} onKeyUp={this.handleSearch}
                        placeholder="Search Users by Username or Email" type="text" className="form-control"/>
                 <span className="input-group-btn">
-              <button type="submit" className="btn btn-post">Search</button>
+              <button type="submit" className="btn btn-post"><i className="fa fa-search" aria-hidden="true"></i></button>
             </span>
               </div>
             </div>

@@ -41,18 +41,18 @@
   padding: 0 0 0 0;
 }
 .btn-post{
-  background-color: lightseagreen !important;
+  background-color: #19b698 !important;
   color: #ffffff;
 }
 .navy-header, .navy-header:hover{
-  background-color: lightseagreen !important;
-  border-color: lightseagreen !important;
+  background-color: #19b698 !important;
+  border-color: #19b698 !important;
   color: #ffffff;
 }
 a,
 a:focus,
 a:hover {
-  color: lightseagreen;
+  color: #19b698;
 }
 
 .text-overflow {
@@ -66,5 +66,8 @@ a:hover {
   text-transform: capitalize;
 }
 .text-display{
-  color: lightseagreen !important;
+  color: #19b698 !important;
+}
+.text-white{
+  color: #ffffff !important;
 }

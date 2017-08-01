@@ -16,22 +16,29 @@ const GroupHeader = (props) => {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#">PostIt</a>
+          <a className="navbar-brand" href="#"><strong>PostIt</strong></a>
         </div>
         <div className="collapse navbar-collapse navbar-ex1-collapse">
           <ul className="nav navbar-nav">
-            <li className="active"><Link to="/dashboard">Dashboard</Link></li>
-            <li><Link to="/groups">Groups</Link></li>
-            <li><Link href="#">Friends</Link></li>
+            <li className="active">
+              <Link to="/dashboard"><i className="fa fa-lg fa-tachometer" aria-hidden="true"></i> Dashboard</Link>
+            </li>
+            <li><Link to="/groups"><i className="fa fa-lg fa-users" aria-hidden="true"></i> Groups</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
-              <a href="#" className="dropdown-toggle" data-toggle="dropdown">Jimoh <b className="caret"></b></a>
+              <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+                <i className="fa fa-lg fa-user-circle-o" aria-hidden="true"></i> Jimoh <b className="caret"></b>
+              </a>
               <ul className="dropdown-menu">
                 <li><Link href="#">Profile</Link></li>
               </ul>
             </li>
-            <li style={{ marginRight: '10px' }}><Link to="#" onClick={logout}>Logout</Link></li>
+            <li style={{ marginRight: '10px' }}>
+              <Link to="#" onClick={logout}>
+                <i className="fa fa-lg fa-sign-out" aria-hidden="true"></i>Logout
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

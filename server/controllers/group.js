@@ -194,6 +194,10 @@ module.exports = {
     if (req.user && req.params.groupId) {
       const userId = req.user.id;
       const groupId = req.params.groupId;
+      if (!req.query.page || isNaN(parseInt(req.query.page, 10))) {
+        return handleError('This request is invalid. Request URL must contain query parameter named page with number as value', res);
+      }
+      const query = parseInt(req.query.page, 10);
       Group.findById(req.params.groupId)
           .then((group) => {
             if (!group) {
@@ -208,20 +212,29 @@ module.exports = {
             if (!foundUserAndGroup) {
               return Promise.reject('Invalid Operation: You don\'t belong to this group');
             }
-            // Let the user have his/her messages if he/she belongs to the group
-            const criteria = [{ groupId }];
+            // Let the user view messages if he/she belongs to the group
+            const perPage = 4; // = limit you want to display per page
+            const currentPage = query < 1 ? 1 : query;
+            const offset = perPage * (currentPage - 1); // items to skip
             return Message.findAndCountAll({
-              where: { $and: criteria },
+              where: { groupId },
+              offset,
+              limit: perPage,
               order: [['createdAt', 'DESC']],
               include: [{ model: User, attributes: ['id', 'username', 'fullname'] }]
-            });
-            // Another method to get user messages . by using their model relation
-            // User.find({
-            //   where: { id: req.user.id, },
-            //   include: [{ model: Message }]
-            // })
+            })
+                .then((messages) => {
+                  // to round up i.e 3/2 = 1.5 = 2
+                  const pages = Math.ceil(messages.count / perPage);
+                  const data = {
+                    count: messages.count,
+                    pages,
+                    rows: messages.rows
+                  };
+                  return handleSuccess(200, data, res);
+                })
+                .catch(err => handleError(err, res));
           })
-          .then(messages => handleSuccess(200, messages, res))
           .catch(err => handleError(err, res));
     }
   },
@@ -357,7 +370,11 @@ module.exports = {
         }
         const query = parseInt(req.query.page, 10); // convert the query to standard number for use
         if (query === 0) { // Return groups of at most 6 . this is good for client group side bar
-          UserGroup.findAndCountAll({ where: { userId }, limit: 6, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }] })
+          UserGroup.findAndCountAll({
+            where: { userId },
+            limit: 6,
+            include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
+          })
               .then((result) => {
                 const data = {
                   Groups: result.rows,
@@ -375,7 +392,12 @@ module.exports = {
           const offset = perPage * (currentPage - 1); // i.e page2 items=9*(2-1) =9*1= 9 items will be skipped. page2 items displays from item 10
           // const previousPage = parseInt(currentPage, 10) - 1;
           // const nextPage = parseInt(currentPage, 10) + 1;
-          UserGroup.findAndCountAll({ where: { userId }, limit: perPage, offset, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }] })
+          UserGroup.findAndCountAll({
+            where: { userId },
+            limit: perPage,
+            offset,
+            include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
+          })
               .then((result) => {
                 const pages = Math.ceil(result.count / perPage); // to round off i.e 3/2 = 1.5 = 2
                 // const hasPreviousPage = previousPage >= 1;
@@ -402,13 +424,11 @@ module.exports = {
       }
     }
   },
+  // Get all messages that are sent to groups a user belongs to
   userMessageBoard(req, res) {
     if (req.user) {
       const userId = req.user.id;
-      if (req.query.page) {
-        if (isNaN(parseInt(req.query.page, 10))) {
-          return handleError('Oops! Something went wrong, page query must be a number', res);
-        }
+      if (req.query.page && !isNaN(parseInt(req.query.page, 10))) {
         // Let us find all groupIds this user belongs to first
         UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
             .then((result) => {
@@ -418,13 +438,18 @@ module.exports = {
             })
             .then((userGroupIds) => {
               const query = parseInt(req.query.page, 10); // convert the query to standard number for use
-              const perPage = 2; // = limit you want to display per page
+              const perPage = 4; // = limit you want to display per page
               const currentPage = query < 1 ? 1 : query;
               const offset = perPage * (currentPage - 1);
               Message.findAndCountAll({
-                where: {groupId: userGroupIds},
+                where: { groupId: userGroupIds },
+                offset,
+                limit: perPage,
                 order: [['createdAt', 'DESC']],
-                include: [{model: User, attributes: ['username','fullname']}, {model: Group, attributes: ['name']}]
+                include: [{ model: User, attributes: ['username', 'fullname'] }, {
+                  model: Group,
+                  attributes: ['id', 'name']
+                }]
               })
                   .then((messages) => {
                     const pages = Math.ceil(messages.count / perPage); // to round off i.e 3/2 = 1.5 = 2
@@ -440,7 +465,51 @@ module.exports = {
             })
             .catch(err => handleError(err, res));
       } else {
-        return handleError('This request is invalid, Check your route', res);
+        return handleError('This request is invalid. Request URL must have a query named page with number as value', res);
+      }
+    }
+  },
+  // Get all users in the application.
+  getAllUsers(req, res) {
+    if (req.user) {
+      if (req.query.search) {
+        // Find all users in the application
+        const query = req.query.search; // convert the query to standard number for use
+        const search = `%${query}%`;
+        User.findAll(
+          {
+            where: { $or: [{ username: { like: search } }, { email: { like: search } }] },
+            attributes: ['id', 'username', 'fullname', 'email'],
+            limit: 10
+          })
+            .then((users) => {
+              // If a client wants to work with all users in the application and all users of a certain group
+              if (req.query.groupId) {
+                if (isNaN(parseInt(req.query.groupId, 10))) {
+                  return Promise.reject('query groupId must be a number');
+                }
+                // get userId of all users in a group by the given groupId as object
+                UserGroup.findAll({
+                  where: { groupId: req.query.groupId },
+                  attributes: ['userId']
+                })
+                    .then((groupUsers) => {
+                      // converts the array of userId objects to standard array of Ids
+                      const groupUsersIdInArray = groupUsers.map(groupUser => groupUser.userId);
+                      const data = {
+                        allUsers: users,
+                        groupUsersId: groupUsersIdInArray
+                      };
+                      return handleSuccess(200, data, res);
+                    })
+                    .catch(err => handleError(err, res));
+              } else { // If a client just want all users in the application
+                return handleSuccess(200, users, res);
+              }
+            })
+            .catch(err => handleError(err, res));
+      } else {
+        return handleError('This request is invalid. Request URL must have a query named search with value', res);
       }
     }
   }

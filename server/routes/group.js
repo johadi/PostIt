@@ -107,4 +107,6 @@ router.route('/group/user/groups')
     .get(authenticate, groupController.getGroupsUserBelongsTo);
 router.route('/group/user/board')
     .get(authenticate, groupController.userMessageBoard);
+router.route('/users')
+    .get(authenticate, groupController.getAllUsers);
 module.exports = router;

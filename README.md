@@ -1,7 +1,7 @@
 # PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=master)](https://coveralls.io/github/johadi10/PostIt?branch=master) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=master)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
 
 
-**Postit** is an Andela Bootcamp project where friends and colleagues send notifications to one another via groups they belong to.
+**Postit** is an Andela Application where friends and colleagues send notifications to one another via groups they belong to. It also includes API with well-structured documentation that can be reused by anyone. Everything about this application is detailed below:
 
 ## What Users can do with this project
 
@@ -12,10 +12,12 @@
 * Users can read messages they have created in a particular group.
 
 ## Technology Stack
-* Nodejs
+* NodeJS
 * Sequelize ORM
-* Postgres
+* Postgres relational database
 * Bootstrap
+* ReactJS
+* Redux
 
 ## How to install this project
 
@@ -45,19 +47,20 @@
 
 ##  Project Limitations
   * Users can only create account once with their username, email, full name, password and mobile number.
-  * Users can login and obtain a token which is verified on every request, but users cannot logout (nullify the token), however tokens
-  become invalid when it expires.
-  * On successful logged in, Users can add other registered users to group.
+  * Users can login and obtain a token which is verified on every request
+  * Users can sign out of the application whenever they want. However Users will not be automatically logged in whenever they closed the browser. They will have to login again.
+  * On successful logged in, Users can add other registered users to group they belong.
   * On successful logged in, Users can create message in a group they belong to
   * On successful logged in, Users can create a group and add other users to it
   * Users cannot add themselves to a group they already belong
   * Users cannot access protected routes until they return a token given to them when they signed in
   * Invalid group Id in any route ,like `api/group/y/user` will be rejected
   * Invalid routes are rejected
-  
+  # Web Site
+  * You can visit the website at [https://jimoh-postit.herokuapp.com/](https://jimoh-postit.herokuapp.com)
   # API Documentation
   * You can find the API Documentation at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com/apidoc/)
-  * Access API at [https://jimoh-postit.herokuapp.com/api/](https://jimoh-postit.herokuapp.com/api)
+  * You can Access API at [https://jimoh-postit.herokuapp.com/api/](https://jimoh-postit.herokuapp.com/api)
   
   # Want to Contribute ?
   * Fork the repository

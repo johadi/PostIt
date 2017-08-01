@@ -17,7 +17,7 @@ const Notification = ({message,name}) =>{
   };
   return (
       <div className="col-md-12" id="message-board-div">
-        <h2 style={{ textTransform: 'capitalize' }}>{name} Group</h2>
+        <h2><span className="text-capitalize">{name}</span> group</h2>
         <p>Sent by <a href="#">{message.User.username}</a>
           {showTime(message.createdAt) >= 24 ? <small> on {new Date(message.createdAt).toLocaleString('en-us', dateOptions)}
           </small> : <small> <Moment fromNow>{message.createdAt}</Moment></small>}

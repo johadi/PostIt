@@ -3,11 +3,15 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import { getGroupMessages, clearGetGroupMessagesError } from '../../actions/group/groupActions';
+import { Pagination } from 'react-bootstrap';
+import { getGroupMessages, getGroupUsers, clearGetGroupMessagesError } from '../../actions/group/groupActions';
 
 class GroupNotificationBoard extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      activePage: 1
+    };
     this.dateOptions = {
       weekday: 'short',
       year: 'numeric',
@@ -22,10 +26,14 @@ class GroupNotificationBoard extends React.Component {
     const diff=new Date().valueOf() - postDate.valueOf();
     return new Date(diff).getHours();
   }
-
+  handleSelect=(eventKey)=>{
+    this.setState({activePage: eventKey});
+    this.props.getGroupMessages(this.props.groupId, eventKey);
+    this.props.getGroupUsers(this.props.groupId);
+  }
 
 render() {
-    const {count, rows} =this.props.groupState.group_messages;
+    const {count, rows, pages} =this.props.groupState.group_messages;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2 style={{ textTransform: 'capitalize' }}>{this.props.name} Group</h2>
@@ -37,7 +45,7 @@ render() {
                   </div>
                   <div className="media-body">
                     <h4 className="media-heading">{message.User.username}
-                      {this.showTime(message.createdAt) >= 24 ? <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
+                      {this.showTime(message.createdAt) >= 23 ? <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
                       </small> : <small> Sent <Moment fromNow>{message.createdAt}</Moment></small>}
                     </h4>
                     <p className="text-overflow"><Link to={`/message/${this.props.groupId}/${message.id}`}>{message.body}</Link></p>
@@ -45,15 +53,20 @@ render() {
                   <hr/>
                 </div>
             ))}
-          <ul className="pagination">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
-          </ul>
+          {pages <= 1 ? null :
+              <Pagination
+                  prev
+                  next
+                  first
+                  last
+                  ellipsis
+                  boundaryLinks
+                  items={pages}
+                  maxButtons={10}
+                  activePage={this.state.activePage}
+                  onSelect={this.handleSelect}
+              />
+          }
         </div>
     );
   }
@@ -61,5 +74,5 @@ render() {
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ getGroupMessages, clearGetGroupMessagesError }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getGroupMessages, clearGetGroupMessagesError, getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupNotificationBoard);

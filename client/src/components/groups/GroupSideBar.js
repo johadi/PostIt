@@ -30,7 +30,7 @@ class GroupSideBar extends React.Component{
           <div className="list-group">
             {this.props.users.splice(0,6).map(user => (
                 <Link key={user.User.id} className="list-group-item">
-                  <h5 className="list-group-item-heading">{user.User.fullname}</h5>
+                  <h5 className="list-group-item-heading">{user.User.username}</h5>
                 </Link>
             ))}
             {usersLength <= 6 ? null :

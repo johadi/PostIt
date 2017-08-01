@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <MessageBoard/>
+                  <MessageBoard messageBoardMessagesPagination={this.props.messageBoardMessagesPagination}/>
                 </div>
               </div>
             </div>

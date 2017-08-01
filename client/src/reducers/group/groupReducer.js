@@ -16,7 +16,11 @@ const initialState = {
   groups_user_belongs: null,
   groups_user_belongs_error: null,
   groups_user_belongs_pagination: null,
-  groups_user_belongs_pagination_error: null
+  groups_user_belongs_pagination_error: null,
+  message_board_messages_pagination: null,
+  message_board_messages_pagination_error: null,
+  users_search: null,
+  users_search_error: null
 };
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -192,6 +196,48 @@ const groupReducer = (state = initialState, action) => {
         ...state,
         groups_user_belongs_pagination: null,
         groups_user_belongs_pagination_error: null
+      };
+      break;
+    case actionTypes.GET_MESSAGES_OF_MASSAGE_BOARD_PAGINATION_SUCCESSFUL:
+      state = {
+        ...state,
+        message_board_messages_pagination: action.payload,
+        message_board_messages_pagination_error: null
+      };
+      break;
+    case actionTypes.GET_MESSAGES_OF_MASSAGE_BOARD_PAGINATION_ERROR:
+      state = {
+        ...state,
+        message_board_messages_pagination: null,
+        message_board_messages_pagination_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_GET_MESSAGES_OF_MASSAGE_BOARD_PAGINATION_ERROR:
+      state = {
+        ...state,
+        message_board_messages_pagination: null,
+        message_board_messages_pagination_error: null
+      };
+      break;
+    case actionTypes.USERS_SEARCH_SUCCESSFUL:
+      state = {
+        ...state,
+        users_search: action.payload,
+        users_search_error: null
+      };
+      break;
+    case actionTypes.USERS_SEARCH_ERROR:
+      state = {
+        ...state,
+        users_search: null,
+        users_search_error: action.payload
+      };
+      break;
+    case actionTypes.CLEAR_USERS_SEARCH_ERROR:
+      state = {
+        ...state,
+        users_search: null,
+        users_search_error: null
       };
       break;
     default:

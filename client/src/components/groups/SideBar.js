@@ -9,6 +9,7 @@ class SideBar extends React.Component {
     this.props.getGroupsUserBelongsTo();
   }
   render() {
+    const groupsLength=this.props.userGroups.length;
     return (
         <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
@@ -28,9 +29,12 @@ class SideBar extends React.Component {
                   <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>
                 </Link>
             ))}
-            <Link to="/group-users" className="list-group-item btn btn-primary">
-              <h5 className="list-group-item-heading"><strong><Link to={'/groups'}>See all you groups</Link></strong></h5>
-            </Link>
+            {
+              groupsLength < 6 ? null :
+                  <Link to="/group-users" className="list-group-item btn btn-primary">
+                    <h5 className="list-group-item-heading"><strong><Link to={'/groups'}>See all you groups</Link></strong></h5>
+                  </Link>
+            }
           </div>
         </div>
     );

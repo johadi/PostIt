@@ -16,7 +16,6 @@ class CreatedGroupAddUserPage extends React.Component {
     groupBackGround(); // Change background of pages to suit user pages
   }
   componentWillUnmount(){
-    console.log('About to mount');
     this.props.clearAddUserToGroupError();
   }
   handleAddUser = (e)=>{
@@ -38,6 +37,7 @@ class CreatedGroupAddUserPage extends React.Component {
                   addUserError={this.props.groupState.add_user_error}
                   addUserSuccess={this.props.groupState.add_user_success}
                   name={name}
+                  groupId={this.props.groupId}
               />
             </div>
             <GroupSideBar groupId={this.props.groupId} users={Users}/>

@@ -36,7 +36,7 @@ class Groups extends React.Component {
             ))}
           </div>
           <hr/>
-          {count <= 0 ? null:
+          {pages <= 1 ? null:
               <Pagination
               prev
               next

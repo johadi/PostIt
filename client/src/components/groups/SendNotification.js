@@ -8,7 +8,8 @@ class SendNotification extends React.Component {
     super(props);
     this.state={
       input: {
-        message: ''
+        message: '',
+        priority: 'normal'
       },
       isValid: true // Let's assume input is valid for now
     }
@@ -18,10 +19,11 @@ class SendNotification extends React.Component {
   }
   handleSubmit=(e)=>{
     e.preventDefault();
-    if(this.state.input.message){
+    if(this.state.input.message && this.state.input.message.trim().length > 0){
       const groupId=this.props.groupId;
       const message=this.state.input.message;
-      this.props.postMessage(groupId,message);
+      const priority=this.state.input.priority;
+      this.props.postMessage(groupId,message,priority);
     }else{
       // Since input is empty, clear message errors to allow empty error report
       this.props.clearPostMessageError();
@@ -53,6 +55,23 @@ class SendNotification extends React.Component {
                           className="form-control"
                           name="message" id="message"
                           placeholder="Type your Notification"></textarea>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-lg-12">
+                <p className="help-block">
+                  <strong>
+                    Notification priority level: <span className="text-capitalize text-display">{this.state.input.priority}</span>
+                  </strong>
+                </p>
+                <select value={this.state.input.priority}
+                          onChange={this.handleChange}
+                          className="form-control"
+                          name="priority" id="priority">
+                  <option value={'normal'}>Normal</option>
+                  <option value={'urgent'}>Urgent</option>
+                  <option value={'critical'}>Critical</option>
+                </select>
               </div>
             </div>
             <div className="form-group">

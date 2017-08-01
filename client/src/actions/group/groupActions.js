@@ -36,8 +36,8 @@ export const clearAddUserToGroupError = () => ({
   type: actionTypes.CLEAR_ADD_USER_TO_GROUP_ERROR
 });
 // action for posting message to a group
-export const postMessage = (groupId, message) => (dispatch) => {
-  axios.post(`/api/group/${groupId}/message`, { message }, { headers: { 'x-auth': window.sessionStorage.token } })
+export const postMessage = (groupId, message, priority) => (dispatch) => {
+  axios.post(`/api/group/${groupId}/message`, { message, priority }, { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         browserHistory.push(`/group/${groupId}/board`);
         dispatch({ type: actionTypes.POST_MESSAGE_SUCCESSFUL });

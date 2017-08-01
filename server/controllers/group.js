@@ -154,8 +154,15 @@ module.exports = {
       if (!req.body.message) {
         return handleError('Message body required', res);
       }
+      if (req.body.priority) {
+        const priorities = ['normal', 'urgent', 'critical'];
+        if (!(_.includes(priorities, req.body.priority.toLowerCase()))) {
+          return handleError('Message priority level can only be normal or urgent or critical', res);
+        }
+      }
       const userId = req.user.id;
       const body = req.body.message;
+      const priority = req.body.priority.toLowerCase();
       const groupId = req.params.groupId;
       // Check if groupId is a valid group id
       Group.findById(groupId)
@@ -175,13 +182,22 @@ module.exports = {
               return Promise.reject('Invalid Operation: You can\'t post to group You don\'t belong');
             }
             // Create Message if he belongs to this group
-            return Message.create({ userId, body, groupId });
+            return Message.create({ userId, body, priority, groupId });
           })
           .then((messageCreated) => {
             if (!messageCreated) {
               return Promise.reject({ code: 400, message: 'Problem creating message...Try again' });
             }
-            return handleSuccess(201, 'Message created successfully', res);
+            // Since he is the sender let make him a person that has read the post
+            // readersId keeps track of all users that have read the post. hence, we update it accordingly
+            messageCreated.readersId.push(groupId);
+            messageCreated.update({
+              readersId: messageCreated.readersId
+            }, {
+              where: { id: messageCreated.id }
+            })
+                .then(msg => handleSuccess(201, 'Message created successfully', res))
+                .catch(err => handleError(err, res));
           })
           .catch(err => handleError(err, res));
     }

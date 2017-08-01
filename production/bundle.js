@@ -7908,7 +7908,11 @@ var GroupHeader = function GroupHeader(props) {
       _react2.default.createElement(
         'a',
         { className: 'navbar-brand', href: '#' },
-        'PostIt'
+        _react2.default.createElement(
+          'strong',
+          null,
+          'PostIt'
+        )
       )
     ),
     _react2.default.createElement(
@@ -7923,7 +7927,8 @@ var GroupHeader = function GroupHeader(props) {
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/dashboard' },
-            'Dashboard'
+            _react2.default.createElement('i', { className: 'fa fa-lg fa-tachometer', 'aria-hidden': 'true' }),
+            ' Dashboard'
           )
         ),
         _react2.default.createElement(
@@ -7932,16 +7937,8 @@ var GroupHeader = function GroupHeader(props) {
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/groups' },
-            'Groups'
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            _reactRouter.Link,
-            { href: '#' },
-            'Friends'
+            _react2.default.createElement('i', { className: 'fa fa-lg fa-users', 'aria-hidden': 'true' }),
+            ' Groups'
           )
         )
       ),
@@ -7954,7 +7951,8 @@ var GroupHeader = function GroupHeader(props) {
           _react2.default.createElement(
             'a',
             { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown' },
-            'Jimoh ',
+            _react2.default.createElement('i', { className: 'fa fa-lg fa-user-circle-o', 'aria-hidden': 'true' }),
+            ' Jimoh ',
             _react2.default.createElement('b', { className: 'caret' })
           ),
           _react2.default.createElement(
@@ -7977,6 +7975,7 @@ var GroupHeader = function GroupHeader(props) {
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '#', onClick: logout },
+            _react2.default.createElement('i', { className: 'fa fa-lg fa-sign-out', 'aria-hidden': 'true' }),
             'Logout'
           )
         )
@@ -10593,22 +10592,26 @@ var GroupSideBar = function (_React$Component) {
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/group/' + this.props.groupId + '/board', className: 'btn btn-default btn-block' },
-            'Group Notifications'
+            _react2.default.createElement('i', { className: 'fa fa-envelope-open text-display', 'aria-hidden': 'true' }),
+            ' Group Notifications'
           ),
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/group/' + this.props.groupId + '/message', className: 'btn btn-default btn-block' },
-            'Send Notification here'
+            _react2.default.createElement('i', { className: 'fa fa-pencil-square text-display', 'aria-hidden': 'true' }),
+            ' Send Notification here'
           ),
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/group/' + this.props.groupId + '/add', className: 'btn btn-default btn-block' },
-            'Add User to Group'
+            _react2.default.createElement('i', { className: 'fa fa-user-plus text-display', 'aria-hidden': 'true' }),
+            ' Add User to Group'
           ),
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/group/' + this.props.groupId + '/users', className: 'btn btn-default btn-block' },
-            'Group Members'
+            _react2.default.createElement('i', { className: 'fa fa-users text-display', 'aria-hidden': 'true' }),
+            ' Group Members'
           ),
           _react2.default.createElement(
             _reactRouter.Link,
@@ -10620,7 +10623,9 @@ var GroupSideBar = function (_React$Component) {
               _react2.default.createElement(
                 'strong',
                 null,
-                'Leave Group'
+                ' ',
+                _react2.default.createElement('i', { className: 'fa fa-user-times', 'aria-hidden': 'true' }),
+                ' Leave Group'
               )
             )
           )
@@ -15978,7 +15983,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(534);
+var	fixUrls = __webpack_require__(533);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -16385,7 +16390,7 @@ exports.default = function (props) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(539);
+var content = __webpack_require__(538);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -16574,12 +16579,14 @@ var SideBar = function (_React$Component) {
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/create-group', className: 'btn btn-default btn-block' },
-            'Create Group'
+            _react2.default.createElement('i', { className: 'fa fa-lg fa-plus-circle text-display', 'aria-hidden': 'true' }),
+            ' Create Group'
           ),
           _react2.default.createElement(
             _reactRouter.Link,
             { to: '/groups', className: 'btn btn-default btn-block' },
-            'All My Groups'
+            _react2.default.createElement('i', { className: 'fa fa-users text-display', 'aria-hidden': 'true' }),
+            ' All My Groups'
           )
         ),
         _react2.default.createElement('hr', null),
@@ -16591,7 +16598,7 @@ var SideBar = function (_React$Component) {
             { className: 'list-group-item active navy-header' },
             _react2.default.createElement(
               'h5',
-              { className: 'list-group-item-heading' },
+              { className: 'list-group-item-heading text-center' },
               'Your top groups'
             )
           )
@@ -38352,7 +38359,7 @@ var _store2 = _interopRequireDefault(_store);
 
 __webpack_require__(531);
 
-var _routes = __webpack_require__(535);
+var _routes = __webpack_require__(534);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -38367,6 +38374,7 @@ _reactDom2.default.render(_react2.default.createElement(
     _routes2.default
   )
 ), document.getElementById('app'));
+// import './build/static/styles/font-awesome/css/font-awesome.css';
 
 /***/ }),
 /* 384 */
@@ -54004,19 +54012,13 @@ exports = module.exports = __webpack_require__(130)(undefined);
 
 
 // module
-exports.push([module.i, "/*\r\n * Globals\r\n */\r\n\r\n/* Links */\r\n/* Custom default button */\r\n.btn-default,\r\n.btn-default:hover,\r\n.btn-default:focus {\r\n    color: #333;\r\n    text-shadow: none; /* Prevent inheritance from `body` */\r\n    background-color: #fff;\r\n    border: 1px solid #fff;\r\n}\r\n\r\n\r\n/*\r\n * Base structure\r\n */\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n}\r\n.body {\r\n    color: #fff;\r\n    text-align: center;\r\n    text-shadow: 0 1px 3px rgba(0,0,0,.5);\r\n    background-image: url(" + __webpack_require__(533) + ");\r\n    background-size: 100% 100%;\r\n}\r\n\r\n/* Extra markup and styles for table-esque vertical and horizontal centering */\r\n.site-wrapper {\r\n    display: table;\r\n    width: 100%;\r\n    height: 100%; /* For at least Firefox */\r\n    min-height: 100%;\r\n    -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);\r\n    box-shadow: inset 0 0 100px rgba(0,0,0,.5);\r\n}\r\n.site-wrapper-inner {\r\n    display: table-cell;\r\n    vertical-align: top;\r\n}\r\n.cover-container {\r\n    margin-right: auto;\r\n    margin-left: auto;\r\n}\r\n\r\n/* Padding for spacing */\r\n.inner {\r\n    padding: 30px;\r\n}\r\n\r\n\r\n/*\r\n * Header\r\n */\r\n.masthead-brand {\r\n    margin-top: 10px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.masthead-nav > li {\r\n    display: inline-block;\r\n}\r\n.masthead-nav > li + li {\r\n    margin-left: 20px;\r\n}\r\n.masthead-nav > li > a {\r\n    padding-right: 0;\r\n    padding-left: 0;\r\n    font-size: 16px;\r\n    font-weight: bold;\r\n    color: #fff; /* IE8 proofing */\r\n    color: rgba(255,255,255,.75);\r\n    border-bottom: 2px solid transparent;\r\n}\r\n.masthead-nav > li > a:hover,\r\n.masthead-nav > li > a:focus {\r\n    background-color: transparent;\r\n    border-bottom-color: #a9a9a9;\r\n    border-bottom-color: rgba(255,255,255,.25);\r\n}\r\n.masthead-nav > .active > a,\r\n.masthead-nav > .active > a:hover,\r\n.masthead-nav > .active > a:focus {\r\n    color: #fff;\r\n    border-bottom-color: #fff;\r\n}\r\n\r\n@media (min-width: 768px) {\r\n    .masthead-brand {\r\n        float: left;\r\n    }\r\n    .masthead-nav {\r\n        float: right;\r\n    }\r\n}\r\n\r\n\r\n/*\r\n * Cover\r\n */\r\n\r\n.cover {\r\n    padding: 0 20px;\r\n}\r\n.cover .btn-lg {\r\n    padding: 10px 20px;\r\n    font-weight: bold;\r\n}\r\n\r\n\r\n/*\r\n * Footer\r\n */\r\n\r\n.mastfoot {\r\n    color: #999; /* IE8 proofing */\r\n    color: rgba(255,255,255,.5);\r\n}\r\n\r\n\r\n/*\r\n * Affix and center\r\n */\r\n\r\n@media (min-width: 768px) {\r\n    /* Pull out the header and footer */\r\n    .masthead {\r\n        position: fixed;\r\n        top: 0;\r\n    }\r\n    .mastfoot {\r\n        position: fixed;\r\n        bottom: 0;\r\n    }\r\n    /* Start the vertical centering */\r\n    .site-wrapper-inner {\r\n        vertical-align: middle;\r\n    }\r\n    /* Handle the widths */\r\n    .masthead,\r\n    .mastfoot,\r\n    .cover-container {\r\n        width: 100%; /* Must be percentage or pixels for horizontal alignment */\r\n    }\r\n}\r\n\r\n@media (min-width: 992px) {\r\n    .masthead,\r\n    .mastfoot,\r\n    .cover-container {\r\n        width: 700px;\r\n    }\r\n}", ""]);
+exports.push([module.i, "/*\r\n * Globals\r\n */\r\n\r\n/* Links */\r\n/* Custom default button */\r\n.btn-default,\r\n.btn-default:hover,\r\n.btn-default:focus {\r\n    color: #333;\r\n    text-shadow: none; /* Prevent inheritance from `body` */\r\n    background-color: #fff;\r\n    border: 1px solid #fff;\r\n}\r\n\r\n\r\n/*\r\n * Base structure\r\n */\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n}\r\n.body {\r\n    color: #fff;\r\n    text-align: center;\r\n    text-shadow: 0 1px 3px rgba(0,0,0,.5);\r\n    /*background-image: url(\"../images/fam3.jpg\");*/\r\n    /*background-size: 100% 100%;*/\r\n}\r\n\r\n/* Extra markup and styles for table-esque vertical and horizontal centering */\r\n.site-wrapper {\r\n    display: table;\r\n    width: 100%;\r\n    height: 100%; /* For at least Firefox */\r\n    min-height: 100%;\r\n    -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);\r\n    box-shadow: inset 0 0 100px rgba(0,0,0,.5);\r\n}\r\n.site-wrapper-inner {\r\n    display: table-cell;\r\n    vertical-align: top;\r\n}\r\n.cover-container {\r\n    margin-right: auto;\r\n    margin-left: auto;\r\n}\r\n\r\n/* Padding for spacing */\r\n.inner {\r\n    padding: 30px;\r\n}\r\n\r\n\r\n/*\r\n * Header\r\n */\r\n.masthead-brand {\r\n    margin-top: 10px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.masthead-nav > li {\r\n    display: inline-block;\r\n}\r\n.masthead-nav > li + li {\r\n    margin-left: 20px;\r\n}\r\n.masthead-nav > li > a {\r\n    padding-right: 0;\r\n    padding-left: 0;\r\n    font-size: 16px;\r\n    font-weight: bold;\r\n    color: #fff; /* IE8 proofing */\r\n    color: rgba(255,255,255,.75);\r\n    border-bottom: 2px solid transparent;\r\n}\r\n.masthead-nav > li > a:hover,\r\n.masthead-nav > li > a:focus {\r\n    background-color: transparent;\r\n    border-bottom-color: #a9a9a9;\r\n    border-bottom-color: rgba(255,255,255,.25);\r\n}\r\n.masthead-nav > .active > a,\r\n.masthead-nav > .active > a:hover,\r\n.masthead-nav > .active > a:focus {\r\n    color: #fff;\r\n    border-bottom-color: #fff;\r\n}\r\n\r\n@media (min-width: 768px) {\r\n    .masthead-brand {\r\n        float: left;\r\n    }\r\n    .masthead-nav {\r\n        float: right;\r\n    }\r\n}\r\n\r\n\r\n/*\r\n * Cover\r\n */\r\n\r\n.cover {\r\n    padding: 0 20px;\r\n}\r\n.cover .btn-lg {\r\n    padding: 10px 20px;\r\n    font-weight: bold;\r\n}\r\n\r\n\r\n/*\r\n * Footer\r\n */\r\n\r\n.mastfoot {\r\n    color: #999; /* IE8 proofing */\r\n    color: rgba(255,255,255,.5);\r\n}\r\n\r\n\r\n/*\r\n * Affix and center\r\n */\r\n\r\n@media (min-width: 768px) {\r\n    /* Pull out the header and footer */\r\n    .masthead {\r\n        position: fixed;\r\n        top: 0;\r\n    }\r\n    .mastfoot {\r\n        position: fixed;\r\n        bottom: 0;\r\n    }\r\n    /* Start the vertical centering */\r\n    .site-wrapper-inner {\r\n        vertical-align: middle;\r\n    }\r\n    /* Handle the widths */\r\n    .masthead,\r\n    .mastfoot,\r\n    .cover-container {\r\n        width: 100%; /* Must be percentage or pixels for horizontal alignment */\r\n    }\r\n}\r\n\r\n@media (min-width: 992px) {\r\n    .masthead,\r\n    .mastfoot,\r\n    .cover-container {\r\n        width: 700px;\r\n    }\r\n}", ""]);
 
 // exports
 
 
 /***/ }),
 /* 533 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "225a507403525fe1273dd56730502030.jpg";
-
-/***/ }),
-/* 534 */
 /***/ (function(module, exports) {
 
 
@@ -54111,7 +54113,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 535 */
+/* 534 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54127,11 +54129,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = __webpack_require__(11);
 
-var _App = __webpack_require__(536);
+var _App = __webpack_require__(535);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _auth = __webpack_require__(537);
+var _auth = __webpack_require__(536);
 
 var _auth2 = _interopRequireDefault(_auth);
 
@@ -54171,7 +54173,7 @@ exports.default = _react2.default.createElement(
 );
 
 /***/ }),
-/* 536 */
+/* 535 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54218,7 +54220,7 @@ var App = function (_React$Component) {
 exports.default = App;
 
 /***/ }),
-/* 537 */
+/* 536 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54228,7 +54230,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SigninPage = __webpack_require__(538);
+var _SigninPage = __webpack_require__(537);
 
 var _SigninPage2 = _interopRequireDefault(_SigninPage);
 
@@ -54244,7 +54246,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 538 */
+/* 537 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54384,16 +54386,6 @@ var SigninPage = function (_React$Component) {
                   'div',
                   { className: 'col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8' },
                   _react2.default.createElement(
-                    'div',
-                    { className: 'checkbox', style: { textAlign: 'left' } },
-                    _react2.default.createElement(
-                      'label',
-                      null,
-                      _react2.default.createElement('input', { type: 'checkbox' }),
-                      ' Remember me'
-                    )
-                  ),
-                  _react2.default.createElement(
                     'p',
                     null,
                     'No Account yet ? ',
@@ -54444,7 +54436,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SigninPage);
 
 /***/ }),
-/* 539 */
+/* 538 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(130)(undefined);
@@ -54452,10 +54444,16 @@ exports = module.exports = __webpack_require__(130)(undefined);
 
 
 // module
-exports.push([module.i, ".text-signup {\n  color: black;\n  padding-top: 20px; }\n\n.text-signin, .text-signin:focus, .text-signin:hover {\n  color: #fff; }\n\n.text-underline {\n  text-decoration: underline; }\n\n.heading-text {\n  text-shadow: 3px 2px green;\n  font-family: \"Times New Roman\", Times, serif;\n  font-size: 60px; }\n", ""]);
+exports.push([module.i, ".body {\n  background-image: url(" + __webpack_require__(539) + ");\n  background-size: 100% 100%; }\n\n.text-signup {\n  color: black;\n  padding-top: 20px; }\n\n.text-signin, .text-signin:focus, .text-signin:hover {\n  color: #fff; }\n\n.text-underline {\n  text-decoration: underline; }\n\n.heading-text {\n  text-shadow: 3px 2px green;\n  font-family: \"Times New Roman\", Times, serif;\n  font-size: 60px; }\n", ""]);
 
 // exports
 
+
+/***/ }),
+/* 539 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "225a507403525fe1273dd56730502030.jpg";
 
 /***/ }),
 /* 540 */
@@ -55980,7 +55978,7 @@ exports = module.exports = __webpack_require__(130)(undefined);
 
 
 // module
-exports.push([module.i, "#group-body {\n  margin-top: 70px; }\n\n#create-group-div {\n  height: auto;\n  margin-top: 20px; }\n\n#add-user-div {\n  height: auto;\n  margin-top: 20px; }\n\n#post-message-div {\n  margin-top: 20px; }\n\n#message-board-panel {\n  margin-top: 20px;\n  padding: 0 0 0 0; }\n\n.btn-post {\n  background-color: lightseagreen !important;\n  color: #ffffff; }\n\n.navy-header, .navy-header:hover {\n  background-color: lightseagreen !important;\n  border-color: lightseagreen !important;\n  color: #ffffff; }\n\na,\na:focus,\na:hover {\n  color: lightseagreen; }\n\n.text-overflow {\n  white-space: nowrap;\n  width: 45em;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.text-capitalize {\n  text-transform: capitalize; }\n\n.text-display {\n  color: lightseagreen !important; }\n", ""]);
+exports.push([module.i, "#group-body {\n  margin-top: 70px; }\n\n#create-group-div {\n  height: auto;\n  margin-top: 20px; }\n\n#add-user-div {\n  height: auto;\n  margin-top: 20px; }\n\n#post-message-div {\n  margin-top: 20px; }\n\n#message-board-panel {\n  margin-top: 20px;\n  padding: 0 0 0 0; }\n\n.btn-post {\n  background-color: #19b698 !important;\n  color: #ffffff; }\n\n.navy-header, .navy-header:hover {\n  background-color: #19b698 !important;\n  border-color: #19b698 !important;\n  color: #ffffff; }\n\na,\na:focus,\na:hover {\n  color: #19b698; }\n\n.text-overflow {\n  white-space: nowrap;\n  width: 45em;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.text-capitalize {\n  text-transform: capitalize; }\n\n.text-display {\n  color: #19b698 !important; }\n\n.text-white {\n  color: #ffffff !important; }\n", ""]);
 
 // exports
 
@@ -56169,7 +56167,7 @@ var MessageBoard = function (_React$Component) {
         count === 0 ? _react2.default.createElement(
           'p',
           null,
-          'You have no message yet. Create group and start adding members to share notifications.'
+          'You have no unread notifications yet. Only notifications you have not read are shown here.'
         ) : null
       );
     }
@@ -68897,7 +68895,7 @@ var CreateGroupAddUser = function (_React$Component) {
                 _react2.default.createElement(
                   'button',
                   { type: 'submit', className: 'btn btn-post' },
-                  'Search'
+                  _react2.default.createElement('i', { className: 'fa fa-search', 'aria-hidden': 'true' })
                 )
               )
             )
@@ -86975,7 +86973,8 @@ var IndexPage = function (_React$Component) {
               _react2.default.createElement(
                 'strong',
                 null,
-                'PostIt'
+                'PostIt ',
+                _react2.default.createElement('i', { className: 'fa fa-handshake-o', 'aria-hidden': 'true' })
               )
             ),
             _react2.default.createElement(
@@ -86991,7 +86990,8 @@ var IndexPage = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
-              'Join and share happy moment with those you care about'
+              'Join and share happy moment with those you care about ',
+              _react2.default.createElement('i', { className: 'fa fa-lg fa-smile-o', 'aria-hidden': 'true' })
             ),
             _react2.default.createElement(
               'form',
@@ -87005,13 +87005,15 @@ var IndexPage = function (_React$Component) {
                   _react2.default.createElement(
                     _reactRouter.Link,
                     { to: '/signin', className: 'btn btn-lg btn-success' },
-                    'Login now'
+                    _react2.default.createElement('i', { className: 'fa fa-lg fa-thumbs-up', 'aria-hidden': 'true' }),
+                    ' Login now'
                   ),
-                  '|',
+                  ' \xA0',
                   _react2.default.createElement(
                     _reactRouter.Link,
                     { to: '/signup', className: 'btn btn-lg btn-danger' },
-                    'Join now'
+                    _react2.default.createElement('i', { className: 'fa fa-lg fa-user-plus', 'aria-hidden': 'true' }),
+                    ' Join now'
                   )
                 )
               )

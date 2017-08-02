@@ -24,7 +24,7 @@
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm-run-all clean-public build:html",
     "build": "babel-node tools/build.js",
-    "postbuild": "sequelize db:migrate && node tools/publicServer.js"
+    "postbuild": "node tools/publicServer.js"
   },
   "apidoc": {
     "name": "PostIt API - Documentation",

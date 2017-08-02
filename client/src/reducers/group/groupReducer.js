@@ -7,7 +7,7 @@ const initialState = {
   post_message_error: null,
   get_group_messages_error: null,
   group_messages: null,
-  group_view_message: null, // hold all messages for individual view
+  group_view_message: null, // hold a single message detail for view
   group_view_message_error: null,
   group_users: null,
   group_users_error: null,
@@ -20,7 +20,9 @@ const initialState = {
   message_board_messages_pagination: null,
   message_board_messages_pagination_error: null,
   users_search: null,
-  users_search_error: null
+  users_search_error: null,
+  message_read: false,
+  message_read_error: null
 };
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -238,6 +240,20 @@ const groupReducer = (state = initialState, action) => {
         ...state,
         users_search: null,
         users_search_error: null
+      };
+      break;
+    case actionTypes.MESSAGE_READ_SUCCESSFUL:
+      state = {
+        ...state,
+        message_read: action.payload,
+        message_read_error: null
+      };
+      break;
+    case actionTypes.MESSAGE_READ_ERROR:
+      state = {
+        ...state,
+        message_read: null,
+        message_read_error: action.payload
       };
       break;
     default:

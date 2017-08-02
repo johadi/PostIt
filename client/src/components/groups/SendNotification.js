@@ -43,7 +43,7 @@ class SendNotification extends React.Component {
     return (
         <div className="col-sm-offset-1 col-sm-10 well well-lg" id="post-message-div">
           <form onSubmit={this.handleSubmit} className="form-horizontal" role="form">
-            <p className="text-center"><strong>Send notification to <span style={{textTransform: 'capitalize'}}>
+            <p className="text-center"><strong>Send notification to <span className="text-capitalize">
               {this.props.name} group</span></strong></p>
             {(!!post_message_error && <h4 className="text-danger text-center">{post_message_error}</h4>) ||
             (!this.state.isValid && <h4 className="text-danger text-center">Notification body required.</h4>)}

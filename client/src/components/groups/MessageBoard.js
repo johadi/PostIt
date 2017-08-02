@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import _ from 'lodash';
+import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
 import { getGroupsUserBelongsTo, getMessagesOfMessageBoardPagination } from '../../actions/group/groupActions';
@@ -21,6 +23,7 @@ class MessageBoard extends React.Component {
       minute: '2-digit'
     };
     this.reload=0;
+    this.userDetail = jwtDecode(window.sessionStorage.token);
   }
   componentDidMount(){
     this.props.getGroupsUserBelongsTo();
@@ -43,7 +46,8 @@ class MessageBoard extends React.Component {
     const {messages, pages, count} = this.props.messageBoardMessagesPagination;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2>Message board</h2>
+          <h2><strong>Notification board</strong></h2>
+          <small style={{color: 'red'}}>{count ===1 ? `(${count}) notification` : `(${count}) notifications`} you have not read</small>
           <hr/>
           {
             messages.map((message) => {

@@ -231,3 +231,22 @@ export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
 export const clearGetUsersSearchError = () => ({
   type: actionTypes.CLEAR_USERS_SEARCH_ERROR
 });
+// get the result of searching users in the application
+export const updateMessageReadAfterView = messageId => (dispatch) => {
+  if (!messageId) {
+    browserHistory.goBack();
+  }
+  axios.post(`/api/group/message-read/${messageId}`, {}, { headers: { 'x-auth': window.sessionStorage.token } })
+      .then((res) => {
+        dispatch({ type: actionTypes.MESSAGE_READ_SUCCESSFUL, payload: res.data });
+      })
+      .catch((err) => {
+        if (err.response.data.name === 'SequelizeConnectionError') {
+          // browserHistory.goBack();
+          dispatch({ type: actionTypes.MESSAGE_READ_ERROR, payload: 'Error Occurred...Try again' });
+        } else {
+          // browserHistory.goBack();
+          dispatch({ type: actionTypes.MESSAGE_READ_ERROR, payload: err.response.data });
+        }
+      });
+};

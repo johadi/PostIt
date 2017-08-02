@@ -85857,9 +85857,7 @@ var CreateGroupPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props$groupsUserBelo = this.props.groupsUserBelongsTo,
-          Groups = _props$groupsUserBelo.Groups,
-          fullname = _props$groupsUserBelo.fullname;
+      var Groups = this.props.groupsUserBelongsTo.Groups;
 
       return _react2.default.createElement(
         'div',

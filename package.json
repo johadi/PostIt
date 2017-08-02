@@ -24,7 +24,7 @@
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm-run-all clean-public build:html",
     "build": "babel-node tools/build.js",
-    "postbuild": "node tools/publicServer.js"
+    "postbuild": "sequelize db:migrate && node tools/publicServer.js"
   },
   "apidoc": {
     "name": "PostIt API - Documentation",
@@ -46,6 +46,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
     "expect": "^1.20.2",
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",

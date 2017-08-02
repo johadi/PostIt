@@ -11,7 +11,7 @@ export default class CreateGroupPage extends React.Component {
     groupBackGround();
   }
   render() {
-    const {Groups,fullname} = this.props.groupsUserBelongsTo;
+    const { Groups } = this.props.groupsUserBelongsTo;
     return (
         <div className="container">
           <GroupHeader/>

@@ -79,6 +79,7 @@
     "express": "^4.15.3",
     "file-loader": "^0.11.2",
     "jsonwebtoken": "^7.4.1",
+    "jwt-decode": "^2.2.0",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",

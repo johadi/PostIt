@@ -190,7 +190,7 @@ module.exports = {
             }
             // Since he is the sender let make him a person that has read the post
             // readersId keeps track of all users that have read the post. hence, we update it accordingly
-            messageCreated.readersId.push(groupId);
+            messageCreated.readersId.push(userId);
             messageCreated.update({
               readersId: messageCreated.readersId
             }, {
@@ -288,6 +288,43 @@ module.exports = {
               return Promise.reject('message not found');
             }
             return handleSuccess(200, message, res);
+          })
+          .catch(err => handleError(err, res));
+    }
+  },
+  // Controller that update the message status of a user
+  updateMessageReadStatus(req, res) {
+    // Check to ensure groupId is not a String
+    if (isNaN(parseInt(req.params.messageId, 10))) {
+      return handleError('Oops! Something went wrong, Check your route', res);
+    }
+    if (req.user && req.params.messageId) {
+      const userId = req.user.id;
+      const messageId = req.params.messageId;
+      // Check if groupId is a valid group id
+      Message.findById(messageId)
+          .then((message) => {
+            if (!message) {
+              return Promise.reject({ code: 404, message: 'Message with this ID doesn\'t exist' });
+            }
+            // Check if User belongs to the group
+            UserGroup.findOne({
+              where: { userId, groupId: message.groupId }
+            })
+                .then((foundUserAndGroup) => {
+                  if (!foundUserAndGroup) {
+                    return Promise.reject('You don\'t belong to this group');
+                  }
+                  // if all went well. update the readersId status
+                  message.readersId.push(userId); // readersId is an array
+                  return message.update({
+                    readersId: message.readersId
+                  }, {
+                    where: { id: messageId }
+                  });
+                })
+                .then(msg => handleSuccess(201, true, res))
+                .catch(err => handleError(err, res));
           })
           .catch(err => handleError(err, res));
     }
@@ -458,7 +495,7 @@ module.exports = {
               const currentPage = query < 1 ? 1 : query;
               const offset = perPage * (currentPage - 1);
               Message.findAndCountAll({
-                where: { groupId: userGroupIds },
+                where: { groupId: userGroupIds }, // return messages that has groupIds like in [3,5,7,8,9]
                 offset,
                 limit: perPage,
                 order: [['createdAt', 'DESC']],
@@ -468,11 +505,13 @@ module.exports = {
                 }]
               })
                   .then((messages) => {
-                    const pages = Math.ceil(messages.count / perPage); // to round off i.e 3/2 = 1.5 = 2
-
+                    // Get list of messages that have not been read by this user
+                    const userUnreadMessages = messages.rows.filter(message =>
+                        !(_.includes(message.readersId, userId)));
+                    const pages = Math.ceil(userUnreadMessages.length / perPage); // to round off i.e 3/2 = 1.5 = 2
                     const data = {
-                      messages: messages.rows,
-                      count: messages.count,
+                      messages: userUnreadMessages,
+                      count: userUnreadMessages.length,
                       pages
                     };
                     return handleSuccess(200, data, res);

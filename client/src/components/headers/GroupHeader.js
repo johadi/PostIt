@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
+import jwtDecode from 'jwt-decode';
 import '../../build/static/styles/auth-custom.scss';
 
 const GroupHeader = (props) => {
@@ -7,6 +8,7 @@ const GroupHeader = (props) => {
     window.sessionStorage.removeItem('token');
     browserHistory.push('/');
   };
+  const userDetail = jwtDecode(window.sessionStorage.token);
   return (
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div className="navbar-header">
@@ -28,7 +30,7 @@ const GroupHeader = (props) => {
           <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
               <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                <i className="fa fa-lg fa-user-circle-o" aria-hidden="true"></i> Jimoh <b className="caret"></b>
+                <i className="fa fa-lg fa-user-circle-o" aria-hidden="true"></i> {userDetail.username} <b className="caret"></b>
               </a>
               <ul className="dropdown-menu">
                 <li><Link href="#">Profile</Link></li>

@@ -45,7 +45,7 @@ module.exports = {
   addUserToDb2(done) {
     User.create({
       id: 20,
-      fullname: 'Jack Oman',
+      fullname: 'jack oman',
       username: 'oman',
       email: 'oman@gmail.com',
       mobile: '08163041269',
@@ -179,6 +179,28 @@ module.exports = {
         })
         .catch(err => done(err));
   },
+  addMessageToDb4(done) {
+    Message.create({
+      id: 13,
+      body: 'No condition permanent',
+      groupId: 101,
+      userId: 5
+    })
+        .then((message) => {
+          if (!message) {
+            return Promise.reject('Error');
+          }
+          message.readersId.push(5);
+          message.update({
+            readersId: message.readersId
+          }, {
+            where: { id: message.id }
+          })
+              .then(msg => done())
+              .catch(err => done(err));
+        })
+        .catch(err => done(err));
+  },
   addUserToGroup(done) {
     UserGroup.create({
       groupId: 100,
@@ -225,7 +247,7 @@ module.exports = {
             return Promise.reject('Error');
           }
           return UserGroupAdd.create({
-            addedById: 5,
+            addedById: 7,
             addedToId: 5,
             groupId: 101
           });

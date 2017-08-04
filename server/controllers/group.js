@@ -256,7 +256,7 @@ module.exports = {
   },
   // to view a particular message
   viewMessage(req, res) {
-    if (isNaN(parseInt(req.params.groupId, 10))) {
+    if (isNaN(parseInt(req.params.groupId, 10)) || isNaN(parseInt(req.params.messageId, 10))) {
       return handleError('Oops! Something went wrong, Check your route', res);
     }
     if (req.user && req.params.groupId && req.params.messageId) {
@@ -292,7 +292,7 @@ module.exports = {
           .catch(err => handleError(err, res));
     }
   },
-  // Controller that update the message status of a user
+  // Controller that update the read message status of a user
   updateMessageReadStatus(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.messageId, 10))) {
@@ -323,7 +323,7 @@ module.exports = {
                     where: { id: messageId }
                   });
                 })
-                .then(msg => handleSuccess(201, true, res))
+                .then(msg => handleSuccess(200, true, res))
                 .catch(err => handleError(err, res));
           })
           .catch(err => handleError(err, res));
@@ -347,6 +347,11 @@ module.exports = {
               // Check if User belongs to the group
               const userGroup = UserGroup.findOne({
                 where: { userId, groupId }
+              }).then((foundUserGroup) => {
+                if (!foundUserGroup) {
+                  return Promise.reject('Invalid Operation: You don\'t belong to this group');
+                }
+                return Promise.resolve(foundUserGroup);
               });
               return Promise.all([userGroup, group]);
             })
@@ -365,9 +370,6 @@ module.exports = {
                   }]
                 })
                     .then((groupWithMembers) => {
-                      if (!groupWithMembers) {
-                        return Promise.reject('group not found'); //
-                      }
                       const data = {
                         id: group.id,
                         name: group.name,

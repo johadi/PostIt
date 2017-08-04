@@ -42,7 +42,7 @@ class GroupNotificationBoard extends React.Component {
     return (
         <div className="col-md-12" id="message-board-div">
           <h2 style={{textTransform: 'capitalize'}}>{this.props.name} Group </h2>
-          <p>({count}) notifications</p>
+          <p>({count}) {count === 1 ? 'notification' : 'notifications'}</p>
           <hr/>
           {rows.map(message => (
               <div key={message.id} className="media">

@@ -101,10 +101,10 @@ router.route('/group/:groupId/message')
 //     .get(groupController.getUserMessages);
 router.route('/group/:groupId/message/:messageId')
     .get(authenticate, groupController.viewMessage); // view single notification
-router.route('/group/:groupId/group-users')
-    .get(authenticate, groupController.getGroupUsers);
 router.route('/group/message-read/:messageId')
     .post(authenticate, groupController.updateMessageReadStatus);
+router.route('/group/:groupId/group-users')
+    .get(authenticate, groupController.getGroupUsers);
 router.route('/group/user/groups')
     .get(authenticate, groupController.getGroupsUserBelongsTo);
 router.route('/group/user/board')

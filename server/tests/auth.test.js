@@ -2,23 +2,25 @@ require('dotenv').config();
 // auth.test.js
 const request = require('supertest');
 const assert = require('chai').assert;
+const jwtDecode = require('jwt-decode');
 const app = require('./../../app');
 const seeder = require('./seed/auth_seed');
 const User = require('./../database/models').User;
 const db = require('./../database/models');
 
+// Test for Signup route
 describe('POST api/user/signup', () => {
   beforeEach(seeder.emptyDB);
   beforeEach(seeder.addUserToDb);
 
-  it('Should return status code 400 and a message when input are invalid. i.e some empty fields', (done) => {
+  it('Should return status code 400 and a message when some inputs are invalid. i.e Username', (done) => {
     request(app)
         .post('/api/user/signup')
         .send(seeder.setData('jimoh hadi', '', 'jimoh@gmail.com', '0908736521', '11223344', '11223344'))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'There are problems with your input');
+          assert.equal(res.body.validateError.username[0], 'The username field is required.');
           done();
         });
   });
@@ -29,7 +31,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'password not matched');
+          assert.equal(res.body, 'password not matched');
           done();
         });
   });
@@ -40,7 +42,7 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'This Username has been used');
+          assert.equal(res.body, 'This Username has been used');
           done();
         });
   });
@@ -51,32 +53,22 @@ describe('POST api/user/signup', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'A user with this email already exists');
+          assert.equal(res.body, 'A user with this email already exists');
           done();
         });
   });
-  it('should return status code 400 and a message if there is an existing mobile number', (done) => {
-    request(app)
-        .post('/api/user/signup')
-        .send(seeder.setData('jimoh ali', 'ali', 'ali@yahoo.com.com', '8163041269', '11223344', '11223344'))
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body.message, 'This Mobile Number has been used');
-          done();
-        });
-  });
-  it('Should create a new user account when input is valid and return status code 201 with some user detail, no password', (done) => {
+  it('Should create a new user account when input is valid and return status code 201 with a token', (done) => {
     request(app)
         .post('/api/user/signup')
         .send(seeder.setData('jimoh', 'johadi11', 'jimoh@gmail.com', '0908736521', '11223344', '11223344'))
         .expect(201)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.data.email, 'jimoh@gmail.com');
-          assert.equal(res.body.data.username, 'johadi11');
+          const decodedToken = jwtDecode(res.body);
+          assert.equal(decodedToken.email, 'jimoh@gmail.com');
+          assert.equal(decodedToken.username, 'johadi11');
           const password = { password: '11223344' };
-          assert.notInclude(res.body.data, password);
+          assert.notInclude(decodedToken, password);
           done();
         });
   });
@@ -98,6 +90,7 @@ describe('POST api/user/signup', () => {
         });
   });
 });
+// Test for Signin route
 describe('POST api/user/signin', () => {
   // Empty our database
   before(seeder.emptyDB);
@@ -110,14 +103,14 @@ describe('POST api/user/signin', () => {
       password: '11223344' }
   */
   before(seeder.addUserToDb);
-  it('Should return status code 400 and a message when input are invalid. i.e some empty fields', (done) => {
+  it('Should return status code 400 and a message when any input is invalid. i.e username field', (done) => {
     request(app)
         .post('/api/user/signin')
         .send(seeder.setLoginData('', '11223344'))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'There are problems with your input');
+          assert.equal(res.body.validateError.username[0], 'The username field is required.');
           done();
         });
   });
@@ -128,7 +121,7 @@ describe('POST api/user/signin', () => {
         .expect(404)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'User not found');
+          assert.equal(res.body, 'User not found');
           done();
         });
   });
@@ -139,7 +132,7 @@ describe('POST api/user/signin', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.message, 'Incorrect password');
+          assert.equal(res.body, 'Incorrect password');
           done();
         });
   });
@@ -150,8 +143,9 @@ describe('POST api/user/signin', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body.data.message, 'Sign in successful');
-          assert.exists(res.body.data.token);
+          assert.exists(res.body);
+          const decodedToken = jwtDecode(res.body);
+          assert.equal(decodedToken.username, 'ovenje');
           done();
         });
   });

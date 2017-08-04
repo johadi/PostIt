@@ -2,8 +2,13 @@ const router = require('express').Router();
 const groupController = require('../controllers/group');
 const authenticate = require('../middlewares/authenticate');
 
-router.use(authenticate);
-router.route('/api/group')
+router.route('/verify-token')
+    .get(authenticate, (req, res) => {
+      if (req.user) {
+        return res.status(200).json('user verified');
+      }
+    });
+router.route('/group')
 /**
  * @api {post} /api/group Create a group
  * @apiGroup Group
@@ -25,8 +30,8 @@ router.route('/api/group')
      *      }
      *    }
  */
-    .post(groupController.createGroup);
-router.route('/api/group/:groupId/user')
+    .post(authenticate, groupController.createGroup);
+router.route('/group/:groupId/user')
 /**
  * @api {post} /api/group/:groupId/user Add user to group
  * @apiGroup Group
@@ -48,8 +53,8 @@ router.route('/api/group/:groupId/user')
      *      }
      *    }
  */
-    .post(groupController.addUserToGroup);
-router.route('/api/group/:groupId/message')
+    .post(authenticate, groupController.addUserToGroup);
+router.route('/group/:groupId/message')
 /**
  * @api {get} /api/group/:groupId/message Get group messages
  * @apiGroup Message
@@ -73,8 +78,8 @@ router.route('/api/group/:groupId/message')
  *        }
    *    }
  */
-    .get(groupController.getMessages);
-router.route('/api/group/:groupId/message')
+    .get(authenticate, groupController.getMessages);
+router.route('/group/:groupId/message')
     /**
      * @api {post} /api/group/:groupId/message POST messages to group
      * @apiGroup Message
@@ -90,7 +95,19 @@ router.route('/api/group/:groupId/message')
    *       "message": "created successfully"
    *    }
      */
-    .post(groupController.postMessage);
-// router.route('/api/group/:groupId/user/message')
+    .post(authenticate, groupController.postMessage);
+// router.route('/group/:groupId/user/message')
 //     .get(groupController.getUserMessages);
+router.route('/group/:groupId/message/:messageId')
+    .get(authenticate, groupController.viewMessage); // view single notification
+router.route('/group/message-read/:messageId')
+    .post(authenticate, groupController.updateMessageReadStatus);
+router.route('/group/:groupId/group-users')
+    .get(authenticate, groupController.getGroupUsers);
+router.route('/group/user/groups')
+    .get(authenticate, groupController.getGroupsUserBelongsTo);
+router.route('/group/user/board')
+    .get(authenticate, groupController.userMessageBoard);
+router.route('/users')
+    .get(authenticate, groupController.getAllUsers);
 module.exports = router;

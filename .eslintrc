@@ -1,10 +1,29 @@
 {
   "root": true,
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base","plugin:react/recommended"],
   "env": {
     "node": true,
     "es6": true,
     "mocha": true
+  },
+  "plugins": [
+    "react",
+    "import",
+    "jsx-a11y"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "globals": {
+    "document": true,
+    "window": true,
+    "localStorage": true,
+    "swal": true,
+    "$": true
   },
   "rules": {
     "one-var": 0,
@@ -17,6 +36,7 @@
     "comma-dangle": 0,
     "global-require": 1,
     "curly": ["error", "multi-line"],
+    "max-len": 1,
     "import/no-unresolved": [2, { "commonjs": true }],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {

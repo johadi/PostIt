@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       signupRules: () => ({
         password: 'required|min:6',
+        confirm_password: 'required|min:6',
         username: 'required',
         email: 'required|email',
         fullname: 'required'

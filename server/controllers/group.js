@@ -421,7 +421,7 @@ module.exports = {
       const userId = req.user.id;
       if (req.query.page) {
         if (isNaN(parseInt(req.query.page, 10))) {
-          return handleError('Oops! Something went wrong, page query must be a number', res);
+          return handleError('Oops! Something went wrong, page query value must be a number', res);
         }
         const query = parseInt(req.query.page, 10); // convert the query to standard number for use
         if (query === 0) { // Return groups of at most 6 . this is good for client group side bar
@@ -475,11 +475,11 @@ module.exports = {
               .catch(err => handleError(err, res));
         }
       } else {
-        return handleError('This request is invalid, Check your route', res);
+        return handleError('Oops! Error. Request url must have query string named page with number as value', res);
       }
     }
   },
-  // Get all messages that are sent to groups a user belongs to
+  // Get all messages that are sent to groups a user belongs to but those he/she has not read
   userMessageBoard(req, res) {
     if (req.user) {
       const userId = req.user.id;
@@ -487,7 +487,7 @@ module.exports = {
         // Let us find all groupIds this user belongs to first
         UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
             .then((result) => {
-              // We then convert the groupIds from array of object to plain arrays
+              // We then convert the groupIds from array of object to plain arrays [23, 67, 89]
               const userGroupIds = result.map(userGroup => userGroup.groupId);
               return userGroupIds; // arrays of group Ids i.e [23,67,89]
             })
@@ -526,7 +526,8 @@ module.exports = {
       }
     }
   },
-  // Get all users in the application.
+  // Get all users in the application by search term.
+  // You can also include array of user Ids in a group
   getAllUsers(req, res) {
     if (req.user) {
       if (req.query.search) {
@@ -543,13 +544,31 @@ module.exports = {
               // If a client wants to work with all users in the application and all users of a certain group
               if (req.query.groupId) {
                 if (isNaN(parseInt(req.query.groupId, 10))) {
-                  return Promise.reject('query groupId must be a number');
+                  return Promise.reject('Query groupId must be a number');
                 }
-                // get userId of all users in a group by the given groupId as object
-                UserGroup.findAll({
-                  where: { groupId: req.query.groupId },
-                  attributes: ['userId']
-                })
+                // get userId of all users in a particular group by the given groupId as object
+                const groupId = req.query.groupId;
+                const userId = req.user.id;
+                Group.findById(groupId)
+                    .then((group) => {
+                      if (!group) {
+                        return Promise.reject({ code: 404, message: 'Invalid group' });
+                      }
+                      // Check if User belongs to the group
+                      return UserGroup.findOne({
+                        where: { userId, groupId }
+                      });
+                    })
+                    .then((foundUserAndGroup) => {
+                      if (!foundUserAndGroup) {
+                        return Promise.reject('Invalid Operation: You don\'t belong to this group');
+                      }
+                      // get the userId of users that belongs to this group
+                      return UserGroup.findAll({
+                        where: { groupId: req.query.groupId },
+                        attributes: ['userId']
+                      });
+                    })
                     .then((groupUsers) => {
                       // converts the array of userId objects to standard array of Ids
                       const groupUsersIdInArray = groupUsers.map(groupUser => groupUser.userId);

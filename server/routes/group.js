@@ -7,7 +7,6 @@ router.route('/verify-token')
       if (req.user) {
         return res.status(200).json('user verified');
       }
-      return res.status(404).json('user not verified');
     });
 router.route('/group')
 /**

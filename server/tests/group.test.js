@@ -23,7 +23,7 @@ describe('POST: api/group', () => {
   // Create a group
   before(seeder.createGroup); // name=andela creator_id = 1 id = 1
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -93,7 +93,7 @@ describe('POST api/group/:groupId/user', () => {
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5}
   before(seeder.addUserToGroup4); // {groupId: 99, userId: 20}
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -221,7 +221,7 @@ describe('POST api/group/:groupId/message', () => {
   // create a message
   before(seeder.addMessageToDb); // {groupId: 99, userId: 5, body: 'Carry Something .....'}
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -322,7 +322,7 @@ describe('Get api/group/groupId/message', () => {
   before(seeder.addMessageToDb2); // {groupId: 100, userId: 20, body: 'Carry Something more than .....'}
   before(seeder.addMessageToDb3); // {groupId: 99, userId: 5, body: 'Learners are leaders .....'}
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -413,7 +413,7 @@ describe('Get api/group/:groupId/message/:messageId', () => {
   before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
   before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -516,7 +516,7 @@ describe('POST api/group/message-read/:messageId', () => {
   before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
   before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -595,7 +595,7 @@ describe('Get api/group/:groupId/group-users', () => {
   // before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
   // before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -701,7 +701,7 @@ describe('Get api/group/user/groups', () => {
   // before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
   // before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -771,7 +771,7 @@ describe('Get api/group/user/board', () => {
   before(seeder.addUserToGroup3); // {groupId: 101, userId: 5} UserGroup
   before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -840,7 +840,7 @@ describe('Get api/users', () => {
   before(seeder.addUserToGroup3); // {groupId: 101, userId: 5} UserGroup
   before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -967,8 +967,21 @@ describe('Get api/verify-token', () => {
   before(seeder.emptyUserGroupDB);
   // Add users to DB
   before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  let sherifToken = '';
+  before((done) => {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'sherif', password: '11223344' })
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err);
+          sherifToken = res.body;
+          done();
+        });
+  });
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) => {
+  before((done) => {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
@@ -1003,19 +1016,24 @@ describe('Get api/verify-token', () => {
   });
   it('Should return 404 if user access a route with a valid token but decoded ' +
       'detail in the token not found in database.', (done) => {
-    // token is valid but user is not found in database.
-    const testToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDQ3LCJ1c2VybmFtZSI6Impva' +
-        'GFkaSIsImVtYWlsIjoiamltb2guaGFkaUBnbWFpbC5jb20iLCJmdWxsbmFtZSI6ImppbW9oIGhhZGkiLCJpYXQiOjE1MDExNjM4NT' +
-        'd9.j8udMvL9loc2zbzNpB_eZc7YNSHL-szVUizTXl_iqRY';
-    request(app)
-        .get('/api/verify-token')
-        .set({ 'x-auth': testToken })
-        .expect(404)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'User with this token not found');
-          done();
-        });
+    // Let us remove a user from database and use his token for testing here
+    User.destroy({ where: { username: 'sherif' } })
+        .then((rowDeleted) => {
+          if (rowDeleted === 1) {
+            request(app)
+                 .get('/api/verify-token')
+                 .set({ 'x-auth': sherifToken }) // sherifToken is a token of user deleted from database.
+                 .expect(404)
+                 .end((err, res) => {
+                   if (err) return done(err);
+                   assert.equal(res.body, 'User with this token not found');
+                   done();
+                 });
+          } else {
+            return Promise.reject('row not deleted');
+          }
+        })
+        .catch(err => done(err));
   });
   it('Should return 200 if user provide a valid token that matches database record.', (done) => {
     request(app)

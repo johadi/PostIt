@@ -105,7 +105,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n  \"status\": 200,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Andela\",\n    \"updated_at\": \"2016-02-10T15:46:51.778Z\",\n    \"created_at\": \"2016-02-10T15:46:51.778Z\"\n  }\n}",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"id\": 1,\n  \"name\": \"Andela\",\n  \"updated_at\": \"2016-02-10T15:46:51.778Z\",\n  \"created_at\": \"2016-02-10T15:46:51.778Z\",\n  \"creator_id\": 5\n}",
           "type": "json"
         }
       ]
@@ -164,7 +164,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n  \"status\": 200,\n  \"data\": {\n     \"message\": \"User added successfully\",\n     \"name\": \"Ortwel\",\n     \"groupId\": \"1\",\n     \"addedById\": \"2\"\n  }\n}",
+          "content": "HTTP/1.1 201 CREATED\n{\n  \"message\": \"User added successfully\",\n  \"addedUser\": \"Ortwel\",\n  \"addedBy\": \"johadi\"\n}",
           "type": "json"
         }
       ]
@@ -223,7 +223,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 200 OK\n{\n    \"status\": 200,\n    \"data\": {\n      \"count\": 1,\n    \"rows\" : [{\n    \"id\": 1,\n    \"message\": \"Programming is in the mind\",\n    \"updated_at\": \"2016-02-10T15:46:51.778Z\",\n    \"created_at\": \"2016-02-10T15:46:51.778Z\",\n  }]\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"count\": 2,\n    \"pages\": 1,\n    \"rows\": [{\n      \"id\": 1,\n      \"message\": \"Programming is in the mind\",\n      \"updated_at\": \"2017-06-10T15:46:51.778Z\",\n      \"created_at\": \"2017-06-10T15:46:51.778Z\",\n      \"User\": {\n        \"id\": 3,\n        \"username\": \"johadi\",\n        \"fullname\": \"jimoh hadi\"\n      }\n    },\n    {\n      \"id\": 4,\n      \"message\": \"I love Programming\",\n      \"updated_at\": \"2017-05-10T15:46:51.778Z\",\n      \"created_at\": \"2017-05-10T15:46:51.778Z\",\n      \"User\": {\n        \"id\": 6,\n        \"username\": \"mary\",\n        \"fullname\": \"john mary\"\n      }\n    }]\n}",
           "type": "json"
         }
       ]
@@ -234,9 +234,68 @@ define({ "api": [
     "name": "GetApiGroupGroupidMessage"
   },
   {
+    "type": "get",
+    "url": "/api/group/:groupId/message/:messageId",
+    "title": "Get a message in a group",
+    "group": "Message",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>of authenticated user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"x-auth\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "id",
+            "optional": false,
+            "field": "Id",
+            "description": "<p>of group</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Username",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   {\n      \"id\": 4,\n      \"message\": \"I love Programming\",\n      \"updated_at\": \"2017-05-10T15:46:51.778Z\",\n      \"created_at\": \"2017-05-10T15:46:51.778Z\",\n      \"User\": {\n        \"id\": 6,\n        \"username\": \"mary\",\n        \"fullname\": \"john mary\"\n      }\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/group.js",
+    "groupTitle": "Message",
+    "name": "GetApiGroupGroupidMessageMessageid"
+  },
+  {
     "type": "post",
     "url": "/api/group/:groupId/message",
-    "title": "Post messages to group",
+    "title": "POST messages to group",
     "group": "Message",
     "header": {
       "fields": {
@@ -282,7 +341,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success",
-          "content": "HTTP/1.1 201 CREATED\n{\n  \"status\": 1,\n   \"message\": \"created successfully\"\n}",
+          "content": "HTTP/1.1 201 CREATED\n\n  \"created successfully\"",
           "type": "json"
         }
       ]
@@ -291,6 +350,332 @@ define({ "api": [
     "filename": "server/routes/group.js",
     "groupTitle": "Message",
     "name": "PostApiGroupGroupidMessage"
+  },
+  {
+    "type": "post",
+    "url": "/api/group/message-read",
+    "title": "POST update status of message whether read or not",
+    "group": "Message",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>of authenticated user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"x-auth\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "id",
+            "optional": false,
+            "field": "Id",
+            "description": "<p>of message</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Message",
+            "description": "<p>of a group</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n\n  true",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/group.js",
+    "groupTitle": "Message",
+    "name": "PostApiGroupMessageRead"
+  },
+  {
+    "type": "get",
+    "url": "/api/group/:groupId/group-users",
+    "title": "Get group members",
+    "group": "User",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>of authenticated user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"x-auth\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "id",
+            "optional": false,
+            "field": "Id",
+            "description": "<p>of group</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Username",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 7,\n    \"name\": \"andela\"\n    \"count\": 2,\n    \"pages\": 1,\n    \"Users\": [{\n      \"id\": 1,\n      \"username\": \"johadi\",\n      \"fullname\": \"jimoh hadi\",\n    },\n    {\n      \"id\": 3,\n      \"username\": \"sanni\",\n      \"fullname\": \"ali sanni\"\n    }]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/group.js",
+    "groupTitle": "User",
+    "name": "GetApiGroupGroupidGroupUsers"
+  },
+  {
+    "type": "get",
+    "url": "/api/group/user/board",
+    "title": "Get user's unread messages in all joined groups",
+    "group": "User",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>of authenticated user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"x-auth\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Username",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n    \"count\": 2,\n    \"pages\": 1,\n    \"messages\": [\n      {\n        \"id\": 12,\n        \"body\": \"No man is an island espcially in learning\",\n        \"User\": {\n         \"username\": \"johadi\",\n         \"fullname\": \"jimoh hadi\"\n        },\n        \"Group\": {\n          \"id\": 5,\n          \"name\": \"sport\"\n        }\n      },\n     {\n        \"id\": 9,\n        \"body\": \"There is no limitation in learning\",\n        \"User\": {\n         \"username\": \"sanni\",\n         \"fullname\": \"muhammed sanni\"\n        },\n        \"Group\": {\n          \"id\": 17,\n          \"name\": \"programming\"\n        }\n      }\n    ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/group.js",
+    "groupTitle": "User",
+    "name": "GetApiGroupUserBoard"
+  },
+  {
+    "type": "get",
+    "url": "/api/group/user/groups",
+    "title": "Get user's groups",
+    "group": "User",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>of authenticated user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"x-auth\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Username",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": 1,\n    \"username\": \"johadi\",\n    \"fullname\": \"jimoh hadi\",\n    \"count\": 2,\n    \"pages\": 1,\n    \"Groups\": [{\n      \"id\": 1,\n      \"name\": \"andela\",\n      \"creator_id\": 8,\n    },\n    {\n      \"id\": 3,\n      \"name\": \"sport\",\n      \"creator_id\": 2\n    }]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/group.js",
+    "groupTitle": "User",
+    "name": "GetApiGroupUserGroups"
+  },
+  {
+    "type": "get",
+    "url": "/api/users?search=joh",
+    "title": "Get at most 10 users in the application that match the search term only",
+    "group": "User",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>of authenticated user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"x-auth\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Username",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n   [\n      {\n        \"id\": 1,\n        \"username\": \"johadi\",\n        \"fullname\": \"jimoh hadi\",\n        \"email\": \"johadi@test.com\",\n      },\n     {\n        \"id\": 5,\n        \"username\": \"john121\",\n        \"fullname\": \"john daniel\",\n        \"email\": \"john@test.com\",\n      },\n    ],",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/group.js",
+    "groupTitle": "User",
+    "name": "GetApiUsersSearchJoh"
+  },
+  {
+    "type": "get",
+    "url": "/api/users?search=joh&groupId=3",
+    "title": "Get at most 10 users in the application that match the search term and userId of a group",
+    "group": "User",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Token",
+            "description": "<p>of authenticated user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header",
+          "content": "{\"x-auth\": \"JWT xyz.abc.123.hgf\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Username",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "HTTP/1.1 200 OK\n{\n    \"allUsers\": [\n      {\n        \"id\": 1,\n        \"username\": \"johadi\",\n        \"fullname\": \"jimoh hadi\",\n        \"email\": \"johadi@test.com\",\n      },\n     {\n        \"id\": 5,\n        \"username\": \"john121\",\n        \"fullname\": \"john daniel\",\n        \"email\": \"john@test.com\",\n      },\n    ],\n    groupUsersId: [1,4,6,8,9,0]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/group.js",
+    "groupTitle": "User",
+    "name": "GetApiUsersSearchJohGroupid3"
   },
   {
     "type": "post",

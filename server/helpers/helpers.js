@@ -1,3 +1,6 @@
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+const twilio = require('twilio');
 // error message handler
 const handleError = (err, res) => {
   switch (err.code) {
@@ -18,4 +21,36 @@ const handleSuccess = (code, body, res) => {
       return res.status(200).json(body);
   }
 };
-module.exports = { handleError, handleSuccess };
+// create reusable transporter object using the default SMTP transport
+// Sending Email
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 465,
+  secure: true, // secure:true for port 465, secure:false for port 587
+  auth: {
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD
+  }
+});
+const sendMail = (from, to, subject, message) => {
+  const mailOptions = {
+    from,
+    to,
+    subject,
+    html: message
+  };
+  return transporter.sendMail(mailOptions);
+};
+
+// Sending SMS
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = twilio(accountSid, authToken);
+
+const sendSMS = (from, to, body) => {
+  client.messages.create({ to, from, body }, (err, message) => {
+    if (err) return console.log(err);
+    return console.log(message.sid);
+  });
+};
+module.exports = { sendSMS, sendMail, handleError, handleSuccess };

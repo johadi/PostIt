@@ -1,10 +1,11 @@
 const _ = require('lodash');
+const P = require('bluebird');
 const User = require('../database/models').User;
 const Group = require('../database/models').Group;
 const UserGroup = require('../database/models').UserGroup;
 const UserGroupAdd = require('../database/models').UserGroupAdd;
 const Message = require('../database/models').Message;
-const { handleError, handleSuccess } = require('../helpers/helpers');
+const { sendSMS, sendMail, handleError, handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
   // Controller method for creating group
@@ -154,15 +155,17 @@ module.exports = {
       if (!req.body.message) {
         return handleError('Message body required', res);
       }
+      let priority = 'normal';
       if (req.body.priority) {
         const priorities = ['normal', 'urgent', 'critical'];
         if (!(_.includes(priorities, req.body.priority.toLowerCase()))) {
           return handleError('Message priority level can only be normal or urgent or critical', res);
         }
+        // make priority a lowercase letter
+        priority = req.body.priority.toLowerCase();
       }
       const userId = req.user.id;
       const body = req.body.message;
-      const priority = req.body.priority.toLowerCase();
       const groupId = req.params.groupId;
       // Check if groupId is a valid group id
       Group.findById(groupId)
@@ -191,13 +194,77 @@ module.exports = {
             // Since he is the sender let make him a person that has read the post
             // readersId keeps track of all users that have read the post. hence, we update it accordingly
             messageCreated.readersId.push(userId);
-            messageCreated.update({
+            return messageCreated.update({
               readersId: messageCreated.readersId
             }, {
               where: { id: messageCreated.id }
-            })
-                .then(msg => handleSuccess(201, 'Message created successfully', res))
-                .catch(err => handleError(err, res));
+            });
+          })
+          .then((updatedMessage) => {
+            // URGENT: Send only Email and In-app notification to group members
+            if (updatedMessage.priority === 'urgent') {
+              // get members of this group
+              UserGroup.findAll({
+                where: { groupId: updatedMessage.groupId },
+                include: [{ model: User, attributes: ['email'] }]
+              })
+                  .then(groupAndMembers =>
+                    // Using map of Bluebird promises (P)
+                    // Bluebird map return array Promises values just like Promise.all()
+                     P.map(groupAndMembers, groupAndMember => groupAndMember.User.email))
+                  .then((groupMemberEmails) => {
+                    // We handle our send email here
+                    const from = 'no-reply <jimoh@google.com>';
+                    const to = groupMemberEmails; // groupMemberEmails is an array of emails
+                    const subject = 'Notification from PostIt';
+                    const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
+                        '<h3>Notification level: Urgent</h3>' +
+                        '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
+                        '<p>The PostIt management team!!!</p>';
+                    sendMail(from, to, subject, message)
+                        .then(() => handleSuccess(201, 'Message created successfully', res))
+                        // send successful whether error occurred or not since message was created
+                        .catch(err => handleSuccess(201, 'Message created successfully', res));
+                  })
+                  .catch(err => res.status(400).json(err));
+              // CRITICAL: Send Email, SMS and In-app notification to group members
+            } else if (updatedMessage.priority === 'critical') {
+              // get members of this group
+              UserGroup.findAll({
+                where: { groupId: updatedMessage.groupId },
+                include: [{ model: User, attributes: ['username', 'email', 'mobile'] }]
+              })
+                  .then(groupAndMembers =>
+                    // Using map of Bluebird promises (P)
+                    // Bluebird map return array of Promises values just like Promise.all()
+                     P.map(groupAndMembers, (groupAndMember) => {
+                       // We handle SMS here
+                       const to = '+2347082015065';
+                       const from = '+12568264564';
+                       const smsBody = `Hi ${groupAndMember.User.username}, You have one notification from PostIt. you can login to view at https://jimoh-postit.herokuapp.com`;
+                       sendSMS(from, to, smsBody);
+                       // return email for use in sendMail
+                       return groupAndMember.User.email;
+                     }))
+                  .then((groupMemberEmails) => {
+                    // We handle our send email here
+                    const from = 'no-reply <jimoh@google.com>';
+                    const to = groupMemberEmails; // groupMemberEmails is an array of emails
+                    const subject = 'Notification from PostIt';
+                    const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
+                        '<h3>Notification level: Critical</h3>' +
+                        '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
+                        '<p>The PostIt mangement team!!!</p>';
+                    sendMail(from, to, subject, message)
+                        .then(() => handleSuccess(201, 'Message created successfully', res))
+                        // send successful whether error occurred or not since message was created
+                        .catch(err => handleSuccess(201, 'Message created successfully', res));
+                  })
+                  .catch(err => res.status(400).json(err));
+            } else {
+              // NORMAL: Send only In-app notification
+              return handleSuccess(201, 'Message created successfully', res);
+            }
           })
           .catch(err => handleError(err, res));
     }

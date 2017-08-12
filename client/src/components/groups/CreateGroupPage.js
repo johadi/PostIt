@@ -1,15 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'react-proptypes';
 import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import CreateGroup from './CreateGroup';
 import groupBackGround from '../../utils/groupPagesBackground';
 
+/**
+ * CreateGroupPage class declaration
+ */
 export default class CreateGroupPage extends React.Component {
+  /**
+   * @return {void} void
+   */
   componentDidMount() {
     groupBackGround();
   }
+
+  /**
+   * renders this component
+   * @return {XML} XML
+   */
   render() {
     const { Groups } = this.props.groupsUserBelongsTo;
     return (
@@ -28,5 +40,8 @@ export default class CreateGroupPage extends React.Component {
         </div>
     );
   }
+}
+CreateGroupPage.propTypes = {
+  groupsUserBelongsTo: PropTypes.array.isRequired
 }
 

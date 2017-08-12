@@ -1,22 +1,43 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'react-proptypes';
 import _ from 'lodash';
 import { getGroupUsers, getUsersSearch } from '../../actions/group/groupActions';
 
+/**
+ * CreateGroupAddUser class declaration
+ */
 class CreateGroupAddUser extends React.Component{
+  /**
+   * @return {void} void
+   */
   componentWillMount(){
     this.props.getGroupUsers(this.props.groupId);
   }
+
+  /**
+   * handles form submit
+   * @param e
+   */
   handleSubmit=(e)=>{
     e.preventDefault();
     this.props.getUsersSearch(this.props.groupId,this.search.value);
     this.props.getGroupUsers(this.props.groupId); // to reload the group side bar
   }
+  /**
+   * handles Search
+   * @param e
+   */
   handleSearch=(e)=>{
     this.props.getUsersSearch(this.props.groupId,e.target.value);
     this.props.getGroupUsers(this.props.groupId); // to reload the group side bar
   }
+
+  /**
+   * render component
+   * @return {XML} XML/JSX
+   */
   render(){
     const {users_search} = this.props.groupState;
     return (
@@ -81,6 +102,12 @@ class CreateGroupAddUser extends React.Component{
     );
   }
 }
+CreateGroupAddUser.propTypes = {
+  getGroupUsers: PropTypes.func.isRequired,
+  groupState: PropTypes.object.isRequired,
+  getUsersSearch: PropTypes.func.isRequired,
+  groupId: PropTypes.number.isRequired
+};
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });

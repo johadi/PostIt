@@ -7,10 +7,6 @@ const { handleError, handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
   signup(req, res) {
-    // return res.json(req.body);
-    // const token = jwt.sign(req.body, process.env.JWT_SECRET);
-    // return handleSuccess(201, token, res);
-    // return handleError('Username already exists', res);
     const obj = req.body;
     const validator = new Validator(obj, User.signupRules());
     if (validator.passes()) {
@@ -33,6 +29,9 @@ module.exports = {
             if (!req.body.mobile) {
               obj.mobile = '';
             }
+            obj.username = obj.username.toLowerCase();
+            obj.fullname = obj.fullname.toLowerCase();
+            obj.email = obj.email.toLowerCase();
             return User.create(obj, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
           })
           .then((savedUser) => {
@@ -55,7 +54,7 @@ module.exports = {
     }
     User.findOne({
       where: {
-        username: body.username
+        username: body.username.toLowerCase()
       }
     })
         .then((user) => {

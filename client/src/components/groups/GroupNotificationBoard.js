@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'react-proptypes';
 import _ from 'lodash';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
@@ -9,6 +10,7 @@ import {Pagination} from 'react-bootstrap';
 import {getGroupMessages, getGroupUsers, clearGetGroupMessagesError} from '../../actions/group/groupActions';
 
 class GroupNotificationBoard extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -84,6 +86,11 @@ class GroupNotificationBoard extends React.Component {
         </div>
     );
   }
+}
+GroupNotificationBoard.propTypes = {
+  getGroupMessages: PropTypes.func.isRequired,
+  getGroupUsers: PropTypes.func.isRequired,
+  groupId: PropTypes.number.isRequired
 }
 const mapStateToProps = state => ({
   groupState: state.groupReducer

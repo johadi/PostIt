@@ -260,7 +260,7 @@ module.exports = {
                         // send successful whether error occurred or not since message was created
                         .catch(err => handleSuccess(201, 'Message created successfully', res));
                   })
-                  .catch(err => res.status(400).json(err));
+                  .catch(err => handleError(err, res));
             } else {
               // NORMAL: Send only In-app notification
               return handleSuccess(201, 'Message created successfully', res);
@@ -599,7 +599,7 @@ module.exports = {
     if (req.user) {
       if (req.query.search) {
         // Find all users in the application
-        const query = req.query.search; // convert the query to standard number for use
+        const query = req.query.search.toLowerCase();
         const search = `%${query}%`;
         User.findAll(
           {

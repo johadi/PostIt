@@ -129,22 +129,7 @@ router.route('/group/:groupId/message/:messageId')
  *        }
  */
     .get(authenticate, groupController.viewMessage); // view single notification
-router.route('/group/message-read/:messageId')
-/**
- * @api {post} /api/group/message-read POST update status of message whether read or not
- * @apiGroup Message
- * @apiHeader {String} Token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {id} Id of message
- * @apiParam {String} Message of a group
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *
- *      true
- */
-    .post(authenticate, groupController.updateMessageReadStatus);
-router.route('/group/:groupId/group-users?page=1')
+router.route('/group/:groupId/group-users')
 /**
  * @api {get} /api/group/:groupId/group-users Get group members
  * @apiGroup User
@@ -172,8 +157,23 @@ router.route('/group/:groupId/group-users?page=1')
  *        }]
  *    }
  */
-    .get(authenticate, groupController.getGroupUsers);
-router.route('/group/user/groups?page=1')
+  .get(authenticate, groupController.getGroupUsers);
+router.route('/group/message-read/:messageId')
+/**
+ * @api {post} /api/group/message-read POST update status of message whether read or not
+ * @apiGroup Message
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {id} Id of message
+ * @apiParam {String} Message of a group
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *
+ *      true
+ */
+    .post(authenticate, groupController.updateMessageReadStatus);
+router.route('/group/user/groups')
 /**
  * @api {get} /api/group/user/groups Get user's groups
  * @apiGroup User
@@ -202,7 +202,7 @@ router.route('/group/user/groups?page=1')
  *    }
  */
     .get(authenticate, groupController.getGroupsUserBelongsTo);
-router.route('/group/user/board?page=1')
+router.route('/group/user/board')
 /**
  * @api {get} /api/group/user/board Get user's unread messages in all joined groups
  * @apiGroup User

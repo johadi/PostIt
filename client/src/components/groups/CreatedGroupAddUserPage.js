@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'react-proptypes';
 import {addUserToGroup, clearAddUserToGroupError, getGroupUsers} from '../../actions/group/groupActions';
 import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
@@ -12,12 +13,24 @@ import groupBackGround from '../../utils/groupPagesBackground';
  * Created Group Add User
  */
 class CreatedGroupAddUserPage extends React.Component {
+  /**
+   * @return {void} void
+   */
   componentDidMount() {
     groupBackGround(); // Change background of pages to suit user pages
   }
+
+  /**
+   * @return {void} void
+   */
   componentWillUnmount(){
     this.props.clearAddUserToGroupError();
   }
+
+  /**
+   * handles addUser
+   * @param e
+   */
   handleAddUser = (e)=>{
     e.preventDefault();
     const username=e.target.id;
@@ -25,6 +38,11 @@ class CreatedGroupAddUserPage extends React.Component {
     this.props.addUserToGroup(groupId,username);
     this.props.getGroupUsers(this.props.groupId);// necessary here to keep users side bar state
   }
+
+  /**
+   * renders component
+   * @return {XML} XML/JSX
+   */
   render() {
     const {id, name, Users}=this.props.groupUsers;
     return (
@@ -46,6 +64,13 @@ class CreatedGroupAddUserPage extends React.Component {
     );
   }
 }
+CreatedGroupAddUserPage.propTypes = {
+  addUserToGroup: PropTypes.func.isRequired,
+  groupId: PropTypes.number.isRequired,
+  getGroupUsers: PropTypes.func.isRequired,
+  groupState: PropTypes.object.isRequired,
+  clearAddUserToGroupError: PropTypes.object.isRequired
+};
 const mapStateToProps=(state)=>{
   return {
     groupState: state.groupReducer

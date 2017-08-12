@@ -1,5 +1,6 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
+import PropTypes from 'react-proptypes';
 import {connect} from 'react-redux';
 import {createGroup} from '../../actions/group/groupActions';
 
@@ -46,7 +47,10 @@ class CreateGroup extends React.Component {
     );
   }
 }
-
+CreateGroup.propTypes = {
+  groupState: PropTypes.object.isRequired,
+  createGroup: PropTypes.func.isRequired
+};
 const mapStateToProps=(state)=>{
   return {
     groupState: state.groupReducer

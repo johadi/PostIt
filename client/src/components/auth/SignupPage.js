@@ -56,7 +56,7 @@ class SignupPage extends React.Component {
                     <FormField errors={this.props.signupState.errors} onChange={this.handleChange} value={this.state.user.email}
                                 type="email" name="email" placeholder="Email"/>
                     <FormField errors={this.props.signupState.errors} onChange={this.handleChange} value={this.state.user.mobile}
-                                name="mobile" placeholder="Mobile No" required='required'/>
+                                name="mobile" placeholder="Mobile No. e.g +23480123456789" required='required'/>
                   </div>
                   <div className="col-lg-6">
                     <FormField errors={this.props.signupState.errors} onChange={this.handleChange} value={this.state.user.username}

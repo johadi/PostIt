@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
-import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import CreateGroup from './CreateGroup';
@@ -42,6 +41,6 @@ export default class CreateGroupPage extends React.Component {
   }
 }
 CreateGroupPage.propTypes = {
-  groupsUserBelongsTo: PropTypes.array.isRequired
+  groupsUserBelongsTo: PropTypes.object.isRequired
 }
 

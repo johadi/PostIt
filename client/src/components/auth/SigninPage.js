@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AuthHeader from '../headers/AuthHeader';
-import '../../build/static/styles/auth-custom.scss';
 import {signinAction} from '../../actions/auth/signinAction';
 import FormField from './SignInFormField';
 import ErrorComponent from '../ErrorComponent';
@@ -65,7 +64,7 @@ class SigninPage extends React.Component {
             </div>
             <div className="mastfoot">
               <div className="inner">
-                <p>Designed by by Jimoh Hadi</p>
+                <p>Designed by Joadi</p>
               </div>
             </div>
 

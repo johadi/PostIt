@@ -90,7 +90,7 @@ class GroupNotificationBoard extends React.Component {
 GroupNotificationBoard.propTypes = {
   getGroupMessages: PropTypes.func.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
-  groupId: PropTypes.number.isRequired
+  groupId: PropTypes.string.isRequired
 }
 const mapStateToProps = state => ({
   groupState: state.groupReducer

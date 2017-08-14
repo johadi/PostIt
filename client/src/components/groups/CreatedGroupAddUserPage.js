@@ -66,10 +66,10 @@ class CreatedGroupAddUserPage extends React.Component {
 }
 CreatedGroupAddUserPage.propTypes = {
   addUserToGroup: PropTypes.func.isRequired,
-  groupId: PropTypes.number.isRequired,
+  groupId: PropTypes.string.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
-  clearAddUserToGroupError: PropTypes.object.isRequired
+  clearAddUserToGroupError: PropTypes.func.isRequired
 };
 const mapStateToProps=(state)=>{
   return {

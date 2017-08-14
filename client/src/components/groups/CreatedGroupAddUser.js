@@ -106,7 +106,7 @@ CreateGroupAddUser.propTypes = {
   getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   getUsersSearch: PropTypes.func.isRequired,
-  groupId: PropTypes.number.isRequired
+  groupId: PropTypes.string.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer

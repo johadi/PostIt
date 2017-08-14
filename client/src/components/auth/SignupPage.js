@@ -3,7 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import AuthHeader from '../headers/AuthHeader';
-import '../../build/static/styles/auth-custom.scss';
 import {signupAction} from '../../actions/auth/signupAction';
 import FormField from './SignUpFormField';
 import ErrorComponent from '../ErrorComponent';
@@ -89,7 +88,7 @@ class SignupPage extends React.Component {
             </div>
             <div className="mastfoot">
               <div className="inner">
-                <p>Designed by by Jimoh Hadi</p>
+                <p>Designed by Johadi</p>
               </div>
             </div>
           </div>

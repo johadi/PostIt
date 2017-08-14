@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
-import '../../build/static/styles/auth-custom.scss';
+// import '../../build/static/styles/auth-custom.scss';
 
 const GroupHeader = (props) => {
   const logout = () => {

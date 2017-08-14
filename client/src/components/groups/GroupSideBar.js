@@ -2,13 +2,25 @@ import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'react-proptypes';
 import { getGroupUsers } from '../../actions/group/groupActions';
 
-class GroupSideBar extends React.Component{
-  componentWillMount(){
+/**
+ * GroupSideBar class declaration
+ */
+class GroupSideBar extends React.Component {
+  /**
+   * @return {void} void
+   */
+  componentWillMount() {
     this.props.getGroupUsers(this.props.groupId);
   }
-  render(){
+
+  /**
+   * renders the component
+   * @return {XML} XML/JSX
+   */
+  render() {
     const usersLength = this.props.users.length;
     return (
         <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
@@ -39,7 +51,7 @@ class GroupSideBar extends React.Component{
             </Link>
           </div>
           <div className="list-group">
-            {this.props.users.splice(0,6).map(user => (
+            {this.props.users.splice(0, 6).map(user => (
                 <Link key={user.User.id} className="list-group-item">
                   <h5 className="list-group-item-heading">{user.User.username}</h5>
                 </Link>
@@ -56,10 +68,14 @@ class GroupSideBar extends React.Component{
     );
   }
 }
-const mapStateToProps=(state)=>{
-  return {
-    groupState: state.groupReducer
-  };
-}
+GroupSideBar.propTypes = {
+  groupState: PropTypes.object.isRequired,
+  groupId: PropTypes.string.isRequired,
+  users: PropTypes.array.isRequired,
+  getGroupUsers: PropTypes.func.isRequired
+};
+const mapStateToProps = state => ({
+  groupState: state.groupReducer
+});
 const mapDispatchToProps = dispatch => bindActionCreators({ getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupSideBar);

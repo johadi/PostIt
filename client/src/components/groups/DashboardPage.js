@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { cancelModal } from '../../actions/auth/signupAction';
-import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import MessageBoard from './MessageBoard';
@@ -53,7 +52,7 @@ class Dashboard extends React.Component {
   }
 }
 Dashboard.propTypes = {
-  groupsUserBelongsTo: PropTypes.func.isRequired,
+  groupsUserBelongsTo: PropTypes.object.isRequired,
   cancelModal: PropTypes.func.isRequired,
   messageBoardMessagesPagination: PropTypes.object.isRequired,
   signupState: PropTypes.object.isRequired

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
 import SendNotification from './SendNotification';

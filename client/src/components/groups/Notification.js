@@ -1,13 +1,13 @@
 import React from 'react';
 import Moment from 'react-moment';
 
-const Notification = ({message,name}) =>{
-  const showTime=(date)=>{
-    const postDate=new Date(date);
-    const diff=new Date().valueOf() - postDate.valueOf();
+const Notification = ({ message, name }) => {
+  const showTime = (date) => {
+    const postDate = new Date(date);
+    const diff = new Date().valueOf() - postDate.valueOf();
     return new Date(diff).getHours();
-  }
-  const dateOptions={
+  };
+  const dateOptions = {
     weekday: 'short',
     year: 'numeric',
     month: 'short',
@@ -28,5 +28,5 @@ const Notification = ({message,name}) =>{
         </p>
       </div>
   );
-}
+};
 export default Notification;

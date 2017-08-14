@@ -21,7 +21,6 @@ const handleSuccess = (code, body, res) => {
       return res.status(200).json(body);
   }
 };
-// create reusable transporter object using the default SMTP transport
 // Sending Email
 const transporter = nodemailer.createTransport({
   service: 'gmail',

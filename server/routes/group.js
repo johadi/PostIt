@@ -173,7 +173,40 @@ router.route('/group/message-read/:messageId')
  *      true
  */
     .post(authenticate, groupController.updateMessageReadStatus);
+<<<<<<< HEAD
 router.route('/group/user/groups')
+=======
+router.route('/group/:groupId/group-users?page=1')
+/**
+ * @api {get} /api/group/:groupId/group-users Get group members
+ * @apiGroup User
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {id} Id of group
+ * @apiParam {String} Username
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *        "id": 7,
+ *        "name": "andela"
+ *        "count": 2,
+ *        "pages": 1,
+ *        "Users": [{
+ *          "id": 1,
+ *          "username": "johadi",
+ *          "fullname": "jimoh hadi",
+ *        },
+ *        {
+ *          "id": 3,
+ *          "username": "sanni",
+ *          "fullname": "ali sanni"
+ *        }]
+ *    }
+ */
+    .get(authenticate, groupController.getGroupUsers);
+router.route('/group/user/groups?page=1')
+>>>>>>> 58580431ba6e300ef62e47cc6a5f0dbc8de90187
 /**
  * @api {get} /api/group/user/groups Get user's groups
  * @apiGroup User

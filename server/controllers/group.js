@@ -5,6 +5,7 @@ const Group = require('../database/models').Group;
 const UserGroup = require('../database/models').UserGroup;
 const UserGroupAdd = require('../database/models').UserGroupAdd;
 const Message = require('../database/models').Message;
+const Constants = require('../helpers/constants');
 const { sendSMS, sendMail, handleError, handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
@@ -203,6 +204,7 @@ module.exports = {
           .then((updatedMessage) => {
             // URGENT: Send only Email and In-app notification to group members
             if (updatedMessage.priority === 'urgent') {
+              handleSuccess(201, 'Message created successfully', res);
               // get members of this group
               UserGroup.findAll({
                 where: { groupId: updatedMessage.groupId },
@@ -222,13 +224,14 @@ module.exports = {
                         '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
                         '<p>The PostIt management team!!!</p>';
                     sendMail(from, to, subject, message)
-                        .then(() => handleSuccess(201, 'Message created successfully', res))
+                        .then(() => console.log('Urgent message created successfully'))
                         // send successful whether error occurred or not since message was created
-                        .catch(err => handleSuccess(201, 'Message created successfully', res));
+                        .catch(err => console.log(err));
                   })
-                  .catch(err => res.status(400).json(err));
+                  .catch(err => console.log(err));
               // CRITICAL: Send Email, SMS and In-app notification to group members
             } else if (updatedMessage.priority === 'critical') {
+              handleSuccess(201, 'Message created successfully', res);
               // get members of this group
               UserGroup.findAll({
                 where: { groupId: updatedMessage.groupId },
@@ -256,11 +259,11 @@ module.exports = {
                         '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
                         '<p>The PostIt mangement team!!!</p>';
                     sendMail(from, to, subject, message)
-                        .then(() => handleSuccess(201, 'Message created successfully', res))
+                        .then(() => console.log('Critical message sent successfully'))
                         // send successful whether error occurred or not since message was created
-                        .catch(err => handleSuccess(201, 'Message created successfully', res));
+                        .catch(err => console.log(err));
                   })
-                  .catch(err => handleError(err, res));
+                  .catch(err => console.log(err));
             } else {
               // NORMAL: Send only In-app notification
               return handleSuccess(201, 'Message created successfully', res);
@@ -296,7 +299,7 @@ module.exports = {
               return Promise.reject('Invalid Operation: You don\'t belong to this group');
             }
             // Let the user view messages if he/she belongs to the group
-            const perPage = 4; // = limit you want to display per page
+            const perPage = Constants.GET_MESSAGES_PER_PAGE; // = limit you want to display per page
             const currentPage = query < 1 ? 1 : query;
             const offset = perPage * (currentPage - 1); // items to skip
             return Message.findAndCountAll({
@@ -431,6 +434,7 @@ module.exports = {
               if (query === 0) { // get at most 6 users for side bar display
                 UserGroup.findAndCountAll({
                   where: { groupId },
+                  // limit: 6,
                   include: [{
                     model: User,
                     attributes: ['id', 'username', 'fullname']
@@ -447,7 +451,7 @@ module.exports = {
                     })
                     .catch(err => handleError(err, res));
               } else { // Paginate result of group users
-                const perPage = 2; // = limit you want to display per page
+                const perPage = Constants.GET_GROUP_USERS_PER_PAGE; // = limit you want to display per page
                 const currentPage = query < 1 ? 1 : query;
                 const offset = perPage * (currentPage - 1); // items to skip
                 UserGroup.findAndCountAll({
@@ -494,7 +498,7 @@ module.exports = {
         if (query === 0) { // Return groups of at most 6 . this is good for client group side bar
           UserGroup.findAndCountAll({
             where: { userId },
-            limit: 6,
+            // limit: 6,
             include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
           })
               .then((result) => {
@@ -509,7 +513,7 @@ module.exports = {
               })
               .catch(err => handleError(err, res));
         } else { // Return result as it supposed to be.
-          const perPage = 2; // = limit you want to display per page
+          const perPage = Constants.GET_GROUPS_USER_BELONGS_TO_PER_PAGE; // = limit you want to display per page
           const currentPage = query < 1 ? 1 : query;
           const offset = perPage * (currentPage - 1); // i.e page2 items=9*(2-1) =9*1= 9 items will be skipped. page2 items displays from item 10
           // const previousPage = parseInt(currentPage, 10) - 1;
@@ -560,7 +564,7 @@ module.exports = {
             })
             .then((userGroupIds) => {
               const query = parseInt(req.query.page, 10); // convert the query to standard number for use
-              const perPage = 4; // = limit you want to display per page
+              const perPage = Constants.USER_MESSAGE_BOARD_PER_PAGE; // = limit you want to display per page
               const currentPage = query < 1 ? 1 : query;
               const offset = perPage * (currentPage - 1);
               Message.findAndCountAll({

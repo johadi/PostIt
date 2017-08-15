@@ -10,11 +10,7 @@ script:
 services:
   - postgresql
 env:
-  - JWT_SECRET=abcxyz,
-  - MAIL_USERNAME=jim.hadi10@gmail.com,
-  - MAIL_PASSWORD=75867586,
-  - TWILIO_ACCOUNT_SID=AC308c7e589c0578a1372314b4d8d88786
-  - TWILIO_AUTH_TOKEN=e5f29d821e7191484cef632e55d34658
+  - JWT_SECRET=abcxyz
 before_script:
   - psql -c 'CREATE DATABASE travis;' -U postgres
 before_install:

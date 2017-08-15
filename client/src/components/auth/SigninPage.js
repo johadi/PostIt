@@ -55,9 +55,13 @@ class SigninPage extends React.Component {
                 </div>
                 <div className="form-group">
                   <div className="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
-                    <p>
+                    <span className="pull-left">
                       No Account yet ? <Link className="text-underline text-signin" to="/signup"><strong>Sign up</strong></Link>
-                    </p>
+                    </span>
+                    <span className="pull-right">
+                      Forget Password ?
+                      <Link className="text-underline text-signin" to="/recover-password"> <strong>Click</strong></Link>
+                    </span>
                   </div>
                 </div>
               </form>

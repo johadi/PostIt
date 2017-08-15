@@ -55,4 +55,6 @@ router.route('/user/signin')
      *  }
  */
     .post(authController.signin);
+router.route('/user/recover-password')
+  .post(authController.passwordRecovery);
 module.exports = router;

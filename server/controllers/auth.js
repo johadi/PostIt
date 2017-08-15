@@ -3,7 +3,7 @@ const User = require('../database/models').User;
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const Validator = require('validatorjs');
-const { handleError, handleSuccess } = require('../helpers/helpers');
+const { handleError, handleSuccess, sendMail } = require('../helpers/helpers');
 
 module.exports = {
   signup(req, res) {
@@ -71,6 +71,48 @@ module.exports = {
           return handleSuccess(200, token, res);
         })
         .catch(err => handleError(err, res));
+  },
+  passwordRecovery(req, res) {
+    const body = _.pick(req.body, ['email']);
+    const rules = {
+      email: 'required|email'
+    };
+    const validator = new Validator(body, rules);
+    if (validator.fails()) {
+      return handleError({ validateError: validator.errors.all() }, res);
+    }
+    User.findOne({
+      where: {
+        email: body.email.toLowerCase()
+      }
+    })
+      .then((user) => {
+        if (!user) {
+          return Promise.reject({ code: 404, message: 'Sorry! this email doesn\'t match our records' });
+        }
+        // If all is well
+        const data = _.pick(user, ['id', 'username', 'email']);
+        // Give the user token and should expire in the next 24 hours
+        const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
+        // We handle our send email here
+        const from = 'no-reply <jimoh@google.com>';
+        const to = user.email;
+        const link = 'localhost:4000/change-password?qrp='+token+'';
+        const subject = 'Your PostIt Password recovery link';
+        // const message = '<h2>Click the link below to recover your password</h2><p><a href="localhost:4000/change-password?qrp='+token+'">Recover password</a></p>';
+        const message = '<h2>Click the link below to recover your password</h2>' +
+          '<p><a href="' + link + '">Login to your PostIt account to view</a></p>';
+        sendMail(from, to, subject, message)
+          .then((sent) => {
+            if (!sent) {
+              return Promise.reject('Password recovery failed...try again');
+            }
+            return handleSuccess(200, 'password recovery link sent to your email', res);
+          })
+          // send successful whether error occurred or not since message was created
+          .catch(err => handleError(err, res));
+      })
+      .catch(err => handleError(err, res));
   }
 };
 

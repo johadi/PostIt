@@ -1,7 +1,9 @@
 import React from 'react';
 import Moment from 'react-moment';
+import PropTypes from 'react-proptypes';
 
-const Notification = ({ message, name }) => {
+const Notification = (props) => {
+  const { message, name } = props;
   const showTime = (date) => {
     const postDate = new Date(date);
     const diff = new Date().valueOf() - postDate.valueOf();
@@ -29,4 +31,8 @@ const Notification = ({ message, name }) => {
       </div>
   );
 };
+Notification.propTypes = {
+  message: PropTypes.object,
+  name: PropTypes.string
+}
 export default Notification;

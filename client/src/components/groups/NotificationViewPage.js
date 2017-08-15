@@ -62,7 +62,7 @@ NotificationViewPage.propTypes = {
   updateMessageReadAfterView: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   groupId: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.object.isRequired,
   groupUsers: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({

@@ -7,13 +7,14 @@ import configureStore from 'redux-mock-store';
 import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
 // import store from '../../src/store/store';
-import Signup from '../components/groups/Notification';
-import AuthHeader from '../../src/components/headers/AuthHeader';
+import Signup from '../../components/groups/Notification';
+import AuthHeader from '../../components/headers/AuthHeader';
 
 const mockStore = configureStore();
 /* global jest */
+/* global expect */
 
-Object.defineProperty(window, 'sessionStorage', { value: jest.fn()});
+Object.defineProperty(window, 'sessionStorage', { value: jest.fn() });
 window.sessionStorage.getItem = jest.fn();
 window.sessionStorage.setItem = jest.fn();
 
@@ -33,11 +34,12 @@ describe('<Signup/>', () => {
       fullname: 'hadi',
       username: 'johadi'
     }
-  }
+  };
   const wrapper = mount(<Provider store={mockStore({ runtime: {} })}><Signup message={message} /></Provider>);
-  const wrapper2 = mount(<Signup message={message} />)
   it('should pass for this signup', () => {
-    expect(wrapper2.find('small').length).toBe(1);
+    expect(wrapper.find('h2').length).toBe(1);
+    expect(wrapper.find('h2').text()).toBe(' group');
+    expect(wrapper.find('Moment')).toBeDefined();
     // const AuthHeader2 = wrapper.find('AuthHeader');
     // console.log(AuthHeader2);
   });

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth');
+const verifyLinkMiddleware = require('../middlewares/verifyRecoveryLink');
 
 router.route('/user/signup')
 /**
@@ -57,4 +58,7 @@ router.route('/user/signin')
     .post(authController.signin);
 router.route('/user/recover-password')
   .post(authController.passwordRecovery);
+router.route('/user/reset-password')
+  .get(verifyLinkMiddleware, authController.resetPasswordGet)
+  .post(verifyLinkMiddleware, authController.resetPasswordPost);
 module.exports = router;

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const User = require('../database/models').User;
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt-nodejs');
 const _ = require('lodash');
 const Validator = require('validatorjs');
 const { handleError, handleSuccess, sendMail } = require('../helpers/helpers');
@@ -97,11 +98,12 @@ module.exports = {
         // We handle our send email here
         const from = 'no-reply <jimoh@google.com>';
         const to = user.email;
-        const link = 'localhost:4000/change-password?qrp='+token+'';
+        const link = process.env.NODE_ENV === 'production' ?
+          `https://jimoh-postit.herokuapp.com/api/user/reset-password?qrp=${token}` :
+          `http://localhost:4000/api/user/reset-password?qrp=${token}`;
         const subject = 'Your PostIt Password recovery link';
         // const message = '<h2>Click the link below to recover your password</h2><p><a href="localhost:4000/change-password?qrp='+token+'">Recover password</a></p>';
-        const message = '<h2>Click the link below to recover your password</h2>' +
-          '<p><a href="' + link + '">Login to your PostIt account to view</a></p>';
+        const message = `<h2>Click the link below to reset your password</h2><p><a href="${link}">Recover Password</a></p>`;
         sendMail(from, to, subject, message)
           .then((sent) => {
             if (!sent) {
@@ -112,6 +114,38 @@ module.exports = {
           // send successful whether error occurred or not since message was created
           .catch(err => handleError(err, res));
       })
+      .catch(err => handleError(err, res));
+  },
+  resetPasswordGet(req, res) {
+    if (!req.reset) {
+      return handleError('This request is invalid', res);
+    }
+    return handleSuccess(200, 'You can reset password', res);
+  },
+  resetPasswordPost(req, res) {
+    if (!req.reset) {
+      return handleError('Invalid request', res);
+    }
+    const obj = _.pick(req.body, ['password', 'confirm_password']);
+    const rules = {
+      password: 'required',
+      confirm_password: 'required'
+    };
+    const validator = new Validator(obj, rules);
+    if (!validator.passes()) {
+      return handleError({ validateError: validator.errors.all() }, res);
+    }
+    if (obj.password !== obj.confirm_password) {
+      return handleError('Passwords not matched', res);
+    }
+    const userInfo = req.reset;
+    User.findById(userInfo.id)
+      .then((user) => {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(obj.password, salt);
+        return user.update({ password: hash }, { where: { id: user.id } });
+      })
+      .then(updatedUser => handleSuccess(200, 'Password changed successfully', res))
       .catch(err => handleError(err, res));
   }
 };

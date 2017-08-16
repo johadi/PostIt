@@ -93,14 +93,14 @@ module.exports = {
         }
         // If all is well
         const data = _.pick(user, ['id', 'username', 'email']);
-        // Give the user token and should expire in the next 24 hours
-        const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
+        // Create token and should expire in the next 24 hours
+        const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 * 6 });
         // We handle our send email here
         const from = 'no-reply <jimoh@google.com>';
         const to = user.email;
         const link = process.env.NODE_ENV === 'production' ?
-          `https://jimoh-postit.herokuapp.com/api/user/reset-password?qrp=${token}` :
-          `http://localhost:4000/api/user/reset-password?qrp=${token}`;
+          `https://jimoh-postit.herokuapp.com/reset-password?qrp=${token}` :
+          `http://localhost:8080/reset-password?qrp=${token}`;
         const subject = 'Your PostIt Password recovery link';
         // const message = '<h2>Click the link below to recover your password</h2><p><a href="localhost:4000/change-password?qrp='+token+'">Recover password</a></p>';
         const message = `<h2>Click the link below to reset your password</h2><p><a href="${link}">Recover Password</a></p>`;
@@ -109,7 +109,7 @@ module.exports = {
             if (!sent) {
               return Promise.reject('Password recovery failed...try again');
             }
-            return handleSuccess(200, 'password recovery link sent to your email', res);
+            return handleSuccess(200, 'Password recovery link sent to your email', res);
           })
           // send successful whether error occurred or not since message was created
           .catch(err => handleError(err, res));

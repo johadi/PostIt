@@ -5,7 +5,7 @@ const User = require('../database/models').User;
 module.exports = (req, res, next) => {
   const token = req.query.qrp;
   if (!token) {
-    return res.status(400).json('Invalid request');
+    return res.status(400).json('This link is Invalid');
   }
   jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
     if (error) {

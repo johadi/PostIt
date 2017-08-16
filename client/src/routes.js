@@ -12,6 +12,8 @@ export default (
       <Route path="/signup" component={AuthPages.SignupPage}/>
       <Route path="/signin" component={AuthPages.SigninPage}/>
       <Route path="/recover-password" component={AuthPages.RecoverPasswordPage}/>
+      <Route path="/reset-password" component={AuthPages.ResetPasswordPage}/>
+
       <Route component={groupPages.AuthenticateUser}>
         <Route path="/dashboard" component={groupPages.DashboardAuthPage}/>
         <Route path="/message/:groupId/:messageId" component={groupPages.NotificationViewAuthPage}/>

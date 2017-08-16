@@ -3,16 +3,17 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import AuthHeader from '../headers/AuthHeader';
-import {recoverPasswordAction} from '../../actions/auth/passwordAction';
-import FormField from './RecoverPasswordFormField';
+import {resetPasswordAction} from '../../actions/auth/passwordAction';
+import FormField from './ResetPasswordFormField';
 import ErrorComponent from '../ErrorComponent';
 
-class RecoverPasswordPage extends React.Component {
+class ResetPasswordPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {
-        email: ''
+        password: '',
+        confirm_password: ''
       }
     }
   }
@@ -26,7 +27,11 @@ class RecoverPasswordPage extends React.Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.recoverPasswordAction(this.state.user);
+    this.props.resetPasswordAction(this.props.location.query.qrp, this.state.user);
+    // let user = this.state.user;
+    // user['password'] = '';
+    // user['confirm_password'] = '';
+    // this.setState({user});
   }
   handleChange = (e) => {
     let user = this.state.user;
@@ -38,23 +43,25 @@ class RecoverPasswordPage extends React.Component {
       <div className="site-wrapper-inner">
         <div className="cover-container">
           <AuthHeader/>
-          <div className="inner cover col-sm-offset-1 col-sm-10" style={{opacity: 0.8, backgroundColor: 'whitesmoke'}}>
-            <h2 className="cover-heading text-signup">Recover Password for PostIt</h2>
+          <div className="inner cover" style={{opacity: 0.8, backgroundColor: 'whitesmoke'}}>
+            <h2 className="cover-heading text-signup">Reset Password for PostIt</h2>
             <div className="row">
               <form onSubmit={this.handleSubmit} role="form" className="form-horizontal">
-                { this.props.recoveryState.fails ? <ErrorComponent fails={this.props.recoveryState.fails} /> : null }
-                { !this.props.recoveryState.message ? null :
+                { this.props.resetState.reset_fails ? <ErrorComponent fails={this.props.resetState.reset_fails} /> : null }
+                { !this.props.resetState.reset_message ? null :
                   <div className="alert alert-success alert-dismissible">
-                    { this.props.recoveryState.message }
+                    { this.props.resetState.reset_message }
                   </div>}
                 <div className="col-lg-offset-2 col-lg-8">
-                  <FormField type="email" errors={this.props.recoveryState.errors} onChange={this.handleChange}
-                             value={this.state.user.email} name="email" placeholder="Enter email you used for registration"/>
+                  <FormField type="password" errors={this.props.resetState.reset_errors} onChange={this.handleChange}
+                             value={this.state.user.password} name="password" placeholder="Password"/>
+                  <FormField type="password" errors={this.props.resetState.reset_errors} onChange={this.handleChange}
+                             value={this.state.user.confirm_password} name="confirm_password" placeholder="Confirm password"/>
                 </div>
                 <div className="col-lg-offset-2 col-lg-8">
                   <div className="form-group lead">
                     <div className="col-lg-12">
-                      <button type="submit" className="btn btn-danger btn-block">Send password recovery link</button>
+                      <button type="submit" className="btn btn-danger btn-block">Reset my password</button>
                     </div>
                   </div>
                 </div>
@@ -74,12 +81,11 @@ class RecoverPasswordPage extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    recoveryState: state.passwordReducer
+    resetState: state.passwordReducer
   };
 }
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({recoverPasswordAction}, dispatch);
+  return bindActionCreators({resetPasswordAction}, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecoverPasswordPage);
-// { this.props.signupState.error ? <ErrorComponent error={this.props.signupState.error} /> : null }
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordPage);

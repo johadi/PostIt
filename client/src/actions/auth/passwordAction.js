@@ -42,6 +42,7 @@ export const resetPasswordAction = (queryParam, passwordDetail) => (dispatch) =>
         dispatch({ type: actionTypes.RESET_VALIDATION_ERROR, payload: err.response.data.validateError });
         dispatch({ type: actionTypes.RESET_UNSUCCESSFUL, payload: 'Error connecting to database...Try again' });
       } else {
+        browserHistory.push('/recover-password');
         dispatch({ type: actionTypes.RESET_VALIDATION_ERROR, payload: err.response.data.validateError });
         dispatch({ type: actionTypes.RESET_UNSUCCESSFUL, payload: err.response.data });
       }

@@ -17,5 +17,5 @@ ReactDOM.render(
     document.getElementById('app')
 );
 
-// ReactDOM.render(<App/>, document.getElementById('app'));
+// ReactDOM.render(<App speak="lawd is speaking"/>, document.getElementById('app'));
 

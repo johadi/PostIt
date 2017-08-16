@@ -4,19 +4,11 @@ import PropTypes from 'react-proptypes';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import CreateGroup from './CreateGroup';
-import groupBackGround from '../../utils/groupPagesBackground';
 
 /**
  * CreateGroupPage class declaration
  */
 export default class CreateGroupPage extends React.Component {
-  /**
-   * @return {void} void
-   */
-  componentDidMount() {
-    groupBackGround();
-  }
-
   /**
    * renders this component
    * @return {XML} XML

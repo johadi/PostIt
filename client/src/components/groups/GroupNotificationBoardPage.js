@@ -3,19 +3,10 @@ import PropTypes from 'react-proptypes';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
 import GroupNotificationBoard from './GroupNotificationBoard';
-import groupBackGround from '../../utils/groupPagesBackground';
-
 /**
  * GroupMessageBoardPage class declaration
  */
 export default class GroupMessageBoardPage extends React.Component {
-  /**
-   * @return {void} void
-   */
-  componentDidMount() {
-    groupBackGround(); // Change background of pages to suit user pages
-  }
-
   /**
    * renders component
    * @return {XML} XML/JSX

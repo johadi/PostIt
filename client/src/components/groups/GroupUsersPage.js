@@ -4,19 +4,11 @@ import PropTypes from 'react-proptypes';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
 import GroupUsers from './GroupUsers';
-import groupBackGround from '../../utils/groupPagesBackground';
 
 /**
  * GroupUsersPage class declaration
  */
 export default class GroupUsersPage extends React.Component {
-  /**
-   * @return {void} void
-   */
-  componentDidMount() {
-    groupBackGround(); // Change background of pages to suit user pages
-  }
-
   /**
    * renders component
    * @return {XML} XML/JSX

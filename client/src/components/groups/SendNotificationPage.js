@@ -3,12 +3,8 @@ import { Link } from 'react-router';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
 import SendNotification from './SendNotification';
-import groupBackGround from '../../utils/groupPagesBackground';
 
 export default class SendNotificationPage extends React.Component {
-  componentDidMount() {
-    groupBackGround(); // Change background of pages to suit user pages
-  }
   // we have to pass our groupId params down to PostMessage since we have a lot to do there
   render() {
     const {id, name, Users}=this.props.groupUsers;

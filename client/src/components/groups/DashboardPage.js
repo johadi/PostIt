@@ -6,7 +6,6 @@ import { cancelModal } from '../../actions/auth/signupAction';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import MessageBoard from './MessageBoard';
-import groupBackGround from '../../utils/groupPagesBackground';
 import SignupModal from './SignupModal';
 
 /**
@@ -17,7 +16,6 @@ class Dashboard extends React.Component {
    * @return {void} void
    */
   componentDidMount() {
-    groupBackGround(); // Change background of pages to suit user pages
     if (this.props.signupState.welcome) { // Show modal when user just signup
       const signupModal = $('#myModal');
       signupModal.modal('show');

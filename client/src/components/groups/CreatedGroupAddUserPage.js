@@ -8,18 +8,10 @@ import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
 import CreatedGroupAddUser from './CreatedGroupAddUser';
-import groupBackGround from '../../utils/groupPagesBackground';
 /**
  * Created Group Add User
  */
 class CreatedGroupAddUserPage extends React.Component {
-  /**
-   * @return {void} void
-   */
-  componentDidMount() {
-    groupBackGround(); // Change background of pages to suit user pages
-  }
-
   /**
    * @return {void} void
    */

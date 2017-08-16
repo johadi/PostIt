@@ -9,7 +9,6 @@ import { updateMessageReadAfterView } from '../../actions/group/groupActions';
 import GroupHeader from '../headers/GroupHeader';
 import GroupSideBar from './GroupSideBar';
 import Notification from './Notification';
-import groupBackGround from '../../utils/groupPagesBackground';
 
 /**
  * NotificationViewPage class declaration
@@ -29,7 +28,6 @@ class NotificationViewPage extends React.Component {
    * @return {void} void
    */
   componentDidMount() {
-    groupBackGround(); // Change background of pages to suit user pages
     if (!_.includes(this.props.message.readersId, this.userDetail.id)) {
       this.props.updateMessageReadAfterView(this.props.message.id);
     }

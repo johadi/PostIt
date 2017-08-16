@@ -4,12 +4,7 @@
 // import GroupHeader from '../headers/GroupHeader';
 // import SideBar from './SideBar';
 // import Groups from './Groups';
-// import groupBackGround from '../../utils/groupPagesBackground';
-//
 // export default class GroupsPage extends React.Component {
-//   componentDidMount() {
-//     groupBackGround();
-//   }
 //   render() {
 //     const {Groups,fullname} = this.props.groupsUserBelongsTo;
 //     return (
@@ -37,12 +32,8 @@ import '../../build/static/styles/group-custom.scss';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import AllGroups from './Groups';
-import groupBackGround from '../../utils/groupPagesBackground';
 
 export default class GroupsPage extends React.Component {
-  componentDidMount() {
-    groupBackGround();
-  }
   render() {
     const {Groups,fullname} = this.props.groupsUserBelongsTo;
     return (

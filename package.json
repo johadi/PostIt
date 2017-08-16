@@ -19,8 +19,8 @@
     "start": "sequelize db:migrate && node app.js && --exec npm run build",
     "dev": "NODE_ENV=development && nodemon app",
     "apidoc": "apidoc -i server/routes/ -o public/apidoc",
-    "testdev": "NODE_ENV=test && mocha --compilers js:babel-register server/tests/*.test.js",
-    "test": "NODE_ENV=test && sequelize db:migrate && nyc --reporter=html mocha --compilers js:babel-register server/tests/*.test.js && nyc report",
+    "testdev": "NODE_ENV=test mocha --compilers js:babel-register server/tests/*.test.js",
+    "test": "NODE_ENV=test sequelize db:migrate && nyc --reporter=html mocha --compilers js:babel-register server/tests/*.test.js && nyc report",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean-public": "npm run remove-public && mkdir production",
     "remove-public": "rimraf ./production",
@@ -30,7 +30,8 @@
     "postbuild": "node tools/publicServer.js",
     "test:jest": "jest",
     "test:client": "NODE_ENV=test mocha -w --compilers js:babel-register --require client/tests/setup.js client/tests/**/*.spec.js",
-    "test:e2e": "nightwatch"
+    "test:e2e": "nightwatch",
+    "test:mocha": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\""
   },
   "apidoc": {
     "name": "PostIt API - Documentation",

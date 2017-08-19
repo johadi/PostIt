@@ -13,6 +13,7 @@
   },
   "plugins": [
     "react-html-attrs",
-    "transform-react-jsx-img-import"
+    "transform-react-jsx-img-import",
+    "add-module-exports"
   ]
 }

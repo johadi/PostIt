@@ -47,6 +47,7 @@
   "devDependencies": {
     "apidoc": "^0.15.1",
     "babel-jest": "^20.0.3",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-polyfill": "^6.8.0",
     "chai": "^4.0.2",
     "concurrently": "^3.5.0",

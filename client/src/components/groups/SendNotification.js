@@ -7,7 +7,7 @@ import { postMessage, clearPostMessageError } from '../../actions/group/groupAct
 /**
  * SendNotification class declaration
  */
-class SendNotification extends React.Component {
+export class SendNotification extends React.Component {
   /**
    * class constructor
    * @param {props} props
@@ -96,7 +96,7 @@ class SendNotification extends React.Component {
                   </strong>
                 </p>
                 <select value={this.state.input.priority}
-                          onChange={this.handleChange}
+                          onChange={e => this.handleChange(e)}
                           className="form-control"
                           name="priority" id="priority">
                   <option value={'normal'}>Normal</option>

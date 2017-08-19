@@ -6,7 +6,7 @@
 // 4. Requires jsdom so we can test via an in-memory DOM in Node
 // 5. Sets up global vars that mimic a browser.
 
-/* eslint-disable no-var*/
+/* eslint-disable no-var */
 
 /* This setting assures the .babelrc dev config (which includes
  hot module reloading code) doesn't apply for tests.
@@ -17,36 +17,40 @@
  2. Tests will not display detailed error messages
  when running against production version code
  */
-process.env.NODE_ENV = "test";
+process.env.NODE_ENV = 'test';
 
 // Register babel so that it will transpile ES6 to ES5
 // before our tests run.
-require("babel-register")();
+require('babel-register')();
 
 // Disable webpack-specific features for tests since
 // Mocha doesn't know what to do with them.
-require.extensions[".css"] = function () {return null;};
-require.extensions[".png"] = function () {return null;};
-require.extensions[".jpg"] = function () {return null;};
+require.extensions['.css'] = function () { return null; };
+require.extensions['.png'] = function () { return null; };
+require.extensions['.jpg'] = function () { return null; };
 
 // Configure JSDOM and set global variables
 // to simulate a browser environment for tests.
-const jsdom = require("jsdom");
+const jsdom = require('jsdom');
+
 const { JSDOM } = jsdom;
 const { document } = (new JSDOM('<!doctype html><html><body></body></html>')).window;
 
-var exposedProperties = ["window", "navigator", "document"];
+const exposedProperties = ['window', 'navigator', 'document'];
 
 global.document = document;
 global.window = document.defaultView;
 Object.keys(document.defaultView).forEach((property) => {
-  if (typeof global[property] === "undefined") {
+  if (typeof global[property] === 'undefined') {
     exposedProperties.push(property);
     global[property] = document.defaultView[property];
   }
 });
 global.navigator = {
-  userAgent: "node.js"
+  userAgent: 'node.js'
 };
-
-documentRef = document;  //eslint-disable-line no-undef
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJqb2hhZGkxMCIsImVtYWlsIjoi' +
+  'am9oYWRpMTBAeWFob28uY29tIiwiZnVsbG5hbWUiOiJqaW1vaCBoYWRpIiwiaWF0IjoxNTAyOTczMDkzfQ.g97_4_2d_Pkt7aGmsRiuH8' +
+  'QIQiNxakgD2gv1kyl-t7c';
+Object.defineProperty(window, 'sessionStorage', { value: { token } });
+documentRef = document;  // eslint-disable-line no-undef

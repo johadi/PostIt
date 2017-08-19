@@ -25,7 +25,7 @@ const Notification = (props) => {
           </small> : <small> <Moment fromNow>{message.createdAt}</Moment></small>}
         </p>
         <hr/>
-        <p>
+        <p className="message-body">
           {message.body}
         </p>
       </div>
@@ -34,5 +34,5 @@ const Notification = (props) => {
 Notification.propTypes = {
   message: PropTypes.object,
   name: PropTypes.string
-}
+};
 export default Notification;

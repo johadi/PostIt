@@ -2,12 +2,21 @@ import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'react-proptypes';
 import AuthHeader from '../headers/AuthHeader';
-import {signinAction} from '../../actions/auth/signinAction';
+import { signinAction } from '../../actions/auth/signinAction';
 import FormField from './SignInFormField';
 import ErrorComponent from '../ErrorComponent';
 
-class SigninPage extends React.Component {
+/**
+ * Signin class declaration
+ */
+export class SigninPage extends React.Component {
+  /**
+   * Component constructor
+   * @param {object} props
+   * @return {void} void
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -17,15 +26,29 @@ class SigninPage extends React.Component {
       }
     };
   }
-  handleSubmit = (e) => {
+  /**
+   * handle submit
+   * @param {e} e
+   * @return {void} void
+   */
+  handleSubmit(e) {
     e.preventDefault();
     this.props.signinAction(this.state.credentials);
   }
-  handleChange = (e) => {
-    let credentials = this.state.credentials;
+  /**
+   * handle change
+   * @param {e} e
+   * @return {void} void
+   */
+  handleChange(e) {
+    const credentials = this.state.credentials;
     credentials[e.target.name] = e.target.value;
-    this.setState({credentials});
+    this.setState({ credentials });
   }
+  /**
+   * renders component
+   * @return {XML} XML
+   */
   render() {
     return (
       <div className="body">
@@ -36,11 +59,11 @@ class SigninPage extends React.Component {
               <div className="inner cover">
                 <h2 className="cover-heading"><strong>Login to PostIt,</strong></h2>
                 <p className="lead">Share your moment with colleagues and friends.</p>
-                <form onSubmit={this.handleSubmit} className="form-horizontal" role="form">
+                <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
                   { this.props.signinState.fails ? <ErrorComponent show={true} fails={this.props.signinState.fails} /> : null }
-                  <FormField errors={this.props.signinState.errors} onChange={this.handleChange} value={this.state.credentials.username}
+                  <FormField errors={this.props.signinState.errors} onChange={e => this.handleChange(e)} value={this.state.credentials.username}
                              name="username" placeholder="Username"/>
-                  <FormField type="password" errors={this.props.signinState.errors} onChange={this.handleChange}
+                  <FormField type="password" errors={this.props.signinState.errors} onChange={e => this.handleChange(e)}
                              value={this.state.credentials.password} name="password" placeholder="Password"/>
                   <div className="form-group lead">
                     <div className="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
@@ -74,13 +97,13 @@ class SigninPage extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-  return {
-    signinState: state.signinReducer
-  };
-}
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({signinAction}, dispatch);
-}
+SigninPage.propTypes = {
+  signinState: PropTypes.object.isRequired,
+  signinAction: PropTypes.func.isRequired
+};
+const mapStateToProps = state => ({
+  signinState: state.signinReducer
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ signinAction }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SigninPage);

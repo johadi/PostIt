@@ -8,29 +8,31 @@ import { getGroupUsers, getUsersSearch } from '../../actions/group/groupActions'
 /**
  * CreateGroupAddUser class declaration
  */
-class CreateGroupAddUser extends React.Component{
+export class CreateGroupAddUser extends React.Component {
   /**
    * @return {void} void
    */
-  componentWillMount(){
+  componentWillMount() {
     this.props.getGroupUsers(this.props.groupId);
   }
 
   /**
    * handles form submit
-   * @param e
+   * @return {void} void
+   * @param {e} e
    */
-  handleSubmit=(e)=>{
+  handleSubmit(e) {
     e.preventDefault();
-    this.props.getUsersSearch(this.props.groupId,this.search.value);
+    this.props.getUsersSearch(this.props.groupId, this.search.value);
     this.props.getGroupUsers(this.props.groupId); // to reload the group side bar
   }
   /**
    * handles Search
-   * @param e
+   * @return {void} void
+   * @param {e} e
    */
-  handleSearch=(e)=>{
-    this.props.getUsersSearch(this.props.groupId,e.target.value);
+  handleSearch(e) {
+    this.props.getUsersSearch(this.props.groupId, e.target.value);
     this.props.getGroupUsers(this.props.groupId); // to reload the group side bar
   }
 
@@ -38,15 +40,15 @@ class CreateGroupAddUser extends React.Component{
    * render component
    * @return {XML} XML/JSX
    */
-  render(){
-    const {users_search} = this.props.groupState;
+  render() {
+    const { users_search } = this.props.groupState;
     return (
-        <form onSubmit={this.handleSubmit} className="form-horizontal" role="form">
+        <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
           <h3 className="text-center">Add Members to <span className="text-capitalize">{this.props.name}</span> group</h3>
           <div className="row well well-sm">
             <div className="col-lg-10 col-lg-offset-1">
               <div className="input-group">
-                <input ref={input=>this.search=input} onKeyUp={this.handleSearch}
+                <input ref={input => this.search = input} onKeyUp={e => this.handleSearch(e)}
                        placeholder="Search Users by Username or Email" type="text" className="form-control"/>
                 <span className="input-group-btn">
               <button type="submit" className="btn btn-post"><i className="fa fa-search" aria-hidden="true"></i></button>
@@ -72,8 +74,8 @@ class CreateGroupAddUser extends React.Component{
                 </thead>
                 <tbody>
                 {
-                  !!users_search && users_search.allUsers.map((user)=>{
-                    if(_.includes(users_search.groupUsersId, user.id)){
+                  !!users_search && users_search.allUsers.map((user) => {
+                    if (_.includes(users_search.groupUsersId, user.id)) {
                       return (
                           <tr key={user.id}>
                             <td>{user.username}</td>
@@ -82,16 +84,15 @@ class CreateGroupAddUser extends React.Component{
                             <td><a className="btn btn-success btn-sm btn-block" disabled >Member</a></td>
                           </tr>
                       );
-                    }else{
-                      return (
+                    }
+                    return (
                           <tr key={user.id}>
                             <td>{user.username}</td>
                             <td>{user.fullname}</td>
                             <td>{user.email}</td>
                             <td><a onClick={this.props.onAddUser} id={user.username} className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
                           </tr>
-                      );
-                    }
+                    );
                   })
                 }
                 </tbody>
@@ -103,6 +104,10 @@ class CreateGroupAddUser extends React.Component{
   }
 }
 CreateGroupAddUser.propTypes = {
+  name: PropTypes.string.isRequired,
+  onAddUser: PropTypes.func.isRequired,
+  addUserError: PropTypes.any,
+  addUserSuccess: PropTypes.bool.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   getUsersSearch: PropTypes.func.isRequired,

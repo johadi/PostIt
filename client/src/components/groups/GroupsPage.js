@@ -1,41 +1,20 @@
-// import React from 'react';
-// import { Link } from 'react-router';
-// import '../../build/static/styles/group-custom.scss';
-// import GroupHeader from '../headers/GroupHeader';
-// import SideBar from './SideBar';
-// import Groups from './Groups';
-// export default class GroupsPage extends React.Component {
-//   render() {
-//     const {Groups,fullname} = this.props.groupsUserBelongsTo;
-//     return (
-//         <div className="container">
-//           <GroupHeader/>
-//           <div id="group-body" className="row">
-//             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
-//               <div className="panel-body">
-//                 <h2>{fullname}</h2>
-//                 <div className="row">
-//                   <Groups/>
-//                 </div>
-//               </div>
-//             </div>
-//             <SideBar userGroups={Groups}/>
-//           </div>
-//         </div>
-//     );
-//   }
-// }
-
 import React from 'react';
 import { Link } from 'react-router';
-import '../../build/static/styles/group-custom.scss';
+import PropTypes from 'react-proptypes';
 import GroupHeader from '../headers/GroupHeader';
 import SideBar from './SideBar';
 import AllGroups from './Groups';
 
+/**
+ * GroupsPage class declaration
+ */
 export default class GroupsPage extends React.Component {
+  /**
+   * renders the component
+   * @return {XML} XML/JSX
+   */
   render() {
-    const {Groups,fullname} = this.props.groupsUserBelongsTo;
+    const { Groups } = this.props.groupsUserBelongsTo;
     return (
         <div className="container">
           <GroupHeader/>
@@ -53,4 +32,8 @@ export default class GroupsPage extends React.Component {
     );
   }
 }
+GroupsPage.propTypes = {
+  groupsUserBelongsTo: PropTypes.object.isRequired,
+  groupsUserBelongsToPagination: PropTypes.object.isRequired
+};
 

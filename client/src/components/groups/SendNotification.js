@@ -1,48 +1,79 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { postMessage,clearPostMessageError } from '../../actions/group/groupActions';
+import PropTypes from 'react-proptypes';
+import { postMessage, clearPostMessageError } from '../../actions/group/groupActions';
 
+/**
+ * SendNotification class declaration
+ */
 class SendNotification extends React.Component {
-  constructor(props){
+  /**
+   * class constructor
+   * @param {props} props
+   */
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       input: {
         message: '',
         priority: 'normal'
       },
       isValid: true // Let's assume input is valid for now
-    }
+    };
   }
-  componentWillUnmount(){
+
+  /**
+   * @return {void} void
+   */
+  componentWillUnmount() {
     this.props.clearPostMessageError();
   }
-  handleSubmit=(e)=>{
+
+  /**
+   * @return {void} void
+   * @param {object} e
+   */
+  handleSubmit(e) {
     e.preventDefault();
-    if(this.state.input.message && this.state.input.message.trim().length > 0){
-      const groupId=this.props.groupId;
-      const message=this.state.input.message;
-      const priority=this.state.input.priority;
-      this.props.postMessage(groupId,message,priority);
-    }else{
+    if (this.state.input.message && this.state.input.message.trim().length > 0) {
+      const groupId = this.props.groupId;
+      const message = this.state.input.message;
+      const priority = this.state.input.priority;
+      this.props.postMessage(groupId, message, priority);
+    } else {
       // Since input is empty, clear message errors to allow empty error report
       this.props.clearPostMessageError();
-      this.setState({isValid: false}); // Input is now invalid, Report field is empty
+      this.setState({ isValid: false }); // Input is now invalid, Report field is empty
     }
-  };
-  handleChange = (e)=>{
-    let input = this.state.input;
-    input[e.target.name]=e.target.value;
+  }
+
+  /**
+   * @return {void} void
+   * @param {object} e
+   */
+  handleChange(e) {
+    const input = this.state.input;
+    input[e.target.name] = e.target.value;
     this.setState({ input });
   }
-  handleKeyUp = (e)=>{
-    this.setState({isValid: true});
+  /**
+   * @return {void} void
+   * @param {object} e
+   */
+  handleKeyUp(e) {
+    this.setState({ isValid: true });
   }
+
+  /**
+   * renders the component
+   * @return {XML} XML/JSX
+   */
   render() {
-    const {post_message_error} = this.props.groupState;
+    const { post_message_error } = this.props.groupState;
     return (
         <div className="col-sm-offset-1 col-sm-10 well well-lg" id="post-message-div">
-          <form onSubmit={this.handleSubmit} className="form-horizontal" role="form">
+          <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
             <p className="text-center"><strong>Send notification to <span className="text-capitalize">
               {this.props.name} group</span></strong></p>
             {(!!post_message_error && <h4 className="text-danger text-center">{post_message_error}</h4>) ||
@@ -50,8 +81,8 @@ class SendNotification extends React.Component {
             <div className="form-group">
               <div className="col-lg-12">
                 <textarea value={this.state.input.message}
-                          onChange={this.handleChange} rows="5"
-                          onKeyUp={this.handleKeyUp}
+                          onChange={e => this.handleChange(e)} rows="5"
+                          onKeyUp={e => this.handleKeyUp(e)}
                           className="form-control"
                           name="message" id="message"
                           placeholder="Type your Notification"></textarea>
@@ -84,8 +115,15 @@ class SendNotification extends React.Component {
     );
   }
 }
+SendNotification.propTypes = {
+  groupState: PropTypes.object.isRequired,
+  clearPostMessageError: PropTypes.func.isRequired,
+  postMessage: PropTypes.func.isRequired,
+  groupId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+};
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ postMessage,clearPostMessageError }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ postMessage, clearPostMessageError }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(SendNotification);

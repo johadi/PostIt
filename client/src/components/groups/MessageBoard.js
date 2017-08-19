@@ -2,16 +2,24 @@ import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+import PropTypes from 'react-proptypes';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
 import { getGroupsUserBelongsTo, getMessagesOfMessageBoardPagination } from '../../actions/group/groupActions';
 
-class MessageBoard extends React.Component {
+/**
+ * MessageBoard class declaration
+ */
+export class MessageBoard extends React.Component {
+  /**
+   * class constructor
+   * @return {void} void
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       activePage: 1
     };
     this.dateOptions = {
@@ -22,37 +30,57 @@ class MessageBoard extends React.Component {
       hour: '2-digit',
       minute: '2-digit'
     };
-    this.reload=0;
+    this.reload = 0;
     this.userDetail = jwtDecode(window.sessionStorage.token);
   }
-  componentDidMount(){
+
+  /**
+   * @return {void} void
+   */
+  componentDidMount() {
     this.props.getGroupsUserBelongsTo();
   }
-  handleSelect=(eventKey)=>{
-    this.setState({activePage: eventKey});
+
+  /**
+   * handle select for pagination
+   * @return {void} void
+   * @param {number} eventKey
+   */
+  handleSelect(eventKey) {
+    this.setState({ activePage: eventKey });
     this.props.getMessagesOfMessageBoardPagination(eventKey);
     // if(this.reload===1){
     //   this.props.getGroupsUserBelongsTo();
     // }
     this.props.getGroupsUserBelongsTo();
   }
-  showTime(date){
-    const postDate=new Date(date);
-    const diff=new Date().valueOf() - postDate.valueOf();
+
+  /**
+   * Perform time calculation
+   * @param {date} date
+   * @return {number} number
+   */
+  showTime(date) {
+    const postDate = new Date(date);
+    const diff = new Date().valueOf() - postDate.valueOf();
     return new Date(diff).getHours();
   }
+
+  /**
+   * render the component
+   * @return {XML} XML/JSX
+   */
   render() {
     // this.props.getGroupsUserBelongsTo(); // force side bar to render anytime this page renders
-    const {messages, pages, count} = this.props.messageBoardMessagesPagination;
+    const { messages, pages, count } = this.props.messageBoardMessagesPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2><strong>Notification board</strong></h2>
-          <small style={{color: 'red'}}>{count ===1 ? `(${count}) notification` : `(${count}) notifications`} you have not read</small>
+          <small style={{ color: 'red' }}>{count === 1 ? `(${count}) notification` : `(${count}) notifications`} you have not read</small>
           <hr/>
           {
-            messages.map((message) => {
-              return <div key={message.id} className="media">
-                <div className="media-left">
+            messages.map(message => <div key={message.id} className="media">
+                <div className="media-left message">
                 </div>
                 <div className="media-body">
                   <h4 className="media-heading"><span className="text-capitalize"> {message.User.username}</span>
@@ -68,10 +96,9 @@ class MessageBoard extends React.Component {
                   <p className="text-overflow"><Link to={`/message/${message.Group.id}/${message.id}`}>{message.body}</Link></p>
                 </div>
                 <hr/>
-              </div>;
-            })
+              </div>)
           }
-          {pages <= 1 ? null:
+          {pages <= 1 ? null :
               <Pagination
                   prev
                   next
@@ -82,16 +109,21 @@ class MessageBoard extends React.Component {
                   items={pages}
                   maxButtons={10}
                   activePage={this.state.activePage}
-                  onSelect={this.handleSelect}
+                  onSelect={e => this.handleSelect(e)}
               />
           }
           {
-            count===0 ? <p>You have no unread notifications yet. Only notifications you have not read are shown here.</p> : null
+            count === 0 ? <p className="no-message">You have no unread notifications yet. Only notifications you have not read are shown here.</p> : null
           }
         </div>
     );
   }
 }
+MessageBoard.propTypes = {
+  getGroupsUserBelongsTo: PropTypes.func.isRequired,
+  getMessagesOfMessageBoardPagination: PropTypes.func.isRequired,
+  messageBoardMessagesPagination: PropTypes.object.isRequired
+};
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });

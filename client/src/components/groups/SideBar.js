@@ -1,17 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import { getGroupsUserBelongsTo } from '../../actions/group/groupActions';
 
+/**
+ * SideBar class declaration
+ */
 class SideBar extends React.Component {
+  /**
+   * @return {void} void
+   */
   componentWillMount() {
     this.props.getGroupsUserBelongsTo();
   }
+
+  /**
+   * renders the component
+   * @return {XML} JSX
+   */
   render() {
-    const groupsLength=this.props.userGroups.length;
+    const groupsLength = this.props.userGroups.length;
     return (
-        <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
+        <div className="main col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
             <Link className="btn navy-header btn-lg btn-block">Quick Links</Link>
             <Link to="/create-group" className="btn btn-default btn-block">
@@ -44,6 +56,10 @@ class SideBar extends React.Component {
     );
   }
 }
+SideBar.propTypes = {
+  userGroups: PropTypes.array.isRequired,
+  getGroupsUserBelongsTo: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });

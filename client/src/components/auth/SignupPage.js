@@ -93,7 +93,7 @@ export class SignupPage extends React.Component {
                     <div className="col-lg-6">
                       <div className="form-group lead">
                         <div className="col-lg-12">
-                          <button type="submit" className="btn btn-lg btn-primary pull-left">Sign up</button>
+                          <button id="signup" type="submit" className="btn btn-lg btn-primary pull-left">Sign up</button>
                         </div>
                       </div>
                     </div>

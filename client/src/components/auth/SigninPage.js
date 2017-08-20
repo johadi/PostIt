@@ -67,7 +67,7 @@ export class SigninPage extends React.Component {
                              value={this.state.credentials.password} name="password" placeholder="Password"/>
                   <div className="form-group lead">
                     <div className="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
-                      <button type="submit" className="btn btn-lg btn-success btn-block">Login now</button>
+                      <button id="signin" type="submit" className="btn btn-lg btn-success btn-block">Login now</button>
                     </div>
                   </div>
                   <div className="form-group">

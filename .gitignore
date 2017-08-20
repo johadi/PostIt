@@ -7,4 +7,5 @@
 server/database/config/config.json
 npm-debug.log
 bin/
+/reports
 screenshots/

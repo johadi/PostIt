@@ -48,19 +48,4 @@ describe('<SignupPage/>', () => {
     wrapper.find('form').simulate('submit'); // trigger an event by Signup form
     expect(signupAction.called).toBe(true); // singupAction inside handleSubmit is called
   });
-  // it('should pass for this signup', () => {
-  //   wrapper.find('form').simulate('submit'); // trigger an event by Signup form
-  //   expect(wrapper.find('FormField').at(0).props().name).toBe('fullname');
-  //   expect(wrapper.find('FormField').at(5).props().name).toBe('confirm_password');
-  //   expect(wrapper.find('AuthHeader').length).toBe(1);
-  //   expect(wrapper.find('FormField').length).toBe(6);
-  //   expect(wrapper.find('.site-wrapper').length).toBe(1);
-  //   expect(SignupPage.prototype.componentDidMount.calledOnce).toBe(true); // didMount is called
-  //   expect(signupAction.calledOnce).toBe(true); // singupAction inside handleSubmit is called
-  //   expect(SignupPage.prototype.handleSubmit.calledOnce).toBe(true); // handleSubmit is called
-  //   // wrapper.find('FormField').first().setChildProps({value: 'johadi'});
-  //   wrapper.find('FormField').first().simulate('change'); // trigger an event
-  //   expect(wrapper.find('FormField').first().props().onChange).toExist(); // handleChange is called
-  //   expect(wrapper.contains('<div className="body"/>')).toEqual(true);
-  // });
 });

@@ -2,8 +2,15 @@ import React from 'react';
 import { Link } from 'react-router';
 import AuthHeader from './headers/AuthHeader';
 
+/**
+ * IndexPage class declaration
+ */
 export default class IndexPage extends React.Component {
 
+  /**
+   * Renders the component
+   * @return {XML} XML/JSX
+   */
   render() {
     return (
       <div className="body">

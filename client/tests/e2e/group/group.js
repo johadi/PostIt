@@ -69,33 +69,33 @@ export default {
       // .assert.urlEquals(`${config.baseUrl}/${groupId}/add`)
       .end();
   },
-  'CREATE GROUP: (we waiting)': (browser) => {
-    console.log('--------------------------', groupId);
-    browser
-      .url(`${config.baseUrl}/group/${groupId}/add`)
-      .waitForElementVisible('div', 1000)
-      // .assert.elementPresent('div.main p a:nth-of-type(2)')
-      // .assert.containsText('div.main p a:nth-of-type(2)', 'Create Group')
-    // .waitForElementVisible('#signin', 1000)
-    // .execute(() => {
-    //   document.getElementById('signin').click();
-    // })
-    //   .click('div.main p a:nth-of-type(2)')
-    //   .pause(2000)
-    //   .assert.urlEquals(`${config.baseUrl}/create-group`)
-    //   .waitForElementVisible('form', 1000)
-    //   .setValue('input[name=name]', groupName)
-    //   .waitForElementVisible('form button[type=submit]', 1000)
-    //   .click('button[type=submit]')
-    //   .pause(1000)
-    //   .url((result) => {
-    //     groupId = getGroupIdFromUrl(result.value);
-    //     console.log('******************', groupId);
-    //   })
-      .pause(5000)
-      // .assert.urlEquals(`${config.baseUrl}/${groupId}/add`)
-      .end();
-  },
+  // 'CREATE GROUP: (we waiting)': (browser) => {
+  //   console.log('--------------------------', groupId);
+  //   browser
+  //     .url(`${config.baseUrl}/group/${groupId}/add`)
+  //     .waitForElementVisible('div', 1000)
+  //     // .assert.elementPresent('div.main p a:nth-of-type(2)')
+  //     // .assert.containsText('div.main p a:nth-of-type(2)', 'Create Group')
+  //   // .waitForElementVisible('#signin', 1000)
+  //   // .execute(() => {
+  //   //   document.getElementById('signin').click();
+  //   // })
+  //   //   .click('div.main p a:nth-of-type(2)')
+  //   //   .pause(2000)
+  //   //   .assert.urlEquals(`${config.baseUrl}/create-group`)
+  //   //   .waitForElementVisible('form', 1000)
+  //   //   .setValue('input[name=name]', groupName)
+  //   //   .waitForElementVisible('form button[type=submit]', 1000)
+  //   //   .click('button[type=submit]')
+  //   //   .pause(1000)
+  //   //   .url((result) => {
+  //   //     groupId = getGroupIdFromUrl(result.value);
+  //   //     console.log('******************', groupId);
+  //   //   })
+  //     .pause(5000)
+  //     // .assert.urlEquals(`${config.baseUrl}/${groupId}/add`)
+  //     .end();
+  // },
   // 'SIGNIN: Valid Signin (Say user typed correct details)': (browser) => {
   //   browser
   //     .url(`${config.baseUrl}/signin`)
@@ -115,11 +115,11 @@ export default {
   //     .assert.urlEquals(`${config.baseUrl}/dashboard`)
   //     .end();
   // },
-  'show Id': (browser) => {
-    console.log(groupId);
-    browser
-      .url(`${config.baseUrl}/group/${groupId}/add`)
-      .end();
-  },
+  // 'show Id': (browser) => {
+  //   console.log(groupId);
+  //   browser
+  //     .url(`${config.baseUrl}/group/${groupId}/add`)
+  //     .end();
+  // },
   after: browser => browser.end()
 };

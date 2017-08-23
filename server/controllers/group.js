@@ -567,11 +567,24 @@ module.exports = {
               return userGroupIds; // arrays of group Ids i.e [23,67,89]
             })
             .then((userGroupIds) => {
+              // get all messages of a user in all groups he/she joined (read and unread)
+              const allUserGroupMessages = Message.findAndCountAll({ where: { groupId: userGroupIds } });
+              return Promise.all([allUserGroupMessages, userGroupIds]);
+            })
+            .then((allResolvedPromise) => {
+              const allUserGroupMessages = allResolvedPromise[0]; // user messages in all groups
+              const userGroupIds = allResolvedPromise[1]; // user groups Id
               const query = parseInt(req.query.page, 10); // convert the query to standard number for use
               const perPage = Constants.USER_MESSAGE_BOARD_PER_PAGE; // = limit you want to display per page
               const currentPage = query < 1 ? 1 : query;
               const offset = perPage * (currentPage - 1);
-              Message.findAndCountAll({
+              // get all unread messages of a user in all groups he/she joined (Unread only)
+              const userGroupUnreadMessages = allUserGroupMessages.rows.filter(message =>
+                !(_.includes(message.readersId, userId)));
+              // pages the unread messages formed
+              const pages = Math.ceil(userGroupUnreadMessages.length / perPage); // to round off i.e 3/2 = 1.5 = 2
+              // Fetch user unread messages using pagination info like offset and limit
+              Message.findAll({
                 where: { groupId: userGroupIds }, // return messages that has groupIds like in [3,5,7,8,9]
                 offset,
                 limit: perPage,
@@ -581,19 +594,20 @@ module.exports = {
                   attributes: ['id', 'name']
                 }]
               })
-                  .then((messages) => {
-                    // Get list of messages that have not been read by this user
-                    const userUnreadMessages = messages.rows.filter(message =>
-                        !(_.includes(message.readersId, userId)));
-                    const pages = Math.ceil(userUnreadMessages.length / perPage); // to round off i.e 3/2 = 1.5 = 2
-                    const data = {
-                      messages: userUnreadMessages,
-                      count: userUnreadMessages.length,
-                      pages
-                    };
-                    return handleSuccess(200, data, res);
-                  })
-                  .catch(err => handleError(err, res));
+                .then((messages) => {
+                  // Get list of messages that have not been read by a user with this limit and offset
+                  const userUnreadMessages = messages.filter(message =>
+                    !(_.includes(message.readersId, userId)));
+                  const data = {
+                    // paginated messages obtained using offset and limit i.e (4 messages)
+                    messages: userUnreadMessages,
+                    // count of all messages users have not read (i.e 15)
+                    count: userGroupUnreadMessages.length,
+                    pages
+                  };
+                  return handleSuccess(200, data, res);
+                })
+                .catch(err => handleError(err, res));
             })
             .catch(err => handleError(err, res));
       } else {

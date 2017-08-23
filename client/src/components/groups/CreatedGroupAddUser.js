@@ -48,7 +48,7 @@ export class CreateGroupAddUser extends React.Component {
           <div className="row well well-sm">
             <div className="col-lg-10 col-lg-offset-1">
               <div className="input-group">
-                <input ref={input => this.search = input} onKeyUp={e => this.handleSearch(e)}
+                <input id="search" name="search" ref={input => this.search = input} onKeyUp={e => this.handleSearch(e)}
                        placeholder="Search Users by Username or Email" type="text" className="form-control"/>
                 <span className="input-group-btn">
               <button type="submit" className="btn btn-post"><i className="fa fa-search" aria-hidden="true"></i></button>

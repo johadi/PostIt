@@ -30,11 +30,12 @@ const GroupHeader = (props) => {
           <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
               <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                <i className="fa fa-lg fa-user-circle-o" aria-hidden="true"></i> {userDetail.username} <b className="caret"></b>
+                <i className="fa fa-lg fa-user-circle-o" aria-hidden="true"></i> {userDetail.username}
+                {/* <b className="caret"></b> */}
               </a>
-              <ul className="dropdown-menu">
-                <li><Link href="#">Profile</Link></li>
-              </ul>
+              { /* <ul className="dropdown-menu"> */ }
+                {/* <li><Link href="#">Profile</Link></li> */}
+              {/* </ul> */}
             </li>
             <li style={{ marginRight: '10px' }}>
               <Link to="#" onClick={logout}>

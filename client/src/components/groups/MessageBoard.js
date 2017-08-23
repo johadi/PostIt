@@ -75,28 +75,40 @@ export class MessageBoard extends React.Component {
     const { messages, pages, count } = this.props.messageBoardMessagesPagination;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2><strong>Notification board</strong></h2>
+          <h2><strong>Notification board {pages}</strong></h2>
           <small style={{ color: 'red' }}>{count === 1 ? `(${count}) notification` : `(${count}) notifications`} you have not read</small>
           <hr/>
           {
-            messages.map(message => <div key={message.id} className="media">
-                <div className="media-left message">
-                </div>
-                <div className="media-body">
-                  <h4 className="media-heading"><span className="text-capitalize"> {message.User.username}</span>
-                    <small>
-                      <Link to={`/group/${message.Group.id}/board`}>
-                        <i><span className="text-capitalize"> {message.Group.name} </span>group</i>
-                      </Link>
-                      {this.showTime(message.createdAt) >= 23 ?
+            messages.map((message) => {
+              let priority = <span style={{ backgroundColor: 'green' }} className="badge text-capitalize">{message.priority}</span>;
+              if (message.priority === 'urgent') {
+                priority = <span style={{ backgroundColor: 'orange' }} className="badge text-capitalize">{message.priority}</span>;
+              }
+              if (message.priority === 'critical') {
+                priority = <span style={{ backgroundColor: 'darkred' }} className="badge text-capitalize">{message.priority}</span>;
+              }
+              return (
+                <div key={message.id} className="media">
+                  <div className="media-left message">
+                  </div>
+                  <div className="media-body">
+                    <h4 className="media-heading"><span className="text-capitalize"> {message.User.username}</span>
+                      <small>
+                        <Link to={`/group/${message.Group.id}/board`}>
+                          <i><span className="text-capitalize"> {message.Group.name} </span>group</i>
+                        </Link>
+                        <small> {priority} </small>
+                        {this.showTime(message.createdAt) >= 23 ?
                           <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}</small> :
                           <small> Sent <Moment fromNow>{message.createdAt}</Moment></small>}
-                    </small>
-                  </h4>
-                  <p className="text-overflow"><Link to={`/message/${message.Group.id}/${message.id}`}>{message.body}</Link></p>
+                      </small>
+                    </h4>
+                    <p className="text-overflow"><Link to={`/message/${message.Group.id}/${message.id}`}>{message.body}</Link></p>
+                  </div>
+                  <hr/>
                 </div>
-                <hr/>
-              </div>)
+              );
+            })
           }
           {pages <= 1 ? null :
               <Pagination

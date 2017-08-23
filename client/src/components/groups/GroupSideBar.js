@@ -40,7 +40,7 @@ class GroupSideBar extends React.Component {
             </Link>
             <Link to="/dashboard" className="btn btn-default btn-block">
               <span
-                className="text-danger"><strong> <i className="fa fa-user-times" aria-hidden="true"></i> Leave group</strong>
+                className="text-danger"><strong> <i className="fa fa-user-times" aria-hidden="true"></i> Back to Dashboard</strong>
               </span>
             </Link>
           </p>

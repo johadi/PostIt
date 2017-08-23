@@ -66,29 +66,38 @@ export class GroupNotificationBoard extends React.Component {
           <h2 className="text-capitalize">{this.props.name} Group </h2>
           <p>({count}) {count === 1 ? 'notification' : 'notifications'}</p>
           <hr/>
-          {rows.map(message => (
+          {rows.map((message) => {
+            let priority = <span style={{ backgroundColor: 'green' }} className="badge text-capitalize">{message.priority}</span>;
+            if (message.priority === 'urgent') {
+              priority = <span style={{ backgroundColor: 'orange' }} className="badge text-capitalize">{message.priority}</span>;
+            }
+            if (message.priority === 'critical') {
+              priority = <span style={{ backgroundColor: 'darkred' }} className="badge text-capitalize">{message.priority}</span>;
+            }
+            return (
               <div key={message.id} className="media message">
                 <div className="media-left">
                 </div>
                 <div className="media-body">
                   <h4 className="media-heading">{message.User.username}
                     {this.showTime(message.createdAt) >= 23 ?
-                        <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
-                        </small> : <small> Sent <Moment fromNow>{message.createdAt}</Moment> |
-                          {
-                            _.includes(message.readersId, this.userDetail.id) ?
-                                <span className="text-success"> Read</span> :
-                                <span style={{ color: 'red' }}> Unread</span>
-                          }
-                          </small>
+                      <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
+                      </small> : <small> Sent <Moment fromNow>{message.createdAt}</Moment> {priority} |
+                        {
+                          _.includes(message.readersId, this.userDetail.id) ?
+                            <span className="text-success"> Read</span> :
+                            <span style={{ color: 'red' }}> Unread</span>
+                        }
+                      </small>
                     }
                   </h4>
                   <p className="text-overflow"><Link
-                      to={`/message/${this.props.groupId}/${message.id}`}>{message.body}</Link></p>
+                    to={`/message/${this.props.groupId}/${message.id}`}>{message.body}</Link></p>
                 </div>
                 <hr/>
               </div>
-          ))}
+            );
+          })}
           {pages <= 1 ? null :
               <Pagination
                   prev

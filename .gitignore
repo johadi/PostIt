@@ -9,3 +9,4 @@ npm-debug.log
 bin/
 /reports
 screenshots/
+.DS_Store

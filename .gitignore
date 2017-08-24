@@ -1,0 +1,9 @@
+/playground
+/reports
+.env
+.idea/
+bin/
+client/
+node_modules/
+screenshots/
+server/

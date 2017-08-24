@@ -3,7 +3,7 @@
 .env
 .idea/
 bin/
-client/
+client
 node_modules/
 screenshots/
-server/
+server

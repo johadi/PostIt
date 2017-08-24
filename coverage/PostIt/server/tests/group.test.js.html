@@ -3,12 +3,12 @@
 <head>
     <title>Code coverage report for PostIt/server/tests/group.test.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="..\..\..\prettify.css" />
-    <link rel="stylesheet" href="..\..\..\base.css" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(..\..\..\sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\..\index.html">All files</a> / <a href="index.html">PostIt/server/tests</a> group.test.js
+      <a href="../../../index.html">All files</a> / <a href="index.html">PostIt/server/tests</a> group.test.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">88.82% </span>
+        <span class="strong">88.31% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>151/170</span>
+        <span class='fraction'>521/590</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>18/36</span>
+        <span class='fraction'>67/134</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">97.62% </span>
+        <span class="strong">98.65% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>41/42</span>
+        <span class='fraction'>146/148</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">99.34% </span>
+        <span class="strong">99.43% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>151/152</span>
+        <span class='fraction'>521/524</span>
       </div>
     </div>
   </div>
@@ -333,7 +333,766 @@
 288
 289
 290
-291</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022
+1023
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049
+1050</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -411,43 +1170,631 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -459,58 +1806,136 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -526,57 +1951,120 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -586,32 +2074,62 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -624,7 +2142,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">require('dotenv').config();
-// auth.test.js
+// group.test.js
 const request = require('supertest');
 const assert = require('chai').assert;
 const app = require('./../../app');
@@ -635,7 +2153,7 @@ const UserGroup = require('./../database/models').UserGroup;
 const UserGroupAdd = require('./../database/models').UserGroupAdd;
 const Message = require('./../database/models').Message;
 const db = require('./../database/models');
-// Test for creating group route and controller
+// Test suit for creating group route and controller
 describe('POST: api/group', () =&gt; {
   // Clear Test database
   before(seeder.emptyUserDB);
@@ -643,19 +2161,19 @@ describe('POST: api/group', () =&gt; {
   before(seeder.emptyGroupDB);
   before(seeder.emptyUserGroupDB);
   // Start adding users to DB
-  before(seeder.addUserToDb);
-  before(seeder.addUserToDb2);
+  before(seeder.addUserToDb); // username = johadi10
+  before(seeder.addUserToDb2); // username = oman
   // Create a group
-  before(seeder.createGroup);
+  before(seeder.createGroup); // name=andela creator_id = 1 id = 1
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) =&gt; {
+  before((done) =&gt; {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
         .expect(200)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          token = res.body.data.token;
+          token = res.body;
           done();
         });
   });
@@ -667,18 +2185,18 @@ describe('POST: api/group', () =&gt; {
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Group name required');
+          assert.equal(res.body, 'Group name required');
           done();
         });
   });
   it('should return status code 400 and a message when group already exists', (done) =&gt; {
     request(app)
         .post('/api/group')
-        .send({ name: 'Andela', token })
+        .send({ name: 'andela', token })
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'This Group already exists');
+          assert.equal(res.body, 'This Group already exists');
           done();
         });
   });
@@ -690,17 +2208,17 @@ describe('POST: api/group', () =&gt; {
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
           Group.findOne({
-            where: { name: 'lagos' } // NOTE: bootcamp must be lowercase
+            where: { name: 'lagos' } // NOTE: lagos must be lowercase
           })
               .then((group) =&gt; {
                 assert.equal(group.name, 'lagos');
                 done();
               })
-              .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >done(err))</span>;
+              .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >err =&gt; done(err));</span></span>
         });
   });
 });
-//* Test for adding user to group
+// Test suit for adding user to group
 describe('POST api/group/:groupId/user', () =&gt; {
   // Clear Test database
   before(seeder.emptyUserDB);
@@ -708,21 +2226,24 @@ describe('POST api/group/:groupId/user', () =&gt; {
   before(seeder.emptyGroupDB);
   before(seeder.emptyUserGroupDB);
   // Start adding users to DB
-  before(seeder.addUserToDb);
-  before(seeder.addUserToDb2);
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com}
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com}
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com}
   // Create a group
-  before(seeder.createGroup);
-  before(seeder.createGroup2);
-  before(seeder.addUserToGroup);
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1}
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7}
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10}
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5}
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20}
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) =&gt; {
+  before((done) =&gt; {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
         .expect(200)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          token = res.body.data.token;
+          token = res.body;
           done();
         });
   });
@@ -734,7 +2255,7 @@ describe('POST api/group/:groupId/user', () =&gt; {
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
           done();
         });
   });
@@ -745,19 +2266,55 @@ describe('POST api/group/:groupId/user', () =&gt; {
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Provide Valid user detail to add to group');
+          assert.equal(res.body, 'Provide Valid user detail to add to group');
           done();
         });
   });
   it('Should return status code 400 and a ' +
       'message when User tries to add himself to group he belongs.', (done) =&gt; {
     request(app)
-        .post('/api/group/1/user')
+        .post('/api/group/99/user')
         .send({ user: 'johadi10', token })
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Already a member. You can\'t add yourself to the group again');
+          assert.equal(res.body, 'You can\'t add yourself to group you already belong');
+          done();
+        });
+  });
+  it('Should return status code 400 and a ' +
+      'message when User tries to add user to group he doesn\'t belongs.', (done) =&gt; {
+    request(app)
+        .post('/api/group/100/user')
+        .send({ user: 'johadi10', token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Invalid operation: you do not belong to this group');
+          done();
+        });
+  });
+  it('Should return status code 400 and a ' +
+      'message when User tries to add user already in a group.', (done) =&gt; {
+    request(app)
+        .post('/api/group/99/user')
+        .send({ user: 'oman', token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'User already belongs to this group');
+          done();
+        });
+  });
+  it('Should return status code 404 and a ' +
+      'message when User tries to add user that doesn\'t exist.', (done) =&gt; {
+    request(app)
+        .post('/api/group/99/user')
+        .send({ user: 'sanni', token })
+        .expect(404)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'User not found');
           done();
         });
   });
@@ -768,89 +2325,154 @@ describe('POST api/group/:groupId/user', () =&gt; {
         .expect(404)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Invalid group');
+          assert.equal(res.body, 'Invalid group');
+          done();
+        });
+  });
+  it('Should return 201 and information of who added user and who was added.', (done) =&gt; {
+    request(app)
+        .post('/api/group/99/user')
+        .send({ user: 'sherif', token })
+        .expect(201)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body.message, 'User added successfully');
+          assert.equal(res.body.addedUser, 'sherif'); // user that was added
+          assert.equal(res.body.addedBy, 'johadi10'); // user that added is user which is johadi10
           done();
         });
   });
 }); // end
+// Test suite for posting a message
 describe('POST api/group/:groupId/message', () =&gt; {
   // Clear Test database
   before(seeder.emptyUserDB);
   before(seeder.emptyMessageDB);
   before(seeder.emptyGroupDB);
   before(seeder.emptyUserGroupDB);
-  // Start adding users to DB
-  before(seeder.addUserToDb);
-  before(seeder.addUserToDb2);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup);
-  before(seeder.createGroup2);
-  before(seeder.addUserToGroup);
-  before(seeder.addMessageToDb);
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  // create a message
+  before(seeder.addMessageToDb); // {groupId: 99, userId: 5, body: 'Carry Something .....'}
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) =&gt; {
+  before((done) =&gt; {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
         .expect(200)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          token = res.body.data.token;
+          token = res.body;
           done();
         });
   });
   it('Should return status code 400 and a message when groupId is not a number.', (done) =&gt; {
     request(app)
         .post('/api/group/x/message')
-        .send({ user: 'johadi10', token })
+        .send({ message: 'no condition is permanent', token })
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
           done();
         });
   });
   it('Should return 400 and a message if no message body', (done) =&gt; {
     request(app)
-        .post('/api/group/1/message')
+        .post('/api/group/99/message')
         .send({ message: '', token })
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Message body required');
+          assert.equal(res.body, 'Message body required');
+          done();
+        });
+  });
+  it('Should return 400 and a message if priority level not either normal, urgent or critical', (done) =&gt; {
+    request(app)
+        .post('/api/group/99/message')
+        .send({ message: 'I love NodeJS', priority: 'abnormal', token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Message priority level can only be normal or urgent or critical');
+          done();
+        });
+  });
+  it('Should return 404 and a message if group is invalid', (done) =&gt; {
+    request(app)
+        .post('/api/group/70/message')
+        .send({ message: 'I love NodeJS', priority: 'critical', token })
+        .expect(404)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Invalid group');
+          done();
+        });
+  });
+  it('Should return 400 and a message if user doesn\'t belong to a group', (done) =&gt; {
+    request(app)
+        .post('/api/group/100/message')
+        .send({ message: 'I love NodeJS', priority: 'critical', token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Invalid Operation: You can\'t post to group You don\'t belong');
+          done();
+        });
+  });
+  it('Should return 201 and a message if message was successfully posted', (done) =&gt; {
+    request(app)
+        .post('/api/group/99/message')
+        .send({ message: 'I love NodeJS', priority: 'critical', token })
+        .expect(201)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Message created successfully');
           done();
         });
   });
 });
+// Test suite for getting messages in a particular group
 describe('Get api/group/groupId/message', () =&gt; {
   // Clear Test database
   before(seeder.emptyUserDB);
   before(seeder.emptyMessageDB);
   before(seeder.emptyGroupDB);
   before(seeder.emptyUserGroupDB);
-  // Start adding users to DB
-  before(seeder.addUserToDb);
-  before(seeder.addUserToDb2);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup);
-  before(seeder.createGroup2);
-  before(seeder.addUserToGroup);
-  before(seeder.addUserToGroup2);
-  before(seeder.addMessageToDb);
-  before(seeder.addMessageToDb2);
-  before(seeder.addMessageToDb3);
-  // this is strictly for a user to create group belongs to it but has no message in it
-  before(seeder.createGroup4);
-  before(seeder.addUserToGroup4);
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  // create a message
+  before(seeder.addMessageToDb); // {groupId: 99, userId: 5, body: 'Carry Something .....'}
+  before(seeder.addMessageToDb2); // {groupId: 100, userId: 20, body: 'Carry Something more than .....'}
+  before(seeder.addMessageToDb3); // {groupId: 99, userId: 5, body: 'Learners are leaders .....'}
   let token = ''; // To hold our token for authentication
-  it('Should return 200 and give the user token if credentials are correct.', (done) =&gt; {
+  before((done) =&gt; {
     request(app)
         .post('/api/user/signin')
         .send({ username: 'johadi10', password: '11223344' })
         .expect(200)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          token = res.body.data.token;
+          token = res.body;
           done();
         });
   });
@@ -861,54 +2483,709 @@ describe('Get api/group/groupId/message', () =&gt; {
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Oops! Something went wrong, Check your route');
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
           done();
         });
   });
-  it('Should return 400 when a user access invalid route.', (done) =&gt; {
+  it('Should return 400 when a user doesn\'t provide query parameter "page" ' +
+      'that serves as pagination.', (done) =&gt; {
     request(app)
-        .get('/api/group/3/message')
+        .get('/api/group/99/message')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end(done);
+  });
+  it('Should return 400 when a user access invalid group.', (done) =&gt; {
+    request(app)
+        .get('/api/group/33/message?page=1')
         .set({ 'x-auth': token })
         .expect(404)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'invalid group');
+          assert.equal(res.body, 'invalid group');
           done();
         });
   });
   it('Should return status code 400 when user tries to get messages from' +
       ' group he doesn\'t belong', (done) =&gt; {
     request(app)
-        .get('/api/group/100/message')
+        .get('/api/group/100/message?page=1')
         .set({ 'x-auth': token })
         .expect(400)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'Invalid Operation: You don\'t belong to this group');
+          assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
           done();
         });
   });
-  it('Should return status code 200 when user tries to get messages from' +
+  it('Should return status code 200 and the paginated messages when user tries to get messages from' +
       ' group he belongs', (done) =&gt; {
     request(app)
-        .get('/api/group/99/message')
+        .get('/api/group/99/message?page=1')
         .set({ 'x-auth': token })
         .expect(200)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.exists(res.body.data);
+          assert.exists(res.body.pages); // pages to display in front end
+          assert.exists(res.body.count); // total count of messages
+          assert.exists(res.body.rows); // rows is the array of messages as returned by Sequelize
           done();
         });
   });
-  it('Should return status code 404 when user tries to get messages from' +
-      ' group he belongs but no message', (done) =&gt; {
+});
+// Test suite for Viewing a single message
+describe('Get api/group/:groupId/message/:messageId', () =&gt; {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  // Create a group
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  // create a message
+  before(seeder.addMessageToDb); // {id: 8, groupId: 99, userId: 5, body: 'Carry Something .....'} Message
+  before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
+  before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
+  let token = ''; // To hold our token for authentication
+  before((done) =&gt; {
     request(app)
-        .get('/api/group/101/message')
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          token = res.body;
+          done();
+        });
+  });
+  it('Should return 400 when a user access route with invalid groupId.', (done) =&gt; {
+    request(app)
+        .get('/api/group/x/message/1')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
+          done();
+        });
+  });
+  it('Should return 400 when a user access route with invalid messageId.', (done) =&gt; {
+    request(app)
+        .get('/api/group/20/message/y')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
+          done();
+        });
+  });
+  it('Should return 400 when a user access invalid group.', (done) =&gt; {
+    request(app)
+        .get('/api/group/40/message/8')
         .set({ 'x-auth': token })
         .expect(404)
         .end((err, res) =&gt; {
           <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
-          assert.equal(res.body.message, 'You have no message in this group');
+          assert.equal(res.body, 'invalid group');
+          done();
+        });
+  });
+  it('Should return status code 400 when user tries to view message of a' +
+      ' group he doesn\'t belong', (done) =&gt; {
+    request(app)
+        .get('/api/group/100/message/9')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
+          done();
+        });
+  });
+  it('Should return status code 404 when user tries to view message that doesn\'t exist', (done) =&gt; {
+    request(app)
+        .get('/api/group/99/message/25')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'message not found');
+          done();
+        });
+  });
+  it('Should return status code 200 and the message when user tries to view message from' +
+      ' group he/she belongs', (done) =&gt; {
+    request(app)
+        .get('/api/group/99/message/8')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.exists(res.body); // res.body is the message body
+          done();
+        });
+  });
+});
+// Test suite for controller that update Read status of message
+describe('POST api/group/message-read/:messageId', () =&gt; {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  // Create a group
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  // create a message
+  before(seeder.addMessageToDb); // {id: 8, groupId: 99, userId: 5, body: 'Carry Something .....'} Message
+  before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
+  before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
+  let token = ''; // To hold our token for authentication
+  before((done) =&gt; {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          token = res.body;
+          done();
+        });
+  });
+  it('Should return 400 when a user access route with invalid messageId.', (done) =&gt; {
+    request(app)
+        .post('/api/group/message-read/x')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
+          done();
+        });
+  });
+  it('Should return 404 and a message when a user provide messageId that doesn\'t exist.', (done) =&gt; {
+    request(app)
+        .post('/api/group/message-read/21')
+        .set({ 'x-auth': token })
+        .expect(404)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Message with this ID doesn\'t exist');
+          done();
+        });
+  });
+  it('Should return 400 when a user provides messageId of group he doesn\'t belong.', (done) =&gt; {
+    request(app)
+        .post('/api/group/message-read/9')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'You don\'t belong to this group');
+          done();
+        });
+  });
+  it('Should return status code 200 and true value when message read status is updated', (done) =&gt; {
+    request(app)
+        .post('/api/group/message-read/8')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, true);
+          done();
+        });
+  });
+});
+// Test suite for controllers that get all users of a group
+describe('Get api/group/:groupId/group-users', () =&gt; {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  // Create a group
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  // // create a message
+  // before(seeder.addMessageToDb); // {id: 8, groupId: 99, userId: 5, body: 'Carry Something .....'} Message
+  // before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
+  // before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
+  let token = ''; // To hold our token for authentication
+  before((done) =&gt; {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          token = res.body;
+          done();
+        });
+  });
+  it('Should return 400 when a user access route with invalid groupId.', (done) =&gt; {
+    request(app)
+        .get('/api/group/x/group-users')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Something went wrong, Check your route');
+          done();
+        });
+  });
+  it('Should return 400 when a user access route without query string named page that indicate pagination.', (done) =&gt; {
+    request(app)
+        .get('/api/group/99/group-users')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Error. Request url must have query string named page with number as value');
+          done();
+        });
+  });
+  it('Should return 400 when a user access route with query string named page but not a number value.', (done) =&gt; {
+    request(app)
+        .get('/api/group/99/group-users?page=x')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Error. Request url must have query string named page with number as value');
+          done();
+        });
+  });
+  it('Should return 404 when a user access invalid group.', (done) =&gt; {
+    request(app)
+        .get('/api/group/40/group-users?page=1')
+        .set({ 'x-auth': token })
+        .expect(404)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'invalid group');
+          done();
+        });
+  });
+  it('Should return status code 400 when user tries to get users of a' +
+      ' group he doesn\'t belong', (done) =&gt; {
+    request(app)
+        .get('/api/group/100/group-users?page=1')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
+          done();
+        });
+  });
+  it('Should return status code 200 and the users in the group when user tries to get users of a' +
+      ' group he/she belongs on page 1', (done) =&gt; {
+    request(app)
+        .get('/api/group/99/group-users?page=1')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.exists(res.body.Users); // array of Users in the group
+          assert.exists(res.body.name); // name of the group
+          assert.exists(res.body.pages); // pages the users can make per page
+          assert.exists(res.body.count); // number of users in the group
+          done();
+        });
+  });
+});
+// Test suite for controllers that get groups a user belongs to
+describe('Get api/group/user/groups', () =&gt; {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  // Create a group
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  // // create a message
+  // before(seeder.addMessageToDb); // {id: 8, groupId: 99, userId: 5, body: 'Carry Something .....'} Message
+  // before(seeder.addMessageToDb2); // {id: 9, groupId: 100, userId: 20, body: 'Carry Something more than .....'} Message
+  // before(seeder.addMessageToDb3); // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
+  let token = ''; // To hold our token for authentication
+  before((done) =&gt; {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          token = res.body;
+          done();
+        });
+  });
+  it('Should return 400 when a user access route without query string named page that indicate pagination.', (done) =&gt; {
+    request(app)
+        .get('/api/group/user/groups')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Error. Request url must have query string named page with number as value');
+          done();
+        });
+  });
+  it('Should return 400 when a user access route with query string named page but not a number value.', (done) =&gt; {
+    request(app)
+        .get('/api/group/user/groups?page=x')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Oops! Something went wrong, page query value must be a number');
+          done();
+        });
+  });
+  it('Should return status code 200 and the paginated groups when user tries to get list of groups' +
+      ' he/she belongs to on page 1.', (done) =&gt; {
+    request(app)
+        .get('/api/group/user/groups?page=1')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.exists(res.body.Groups); // array of Groups user belongs with other information
+          assert.exists(res.body.username); // username of the person requesting his/her groups
+          assert.exists(res.body.pages); // pages the groups can make
+          assert.exists(res.body.count); // number of groups user belongs
+          done();
+        });
+  });
+});
+// // Test suit for controllers that get all messages that are sent to groups a user belongs to
+describe('Get api/group/user/board', () =&gt; {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  // Create a group
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup3); // {id: 101, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup3); // {groupId: 101, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  let token = ''; // To hold our token for authentication
+  before((done) =&gt; {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          token = res.body;
+          done();
+        });
+  });
+  it('Should return 400 when a user access route without query string named page that indicate pagination.', (done) =&gt; {
+    request(app)
+        .get('/api/group/user/board')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'This request is invalid. Request URL must have a query named page with number as value');
+          done();
+        });
+  });
+  it('Should return 400 when a user access route with query string named page but not a number value.', (done) =&gt; {
+    request(app)
+        .get('/api/group/user/board?page=x')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'This request is invalid. Request URL must have a query named page with number as value');
+          done();
+        });
+  });
+  it('Should return status code 200 and the messages when user tries to get all messages of groups' +
+      ' he/she belongs to that he hasn\'t read on page1.', (done) =&gt; {
+    request(app)
+        .get('/api/group/user/board?page=1')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.exists(res.body.messages); // Array of Messages of all groups that user hasn't read
+          assert.exists(res.body.pages); // Pages the unread messages can make
+          assert.exists(res.body.count); // Number of all messages in all groups that user hasn't read
+          done();
+        });
+  });
+});
+// Test suite for controllers that get all users in the application by search term.
+describe('Get api/users', () =&gt; {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  // Create a group
+  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup3); // {id: 101, name: react, creator_id: 7} Group
+  // Add users to groups
+  before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
+  before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
+  before(seeder.addUserToGroup3); // {groupId: 101, userId: 5} UserGroup
+  before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+  let token = ''; // To hold our token for authentication
+  before((done) =&gt; {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          token = res.body;
+          done();
+        });
+  });
+  it('Should return 400 when a user access this route without query string named page that indicate pagination.', (done) =&gt; {
+    request(app)
+        .get('/api/users')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'This request is invalid. Request URL must have a query named search with value');
+          done();
+        });
+  });
+  it('Should return status code 200 and the users in the application that match the ' +
+      'search term with at most 10 results', (done) =&gt; {
+    request(app)
+        .get('/api/users?search=johad')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          const user = {
+            id: 5,
+            username: 'johadi10',
+            fullname: 'jimoh hadi',
+            email: 'johadi10@yahoo.com'
+          };
+          // check if the Array of users returned include this user which is a registered user in the application
+          assert.include(JSON.stringify(res.body), JSON.stringify(user));
+          done();
+        });
+  });
+  it('Should return status code 400 and error message when the value of groupId query is not a number', (done) =&gt; {
+    request(app)
+        .get('/api/users?search=oman@gma&amp;groupId=x')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Query groupId must be a number');
+          done();
+        });
+  });
+  it('Should return status code 400 and error message when the value of groupId query is not a valid one', (done) =&gt; {
+    request(app)
+        .get('/api/users?search=oman@gma&amp;groupId=66')
+        .set({ 'x-auth': token })
+        .expect(404)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Invalid group');
+          done();
+        });
+  });
+  it('Should return status code 400 and error message when user tries to make ' +
+      'use of valid groupId of a group he doesn\'t belong', (done) =&gt; {
+    request(app)
+        .get('/api/users?search=oman@gma&amp;groupId=100')
+        .set({ 'x-auth': token })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
+          done();
+        });
+  });
+  it('Should return status code 200 and the users when user search for other users in the application and also ' +
+      'request userIds of users in a certain group', (done) =&gt; { // CASE: user already a member of groupId 99
+    request(app)
+        .get('/api/users?search=oman@gma&amp;groupId=99')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          const user = {
+            id: 20,
+            username: 'oman',
+            fullname: 'jack oman',
+            email: 'oman@gmail.com'
+          };
+          // check if the Array of users returned include this user which is a registered user in the application
+          assert.include(JSON.stringify(res.body.allUsers), JSON.stringify(user));
+          // already a member of groupId 99 . id should be in the groupUsersIds array
+          assert.include(res.body.groupUsersId, 20);
+          done();
+        });
+  });
+  it('Should return status code 200 and the users when user search for other users in the application and also ' +
+      'request userIds of users in a certain group', (done) =&gt; { // CASE: user not a member of groupId 99
+    request(app)
+        .get('/api/users?search=sherif&amp;groupId=99')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          const user = {
+            id: 30,
+            username: 'sherif',
+            fullname: 'muhammed sherif',
+            email: 'sherif@gmail.com'
+          };
+          // check if the Array of users returned include this user which is a registered user in the application
+          assert.include(JSON.stringify(res.body.allUsers), JSON.stringify(user));
+          // since he is not a member of groupId 99 . id should not be in the groupUsersIds array
+          assert.notInclude(res.body.groupUsersId, 30);
+          done();
+        });
+  });
+});
+// Verify if a User has token or not
+describe('Get api/verify-token', () =&gt; {
+  // Clear Test database
+  before(seeder.emptyUserDB);
+  before(seeder.emptyMessageDB);
+  before(seeder.emptyGroupDB);
+  before(seeder.emptyUserGroupDB);
+  // Add users to DB
+  before(seeder.addUserToDb); // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
+  before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
+  let sherifToken = '';
+  before((done) =&gt; {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'sherif', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          sherifToken = res.body;
+          done();
+        });
+  });
+  let token = ''; // To hold our token for authentication
+  before((done) =&gt; {
+    request(app)
+        .post('/api/user/signin')
+        .send({ username: 'johadi10', password: '11223344' })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          token = res.body;
+          done();
+        });
+  });
+  it('Should return 401 if user access a route without a token.', (done) =&gt; {
+    request(app)
+        .get('/api/verify-token')
+        .expect(401)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'Unauthorized: No token provided');
+          done();
+        });
+  });
+  it('Should return 400 if user access a route with an invalid token.', (done) =&gt; {
+    const testToken = 'xyzjjkjsksdkkldsdskllsdklkdsjcjcjkkjdkj.iiiiw';
+    request(app)
+        .get('/api/verify-token')
+        .set({ 'x-auth': testToken })
+        .expect(400)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'This token is invalid');
+          done();
+        });
+  });
+  it('Should return 404 if user access a route with a valid token but decoded ' +
+      'detail in the token not found in database.', (done) =&gt; {
+    // Let us remove a user from database and use his token for testing here
+    User.destroy({ where: { username: 'sherif' } })
+        .then((rowDeleted) =&gt; {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (rowDeleted === 1) {
+            request(app)
+                 .get('/api/verify-token')
+                 .set({ 'x-auth': sherifToken }) // sherifToken is a token of user deleted from database.
+                 .expect(404)
+                 .end((err, res) =&gt; {
+                   <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+                   assert.equal(res.body, 'User with this token not found');
+                   done();
+                 });
+          } else {
+<span class="cstat-no" title="statement not covered" >            return Promise.reject('row not deleted');</span>
+          }
+        })
+        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >err =&gt; done(err));</span></span>
+  });
+  it('Should return 200 if user provide a valid token that matches database record.', (done) =&gt; {
+    request(app)
+        .get('/api/verify-token')
+        .set({ 'x-auth': token })
+        .expect(200)
+        .end((err, res) =&gt; {
+          <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >return done(err);</span>
+          assert.equal(res.body, 'user verified');
           done();
         });
   });
@@ -919,10 +3196,10 @@ describe('Get api/group/groupId/message', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 15 2017 13:19:42 GMT+0100 (W. Central Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 18 2017 12:06:22 GMT+0100 (WAT)
 </div>
 </div>
-<script src="..\..\..\prettify.js"></script>
+<script src="../../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -930,6 +3207,6 @@ window.onload = function () {
         }
 };
 </script>
-<script src="..\..\..\sorter.js"></script>
+<script src="../../../sorter.js"></script>
 </body>
 </html>

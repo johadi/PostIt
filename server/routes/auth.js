@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth');
+const verifyLinkMiddleware = require('../middlewares/verifyRecoveryLink');
 
-router.route('/api/user/signup')
+router.route('/user/signup')
 /**
  * @api {post} /api/user/signup Register a new user
  * @apiGroup User
@@ -32,7 +33,7 @@ router.route('/api/user/signup')
    *    }
  */
     .post(authController.signup);
-router.route('/api/user/signin')
+router.route('/user/signin')
 /**
  * @api {post} /api/user/signin Login user
  * @apiGroup Authentication
@@ -55,4 +56,9 @@ router.route('/api/user/signin')
      *  }
  */
     .post(authController.signin);
+router.route('/user/recover-password')
+  .post(authController.passwordRecovery);
+router.route('/user/reset-password')
+  .get(verifyLinkMiddleware, authController.resetPasswordGet)
+  .post(verifyLinkMiddleware, authController.resetPasswordPost);
 module.exports = router;

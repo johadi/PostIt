@@ -1,0 +1,48 @@
+#group-body {
+  margin-top: 70px; }
+
+#create-group-div {
+  height: auto;
+  margin-top: 20px; }
+
+#add-user-div {
+  height: auto;
+  margin-top: 20px; }
+
+#post-message-div {
+  margin-top: 20px; }
+
+#message-board-panel {
+  margin-top: 20px;
+  padding: 0 0 0 0; }
+
+.btn-post {
+  background-color: #19b698 !important;
+  color: #ffffff; }
+
+.navy-header, .navy-header:hover {
+  background-color: #19b698 !important;
+  border-color: #19b698 !important;
+  color: #ffffff; }
+
+a,
+a:focus,
+a:hover {
+  color: #19b698; }
+
+.text-overflow {
+  white-space: nowrap;
+  width: 45em;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.text-capitalize {
+  text-transform: capitalize; }
+
+.text-display {
+  color: #19b698 !important; }
+
+.text-white {
+  color: #ffffff !important; }
+
+/*# sourceMappingURL=group-custom.css.map */

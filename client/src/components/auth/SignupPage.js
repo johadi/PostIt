@@ -34,9 +34,6 @@ export class SignupPage extends React.Component {
    * mount
    * @return {null} null
    */
-  componentDidMount() {
-    console.log('hello');
-  }
 
   /**
    * handle submit

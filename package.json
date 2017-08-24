@@ -29,7 +29,6 @@
     "build": "babel-node tools/build.js",
     "postbuild": "node tools/publicServer.js",
     "test:jest": "jest",
-    "test:client": "NODE_ENV=test mocha -w --compilers js:babel-register --require client/tests/setup.js client/tests/**/*.spec.js",
     "test:e2e": "nightwatch",
     "test:mocha": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\""
   },

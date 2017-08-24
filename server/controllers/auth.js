@@ -73,6 +73,7 @@ module.exports = {
         })
         .catch(err => handleError(err, res));
   },
+  // password Recovery
   passwordRecovery(req, res) {
     const body = _.pick(req.body, ['email']);
     const rules = {

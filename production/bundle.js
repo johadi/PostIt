@@ -73249,20 +73249,14 @@ var SignupPage = exports.SignupPage = function (_React$Component) {
    * @return {null} null
    */
 
+  /**
+   * handle submit
+   * @return {e} e
+   * @param {e} e
+   */
+
 
   _createClass(SignupPage, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      console.log('hello');
-    }
-
-    /**
-     * handle submit
-     * @return {e} e
-     * @param {e} e
-     */
-
-  }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       e.preventDefault();
@@ -73566,19 +73560,8 @@ var RecoverPasswordPage = function (_React$Component) {
     };
     return _this;
   }
-  // handles the background of signup page
-
 
   _createClass(RecoverPasswordPage, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var body = document.getElementById('body');
-      var app = document.getElementById('app');
-      app.className = 'site-wrapper';
-      body.className = 'body';
-      body.style.height = '100%';
-    }
-  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -73794,19 +73777,8 @@ var ResetPasswordPage = function (_React$Component) {
     };
     return _this;
   }
-  // handles the background of signup page
-
 
   _createClass(ResetPasswordPage, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var body = document.getElementById('body');
-      var app = document.getElementById('app');
-      app.className = 'site-wrapper';
-      body.className = 'body';
-      body.style.height = '100%';
-    }
-  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(

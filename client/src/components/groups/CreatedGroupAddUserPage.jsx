@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { addUserToGroup, clearAddUserToGroupError, getGroupUsers } from '../../actions/group/groupActions';
 import '../../build/static/styles/group-custom.scss';
-import GroupHeader from '../headers/GroupHeader';
-import GroupSideBar from './GroupSideBar';
-import CreatedGroupAddUser from './CreatedGroupAddUser';
+import GroupHeader from '../headers/GroupHeader.jsx';
+import GroupSideBar from './GroupSideBar.jsx';
+import CreatedGroupAddUser from './CreatedGroupAddUser.jsx';
 /**
  * Created Group Add User
  */

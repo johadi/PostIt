@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupsUserBelongsTo, getGroupsUserBelongsToPagination } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage';
-import GroupsPage from '../GroupsPage';
+import NullPage from '../NullPage.jsx';
+import GroupsPage from '../GroupsPage.jsx';
 
 /**
  * GroupsAuthPage class declaration

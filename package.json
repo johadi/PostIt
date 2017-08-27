@@ -14,8 +14,8 @@
   "scripts": {
     "build:dev": "webpack-dev-server",
     "start:build": "webpack",
-    "babel": "nodemon --watch server --exec babel-node -- app.js",
-    "server": "nodemon app.js --exec babel-node --presets es2015",
+    "server": "nodemon --watch server --exec babel-node -- app.js",
+    "start:dev": "nodemon app.js --exec babel-node --presets es2015",
     "start": "sequelize db:migrate && node app.js && --exec npm run build",
     "dev": "NODE_ENV=development && nodemon app",
     "apidoc": "apidoc -i server/routes/ -o public/apidoc",
@@ -57,6 +57,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^7.1.0",
+    "estraverse": "^4.2.0",
     "expect": "^1.14.0",
     "faker": "^4.1.0",
     "istanbul": "^0.4.5",

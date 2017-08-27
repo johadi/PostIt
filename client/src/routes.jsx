@@ -1,10 +1,11 @@
+/* eslint-disable import/extensions, import/no-unresolved */
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './App';
 import AuthPages from './components/auth';
 import groupPages from './components/groups/groupAuthentications';
-import IndexPage from './components/IndexPage';
-import NotFoundPage from './components/NotFoundPage';
+import IndexPage from './components/IndexPage.jsx';
+import NotFoundPage from './components/NotFoundPage.jsx';
 
 export default (
     <Route path='/' component={App}>
@@ -24,6 +25,6 @@ export default (
         <Route path="/groups" component={groupPages.GroupsAuthPage}/>
         <Route path="/group/:groupId/users" component={groupPages.GroupUsersAuthPage}/>
       </Route>
-      <Route path="*" component={NotFoundPage}/>
+      {/* <Route path="*" component={NotFoundPage}/> */}
     </Route>
 );

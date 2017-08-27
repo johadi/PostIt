@@ -3,10 +3,10 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import AuthHeader from '../headers/AuthHeader';
+import AuthHeader from '../headers/AuthHeader.jsx';
 import { signinAction } from '../../actions/auth/signinAction';
-import FormField from './SignInFormField';
-import ErrorComponent from '../ErrorComponent';
+import FormField from './SignInFormField.jsx';
+import ErrorComponent from '../ErrorComponent.jsx';
 
 /**
  * Signin class declaration
@@ -85,7 +85,7 @@ export class SigninPage extends React.Component {
               </div>
               <div className="mastfoot">
                 <div className="inner">
-                  <p>Designed by Joadi</p>
+                  <p>Designed by Johadi</p>
                 </div>
               </div>
 

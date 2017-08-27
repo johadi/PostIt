@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'react-proptypes';
 
 const ErrorComponent = props => (
      <div id='error' className={classnames('alert alert-danger alert-dismissible',
@@ -7,4 +8,8 @@ const ErrorComponent = props => (
        { props.fails }
      </div>
  );
+ErrorComponent.propTypes = {
+  fails: PropTypes.string,
+  show: PropTypes.bool
+};
 export default ErrorComponent;

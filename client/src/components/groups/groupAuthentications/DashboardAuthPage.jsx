@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupsUserBelongsTo, getMessagesOfMessageBoardPagination } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage';
-import DashboardPage from '../DashboardPage';
+import NullPage from '../NullPage.jsx';
+import DashboardPage from '../DashboardPage.jsx';
 
 /**
  * DashboardAuthPage class declaration
@@ -26,7 +26,7 @@ class DashboardAuthPage extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const {groups_user_belongs,message_board_messages_pagination} = this.props.groupState;
+    const { groups_user_belongs, message_board_messages_pagination } = this.props.groupState;
     return this.props.tokenStatus.success && groups_user_belongs && message_board_messages_pagination ?
         <DashboardPage messageBoardMessagesPagination={message_board_messages_pagination}
                        groupsUserBelongsTo={groups_user_belongs}

@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'react-proptypes';
-import GroupHeader from '../headers/GroupHeader';
-import GroupSideBar from './GroupSideBar';
-import GroupNotificationBoard from './GroupNotificationBoard';
+import GroupHeader from '../headers/GroupHeader.jsx';
+import GroupSideBar from './GroupSideBar.jsx';
+import SendNotification from './SendNotification.jsx';
+
 /**
- * GroupMessageBoardPage class declaration
+ * SendNotificationPage class declaration
  */
-export default class GroupMessageBoardPage extends React.Component {
+export default class SendNotificationPage extends React.Component {
+  // we have to pass our groupId params down to SendNotification since we have a lot to do there
   /**
-   * renders component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { name, Users } = this.props.groupUsers;
@@ -20,7 +22,7 @@ export default class GroupMessageBoardPage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <GroupNotificationBoard name={name} groupId={this.props.groupId}/>
+                  <SendNotification name={name} groupId={this.props.groupId}/>
                 </div>
               </div>
             </div>
@@ -30,8 +32,8 @@ export default class GroupMessageBoardPage extends React.Component {
     );
   }
 }
-GroupMessageBoardPage.propTypes = {
+SendNotificationPage.propTypes = {
   groupUsers: PropTypes.object.isRequired,
-  groupId: PropTypes.string.isRequired
+  groupId: PropTypes.string
 };
 

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
-import GroupHeader from '../headers/GroupHeader';
-import SideBar from './SideBar';
-import AllGroups from './Groups';
+import GroupHeader from '../headers/GroupHeader.jsx';
+import SideBar from './SideBar.jsx';
+import CreateGroup from './CreateGroup.jsx';
 
 /**
- * GroupsPage class declaration
+ * CreateGroupPage class declaration
  */
-export default class GroupsPage extends React.Component {
+export default class CreateGroupPage extends React.Component {
   /**
-   * renders the component
-   * @return {XML} XML/JSX
+   * renders this component
+   * @return {XML} XML
    */
   render() {
     const { Groups } = this.props.groupsUserBelongsTo;
@@ -22,7 +22,7 @@ export default class GroupsPage extends React.Component {
             <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <AllGroups groupsUserBelongsToPagination={this.props.groupsUserBelongsToPagination}/>
+                  <CreateGroup/>
                 </div>
               </div>
             </div>
@@ -32,8 +32,7 @@ export default class GroupsPage extends React.Component {
     );
   }
 }
-GroupsPage.propTypes = {
-  groupsUserBelongsTo: PropTypes.object.isRequired,
-  groupsUserBelongsToPagination: PropTypes.object.isRequired
+CreateGroupPage.propTypes = {
+  groupsUserBelongsTo: PropTypes.object.isRequired
 };
 

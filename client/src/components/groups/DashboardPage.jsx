@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { cancelModal } from '../../actions/auth/signupAction';
-import GroupHeader from '../headers/GroupHeader';
-import SideBar from './SideBar';
-import MessageBoard from './MessageBoard';
-import SignupModal from './SignupModal';
+import GroupHeader from '../headers/GroupHeader.jsx';
+import SideBar from './SideBar.jsx';
+import MessageBoard from './MessageBoard.jsx';
+import SignupModal from './SignupModal.jsx';
 
 /**
  * Dashboard class declaration

@@ -6,9 +6,9 @@ import PropTypes from 'react-proptypes';
 import _ from 'lodash';
 import jwtDecode from 'jwt-decode';
 import { updateMessageReadAfterView } from '../../actions/group/groupActions';
-import GroupHeader from '../headers/GroupHeader';
-import GroupSideBar from './GroupSideBar';
-import Notification from './Notification';
+import GroupHeader from '../headers/GroupHeader.jsx';
+import GroupSideBar from './GroupSideBar.jsx';
+import Notification from './Notification.jsx';
 
 /**
  * NotificationViewPage class declaration

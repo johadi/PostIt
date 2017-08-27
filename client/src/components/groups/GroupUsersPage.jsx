@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
-import GroupHeader from '../headers/GroupHeader';
-import GroupSideBar from './GroupSideBar';
-import GroupUsers from './GroupUsers';
+import GroupHeader from '../headers/GroupHeader.jsx';
+import GroupSideBar from './GroupSideBar.jsx';
+import GroupUsers from './GroupUsers.jsx';
 
 /**
  * GroupUsersPage class declaration

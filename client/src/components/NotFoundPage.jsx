@@ -1,8 +1,11 @@
 import React from 'react';
 /**
- * class NotFound page
+ * class NotFound page declaration
  */
 export default class NotFoundPage extends React.Component {
+  /**
+   * @return {void} void
+   */
   componentDidMount() {
     const body = document.getElementById('body');
     const app = document.getElementById('app');
@@ -12,6 +15,11 @@ export default class NotFoundPage extends React.Component {
     body.style.backgroundImage = 'none';
     body.style.color = 'black';
   }
+
+  /**
+   * Renders component
+   * @return {XML} XML
+   */
   render() {
     return (
         <div className="text-center">

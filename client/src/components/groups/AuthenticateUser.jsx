@@ -4,7 +4,7 @@ import PropTypes from 'react-proptypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { verifyToken } from '../../actions/verifyTokenAction';
-import NullPage from './NullPage';
+import NullPage from './NullPage.jsx';
 
 /**
  * AuthenticateUser class declaration

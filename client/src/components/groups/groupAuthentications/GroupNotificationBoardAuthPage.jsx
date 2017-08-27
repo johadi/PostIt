@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers, getGroupMessages, clearGetGroupMessagesError } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage';
-import GroupNotificationBoard from '../GroupNotificationBoardPage';
+import NullPage from '../NullPage.jsx';
+import GroupNotificationBoard from '../GroupNotificationBoardPage.jsx';
 
 /**
  * GroupNotificationBoardAuthPage class declaration

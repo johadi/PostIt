@@ -1,18 +1,17 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import PropTypes from 'react-proptypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import PropTypes from 'react-proptypes';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers } from '../../../actions/group/groupActions';
-
-import NullPage from '../NullPage';
-import SendNotificationPage from '../SendNotificationPage';
+import NullPage from '../NullPage.jsx';
+import CreatedGroupAddUserPage from '../CreatedGroupAddUserPage.jsx';
 
 /**
- * SendNotificationAuthPage class declaration
+ * CreatedGroupAddUserAuthPage class declaration
  */
-class SendNotificationAuthPage extends React.Component {
+class CreatedGroupAddUserAuthPage extends React.Component {
   /**
    * @return {void} void
    */
@@ -22,26 +21,26 @@ class SendNotificationAuthPage extends React.Component {
   }
 
   /**
-   * renders the component
+   * Renders component
    * @return {XML} XML
    */
   render() {
     const { group_users } = this.props.groupState;
-    return this.props.tokenStatus.success && group_users ? <SendNotificationPage
-        groupUsers={group_users} groupId={this.props.params.groupId}/> : <NullPage/>;
+    return this.props.tokenStatus.success && group_users ?
+        <CreatedGroupAddUserPage groupUsers={group_users} groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
-SendNotificationAuthPage.propTypes = {
+CreatedGroupAddUserAuthPage.propTypes = {
   verifyToken: PropTypes.func.isRequired,
-  getGroupUsers: PropTypes.func.isRequired,
+  params: PropTypes.object.isRequired,
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired
+  getGroupUsers: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   tokenStatus: state.verifyTokenReducer,
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(SendNotificationAuthPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CreatedGroupAddUserAuthPage);
 

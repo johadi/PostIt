@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers, viewMessage, clearViewMessageError } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage';
-import MessageViewPage from '../NotificationViewPage';
+import NullPage from '../NullPage.jsx';
+import MessageViewPage from '../NotificationViewPage.jsx';
 
 /**
  * NotificationViewAuthPage class declaration

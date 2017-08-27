@@ -22,13 +22,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
-app.use(express.static('public/apidoc'));
+app.use('/apidoc', express.static('public/apidoc'));
 app.use(express.static('production'));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 routes(app);
-app.get('/apidoc', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/apidoc/index.html'));
-});
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../production/index.html'));
 });

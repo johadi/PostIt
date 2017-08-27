@@ -25,6 +25,6 @@ export default (
         <Route path="/groups" component={groupPages.GroupsAuthPage}/>
         <Route path="/group/:groupId/users" component={groupPages.GroupUsersAuthPage}/>
       </Route>
-      {/* <Route path="*" component={NotFoundPage}/> */}
+       <Route path="*" component={NotFoundPage}/>
     </Route>
 );

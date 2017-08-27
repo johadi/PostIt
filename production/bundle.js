@@ -71871,7 +71871,8 @@ exports.default = _react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: '/group/:groupId/add', component: _groupAuthentications2.default.CreatedGroupAddUserAuthPage }),
     _react2.default.createElement(_reactRouter.Route, { path: '/groups', component: _groupAuthentications2.default.GroupsAuthPage }),
     _react2.default.createElement(_reactRouter.Route, { path: '/group/:groupId/users', component: _groupAuthentications2.default.GroupUsersAuthPage })
-  )
+  ),
+  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFoundPage2.default })
 ); /* eslint-disable import/extensions, import/no-unresolved */
 
 /***/ }),

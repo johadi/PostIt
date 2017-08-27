@@ -1,7 +1,7 @@
 {
   "name": "postit",
   "version": "1.0.0",
-  "description": "andela bootcamp project ",
+  "description": "Jimoh Hadi Andela Checkpoint project ",
   "main": "index.js",
   "jest": {
     "rootDir": "client/src/__tests__"

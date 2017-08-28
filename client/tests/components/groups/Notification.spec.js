@@ -28,7 +28,7 @@ describe('<Notification/>', () => {
     expect(messageDiv.find('h2').at(0).text()).toEqual('andela group'); // eslint-disable-line newline-per-chained-call
   });
   it('Should check that message body is displayed', () => {
-    expect(messageDiv.find('p').at(1).text()).toEqual('lord of the ring'); // eslint-disable-line newline-per-chained-call
+    expect(messageDiv.find('p').at(2).text()).toEqual('lord of the ring'); // eslint-disable-line newline-per-chained-call
   });
   // it('Should check that message sender is displayed', () => {
   //   expect(messageDiv.find().text()).toBe('Total groups you joined: 0');

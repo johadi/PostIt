@@ -10,7 +10,6 @@ import AuthHeader from '../../../src/components/headers/AuthHeader';
 
 describe('<SignupPage/>', () => {
   const signupAction = sinon.spy(); // create a spy function for signupAction
-  sinon.spy(SignupPage.prototype, 'componentDidMount'); // spy on componentDidMount
   sinon.spy(SignupPage.prototype, 'handleSubmit'); // spy on handleSubmit of SIgnup Page
   sinon.spy(SignupPage.prototype, 'handleChange'); // spy on handleChange of SIgnup Page
   const props = {
@@ -31,9 +30,6 @@ describe('<SignupPage/>', () => {
   });
   it('Should check if Signup component has header defined', () => {
     expect(wrapper.find('AuthHeader').length).toBe(1);
-  });
-  it('Should check if componentDidMount is called', () => {
-    expect(SignupPage.prototype.componentDidMount.calledOnce).toBe(true); // didMount is called
   });
   it('Should check if there is submit button with text Sign up', () => {
     const button = wrapper.find('button');

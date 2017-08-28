@@ -271,29 +271,21 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,13 +293,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -422,6 +422,7 @@ module.exports = <span class="fstat-no" title="function not covered" ><span clas
         })
         .catch(err =&gt; handleError(err, res));
   },
+  // password Recovery
   passwordRecovery(req, res) {
     c</span>onst body = <span class="cstat-no" title="statement not covered" >_.pick(req.body, ['email']);
     c</span>onst rules = <span class="cstat-no" title="statement not covered" >{
@@ -442,8 +443,8 @@ module.exports = <span class="fstat-no" title="function not covered" ><span clas
         }
         // If all is well
         c</span>onst data = <span class="cstat-no" title="statement not covered" >_.pick(user, ['id', 'username', 'email']);
-        // Create token and should expire in the next 24 hours
-        c</span>onst token = <span class="cstat-no" title="statement not covered" >jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 * 6 });
+        // Create token and should expire in the next 24 hou
+        c</span>onst token = <span class="cstat-no" title="statement not covered" >jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 * 24 });
         // We handle our send email here
         c</span>onst from = <span class="cstat-no" title="statement not covered" >'no-reply &lt;jimoh@google.com&gt;';
         c</span>onst to = <span class="cstat-no" title="statement not covered" >user.email;
@@ -460,7 +461,6 @@ module.exports = <span class="fstat-no" title="function not covered" ><span clas
             }
 <span class="cstat-no" title="statement not covered" >            return handleSuccess(200, 'Password recovery link sent to your email', res);</span>
           })
-          // send successful whether error occurred or not since message was created
           .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >err =&gt; handleError(err, res));</span></span>
       })
       .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >err =&gt; handleError(err, res));</span></span>
@@ -505,7 +505,7 @@ module.exports = <span class="fstat-no" title="function not covered" ><span clas
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 18 2017 12:06:22 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Aug 29 2017 00:30:54 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

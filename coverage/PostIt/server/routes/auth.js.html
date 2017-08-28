@@ -107,7 +107,21 @@
 62
 63
 64
-65</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -134,6 +148,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,16 +196,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -192,18 +220,10 @@ router.route('/user/signup')
    *      "email": "jimoh@program.com",
    *      "password": "123456"
    *    }
+ * @apiSuccess {String} token Token of authenticated user
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
- *    {
-   *      "status": 200,
-   *      "data": {
-   *       "id": 1,
-   *      "fullname": "Jimoh Hadi",
-   *      "email": "john@program.com",
-   *      "username": "Johdi",
-   *      "mobile": "0816304xxxx"
-   *      }
-   *    }
+ *    "xyz.abc.123.hgf"
  */
     .post(authController.signup);
 router.route('/user/signin')
@@ -220,19 +240,41 @@ router.route('/user/signin')
  * @apiSuccess {String} token Token of authenticated user
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
- *    {
-     *     "status": 200,
-     *     "data": {
-     *        "token": "xyz.abc.123.hgf"
-     *        "message": "Sign in successful"
-     *     }
-     *  }
+ *    "xyz.abc.123.hgf"
  */
     .post(authController.signin);
 router.route('/user/recover-password')
+/**
+ * @api {post} /api/user/recover-password User recovery password
+ * @apiGroup Authentication
+ * @apiParam {String} email Email of registered user
+ * @apiParamExample {json} Input
+ *    {
+   *      "email": "jimoh@gmail.com",
+   *    }
+ * @apiSuccess {String} message Success message
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    "Password recovery link sent to your email"
+ */
   .post(authController.passwordRecovery);
 router.route('/user/reset-password')
   .get(verifyLinkMiddleware, authController.resetPasswordGet)
+  /**
+   * @api {post} /api/user/reset-password User reset Password
+   * @apiGroup Authentication
+   * @apiParam {String} password User password
+   * @apiParam {String} confirm_password User confirm password
+   * @apiParamExample {json} Input
+   *    {
+   *      "password": "123456",
+   *      "confirm password": "123456"
+   *    }
+   * @apiSuccess {String} message Message for successful password changed
+   * @apiSuccessExample {json} Success
+   *    HTTP/1.1 200 OK
+   *    "Password changed successfully"
+   */
   .post(verifyLinkMiddleware, authController.resetPasswordPost);
 module.exports = router;
 &nbsp;</pre></td></tr>
@@ -241,7 +283,7 @@ module.exports = router;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Aug 18 2017 12:06:22 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Aug 29 2017 00:30:54 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

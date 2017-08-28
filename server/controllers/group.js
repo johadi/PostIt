@@ -234,40 +234,40 @@ module.exports = {
               // CRITICAL: Send Email, SMS and In-app notification to group members
             } else if (updatedMessage.priority === 'critical') {
               handleSuccess(201, 'Message created successfully', res);
-              // if (process.env.NODE_ENV !== 'test') {
-              //   // get members of this group
-              //   UserGroup.findAll({
-              //     where: { groupId: updatedMessage.groupId },
-              //     include: [{ model: User, attributes: ['username', 'email', 'mobile'] }]
-              //   })
-              //     .then(groupAndMembers =>
-              //       // Using map of Bluebird promises (P)
-              //       // Bluebird map return array of Promises values just like Promise.all()
-              //       P.map(groupAndMembers, (groupAndMember) => {
-              //         // We handle SMS here
-              //         const to = '+2347082015065';
-              //         const from = '+12568264564';
-              //         const smsBody = `Hi ${groupAndMember.User.username}, You have one notification from PostIt. you can login to view at https://jimoh-postit.herokuapp.com`;
-              //         sendSMS(from, to, smsBody);
-              //         // return email for use in sendMail
-              //         return groupAndMember.User.email;
-              //       }))
-              //     .then((groupMemberEmails) => {
-              //       // We handle our send email here
-              //       const from = 'no-reply <jimoh@google.com>';
-              //       const to = groupMemberEmails; // groupMemberEmails is an array of emails
-              //       const subject = 'Notification from PostIt';
-              //       const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
-              //         '<h3>Notification level: Critical</h3>' +
-              //         '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
-              //         '<p>The PostIt mangement team!!!</p>';
-              //       sendMail(from, to, subject, message)
-              //         .then(() => console.log('Critical message sent successfully'))
-              //         // send successful whether error occurred or not since message was created
-              //         .catch(err => console.log(err));
-              //     })
-              //     .catch(err => console.log(err));
-              // }
+              if (process.env.NODE_ENV !== 'test') {
+                // get members of this group
+                UserGroup.findAll({
+                  where: { groupId: updatedMessage.groupId },
+                  include: [{ model: User, attributes: ['username', 'email', 'mobile'] }]
+                })
+                  .then(groupAndMembers =>
+                    // Using map of Bluebird promises (P)
+                    // Bluebird map return array of Promises values just like Promise.all()
+                    P.map(groupAndMembers, (groupAndMember) => {
+                      // We handle SMS here
+                      const to = '+2347082015065';
+                      const from = '+12568264564';
+                      const smsBody = `Hi ${groupAndMember.User.username}, You have one notification from PostIt. you can login to view at https://jimoh-postit.herokuapp.com`;
+                      sendSMS(from, to, smsBody);
+                      // return email for use in sendMail
+                      return groupAndMember.User.email;
+                    }))
+                  .then((groupMemberEmails) => {
+                    // We handle our send email here
+                    const from = 'no-reply <jimoh@google.com>';
+                    const to = groupMemberEmails; // groupMemberEmails is an array of emails
+                    const subject = 'Notification from PostIt';
+                    const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
+                      '<h3>Notification level: Critical</h3>' +
+                      '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
+                      '<p>The PostIt mangement team!!!</p>';
+                    sendMail(from, to, subject, message)
+                      .then(() => console.log('Critical message sent successfully'))
+                      // send successful whether error occurred or not since message was created
+                      .catch(err => console.log(err));
+                  })
+                  .catch(err => console.log(err));
+              }
             } else {
               // NORMAL: Send only In-app notification
               return handleSuccess(201, 'Message created successfully', res);

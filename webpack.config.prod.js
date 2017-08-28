@@ -1,71 +1,3 @@
-// // webpack.config.prod.js
-// const path = require('path')
-// const webpack = require('webpack')
-//
-// export default {
-//   devtool: 'source-map',
-//
-//   entry: [
-//     './client/src/index'
-//   ],
-//
-//   output: {
-//     path: path.join(__dirname, 'production'),
-//     filename: 'bundle.js',
-//     publicPath: '/production/'
-//   },
-//
-//   plugins: [
-//     // new webpack.optimize.UglifyJsPlugin({
-//     //   compress: {
-//     //     warnings: false
-//     //   }
-//     // }),
-//     new webpack.DefinePlugin({
-//       'process.env': {
-//         NODE_ENV: JSON.stringify('production'),
-//         API_HOST: 'https://jimoh-postit-api.herokuapp.com'
-//       }
-//     })
-//   ],
-//
-//   module: {
-//     loaders: [
-//       {
-//         test: /\.scss$/,
-//         loaders: ['style-loader', 'css-loader', 'sass-loader'],
-//         include: path.join(__dirname, 'client/src/build/static/styles')
-//       },
-//       {
-//         test: /\.css$/,
-//         loaders: ['style-loader', 'css-loader'],
-//         include: path.join(__dirname, 'client/src/build/static/styles')
-//       },
-//       // Set up jsx. This accepts js too thanks to RegExp
-//       {
-//         test: /\.jsx?$/,
-//         loader: 'babel-loader',
-//         query: {
-//           cacheDirectory: true,
-//           presets: ['react', 'es2015', 'survivejs-kanban']
-//         },
-//         include: path.join(__dirname, 'client/src')
-//       },
-//       {
-//         test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-//         loader: 'file'
-//       },
-//       {
-//         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-//         loader: 'url?limit=10000&mimetype=application/font-woff'
-//       },
-//       {
-//         test: /\.(png|jpg|gif)$/,
-//         loader: 'url-loader?limit=250000'
-//       }
-//     ]
-//   }
-// };
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -82,7 +14,7 @@ const common = {
 // Entry accepts a path or an object of entries. We'll be using the
 // latter form given it's convenient with more complex configurations.
   entry: {
-    app: './index.js'
+    app: './index.jsx'
   },
   // Add resolve.extensions.
 // '' is needed to allow imports without an extension.

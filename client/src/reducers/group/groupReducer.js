@@ -46,7 +46,7 @@ const groupReducer = (state = initialState, action) => {
     case actionTypes.GROUP_ADD_USER_ERROR:
       state = {
         ...state,
-        add_user_success: null,
+        add_user_success: false,
         add_user_error: action.payload
       };
       break;

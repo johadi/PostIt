@@ -1,7 +1,7 @@
 import actionTypes from '../actions/actionTypes';
 
 const initalState = {
-  tokenExist: !!window.sessionStorage.token,
+  tokenExist: false,
   success: false
 };
 const VerifyTokenReducer = (state = initalState, action) => {

@@ -12,7 +12,6 @@ const db = require('./../database/models');
 describe('POST api/user/signup', () => {
   beforeEach(seeder.emptyDB);
   beforeEach(seeder.addUserToDb);
-
   it('Should return status code 400 and a message when some inputs are invalid. i.e Username', (done) => {
     request(app)
         .post('/api/user/signup')

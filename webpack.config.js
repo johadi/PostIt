@@ -14,7 +14,13 @@ const common = {
 // Entry accepts a path or an object of entries. We'll be using the
 // latter form given it's convenient with more complex configurations.
   entry: {
-    app: './index.js'
+    app: './index.jsx'
+  },
+  externals: {
+    cheerio: 'window',
+    jsdom: 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
   },
   // Add resolve.extensions.
 // '' is needed to allow imports without an extension.
@@ -85,7 +91,7 @@ const common = {
 };
 
 // Default configuration
-if (TARGET === 'build:dev' || !TARGET) {
+if (TARGET === 'build:dev' || TARGET === 'test:karma' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {

@@ -1,10 +1,12 @@
 const _ = require('lodash');
+const P = require('bluebird');
 const User = require('../database/models').User;
 const Group = require('../database/models').Group;
 const UserGroup = require('../database/models').UserGroup;
 const UserGroupAdd = require('../database/models').UserGroupAdd;
 const Message = require('../database/models').Message;
-const { handleError, handleSuccess } = require('../helpers/helpers');
+const Constants = require('../helpers/constants');
+const { sendSMS, sendMail, handleError, handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
   // Controller method for creating group
@@ -154,15 +156,17 @@ module.exports = {
       if (!req.body.message) {
         return handleError('Message body required', res);
       }
+      let priority = 'normal';
       if (req.body.priority) {
         const priorities = ['normal', 'urgent', 'critical'];
         if (!(_.includes(priorities, req.body.priority.toLowerCase()))) {
           return handleError('Message priority level can only be normal or urgent or critical', res);
         }
+        // make priority a lowercase letter
+        priority = req.body.priority.toLowerCase();
       }
       const userId = req.user.id;
       const body = req.body.message;
-      const priority = req.body.priority.toLowerCase();
       const groupId = req.params.groupId;
       // Check if groupId is a valid group id
       Group.findById(groupId)
@@ -191,13 +195,83 @@ module.exports = {
             // Since he is the sender let make him a person that has read the post
             // readersId keeps track of all users that have read the post. hence, we update it accordingly
             messageCreated.readersId.push(userId);
-            messageCreated.update({
+            return messageCreated.update({
               readersId: messageCreated.readersId
             }, {
               where: { id: messageCreated.id }
-            })
-                .then(msg => handleSuccess(201, 'Message created successfully', res))
-                .catch(err => handleError(err, res));
+            });
+          })
+          .then((updatedMessage) => {
+            // URGENT: Send only Email and In-app notification to group members
+            if (updatedMessage.priority === 'urgent') {
+              handleSuccess(201, 'Message created successfully', res);
+              if (process.env.NODE_ENV !== 'test') {
+                // get members of this group
+                UserGroup.findAll({
+                  where: { groupId: updatedMessage.groupId },
+                  include: [{ model: User, attributes: ['email'] }]
+                })
+                  .then(groupAndMembers =>
+                    // Using map of Bluebird promises (P)
+                    // Bluebird map return array Promises values just like Promise.all()
+                    P.map(groupAndMembers, groupAndMember => groupAndMember.User.email))
+                  .then((groupMemberEmails) => {
+                    // We handle our send email here
+                    const from = 'no-reply <jimoh@google.com>';
+                    const to = groupMemberEmails; // groupMemberEmails is an array of emails
+                    const subject = 'Notification from PostIt';
+                    const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
+                      '<h3>Notification level: Urgent</h3>' +
+                      '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
+                      '<p>The PostIt management team!!!</p>';
+                    sendMail(from, to, subject, message)
+                      .then(() => console.log('Urgent message created successfully'))
+                      // send successful whether error occurred or not since message was created
+                      .catch(err => console.log(err));
+                  })
+                  .catch(err => console.log(err));
+              }
+              // CRITICAL: Send Email, SMS and In-app notification to group members
+            } else if (updatedMessage.priority === 'critical') {
+              handleSuccess(201, 'Message created successfully', res);
+              if (process.env.NODE_ENV !== 'test') {
+                // get members of this group
+                UserGroup.findAll({
+                  where: { groupId: updatedMessage.groupId },
+                  include: [{ model: User, attributes: ['username', 'email', 'mobile'] }]
+                })
+                  .then(groupAndMembers =>
+                    // Using map of Bluebird promises (P)
+                    // Bluebird map return array of Promises values just like Promise.all()
+                    P.map(groupAndMembers, (groupAndMember) => {
+                      // We handle SMS here
+                      const to = '+2347082015065';
+                      const from = '+12568264564';
+                      const smsBody = `Hi ${groupAndMember.User.username}, You have one notification from PostIt. you can login to view at https://jimoh-postit.herokuapp.com`;
+                      sendSMS(from, to, smsBody);
+                      // return email for use in sendMail
+                      return groupAndMember.User.email;
+                    }))
+                  .then((groupMemberEmails) => {
+                    // We handle our send email here
+                    const from = 'no-reply <jimoh@google.com>';
+                    const to = groupMemberEmails; // groupMemberEmails is an array of emails
+                    const subject = 'Notification from PostIt';
+                    const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
+                      '<h3>Notification level: Critical</h3>' +
+                      '<p><a href="https://jimoh-postit.herokuapp.com">Login to your PostIt account to view</a></p>' +
+                      '<p>The PostIt mangement team!!!</p>';
+                    sendMail(from, to, subject, message)
+                      .then(() => console.log('Critical message sent successfully'))
+                      // send successful whether error occurred or not since message was created
+                      .catch(err => console.log(err));
+                  })
+                  .catch(err => console.log(err));
+              }
+            } else {
+              // NORMAL: Send only In-app notification
+              return handleSuccess(201, 'Message created successfully', res);
+            }
           })
           .catch(err => handleError(err, res));
     }
@@ -229,7 +303,7 @@ module.exports = {
               return Promise.reject('Invalid Operation: You don\'t belong to this group');
             }
             // Let the user view messages if he/she belongs to the group
-            const perPage = 4; // = limit you want to display per page
+            const perPage = Constants.GET_MESSAGES_PER_PAGE; // = limit you want to display per page
             const currentPage = query < 1 ? 1 : query;
             const offset = perPage * (currentPage - 1); // items to skip
             return Message.findAndCountAll({
@@ -364,6 +438,7 @@ module.exports = {
               if (query === 0) { // get at most 6 users for side bar display
                 UserGroup.findAndCountAll({
                   where: { groupId },
+                  // limit: 6,
                   include: [{
                     model: User,
                     attributes: ['id', 'username', 'fullname']
@@ -380,7 +455,7 @@ module.exports = {
                     })
                     .catch(err => handleError(err, res));
               } else { // Paginate result of group users
-                const perPage = 2; // = limit you want to display per page
+                const perPage = Constants.GET_GROUP_USERS_PER_PAGE; // = limit you want to display per page
                 const currentPage = query < 1 ? 1 : query;
                 const offset = perPage * (currentPage - 1); // items to skip
                 UserGroup.findAndCountAll({
@@ -427,7 +502,7 @@ module.exports = {
         if (query === 0) { // Return groups of at most 6 . this is good for client group side bar
           UserGroup.findAndCountAll({
             where: { userId },
-            limit: 6,
+            // limit: 6,
             include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
           })
               .then((result) => {
@@ -442,7 +517,7 @@ module.exports = {
               })
               .catch(err => handleError(err, res));
         } else { // Return result as it supposed to be.
-          const perPage = 2; // = limit you want to display per page
+          const perPage = Constants.GET_GROUPS_USER_BELONGS_TO_PER_PAGE; // = limit you want to display per page
           const currentPage = query < 1 ? 1 : query;
           const offset = perPage * (currentPage - 1); // i.e page2 items=9*(2-1) =9*1= 9 items will be skipped. page2 items displays from item 10
           // const previousPage = parseInt(currentPage, 10) - 1;
@@ -492,11 +567,24 @@ module.exports = {
               return userGroupIds; // arrays of group Ids i.e [23,67,89]
             })
             .then((userGroupIds) => {
+              // get all messages of a user in all groups he/she joined (read and unread)
+              const allUserGroupMessages = Message.findAndCountAll({ where: { groupId: userGroupIds } });
+              return Promise.all([allUserGroupMessages, userGroupIds]);
+            })
+            .then((allResolvedPromise) => {
+              const allUserGroupMessages = allResolvedPromise[0]; // user messages in all groups
+              const userGroupIds = allResolvedPromise[1]; // user groups Id
               const query = parseInt(req.query.page, 10); // convert the query to standard number for use
-              const perPage = 4; // = limit you want to display per page
+              const perPage = Constants.USER_MESSAGE_BOARD_PER_PAGE; // = limit you want to display per page
               const currentPage = query < 1 ? 1 : query;
               const offset = perPage * (currentPage - 1);
-              Message.findAndCountAll({
+              // get all unread messages of a user in all groups he/she joined (Unread only)
+              const userGroupUnreadMessages = allUserGroupMessages.rows.filter(message =>
+                !(_.includes(message.readersId, userId)));
+              // pages the unread messages formed
+              const pages = Math.ceil(userGroupUnreadMessages.length / perPage); // to round off i.e 3/2 = 1.5 = 2
+              // Fetch user unread messages using pagination info like offset and limit
+              Message.findAll({
                 where: { groupId: userGroupIds }, // return messages that has groupIds like in [3,5,7,8,9]
                 offset,
                 limit: perPage,
@@ -506,19 +594,20 @@ module.exports = {
                   attributes: ['id', 'name']
                 }]
               })
-                  .then((messages) => {
-                    // Get list of messages that have not been read by this user
-                    const userUnreadMessages = messages.rows.filter(message =>
-                        !(_.includes(message.readersId, userId)));
-                    const pages = Math.ceil(userUnreadMessages.length / perPage); // to round off i.e 3/2 = 1.5 = 2
-                    const data = {
-                      messages: userUnreadMessages,
-                      count: userUnreadMessages.length,
-                      pages
-                    };
-                    return handleSuccess(200, data, res);
-                  })
-                  .catch(err => handleError(err, res));
+                .then((messages) => {
+                  // Get list of messages that have not been read by a user with this limit and offset
+                  const userUnreadMessages = messages.filter(message =>
+                    !(_.includes(message.readersId, userId)));
+                  const data = {
+                    // paginated messages obtained using offset and limit i.e (4 messages)
+                    messages: userUnreadMessages,
+                    // count of all messages users have not read (i.e 15)
+                    count: userGroupUnreadMessages.length,
+                    pages
+                  };
+                  return handleSuccess(200, data, res);
+                })
+                .catch(err => handleError(err, res));
             })
             .catch(err => handleError(err, res));
       } else {
@@ -532,7 +621,7 @@ module.exports = {
     if (req.user) {
       if (req.query.search) {
         // Find all users in the application
-        const query = req.query.search; // convert the query to standard number for use
+        const query = req.query.search.toLowerCase();
         const search = `%${query}%`;
         User.findAll(
           {

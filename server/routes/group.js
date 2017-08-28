@@ -19,15 +19,13 @@ router.route('/group')
  * @apiParamExample {json} Input
  *    {"name": "Andela"}
  * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
+ *    HTTP/1.1 201 CREATED
  *    {
-     *      "status": 200,
-     *      "data": {
-     *        "id": 1,
-     *        "name": "Andela",
-     *        "updated_at": "2016-02-10T15:46:51.778Z",
-     *        "created_at": "2016-02-10T15:46:51.778Z"
-     *      }
+     *      "id": 1,
+     *      "name": "andela",
+     *      "updated_at": "2016-02-10T15:46:51.778Z",
+     *      "created_at": "2016-02-10T15:46:51.778Z",
+     *      "creator_id": 5
      *    }
  */
     .post(authenticate, groupController.createGroup);
@@ -39,18 +37,15 @@ router.route('/group/:groupId/user')
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
  * @apiParam {id} Id of group
+ * @apiParam {user} email or username of a user
  * @apiParamExample {json} Input
- *    {"name": "Ortwel"}
+ *    {"user": "Ortwel"}
  * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
+ *    HTTP/1.1 201 CREATED
  *    {
-     *      "status": 200,
-     *      "data": {
-     *         "message": "User added successfully",
-     *         "name": "Ortwel",
-     *         "groupId": "1",
-     *         "addedById": "2"
-     *      }
+     *      "message": "User added successfully",
+     *      "addedUser": "Ortwel",
+     *      "addedBy": "johadi"
      *    }
  */
     .post(authenticate, groupController.addUserToGroup);
@@ -61,22 +56,35 @@ router.route('/group/:groupId/message')
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {id} Id of group
- * @apiParam {String} Username
+ * @apiParam {id} groupId ID of group
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
- *        "status": 200,
- *        "data": {
- *          "count": 1,
-   *        "rows" : [{
-   *        "id": 1,
-   *        "message": "Programming is in the mind",
-   *        "updated_at": "2016-02-10T15:46:51.778Z",
-   *        "created_at": "2016-02-10T15:46:51.778Z",
-   *      }]
- *        }
-   *    }
+ *        "count": 2,
+ *        "pages": 1,
+ *        "rows": [{
+ *          "id": 1,
+ *          "message": "Programming is in the mind",
+ *          "updated_at": "2017-06-10T15:46:51.778Z",
+ *          "created_at": "2017-06-10T15:46:51.778Z",
+ *          "User": {
+ *            "id": 3,
+ *            "username": "johadi",
+ *            "fullname": "jimoh hadi"
+ *          }
+ *        },
+ *        {
+ *          "id": 4,
+ *          "message": "I love Programming",
+ *          "updated_at": "2017-05-10T15:46:51.778Z",
+ *          "created_at": "2017-05-10T15:46:51.778Z",
+ *          "User": {
+ *            "id": 6,
+ *            "username": "mary",
+ *            "fullname": "john mary"
+ *          }
+ *        }]
+ *    }
  */
     .get(authenticate, groupController.getMessages);
 router.route('/group/:groupId/message')
@@ -87,27 +95,201 @@ router.route('/group/:groupId/message')
      * @apiHeaderExample {json} Header
      *    {"x-auth": "JWT xyz.abc.123.hgf"}
      * @apiParam {id} Id of group
-     * @apiParam {String} Message to send to group
+     * @apiParam {String} message Message to send to group
      * @apiSuccessExample {json} Success
      *    HTTP/1.1 201 CREATED
-     *    {
-   *      "status": 1,
-   *       "message": "created successfully"
-   *    }
+     *
+     *      "created successfully"
      */
     .post(authenticate, groupController.postMessage);
 // router.route('/group/:groupId/user/message')
 //     .get(groupController.getUserMessages);
 router.route('/group/:groupId/message/:messageId')
+/**
+ * @api {get} /api/group/:groupId/message/:messageId Get a message in a group
+ * @apiGroup Message
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {id} groupId ID of group
+ * @apiParam {id} messageId ID of message
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *       {
+ *          "id": 4,
+ *          "message": "I love Programming",
+ *          "updated_at": "2017-05-10T15:46:51.778Z",
+ *          "created_at": "2017-05-10T15:46:51.778Z",
+ *          "User": {
+ *            "id": 6,
+ *            "username": "mary",
+ *            "fullname": "john mary"
+ *          }
+ *        }
+ */
     .get(authenticate, groupController.viewMessage); // view single notification
-router.route('/group/message-read/:messageId')
-    .post(authenticate, groupController.updateMessageReadStatus);
 router.route('/group/:groupId/group-users')
-    .get(authenticate, groupController.getGroupUsers);
+/**
+ * @api {get} /api/group/:groupId/group-users Get group members
+ * @apiGroup Group
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {id} Id of group
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *        "id": 7,
+ *        "name": "andela"
+ *        "count": 2,
+ *        "pages": 1,
+ *        "Users": [{
+ *          "id": 1,
+ *          "username": "johadi",
+ *          "fullname": "jimoh hadi",
+ *        },
+ *        {
+ *          "id": 3,
+ *          "username": "sanni",
+ *          "fullname": "ali sanni"
+ *        }]
+ *    }
+ */
+  .get(authenticate, groupController.getGroupUsers);
+router.route('/group/message-read/:messageId')
+/**
+ * @api {post} /api/group/message-read/:messageId POST update status of message whether read or not
+ * @apiGroup Message
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {id} messageId ID of message
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *
+ *      true
+ */
+    .post(authenticate, groupController.updateMessageReadStatus);
 router.route('/group/user/groups')
+/**
+ * @api {get} /api/group/user/groups Get user's groups
+ * @apiGroup Group
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *        "id": 1,
+ *        "username": "johadi",
+ *        "fullname": "jimoh hadi",
+ *        "count": 2,
+ *        "pages": 1,
+ *        "Groups": [{
+ *          "id": 1,
+ *          "name": "andela",
+ *          "creator_id": 8,
+ *        },
+ *        {
+ *          "id": 3,
+ *          "name": "sport",
+ *          "creator_id": 2
+ *        }]
+ *    }
+ */
     .get(authenticate, groupController.getGroupsUserBelongsTo);
 router.route('/group/user/board')
+/**
+ * @api {get} /api/group/user/board Get user's unread messages in all joined groups
+ * @apiGroup Group
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *        "count": 2,
+ *        "pages": 1,
+ *        "messages": [
+ *          {
+ *            "id": 12,
+ *            "body": "No man is an island espcially in learning",
+ *            "User": {
+ *             "username": "johadi",
+ *             "fullname": "jimoh hadi"
+ *            },
+ *            "Group": {
+ *              "id": 5,
+ *              "name": "sport"
+ *            }
+ *          },
+ *         {
+ *            "id": 9,
+ *            "body": "There is no limitation in learning",
+ *            "User": {
+ *             "username": "sanni",
+ *             "fullname": "muhammed sanni"
+ *            },
+ *            "Group": {
+ *              "id": 17,
+ *              "name": "programming"
+ *            }
+ *          }
+ *        ]
+ *    }
+ */
     .get(authenticate, groupController.userMessageBoard);
 router.route('/users')
+/**
+ * @api {get} /api/users?search=joh Get at most 10 users in the application that match the search term only
+ * @apiGroup Group
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *       [
+ *          {
+ *            "id": 1,
+ *            "username": "johadi",
+ *            "fullname": "jimoh hadi",
+ *            "email": "johadi@test.com",
+ *          },
+ *         {
+ *            "id": 5,
+ *            "username": "john121",
+ *            "fullname": "john daniel",
+ *            "email": "john@test.com",
+ *          },
+ *        ],
+ */
+/**
+ * @api {get} /api/users?search=joh&groupId=3 Get at most 10 users in the application that match the search term and userId of a group
+ * @apiGroup Group
+ * @apiHeader {String} Token of authenticated user
+ * @apiHeaderExample {json} Header
+ *    {"x-auth": "JWT xyz.abc.123.hgf"}
+ * @apiParam {String} search
+ * @apiParam {String} groupId
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *        "allUsers": [
+ *          {
+ *            "id": 1,
+ *            "username": "johadi",
+ *            "fullname": "jimoh hadi",
+ *            "email": "johadi@test.com",
+ *          },
+ *         {
+ *            "id": 5,
+ *            "username": "john121",
+ *            "fullname": "john daniel",
+ *            "email": "john@test.com",
+ *          },
+ *        ],
+ *        groupUsersId: [1,4,6,8,9,0]
+ *    }
+ */
     .get(authenticate, groupController.getAllUsers);
 module.exports = router;

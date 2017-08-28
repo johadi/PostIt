@@ -47,7 +47,7 @@ export class SigninPage extends React.Component {
   }
   /**
    * renders component
-   * @return {XML} XML
+   * @return {XML} JSX
    */
   render() {
     return (

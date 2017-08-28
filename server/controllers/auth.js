@@ -94,8 +94,8 @@ module.exports = {
         }
         // If all is well
         const data = _.pick(user, ['id', 'username', 'email']);
-        // Create token and should expire in the next 24 hours
-        const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 * 6 });
+        // Create token and should expire in the next 24 hou
+        const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 * 24 });
         // We handle our send email here
         const from = 'no-reply <jimoh@google.com>';
         const to = user.email;
@@ -112,7 +112,6 @@ module.exports = {
             }
             return handleSuccess(200, 'Password recovery link sent to your email', res);
           })
-          // send successful whether error occurred or not since message was created
           .catch(err => handleError(err, res));
       })
       .catch(err => handleError(err, res));

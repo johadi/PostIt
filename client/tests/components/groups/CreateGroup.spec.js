@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
-import { CreateGroup } from '../../../src/components/groups/CreateGroup';
+import { CreateGroup } from '../../../src/components/groups/CreateGroup.jsx';
 
 
 describe('<CreateGroup/>', () => {
@@ -23,7 +23,7 @@ describe('<CreateGroup/>', () => {
   });
   it('Should check if handleCreateGroup is called when form is submitted', () => {
     wrapper.find('form').simulate('submit'); // trigger an event by form
-    expect(CreateGroup.prototype.handleCreateGroup.calledOnce).toBe(true); // handleSubmit is called
+    expect(CreateGroup.prototype.handleCreateGroup.calledOnce).toBe(true); // handleCreateGroup is called
   });
   // it('Should check if createGroup action method is called', () => {
   //   wrapper.find('form').simulate('submit'); // trigger an event by form

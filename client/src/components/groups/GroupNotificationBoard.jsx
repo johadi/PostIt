@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import _ from 'lodash';
+import lodash from 'lodash';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
@@ -84,7 +84,7 @@ export class GroupNotificationBoard extends React.Component {
                       <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
                       </small> : <small> Sent <Moment fromNow>{message.createdAt}</Moment> {priority} |
                         {
-                          _.includes(message.readersId, this.userDetail.id) ?
+                          lodash.includes(message.readersId, this.userDetail.id) ?
                             <span className="text-success"> Read</span> :
                             <span style={{ color: 'red' }}> Unread</span>
                         }

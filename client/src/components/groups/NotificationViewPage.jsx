@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import _ from 'lodash';
+import lodash from 'lodash';
 import jwtDecode from 'jwt-decode';
 import { updateMessageReadAfterView } from '../../actions/group/groupActions';
 import GroupHeader from '../headers/GroupHeader.jsx';
@@ -28,7 +28,7 @@ class NotificationViewPage extends React.Component {
    * @return {void} void
    */
   componentDidMount() {
-    if (!_.includes(this.props.message.readersId, this.userDetail.id)) {
+    if (!lodash.includes(this.props.message.readersId, this.userDetail.id)) {
       this.props.updateMessageReadAfterView(this.props.message.id);
     }
   }

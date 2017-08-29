@@ -2,7 +2,7 @@ require('dotenv').config();
 const User = require('../database/models').User;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-nodejs');
-const _ = require('lodash');
+const lodash = require('lodash');
 const Validator = require('validatorjs');
 const { handleError, handleSuccess, sendMail } = require('../helpers/helpers');
 
@@ -36,7 +36,7 @@ module.exports = {
             return User.create(obj, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
           })
           .then((savedUser) => {
-            const data = _.pick(savedUser, ['id', 'username', 'email', 'mobile', 'fullname']);
+            const data = lodash.pick(savedUser, ['id', 'username', 'email', 'mobile', 'fullname']);
             const token = jwt.sign(data, process.env.JWT_SECRET);
             return handleSuccess(201, token, res);
           })
@@ -48,7 +48,7 @@ module.exports = {
     }
   },
   signin(req, res) {
-    const body = _.pick(req.body, ['username', 'password']);
+    const body = lodash.pick(req.body, ['username', 'password']);
     const validator = new Validator(body, User.loginRules());
     if (validator.fails()) {
       return handleError({ validateError: validator.errors.all() }, res);
@@ -66,7 +66,7 @@ module.exports = {
             return Promise.reject('Incorrect password');
           }
           // If all is well
-          const data = _.pick(user, ['id', 'username', 'email', 'fullname']);
+          const data = lodash.pick(user, ['id', 'username', 'email', 'fullname']);
           // Give the user token and should expire in the next 24 hours
           const token = jwt.sign(data, process.env.JWT_SECRET);
           return handleSuccess(200, token, res);
@@ -75,7 +75,7 @@ module.exports = {
   },
   // password Recovery
   passwordRecovery(req, res) {
-    const body = _.pick(req.body, ['email']);
+    const body = lodash.pick(req.body, ['email']);
     const rules = {
       email: 'required|email'
     };
@@ -93,7 +93,7 @@ module.exports = {
           return Promise.reject({ code: 404, message: 'Sorry! this email doesn\'t match our records' });
         }
         // If all is well
-        const data = _.pick(user, ['id', 'username', 'email']);
+        const data = lodash.pick(user, ['id', 'username', 'email']);
         // Create token and should expire in the next 24 hou
         const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: 3600 * 24 });
         // We handle our send email here
@@ -126,7 +126,7 @@ module.exports = {
     if (!req.reset) {
       return handleError('Invalid request', res);
     }
-    const obj = _.pick(req.body, ['password', 'confirm_password']);
+    const obj = lodash.pick(req.body, ['password', 'confirm_password']);
     const rules = {
       password: 'required',
       confirm_password: 'required'

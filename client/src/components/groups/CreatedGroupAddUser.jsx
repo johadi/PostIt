@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import _ from 'lodash';
+import lodash from 'lodash';
 import { getGroupUsers, getUsersSearch } from '../../actions/group/groupActions';
 
 /**
@@ -75,7 +75,7 @@ export class CreateGroupAddUser extends React.Component {
                 <tbody>
                 {
                   !!users_search && users_search.allUsers.map((user) => {
-                    if (_.includes(users_search.groupUsersId, user.id)) {
+                    if (lodash.includes(users_search.groupUsersId, user.id)) {
                       return (
                           <tr key={user.id}>
                             <td>{user.username}</td>

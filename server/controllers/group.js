@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const lodash = require('lodash');
 const P = require('bluebird');
 const User = require('../database/models').User;
 const Group = require('../database/models').Group;
@@ -159,7 +159,7 @@ module.exports = {
       let priority = 'normal';
       if (req.body.priority) {
         const priorities = ['normal', 'urgent', 'critical'];
-        if (!(_.includes(priorities, req.body.priority.toLowerCase()))) {
+        if (!(lodash.includes(priorities, req.body.priority.toLowerCase()))) {
           return handleError('Message priority level can only be normal or urgent or critical', res);
         }
         // make priority a lowercase letter
@@ -580,7 +580,7 @@ module.exports = {
               const offset = perPage * (currentPage - 1);
               // get all unread messages of a user in all groups he/she joined (Unread only)
               const userGroupUnreadMessages = allUserGroupMessages.rows.filter(message =>
-                !(_.includes(message.readersId, userId)));
+                !(lodash.includes(message.readersId, userId)));
               // pages the unread messages formed
               const pages = Math.ceil(userGroupUnreadMessages.length / perPage); // to round off i.e 3/2 = 1.5 = 2
               // Fetch user unread messages using pagination info like offset and limit
@@ -597,7 +597,7 @@ module.exports = {
                 .then((messages) => {
                   // Get list of messages that have not been read by a user with this limit and offset
                   const userUnreadMessages = messages.filter(message =>
-                    !(_.includes(message.readersId, userId)));
+                    !(lodash.includes(message.readersId, userId)));
                   const data = {
                     // paginated messages obtained using offset and limit i.e (4 messages)
                     messages: userUnreadMessages,

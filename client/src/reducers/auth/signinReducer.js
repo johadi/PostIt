@@ -19,6 +19,7 @@ const signinReducer = (state = initialState, action) => {
       state = {
         ...state,
         success: false,
+        fails: null,
         errors: action.payload // capture validation errors like Username required
       };
       break;

@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
 // import store from '../../src/store/store';
 import { SigninPage } from '../../../src/components/auth/SigninPage';
-import AuthHeader from '../../../src/components/headers/AuthHeader';
+import IndexHeader from '../../../src/components/headers/IndexHeader';
 
 
 describe('<SigninPage/>', () => {
@@ -25,7 +25,7 @@ describe('<SigninPage/>', () => {
     expect(wrapper.find('FormField').length).toBe(2);
   });
   it('Should check if Signin component has header defined', () => {
-    expect(wrapper.find('AuthHeader').length).toBe(1);
+    expect(wrapper.find('IndexHeader').length).toBe(1);
   });
   it('Should check if handleSubmit is called', () => {
     wrapper.find('form').simulate('submit'); // trigger an event by Signup form

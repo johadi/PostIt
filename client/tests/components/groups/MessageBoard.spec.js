@@ -6,13 +6,13 @@ import { mount } from 'enzyme';
 import { MessageBoard } from '../../../src/components/groups/MessageBoard';
 
 describe('<MessageBoard/>', () => {
-  const getGroupsUserBelongsTo = sinon.spy();
-  const getMessagesOfMessageBoardPagination = sinon.spy();
+  const getUserGroups = sinon.spy();
+  const getBoardMessagesPaginated = sinon.spy();
   sinon.spy(MessageBoard.prototype, 'componentDidMount');
   sinon.spy(MessageBoard.prototype, 'handleSelect');
   const props = {
-    getGroupsUserBelongsTo,
-    getMessagesOfMessageBoardPagination,
+    getUserGroups,
+    getBoardMessagesPaginated,
     messageBoardMessagesPagination: {
       messages: [],
       pages: 1,

@@ -63,7 +63,7 @@ router.route('/user/reset-password')
    * @api {post} /api/user/reset-password User reset Password
    * @apiGroup Authentication
    * @apiParam {String} password User password
-   * @apiParam {String} confirm_password User confirm password
+   * @apiParam {String} confirmPassword User confirm password
    * @apiParamExample {json} Input
    *    {
    *      "password": "123456",

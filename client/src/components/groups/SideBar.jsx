@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
-import { getGroupsUserBelongsTo } from '../../actions/group/groupActions';
+import { getUserGroups } from '../../actions/group/groupActions';
 
 /**
  * SideBar class declaration
@@ -13,7 +13,7 @@ class SideBar extends React.Component {
    * @return {void} void
    */
   componentWillMount() {
-    this.props.getGroupsUserBelongsTo();
+    this.props.getUserGroups();
   }
 
   /**
@@ -27,7 +27,8 @@ class SideBar extends React.Component {
           <p>
             <Link className="btn navy-header btn-lg btn-block">Quick Links</Link>
             <Link to="/create-group" className="btn btn-default btn-block">
-              <i className="fa fa-lg fa-plus-circle text-display" aria-hidden="true"></i> Create Group
+              <i className="fa fa-lg fa-plus-circle text-display" aria-hidden="true"></i>
+              Create Group
             </Link>
             <Link to="/groups" className="btn btn-default btn-block">
               <i className="fa fa-users text-display" aria-hidden="true"></i> All My Groups
@@ -41,14 +42,16 @@ class SideBar extends React.Component {
           </div>
           <div className="list-group">
             {this.props.userGroups.splice(0, 5).map(userGroup => (
-                <Link to={`/group/${userGroup.Group.id}/board`} key={userGroup.Group.id} className="list-group-item">
+                <Link to={`/group/${userGroup.Group.id}/board`}
+                      key={userGroup.Group.id} className="list-group-item">
                   <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>
                 </Link>
             ))}
             {
               groupsLength < 6 ? null :
                   <Link to="/group-users" className="list-group-item btn btn-primary">
-                    <h5 className="list-group-item-heading"><strong><Link to={'/groups'}>See all you groups</Link></strong></h5>
+                    <h5 className="list-group-item-heading"><strong><Link to={'/groups'}>
+                      See all you groups</Link></strong></h5>
                   </Link>
             }
           </div>
@@ -58,10 +61,10 @@ class SideBar extends React.Component {
 }
 SideBar.propTypes = {
   userGroups: PropTypes.array.isRequired,
-  getGroupsUserBelongsTo: PropTypes.func.isRequired
+  getUserGroups: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ getGroupsUserBelongsTo }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getUserGroups }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

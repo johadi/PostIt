@@ -23,14 +23,14 @@ describe('POST api/user/signup', () => {
           done();
         });
   });
-  it('should return status code 400 and a message when password not matched', (done) => {
+  it('should return status code 400 and a message when passwords not matched', (done) => {
     request(app)
         .post('/api/user/signup')
         .send(seeder.setData('jimoh hadi', 'johadi', 'jimoh@gmail.com', '0908736521', '123456', '11223344'))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'password not matched');
+          assert.equal(res.body, 'passwords not matched');
           done();
         });
   });

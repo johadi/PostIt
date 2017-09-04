@@ -16,12 +16,15 @@ export const signupAction = user => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.validateError) {
-          dispatch({ type: actionTypes.SIGNUP_VALIDATION_ERROR, payload: err.response.data.validateError });
+          dispatch({ type: actionTypes.SIGNUP_VALIDATION_ERROR,
+            payload: err.response.data.validateError });
         } else if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.SIGNIN_VALIDATION_ERROR, payload: err.response.data.validateError });
+          dispatch({ type: actionTypes.SIGNIN_VALIDATION_ERROR,
+            payload: err.response.data.validateError });
           dispatch({ type: actionTypes.SIGNUP_UNSUCCESSFUL, payload: 'Error connecting to database...Try again' });
         } else {
-          dispatch({ type: actionTypes.SIGNUP_VALIDATION_ERROR, payload: err.response.data.validateError });
+          dispatch({ type: actionTypes.SIGNUP_VALIDATION_ERROR,
+            payload: err.response.data.validateError });
           dispatch({ type: actionTypes.SIGNUP_UNSUCCESSFUL, payload: err.response.data });
         }
       });

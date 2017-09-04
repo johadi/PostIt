@@ -73259,7 +73259,7 @@ var SignupPage = exports.SignupPage = function (_React$Component) {
         email: '',
         mobile: '',
         password: '',
-        confirm_password: ''
+        confirmPassword: ''
       }
     };
     return _this;
@@ -73373,8 +73373,8 @@ var SignupPage = exports.SignupPage = function (_React$Component) {
                         type: 'password', name: 'password', placeholder: 'Password' }),
                       _react2.default.createElement(_SignUpFormField2.default, { errors: this.props.signupState.errors, onChange: function onChange(e) {
                           return _this2.handleChange(e);
-                        }, value: this.state.user.confirm_password,
-                        type: 'password', name: 'confirm_password', placeholder: 'Confirm password' })
+                        }, value: this.state.user.confirmPassword,
+                        type: 'password', name: 'confirmPassword', placeholder: 'Confirm password' })
                     ),
                     _react2.default.createElement(
                       'div',
@@ -73792,7 +73792,7 @@ var ResetPasswordPage = function (_React$Component) {
     _this.state = {
       user: {
         password: '',
-        confirm_password: ''
+        confirmPassword: ''
       }
     };
     return _this;
@@ -73840,7 +73840,7 @@ var ResetPasswordPage = function (_React$Component) {
                       _react2.default.createElement(_ResetPasswordFormField2.default, { type: 'password', errors: this.props.resetState.reset_errors, onChange: this.handleChange,
                         value: this.state.user.password, name: 'password', placeholder: 'Password' }),
                       _react2.default.createElement(_ResetPasswordFormField2.default, { type: 'password', errors: this.props.resetState.reset_errors, onChange: this.handleChange,
-                        value: this.state.user.confirm_password, name: 'confirm_password', placeholder: 'Confirm password' })
+                        value: this.state.user.confirmPassword, name: 'confirmPassword', placeholder: 'Confirm password' })
                     ),
                     _react2.default.createElement(
                       'div',

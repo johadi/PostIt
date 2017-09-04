@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, browserHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
 
-const GroupHeader = (props) => {
+const MainHeader = (props) => {
   const logout = () => {
     window.sessionStorage.removeItem('token');
     browserHistory.push('/');
@@ -28,7 +28,7 @@ const GroupHeader = (props) => {
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li className="dropdown">
-              <a href="#" className="dropdown-toggle" data-toggle="dropdown">
+              <a className="dropdown-toggle" data-toggle="dropdown">
                 <i className="fa fa-lg fa-user-circle-o" aria-hidden="true"></i> {userDetail.username}
                 {/* <b className="caret"></b> */}
               </a>
@@ -46,4 +46,4 @@ const GroupHeader = (props) => {
       </nav>
   );
 };
-export default GroupHeader;
+export default MainHeader;

@@ -25,7 +25,7 @@ router.route('/group')
      *      "name": "andela",
      *      "updated_at": "2016-02-10T15:46:51.778Z",
      *      "created_at": "2016-02-10T15:46:51.778Z",
-     *      "creator_id": 5
+     *      "creatorId": 5
      *    }
  */
     .post(authenticate, groupController.createGroup);
@@ -188,12 +188,12 @@ router.route('/group/user/groups')
  *        "Groups": [{
  *          "id": 1,
  *          "name": "andela",
- *          "creator_id": 8,
+ *          "creatorId": 8,
  *        },
  *        {
  *          "id": 3,
  *          "name": "sport",
- *          "creator_id": 2
+ *          "creatorId": 2
  *        }]
  *    }
  */

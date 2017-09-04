@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import AuthHeader from '../headers/AuthHeader.jsx';
+import IndexHeader from '../headers/IndexHeader.jsx';
 import { resetPasswordAction } from '../../actions/auth/passwordAction';
 import FormField from './ResetPasswordFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
@@ -21,7 +21,7 @@ class ResetPasswordPage extends React.Component {
     this.state = {
       user: {
         password: '',
-        confirm_password: ''
+        confirmPassword: ''
       }
     };
   }
@@ -55,7 +55,7 @@ class ResetPasswordPage extends React.Component {
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
             <div className="cover-container">
-              <AuthHeader/>
+              <IndexHeader/>
               <div className="inner cover" style={{ opacity: 0.8, backgroundColor: 'whitesmoke' }}>
                 <h2 className="cover-heading text-signup">Reset Password for PostIt</h2>
                 <div className="row">
@@ -69,7 +69,7 @@ class ResetPasswordPage extends React.Component {
                       <FormField type="password" errors={this.props.resetState.reset_errors} onChange={e => this.handleChange(e)}
                                  value={this.state.user.password} name="password" placeholder="Password"/>
                       <FormField type="password" errors={this.props.resetState.reset_errors} onChange={e => this.handleChange(e)}
-                                 value={this.state.user.confirm_password} name="confirm_password" placeholder="Confirm password"/>
+                                 value={this.state.user.confirmPassword} name="confirmPassword" placeholder="Confirm password"/>
                     </div>
                     <div className="col-lg-offset-2 col-lg-8">
                       <div className="form-group lead">

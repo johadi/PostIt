@@ -6,13 +6,13 @@ import { mount } from 'enzyme';
 import { GroupsContainer } from '../../../src/components/groups/Groups';
 
 describe('<Groups/>', () => {
-  const getGroupsUserBelongsTo = sinon.spy();
-  const getGroupsUserBelongsToPagination = sinon.spy();
+  const getUserGroups = sinon.spy();
+  const getUserGroupsPaginated = sinon.spy();
   sinon.spy(GroupsContainer.prototype, 'handleSelect');
   const props = {
     groupState: {},
-    getGroupsUserBelongsTo,
-    getGroupsUserBelongsToPagination,
+    getUserGroups,
+    getUserGroupsPaginated,
     groupsUserBelongsToPagination: {
       Groups: [],
       count: 0,

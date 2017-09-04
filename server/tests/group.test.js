@@ -21,7 +21,7 @@ describe('POST: api/group', () => {
   before(seeder.addUserToDb); // username = johadi10
   before(seeder.addUserToDb2); // username = oman
   // Create a group
-  before(seeder.createGroup); // name=andela creator_id = 1 id = 1
+  before(seeder.createGroup); // name=andela creatorId = 1 id = 1
   let token = ''; // To hold our token for authentication
   before((done) => {
     request(app)
@@ -87,8 +87,8 @@ describe('POST api/group/:groupId/user', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com}
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com}
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1}
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7}
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1}
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7}
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10}
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5}
   before(seeder.addUserToGroup4); // {groupId: 99, userId: 20}
@@ -212,8 +212,8 @@ describe('POST api/group/:groupId/message', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
@@ -311,8 +311,8 @@ describe('Get api/group/groupId/message', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
@@ -402,8 +402,8 @@ describe('Get api/group/:groupId/message/:messageId', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
@@ -505,8 +505,8 @@ describe('POST api/group/message-read/:messageId', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
@@ -584,8 +584,8 @@ describe('Get api/group/:groupId/group-users', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
@@ -690,8 +690,8 @@ describe('Get api/group/user/groups', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
@@ -762,9 +762,9 @@ describe('Get api/group/user/board', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
-  before(seeder.createGroup3); // {id: 101, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
+  before(seeder.createGroup3); // {id: 101, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
@@ -831,9 +831,9 @@ describe('Get api/users', () => {
   before(seeder.addUserToDb2); // {id: 20, username: oman, email: oman@gmail.com} User
   before(seeder.addUserToDb3); // {id: 30, username: sherif, email: sherif@gmail.com} User
   // Create a group
-  before(seeder.createGroup); // {id: 99, name: andela, creator_id: 1} Group
-  before(seeder.createGroup2); // {id: 100, name: react, creator_id: 7} Group
-  before(seeder.createGroup3); // {id: 101, name: react, creator_id: 7} Group
+  before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
+  before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
+  before(seeder.createGroup3); // {id: 101, name: react, creatorId: 7} Group
   // Add users to groups
   before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
   before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup

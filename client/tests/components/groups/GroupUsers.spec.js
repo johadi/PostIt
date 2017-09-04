@@ -7,7 +7,7 @@ import { GroupUsers } from '../../../src/components/groups/GroupUsers';
 
 describe('<GroupUsers/>', () => {
   const getGroupUsers = sinon.spy();
-  const getGroupUsersPagination = sinon.spy();
+  const getGroupUsersPaginated = sinon.spy();
   sinon.spy(GroupUsers.prototype, 'handleSelect');
   // Note: Whenever there is a group it must have at least an existing member ,likely the creator
   const props = {
@@ -24,7 +24,7 @@ describe('<GroupUsers/>', () => {
       pages: 1
     },
     name: 'andela',
-    getGroupUsersPagination,
+    getGroupUsersPaginated,
     getGroupUsers,
     groupId: '1',
     groupState: {}

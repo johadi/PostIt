@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { cancelModal } from '../../actions/auth/signupAction';
-import GroupHeader from '../headers/GroupHeader.jsx';
+import MainHeader from '../headers/MainHeader.jsx';
 import SideBar from './SideBar.jsx';
 import MessageBoard from './MessageBoard.jsx';
 import SignupModal from './SignupModal.jsx';
@@ -33,12 +33,15 @@ class Dashboard extends React.Component {
     const { Groups } = this.props.groupsUserBelongsTo;
     return (
         <div className="container">
-          <GroupHeader/>
+          <MainHeader/>
           <div id="group-body" className="row">
-            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
+            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"
+                 id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <MessageBoard messageBoardMessagesPagination={this.props.messageBoardMessagesPagination}/>
+                  <MessageBoard
+                    messageBoardMessagesPagination={this.props.messageBoardMessagesPagination}
+                  />
                 </div>
               </div>
             </div>

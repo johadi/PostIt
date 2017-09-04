@@ -4,8 +4,8 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
 // import store from '../../src/store/store';
-import { SignupPage } from '../../../src/components/auth/SignupPage';
-import AuthHeader from '../../../src/components/headers/AuthHeader';
+import { SignupPage } from '../../../src/components/auth/SignupPage.jsx';
+import IndexHeader from '../../../src/components/headers/IndexHeader.jsx';
 
 
 describe('<SignupPage/>', () => {
@@ -23,13 +23,13 @@ describe('<SignupPage/>', () => {
     expect(wrapper.find('FormField').at(2).props().name).toBe('mobile');
     expect(wrapper.find('FormField').at(3).props().name).toBe('username');
     expect(wrapper.find('FormField').at(4).props().name).toBe('password');
-    expect(wrapper.find('FormField').at(5).props().name).toBe('confirm_password');
+    expect(wrapper.find('FormField').at(5).props().name).toBe('confirmPassword');
   });
   it('Should check if number of form fields is equal to 6', () => {
     expect(wrapper.find('FormField').length).toBe(6);
   });
   it('Should check if Signup component has header defined', () => {
-    expect(wrapper.find('AuthHeader').length).toBe(1);
+    expect(wrapper.find('IndexHeader').length).toBe(1);
   });
   it('Should check if there is submit button with text Sign up', () => {
     const button = wrapper.find('button');

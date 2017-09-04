@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
-import AuthHeader from '../headers/AuthHeader.jsx';
+import IndexHeader from '../headers/IndexHeader.jsx';
 import { recoverPasswordAction } from '../../actions/auth/passwordAction';
 import FormField from './RecoverPasswordFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
@@ -55,7 +55,7 @@ class RecoverPasswordPage extends React.Component {
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
             <div className="cover-container">
-              <AuthHeader/>
+              <IndexHeader/>
               <div className="inner cover col-sm-offset-1 col-sm-10" style={{ opacity: 0.8, backgroundColor: 'whitesmoke' }}>
                 <h2 className="cover-heading text-signup">Recover Password for PostIt</h2>
                 <div className="row">

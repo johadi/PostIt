@@ -75,7 +75,7 @@ module.exports = {
     Group.create({
       id: 99,
       name: 'andela',
-      creator_id: 1
+      creatorId: 1
     })
         .then((group) => {
           if (!group) {
@@ -89,7 +89,7 @@ module.exports = {
     Group.create({
       id: 100,
       name: 'react',
-      creator_id: 7
+      creatorId: 7
     })
         .then((group) => {
           if (!group) {
@@ -103,7 +103,7 @@ module.exports = {
     Group.create({
       id: 101,
       name: 'lord',
-      creator_id: 7
+      creatorId: 7
     })
         .then((group) => {
           if (!group) {

@@ -14,7 +14,7 @@ describe('<GroupNotificationBoard/>', () => {
     getGroupUsers,
     groupId: '1',
     groupState: {
-      group_messages: {
+      groupMessages: {
         rows: [],
         pages: 1,
         count: 0
@@ -26,7 +26,7 @@ describe('<GroupNotificationBoard/>', () => {
   describe('No Messages', () => {
     before(() => {
       const groupState = {
-        group_messages: {
+        groupMessages: {
           rows: [],
           pages: 1,
           count: 0
@@ -45,7 +45,7 @@ describe('<GroupNotificationBoard/>', () => {
     const pages = 4;
     before(() => {
       const groupState = {
-        group_messages: {
+        groupMessages: {
           rows: [
             {
               id: 1,

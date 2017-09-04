@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import AuthHeader from '../headers/AuthHeader.jsx';
+import IndexHeader from '../headers/IndexHeader.jsx';
 import { signinAction } from '../../actions/auth/signinAction';
 import FormField from './SignInFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
@@ -25,6 +25,15 @@ export class SigninPage extends React.Component {
         password: ''
       }
     };
+  }
+
+  /**
+   * @return {void} void
+   */
+  componentWillMount() {
+    if (window.sessionStorage.token) {
+      browserHistory.push('/dashboard');
+    }
   }
   /**
    * handle submit
@@ -55,29 +64,39 @@ export class SigninPage extends React.Component {
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
             <div className="cover-container">
-              <AuthHeader/>
+              <IndexHeader/>
               <div className="inner cover">
                 <h2 className="cover-heading"><strong>Login to PostIt,</strong></h2>
                 <p className="lead">Share your moment with colleagues and friends.</p>
                 <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
-                  { this.props.signinState.fails ? <ErrorComponent show={true} fails={this.props.signinState.fails} /> : null }
-                  <FormField errors={this.props.signinState.errors} onChange={e => this.handleChange(e)} value={this.state.credentials.username}
+                  { this.props.signinState.fails ?
+                    <ErrorComponent show={true} fails={this.props.signinState.fails} /> : null }
+                  <FormField errors={this.props.signinState.errors}
+                             onChange={e => this.handleChange(e)}
+                             value={this.state.credentials.username}
                              name="username" placeholder="Username"/>
-                  <FormField type="password" errors={this.props.signinState.errors} onChange={e => this.handleChange(e)}
-                             value={this.state.credentials.password} name="password" placeholder="Password"/>
+                  <FormField type="password" errors={this.props.signinState.errors}
+                             onChange={e => this.handleChange(e)}
+                             value={this.state.credentials.password}
+                             name="password" placeholder="Password"/>
                   <div className="form-group lead">
-                    <div className="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
-                      <button id="signin" type="submit" className="btn btn-lg btn-success btn-block">Login now</button>
+                    <div className="col-lg-offset-2
+                    col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
+                      <button id="signin" type="submit"
+                              className="btn btn-lg btn-success btn-block">Login now</button>
                     </div>
                   </div>
                   <div className="form-group">
-                    <div className="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
+                    <div className="col-lg-offset-2
+                    col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
                     <span className="pull-left">
-                      No Account yet ? <Link className="text-underline text-signin" to="/signup"><strong>Sign up</strong></Link>
+                      No Account yet ? <Link className="text-underline text-signin" to="/signup">
+                      <strong>Sign up</strong></Link>
                     </span>
                       <span className="pull-right">
                       Forget Password ?
-                      <Link className="text-underline text-signin" to="/recover-password"> <strong>Click</strong></Link>
+                      <Link className="text-underline text-signin" to="/recover-password">
+                        <strong>Click</strong></Link>
                     </span>
                     </div>
                   </div>

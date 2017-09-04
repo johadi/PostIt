@@ -16,7 +16,7 @@ describe('<SendNotification/>', () => {
     // postMessage,
     groupId: '4',
     name: 'andela',
-    groupState: { post_message_error: '' }
+    groupState: { postMessageErr: '' }
   };
   const wrapper = mount(<SendNotification{ ...props} />);
   it('should check that post message div exists', () => {

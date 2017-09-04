@@ -30,7 +30,7 @@ module.exports = {
             // Create group if it doesn't exist before
             return Group.create({
               name,
-              creator_id: creatorId
+              creatorId: creatorId
             });
           })
           .then((createdGroup) => {
@@ -503,7 +503,7 @@ module.exports = {
           UserGroup.findAndCountAll({
             where: { userId },
             // limit: 6,
-            include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
+            include: [{ model: Group, attributes: ['id', 'name', 'creatorId'] }]
           })
               .then((result) => {
                 const data = {
@@ -526,7 +526,7 @@ module.exports = {
             where: { userId },
             limit: perPage,
             offset,
-            include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]
+            include: [{ model: Group, attributes: ['id', 'name', 'creatorId'] }]
           })
               .then((result) => {
                 const pages = Math.ceil(result.count / perPage); // to round off i.e 3/2 = 1.5 = 2
@@ -682,7 +682,7 @@ module.exports = {
   // getGroupsUserBelongsToPaginated(req, res) {
   //   if (req.user && req.query.page) {
   //     const userId = req.user.id;
-  //     UserGroup.findAndCountAll({where: {userId}, include: [{ model: Group, attributes: ['id', 'name', 'creator_id'] }]})
+  //     UserGroup.findAndCountAll({where: {userId}, include: [{ model: Group, attributes: ['id', 'name', 'creatorId'] }]})
   //         .then((result)=>{
   //           const data = {
   //             Groups: result.rows,

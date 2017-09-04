@@ -11,8 +11,8 @@ module.exports = {
     const obj = req.body;
     const validator = new Validator(obj, User.signupRules());
     if (validator.passes()) {
-      if (obj.confirm_password !== obj.password) {
-        return handleError('password not matched', res);
+      if (obj.confirmPassword !== obj.password) {
+        return handleError('passwords not matched', res);
       }
       User.findOne({
         where: {
@@ -126,16 +126,16 @@ module.exports = {
     if (!req.reset) {
       return handleError('Invalid request', res);
     }
-    const obj = lodash.pick(req.body, ['password', 'confirm_password']);
+    const obj = lodash.pick(req.body, ['password', 'confirmPassword']);
     const rules = {
       password: 'required',
-      confirm_password: 'required'
+      confirmPassword: 'required'
     };
     const validator = new Validator(obj, rules);
     if (!validator.passes()) {
       return handleError({ validateError: validator.errors.all() }, res);
     }
-    if (obj.password !== obj.confirm_password) {
+    if (obj.password !== obj.confirmPassword) {
       return handleError('Passwords not matched', res);
     }
     const userInfo = req.reset;

@@ -3,7 +3,7 @@ import MessageViewPage from './NotificationViewPage.jsx';
 import PostMessagePage from './SendNotificationPage.jsx';
 import GroupMessageBoardPage from './GroupNotificationBoardPage.jsx';
 import CreateGroupPage from './CreateGroupPage.jsx';
-import CreatedGroupAddUserPage from './CreatedGroupAddUserPage.jsx';
+import AddUserToGroupPage from './AddUserToGroupPage.jsx';
 import GroupsPage from './GroupsPage.jsx';
 import GroupUsersPage from './GroupUsersPage.jsx';
 import AuthenticateUser from './AuthenticateUser.jsx';
@@ -14,7 +14,7 @@ export default {
   PostMessagePage,
   GroupMessageBoardPage,
   CreateGroupPage,
-  CreatedGroupAddUserPage,
+  AddUserToGroupPage,
   GroupsPage,
   GroupUsersPage,
   AuthenticateUser

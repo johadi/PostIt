@@ -100,7 +100,7 @@ const groupReducer = (state = initialState, action) => {
     case actionTypes.VIEW_MESSAGE_SUCCESSFUL:
       state = {
         ...state,
-        groupViewMessage: action.payload, // hold all messages to be used in message/:id route
+        groupViewMessage: action.payload,
         groupViewMessageErr: null
       };
       break;

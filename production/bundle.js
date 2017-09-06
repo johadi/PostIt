@@ -40678,7 +40678,7 @@ var recoverPasswordAction = exports.recoverPasswordAction = function recoverPass
 };
 var resetPasswordAction = exports.resetPasswordAction = function resetPasswordAction(queryParam, passwordDetail) {
   return function (dispatch) {
-    _axios2.default.post('/api/user/reset-password?qrp=' + queryParam, passwordDetail).then(function (res) {
+    _axios2.default.post('/api/user/reset-password?token=' + queryParam, passwordDetail).then(function (res) {
       if (res.status !== 200) {
         var _payload2 = 'Something went wrong...Try again';
         return dispatch({ type: _actionTypes2.default.RESET_UNSUCCESSFUL, payload: _payload2 });
@@ -73780,7 +73780,7 @@ var ResetPasswordPage = function (_React$Component) {
 
     _this.handleSubmit = function (e) {
       e.preventDefault();
-      _this.props.resetPasswordAction(_this.props.location.query.qrp, _this.state.user);
+      _this.props.resetPasswordAction(_this.props.location.query.token, _this.state.user);
     };
 
     _this.handleChange = function (e) {

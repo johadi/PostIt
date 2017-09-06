@@ -32,7 +32,7 @@ class ResetPasswordPage extends React.Component {
    */
   handleSubmit(e) {
     e.preventDefault();
-    this.props.resetPasswordAction(this.props.location.query.qrp, this.state.user);
+    this.props.resetPasswordAction(this.props.location.query.token, this.state.user);
   }
   /**
    * handles change
@@ -60,15 +60,19 @@ class ResetPasswordPage extends React.Component {
                 <h2 className="cover-heading text-signup">Reset Password for PostIt</h2>
                 <div className="row">
                   <form onSubmit={e => this.handleSubmit(e)} role="form" className="form-horizontal">
-                    { this.props.resetState.reset_fails ? <ErrorComponent fails={this.props.resetState.reset_fails} /> : null }
-                    { !this.props.resetState.reset_message ? null :
+                    { this.props.resetState.resetFails ? <ErrorComponent fails={this.props.resetState.resetFails} /> : null }
+                    { !this.props.resetState.resetMessage ? null :
                       <div className="alert alert-success alert-dismissible">
-                        { this.props.resetState.reset_message }
+                        <button type="button" className="close"
+                                data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">x</span>
+                        </button>
+                        { this.props.resetState.resetMessage }
                       </div>}
                     <div className="col-lg-offset-2 col-lg-8">
-                      <FormField type="password" errors={this.props.resetState.reset_errors} onChange={e => this.handleChange(e)}
+                      <FormField type="password" errors={this.props.resetState.resetErrors} onChange={e => this.handleChange(e)}
                                  value={this.state.user.password} name="password" placeholder="Password"/>
-                      <FormField type="password" errors={this.props.resetState.reset_errors} onChange={e => this.handleChange(e)}
+                      <FormField type="password" errors={this.props.resetState.resetErrors} onChange={e => this.handleChange(e)}
                                  value={this.state.user.confirmPassword} name="confirmPassword" placeholder="Confirm password"/>
                     </div>
                     <div className="col-lg-offset-2 col-lg-8">

@@ -14,18 +14,23 @@ export const recoverPasswordAction = userEmail => (dispatch) => {
     })
     .catch((err) => {
       if (err && err.response.data.validateError) {
-        dispatch({ type: actionTypes.RECOVERY_VALIDATION_ERROR, payload: err.response.data.validateError });
+        dispatch({ type: actionTypes.RECOVERY_VALIDATION_ERROR,
+          payload: err.response.data.validateError });
       } else if (err && err.response.data.name === 'SequelizeConnectionError') {
-        dispatch({ type: actionTypes.RECOVERY_VALIDATION_ERROR, payload: err.response.data.validateError });
-        dispatch({ type: actionTypes.RECOVERY_UNSUCCESSFUL, payload: 'Error connecting to database...Try again' });
+        dispatch({ type: actionTypes.RECOVERY_VALIDATION_ERROR,
+          payload: err.response.data.validateError });
+        dispatch({ type: actionTypes.RECOVERY_UNSUCCESSFUL,
+          payload: 'Error connecting to database...Try again' });
       } else {
-        dispatch({ type: actionTypes.RECOVERY_VALIDATION_ERROR, payload: err.response.data.validateError });
-        dispatch({ type: actionTypes.RECOVERY_UNSUCCESSFUL, payload: err.response.data });
+        dispatch({ type: actionTypes.RECOVERY_VALIDATION_ERROR,
+          payload: err.response.data.validateError });
+        dispatch({ type: actionTypes.RECOVERY_UNSUCCESSFUL,
+          payload: err.response.data });
       }
     });
 };
 export const resetPasswordAction = (queryParam, passwordDetail) => (dispatch) => {
-  axios.post(`/api/user/reset-password?qrp=${queryParam}`, passwordDetail)
+  axios.post(`/api/user/reset-password?token=${queryParam}`, passwordDetail)
     .then((res) => {
       if (res.status !== 200) {
         const payload = 'Something went wrong...Try again';
@@ -37,14 +42,19 @@ export const resetPasswordAction = (queryParam, passwordDetail) => (dispatch) =>
     })
     .catch((err) => {
       if (err && err.response.data.validateError) {
-        dispatch({ type: actionTypes.RESET_VALIDATION_ERROR, payload: err.response.data.validateError });
-      } else if (err && err.response.data.name === 'SequelizeConnectionError') {
-        dispatch({ type: actionTypes.RESET_VALIDATION_ERROR, payload: err.response.data.validateError });
-        dispatch({ type: actionTypes.RESET_UNSUCCESSFUL, payload: 'Error connecting to database...Try again' });
+        dispatch({ type: actionTypes.RESET_VALIDATION_ERROR,
+          payload: err.response.data.validateError });
+      } else if (err && err.response.data === 'Passwords not matched') {
+        dispatch({ type: actionTypes.RESET_VALIDATION_ERROR,
+          payload: err.response.data.validateError });
+        dispatch({ type: actionTypes.RESET_UNSUCCESSFUL,
+          payload: err.response.data });
       } else {
         browserHistory.push('/recover-password');
-        dispatch({ type: actionTypes.RESET_VALIDATION_ERROR, payload: err.response.data.validateError });
-        dispatch({ type: actionTypes.RESET_UNSUCCESSFUL, payload: err.response.data });
+        dispatch({ type: actionTypes.RESET_VALIDATION_ERROR,
+          payload: err.response.data.validateError });
+        dispatch({ type: actionTypes.RESET_UNSUCCESSFUL,
+          payload: err.response.data });
       }
     });
 };

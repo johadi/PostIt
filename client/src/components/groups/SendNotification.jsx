@@ -75,8 +75,8 @@ export class SendNotification extends React.Component {
         <div className="col-sm-offset-1 col-sm-10 well well-lg" id="post-message-div">
           <form onSubmit={e => this.handleSubmit(e)}
                 className="form-horizontal" role="form">
-            <p className="text-center"><strong>Send notification to
-              <span className="text-capitalize">
+            <p className="text-center">
+              <strong>Send notification to <span className="text-capitalize">
               {this.props.name} group</span></strong></p>
             {(!!postMessageErr && <h4 className="text-danger text-center">
               {postMessageErr}</h4>) ||

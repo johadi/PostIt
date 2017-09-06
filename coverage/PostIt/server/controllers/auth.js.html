@@ -449,10 +449,10 @@ module.exports = <span class="fstat-no" title="function not covered" ><span clas
         c</span>onst from = <span class="cstat-no" title="statement not covered" >'no-reply &lt;jimoh@google.com&gt;';
         c</span>onst to = <span class="cstat-no" title="statement not covered" >user.email;
         c</span>onst link = <span class="cstat-no" title="statement not covered" >process.env.NODE_ENV === 'production' ?
-          `https://jimoh-postit.herokuapp.com/reset-password?qrp=${token}` :
-          `http://localhost:8080/reset-password?qrp=${token}`;
+          `https://jimoh-postit.herokuapp.com/reset-password?token=${token}` :
+          `http://localhost:8080/reset-password?token=${token}`;
         c</span>onst subject = <span class="cstat-no" title="statement not covered" >'Your PostIt Password recovery link';
-        // const message = '&lt;h2&gt;Click the link below to recover your password&lt;/h2&gt;&lt;p&gt;&lt;a href="localhost:4000/change-password?qrp='+token+'"&gt;Recover password&lt;/a&gt;&lt;/p&gt;';
+        // const message = '&lt;h2&gt;Click the link below to recover your password&lt;/h2&gt;&lt;p&gt;&lt;a href="localhost:4000/change-password?token='+token+'"&gt;Recover password&lt;/a&gt;&lt;/p&gt;';
         c</span>onst <span class="cstat-no" title="statement not covered" >message = `&lt;h2&gt;Click the link below to reset your password&lt;/h2&gt;&lt;p&gt;&lt;a href="${link}"&gt;Recover Password&lt;/a&gt;&lt;/p&gt;`;
 <span class="cstat-no" title="statement not covered" >        sendMail(from, to, subject, message)</span>
           .then(<span class="fstat-no" title="function not covered" >(</span>sent) =&gt; {

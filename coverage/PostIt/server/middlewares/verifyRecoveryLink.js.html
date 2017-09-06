@@ -96,7 +96,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../database/models').User;
 &nbsp;
 module.exports = <span class="fstat-no" title="function not covered" >(</span>req, res, next) =&gt; {
-  c</span>onst token = <span class="cstat-no" title="statement not covered" >req.query.qrp;
+  c</span>onst token = <span class="cstat-no" title="statement not covered" >req.query.token;
 <span class="cstat-no" title="statement not covered" >  if (!token) {</span>
 <span class="cstat-no" title="statement not covered" >    return res.status(400).json('This link is Invalid');</span>
   }

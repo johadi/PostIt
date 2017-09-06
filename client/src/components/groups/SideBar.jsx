@@ -27,8 +27,8 @@ class SideBar extends React.Component {
           <p>
             <Link className="btn navy-header btn-lg btn-block">Quick Links</Link>
             <Link to="/create-group" className="btn btn-default btn-block">
-              <i className="fa fa-lg fa-plus-circle text-display" aria-hidden="true"></i>
-              Create Group
+              <i className="fa fa-lg fa-plus-circle text-display"
+                 aria-hidden="true"></i> Create Group
             </Link>
             <Link to="/groups" className="btn btn-default btn-block">
               <i className="fa fa-users text-display" aria-hidden="true"></i> All My Groups

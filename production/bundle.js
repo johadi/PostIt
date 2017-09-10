@@ -88859,7 +88859,7 @@ var _reactRouter = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var MainHeader = function MainHeader(props) {
+var NotFoundHeader = function NotFoundHeader(props) {
   return _react2.default.createElement(
     'nav',
     { className: 'navbar navbar-inverse navbar-fixed-top',
@@ -88892,7 +88892,7 @@ var MainHeader = function MainHeader(props) {
     )
   );
 };
-exports.default = MainHeader;
+exports.default = NotFoundHeader;
 
 /***/ })
 /******/ ]);

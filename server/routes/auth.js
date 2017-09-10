@@ -66,6 +66,7 @@ router.route('/v1/user/reset-password')
    * @apiGroup Authentication
    * @apiParam {String} password User password
    * @apiParam {String} confirmPassword User confirm password
+   * @apiParam {String} token Token in the query of password reset URL
    * @apiParamExample {json} Input
    *    {
    *      "password": "123456",

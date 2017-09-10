@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
 
-const MainHeader = props => (
+const NotFoundHeader = props => (
     <nav className="navbar navbar-inverse navbar-fixed-top"
          role="navigation" id="error404-header">
       <div className="navbar-header">
@@ -16,4 +16,4 @@ const MainHeader = props => (
       </div>
     </nav>
   );
-export default MainHeader;
+export default NotFoundHeader;

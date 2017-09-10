@@ -40,7 +40,7 @@ class Dashboard extends React.Component {
               <div className="panel-body">
                 <div className="row">
                   <MessageBoard
-                    messageBoardMessagesPagination={this.props.messageBoardMessagesPagination}
+                    boardMessagesPagination={this.props.boardMessagesPagination}
                   />
                 </div>
               </div>
@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
   groupsUserBelongsTo: PropTypes.object.isRequired,
   cancelModal: PropTypes.func.isRequired,
-  messageBoardMessagesPagination: PropTypes.object.isRequired,
+  boardMessagesPagination: PropTypes.object.isRequired,
   signupState: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({

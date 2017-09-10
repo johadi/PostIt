@@ -47,7 +47,9 @@ export class GroupUsers extends React.Component {
     return (
         <div className="col-md-12" id="message-board-div">
           <h2 className="text-capitalize">{this.props.name} group members</h2>
-          <p className="text-display"><strong>{count} {count === 1 ? 'member' : 'members'}</strong></p>
+          <p className="text-display">
+            <strong>{count} {count === 1 ? 'member' : 'members'}</strong>
+          </p>
           <hr/>
           <div className="list-group">
             {Users.map(user => (

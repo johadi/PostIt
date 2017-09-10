@@ -24,7 +24,7 @@ export default class GroupsPage extends React.Component {
               <div className="panel-body">
                 <div className="row">
                   <AllGroups
-                    groupsUserBelongsToPagination={this.props.groupsUserBelongsToPagination}/>
+                    userGroupsPagination={this.props.userGroupsPagination}/>
                 </div>
               </div>
             </div>
@@ -36,6 +36,6 @@ export default class GroupsPage extends React.Component {
 }
 GroupsPage.propTypes = {
   groupsUserBelongsTo: PropTypes.object.isRequired,
-  groupsUserBelongsToPagination: PropTypes.object.isRequired
+  userGroupsPagination: PropTypes.object.isRequired
 };
 

@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
 export const signinAction = userCredentials => (dispatch) => {
-  axios.post('/api/user/signin', userCredentials)
+  axios.post('/api/v1/user/signin', userCredentials)
       .then((res) => {
         if (res.status !== 200) {
           const payload = 'Something went wrong...Try again';

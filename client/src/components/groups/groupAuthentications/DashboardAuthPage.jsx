@@ -27,7 +27,7 @@ class DashboardAuthPage extends React.Component {
   render() {
     const { groupsUserBelongs, boardMessagesPaginated } = this.props.groupState;
     return this.props.tokenStatus.success && groupsUserBelongs && boardMessagesPaginated ?
-        <DashboardPage messageBoardMessagesPagination={boardMessagesPaginated}
+        <DashboardPage boardMessagesPagination={boardMessagesPaginated}
                        groupsUserBelongsTo={groupsUserBelongs}
         /> : <NullPage/>;
   }

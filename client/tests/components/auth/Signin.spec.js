@@ -4,8 +4,8 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
 // import store from '../../src/store/store';
-import { SigninPage } from '../../../src/components/auth/SigninPage';
-import IndexHeader from '../../../src/components/headers/IndexHeader';
+import { SigninPage } from '../../../src/components/auth/SigninPage.jsx';
+import IndexHeader from '../../../src/components/headers/IndexHeader.jsx';
 
 
 describe('<SigninPage/>', () => {

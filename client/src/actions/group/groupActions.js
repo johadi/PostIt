@@ -4,7 +4,7 @@ import actionTypes from '../actionTypes';
 
 // action for creating group
 export const createGroup = name => (dispatch) => {
-  axios.post('/api/group', { name },
+  axios.post('/api/v1/group', { name },
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         browserHistory.push(`/group/${res.data.id}/add`);
@@ -22,7 +22,7 @@ export const createGroup = name => (dispatch) => {
 };
 // action for adding user to a group
 export const addUserToGroup = (groupId, username) => (dispatch) => {
-  axios.post(`/api/group/${groupId}/user`, { user: username },
+  axios.post(`/api/v1/group/${groupId}/user`, { user: username },
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GROUP_ADD_USER_SUCCESSFUL });
@@ -43,7 +43,7 @@ export const addUserToGroupClear = () => ({
 });
 // action for posting message to a group
 export const postMessage = (groupId, message, priority) => (dispatch) => {
-  axios.post(`/api/group/${groupId}/message`, { message, priority },
+  axios.post(`/api/v1/group/${groupId}/message`, { message, priority },
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         browserHistory.push(`/group/${groupId}/board`);
@@ -67,7 +67,7 @@ export const clearPostMessageError = () => ({
 // action for getting all messages in a particular group for a user
 export const getGroupMessages = (groupId, pageNumber) => (dispatch) => {
   const page = pageNumber || 1;
-  axios.get(`/api/group/${groupId}/message?page=${page}`,
+  axios.get(`/api/v1/group/${groupId}/message?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GET_GROUP_MESSAGES_SUCCESSFUL,
@@ -95,7 +95,7 @@ export const getGroupMessagesClear = () => ({
 });
 // action for getting all messages in a particular group for a user
 export const viewMessage = (groupId, messageId) => (dispatch) => {
-  axios.get(`/api/group/${groupId}/message/${messageId}`,
+  axios.get(`/api/v1/group/${groupId}/message/${messageId}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.VIEW_MESSAGE_SUCCESSFUL,
@@ -121,7 +121,7 @@ export const clearViewMessageError = () => ({
 // action for getting all users in a particular group for a user
 export const getGroupUsers = groupId => (dispatch) => {
   const page = 0;
-  axios.get(`/api/group/${groupId}/group-users?page=${page}`,
+  axios.get(`/api/v1/group/${groupId}/group-users?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GET_GROUP_USERS_SUCCESSFUL,
@@ -147,7 +147,7 @@ export const clearGetGroupUsersError = () => ({
 // action for getting all users in a particular group for a user with pagination
 export const getGroupUsersPaginated = (groupId, pageNumber) => (dispatch) => {
   const page = pageNumber || 1;
-  axios.get(`/api/group/${groupId}/group-users?page=${page}`,
+  axios.get(`/api/v1/group/${groupId}/group-users?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GROUP_USERS_PAGINATED_SUCCESS,
@@ -169,7 +169,7 @@ export const getGroupUsersPaginated = (groupId, pageNumber) => (dispatch) => {
 export const getUserGroups = () => (dispatch) => {
   const page = 0;
   // This will dispatch action that group member side bar can use
-  axios.get(`/api/group/user/groups?page=${page}`,
+  axios.get(`/api/v1/group/user/groups?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GET_USER_GROUPS_SUCCESS,
@@ -191,7 +191,7 @@ export const getUserGroups = () => (dispatch) => {
 export const getUserGroupsPaginated = pageNumber => (dispatch) => {
   const page = pageNumber || 1;
   // This will dispatch action that group member side bar can use
-  axios.get(`/api/group/user/groups?page=${page}`,
+  axios.get(`/api/v1/group/user/groups?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.USER_GROUPS_PAGINATED_SUCCESS,
@@ -213,7 +213,7 @@ export const getUserGroupsPaginated = pageNumber => (dispatch) => {
 export const getBoardMessagesPaginated = pageNumber => (dispatch) => {
   const page = pageNumber || 1;
   // This will dispatch action that group member side bar can use
-  axios.get(`/api/group/user/board?page=${page}`,
+  axios.get(`/api/v1/group/user/board?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.GET_BOARD_MESSAGES_SUCCESS, payload: res.data });
@@ -235,7 +235,7 @@ export const getBoardMessagesPaginated = pageNumber => (dispatch) => {
 export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
   const search = searchTerm || '';
   const id = groupId || 0;
-  axios.get(`/api/users?search=${search}&groupId=${id}`,
+  axios.get(`/api/v1/users?search=${search}&groupId=${id}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.USERS_SEARCH_SUCCESSFUL,
@@ -259,7 +259,7 @@ export const updateReadMessage = messageId => (dispatch) => {
   if (!messageId) {
     browserHistory.goBack();
   }
-  axios.post(`/api/group/message-read/${messageId}`, {},
+  axios.post(`/api/v1/group/message-read/${messageId}`, {},
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.MESSAGE_READ_SUCCESSFUL,

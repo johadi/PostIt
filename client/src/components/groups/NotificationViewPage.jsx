@@ -67,5 +67,6 @@ NotificationViewPage.propTypes = {
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ updateReadMessage }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateReadMessage }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationViewPage);

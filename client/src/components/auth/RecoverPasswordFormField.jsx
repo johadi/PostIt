@@ -3,7 +3,8 @@ import classnames from 'classnames';
 import PropTypes from 'react-proptypes';
 
 const FormField = props => (
-  <div className={classnames('form-group', { 'has-error': props.errors ? !!props.errors[props.name] : false })}>
+  <div className={classnames('form-group',
+    { 'has-error': props.errors ? !!props.errors[props.name] : false })}>
     <div className="col-lg-12">
       <input
         onChange={ props.onChange }
@@ -13,7 +14,9 @@ const FormField = props => (
         value={ props.value }
       />
     </div>
-    { props.errors ? <span className="help-block">{props.errors[props.name]}</span> : false }
+    { props.errors ?
+      <span className="help-block">{props.errors[props.name]}</span> : false
+    }
   </div>
 );
 FormField.propTypes = {

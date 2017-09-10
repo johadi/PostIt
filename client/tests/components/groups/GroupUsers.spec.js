@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { GroupUsers } from '../../../src/components/groups/GroupUsers';
+import { GroupUsers } from '../../../src/components/groups/GroupUsers.jsx';
 
 describe('<GroupUsers/>', () => {
   const getGroupUsers = sinon.spy();

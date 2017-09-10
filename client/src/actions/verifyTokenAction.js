@@ -1,10 +1,11 @@
+/* eslint-disable import/prefer-default-export */
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import actionTypes from './actionTypes';
 
 export const verifyToken = () => (dispatch) => {
   if (window.sessionStorage.token) {
-    axios.get('/api/verify-token',
+    axios.get('/api/v1/verify-token',
       { headers: { 'x-auth': window.sessionStorage.token } })
           .then((res) => {
             if (res.status === 200) {

@@ -34,7 +34,8 @@ require.extensions['.jpg'] = function () { return null; };
 const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
-const { document } = (new JSDOM('<!doctype html><html><body></body></html>')).window;
+const { document } = (new JSDOM('<!doctype html><html><body></body></html>',
+  { url: 'http://localhost' })).window;
 
 const exposedProperties = ['window', 'navigator', 'document'];
 

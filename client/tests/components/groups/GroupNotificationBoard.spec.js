@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { GroupNotificationBoard } from '../../../src/components/groups/GroupNotificationBoard';
+import { GroupNotificationBoard } from '../../../src/components/groups/GroupNotificationBoard.jsx';
 
 describe('<GroupNotificationBoard/>', () => {
   const getGroupUsers = sinon.spy();

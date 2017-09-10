@@ -72,11 +72,12 @@ export class MessageBoard extends React.Component {
    */
   render() {
     // this.props.getUserGroups(); // force side bar to render anytime this page renders
-    const { messages, pages, count } = this.props.messageBoardMessagesPagination;
+    const { messages, pages, count } = this.props.boardMessagesPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2><strong>Notification board</strong></h2>
-          <small style={{ color: 'red' }}>{count === 1 ? `(${count}) notification` : `(${count}) notifications`} you have not read</small>
+          <small style={{ color: 'red' }}>{count === 1 ?
+            `(${count}) notification` : `(${count}) notifications`} you have not read</small>
           <hr/>
           {
             messages.map((message) => {
@@ -99,8 +100,8 @@ export class MessageBoard extends React.Component {
                       {message.User.username}</span>
                       <small>
                         <Link to={`/group/${message.Group.id}/board`}>
-                          <i><span className="text-capitalize">
-                            {message.Group.name} </span>group</i>
+                          <i><span className="text-capitalize"
+                          > {message.Group.name} </span>group</i>
                         </Link>
                         <small> {priority} </small>
                         {this.showTime(message.createdAt) >= 23 ?
@@ -145,7 +146,7 @@ export class MessageBoard extends React.Component {
 MessageBoard.propTypes = {
   getUserGroups: PropTypes.func.isRequired,
   getBoardMessagesPaginated: PropTypes.func.isRequired,
-  messageBoardMessagesPagination: PropTypes.object.isRequired
+  boardMessagesPagination: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer

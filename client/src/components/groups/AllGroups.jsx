@@ -44,7 +44,7 @@ export class GroupsContainer extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { pages, count, Groups } = this.props.groupsUserBelongsToPagination;
+    const { pages, count, Groups } = this.props.userGroupsPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2>Your Groups</h2>
@@ -82,7 +82,7 @@ GroupsContainer.propTypes = {
   groupState: PropTypes.object.isRequired,
   getUserGroups: PropTypes.func.isRequired,
   getUserGroupsPaginated: PropTypes.func.isRequired,
-  groupsUserBelongsToPagination: PropTypes.object.isRequired
+  userGroupsPagination: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer

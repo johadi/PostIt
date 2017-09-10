@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
 export const recoverPasswordAction = userEmail => (dispatch) => {
-  axios.post('/api/user/recover-password', userEmail)
+  axios.post('/api/v1/user/recover-password', userEmail)
     .then((res) => {
       if (res.status !== 200) {
         const payload = 'Something went wrong...Try again';
@@ -30,7 +30,7 @@ export const recoverPasswordAction = userEmail => (dispatch) => {
     });
 };
 export const resetPasswordAction = (queryParam, passwordDetail) => (dispatch) => {
-  axios.post(`/api/user/reset-password?token=${queryParam}`, passwordDetail)
+  axios.post(`/api/v1/user/reset-password?token=${queryParam}`, passwordDetail)
     .then((res) => {
       if (res.status !== 200) {
         const payload = 'Something went wrong...Try again';

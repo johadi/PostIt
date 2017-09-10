@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { GroupsContainer } from '../../../src/components/groups/Groups';
+import { GroupsContainer } from '../../../src/components/groups/AllGroups.jsx';
 
 describe('<Groups/>', () => {
   const getUserGroups = sinon.spy();
@@ -13,7 +13,7 @@ describe('<Groups/>', () => {
     groupState: {},
     getUserGroups,
     getUserGroupsPaginated,
-    groupsUserBelongsToPagination: {
+    userGroupsPagination: {
       Groups: [],
       count: 0,
       pages: 1
@@ -22,12 +22,12 @@ describe('<Groups/>', () => {
   const wrapper = mount(<GroupsContainer { ...props} />);
   describe('No Groups', () => {
     before(() => {
-      const groupsUserBelongsToPagination = {
+      const userGroupsPagination = {
         Groups: [],
         count: 0,
         pages: 1
       };
-      wrapper.setProps({ groupsUserBelongsToPagination });
+      wrapper.setProps({ userGroupsPagination });
     });
     it('should check that Pagination doesn\'t exist since our page is just 1, no pagination', () => {
       expect(wrapper.find('Pagination').length).toNotExist();
@@ -42,7 +42,7 @@ describe('<Groups/>', () => {
   describe('If there is at least one Group', () => {
     const pages = 3;
     before(() => {
-      const groupsUserBelongsToPagination = {
+      const userGroupsPagination = {
         Groups: [
           {
             Group: {
@@ -60,7 +60,7 @@ describe('<Groups/>', () => {
         count: 20,
         pages
       };
-      wrapper.setProps({ groupsUserBelongsToPagination });
+      wrapper.setProps({ userGroupsPagination });
     });
     it('Should check that group count is 20 since our props changes count to 20', () => {
       expect(wrapper.find('.group-count').text()).toBe('Total groups you joined: 20');

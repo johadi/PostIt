@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
 export const signupAction = user => (dispatch) => {
-  axios.post('/api/user/signup', user)
+  axios.post('/api/v1/user/signup', user)
       .then((res) => {
         if (res.status !== 201) {
           const payload = 'Something went wrong...Try again';

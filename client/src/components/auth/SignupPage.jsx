@@ -68,9 +68,14 @@ export class SignupPage extends React.Component {
           <div className="site-wrapper-inner">
             <div className="cover-container">
               <IndexHeader/>
-              <div className="inner cover" style={{ opacity: 0.8, backgroundColor: 'whitesmoke' }}>
-                <h1 className="cover-heading text-signup"><strong>Sign up for PostIt,</strong></h1>
-                <p className="lead text-signup">Share your moment with family and friends.</p>
+              <div className="inner cover"
+                   style={{ opacity: 0.8, backgroundColor: 'whitesmoke' }}>
+                <h1 className="cover-heading text-signup">
+                  <strong>Sign up for PostIt,</strong>
+                </h1>
+                <p className="lead text-signup">
+                  Share your moment with family and friends.
+                </p>
                 <div className="row">
                   <form onSubmit={e => this.handleSubmit(e)}
                         role="form" className="form-horizontal">
@@ -82,11 +87,15 @@ export class SignupPage extends React.Component {
                                  value={this.state.user.fullname}
                                  name="fullname" placeholder="Full name"/>
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)} value={this.state.user.email}
-                                 type="email" name="email" placeholder="Email"/>
+                                 onChange={e => this.handleChange(e)}
+                                 value={this.state.user.email}
+                                 type="email" name="email"
+                                 placeholder="Email"/>
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)} value={this.state.user.mobile}
-                                 name="mobile" placeholder="Mobile No. e.g +23480123456789"
+                                 onChange={e => this.handleChange(e)}
+                                 value={this.state.user.mobile}
+                                 name="mobile"
+                                 placeholder="Mobile No. e.g +23480123456789"
                                  required='required'/>
                     </div>
                     <div className="col-lg-6">
@@ -97,7 +106,8 @@ export class SignupPage extends React.Component {
                       <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.password}
-                                 type="password" name="password" placeholder="Password"/>
+                                 type="password"
+                                 name="password" placeholder="Password"/>
                       <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.confirmPassword}
@@ -107,8 +117,12 @@ export class SignupPage extends React.Component {
                     <div className="col-lg-6">
                       <div className="form-group lead">
                         <div className="col-lg-12">
-                          <button id="signup" type="submit"
-                                  className="btn btn-lg btn-primary pull-left">Sign up</button>
+                          <button
+                            id="signup"
+                            type="submit"
+                            className="btn btn-lg btn-primary pull-left">
+                            Sign up
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -116,7 +130,8 @@ export class SignupPage extends React.Component {
                       <div className="form-group">
                         <div className="col-lg-12">
                           <p className="text-signup">
-                            Already have an Account ? <Link className="text-primary" to="/signin">
+                            Already have an Account ?
+                            <Link className="text-primary" to="/signin">
                             <strong>Login</strong></Link>
                           </p>
                         </div>
@@ -145,7 +160,7 @@ SignupPage.propTypes = {
 const mapStateToProps = state => ({
   signupState: state.signupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ signupAction }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ signupAction }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupPage);
-// { this.props.signupState.error ? <ErrorComponent error={this.props.signupState.error} /> : null }

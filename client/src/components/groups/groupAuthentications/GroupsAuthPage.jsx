@@ -27,7 +27,7 @@ class GroupsAuthPage extends React.Component {
     const { groupsUserBelongs, userGroupsPaginated } = this.props.groupState;
     return this.props.tokenStatus.success && groupsUserBelongs && userGroupsPaginated ? <GroupsPage
         groupsUserBelongsTo={groupsUserBelongs}
-        groupsUserBelongsToPagination={userGroupsPaginated} /> : <NullPage/>;
+        userGroupsPagination={userGroupsPaginated} /> : <NullPage/>;
   }
 }
 GroupsAuthPage.propTypes = {

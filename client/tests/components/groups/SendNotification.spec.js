@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { SendNotification } from '../../../src/components/groups/SendNotification';
+import { SendNotification } from '../../../src/components/groups/SendNotification.jsx';
 
 describe('<SendNotification/>', () => {
   const clearPostMessageError = sinon.spy();

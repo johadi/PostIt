@@ -27,6 +27,17 @@ export class AddUserToGroup extends React.Component {
     this.props.getGroupUsers(this.props.groupId); // to reload the group side bar
   }
   /**
+   * handles user click
+   * @return {void} void
+   * @param {e} e
+   */
+  handleAddUser(e) {
+    this.props.onAddUser(e);
+    e.target.setAttribute('disabled', true);
+    e.target.setAttribute('class', 'btn btn-success btn-sm btn-block');
+    e.target.text = 'Member';
+  }
+  /**
    * handles Search
    * @return {void} void
    * @param {e} e
@@ -66,10 +77,9 @@ export class AddUserToGroup extends React.Component {
               <table className="table table-striped">
                 <caption>
                   <h3>Search result appears here</h3>
-                  {(this.props.addUserError && <h4 className="text-center text-danger">
-                    {this.props.addUserError}</h4>) ||
-                  (this.props.addUserSuccess && <h4 className="text-center text-success">
-                    User added successfully</h4>)}
+                  {this.props.addUserSuccess && <h4 className="text-center text-success">
+                    User added successfully</h4>
+                  }
                 </caption>
                 <thead>
                 <tr>
@@ -99,8 +109,10 @@ export class AddUserToGroup extends React.Component {
                             <td>{user.username}</td>
                             <td>{user.fullname}</td>
                             <td>{user.email}</td>
-                            <td><a onClick={this.props.onAddUser} id={user.username}
-                                   className="btn btn-primary btn-sm btn-block" href="">Add</a></td>
+                            <td><a onClick={e => this.handleAddUser(e)} id={user.username}
+                                   className="btn btn-primary btn-sm btn-block" href="">
+                              Add</a>
+                            </td>
                           </tr>
                     );
                   })

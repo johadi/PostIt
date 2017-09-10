@@ -38,6 +38,7 @@ const mapStateToProps = state => ({
   tokenStatus: state.verifyTokenReducer,
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ verifyToken, getUserGroups }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ verifyToken, getUserGroups }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGroupAuthPage);
 

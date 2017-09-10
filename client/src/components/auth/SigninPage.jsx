@@ -68,17 +68,24 @@ export class SigninPage extends React.Component {
               <div className="inner cover">
                 <h2 className="cover-heading"><strong>Login to PostIt,</strong></h2>
                 <p className="lead">Share your moment with colleagues and friends.</p>
-                <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
+                <form onSubmit={e => this.handleSubmit(e)}
+                      className="form-horizontal" role="form">
                   { this.props.signinState.fails ?
-                    <ErrorComponent show={true} fails={this.props.signinState.fails} /> : null }
+                    <ErrorComponent
+                      show={true}
+                      fails={this.props.signinState.fails}
+                    /> : null
+                  }
                   <FormField errors={this.props.signinState.errors}
                              onChange={e => this.handleChange(e)}
                              value={this.state.credentials.username}
-                             name="username" placeholder="Username"/>
+                             name="username"
+                             placeholder="Username"/>
                   <FormField type="password" errors={this.props.signinState.errors}
                              onChange={e => this.handleChange(e)}
                              value={this.state.credentials.password}
-                             name="password" placeholder="Password"/>
+                             name="password"
+                             placeholder="Password"/>
                   <div className="form-group lead">
                     <div className="col-lg-offset-2
                     col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
@@ -123,6 +130,7 @@ SigninPage.propTypes = {
 const mapStateToProps = state => ({
   signinState: state.signinReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ signinAction }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ signinAction }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SigninPage);

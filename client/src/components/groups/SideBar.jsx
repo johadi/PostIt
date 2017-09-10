@@ -23,7 +23,7 @@ class SideBar extends React.Component {
   render() {
     const groupsLength = this.props.userGroups.length;
     return (
-        <div className="main col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
+        <div className="main side-bar col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
             <Link className="btn navy-header btn-lg btn-block">Quick Links</Link>
             <Link to="/create-group" className="btn btn-default btn-block">

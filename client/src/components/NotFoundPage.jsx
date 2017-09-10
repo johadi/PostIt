@@ -1,31 +1,24 @@
 import React from 'react';
+import { Link, browserHistory } from 'react-router';
+import NotFoundHeader from './headers/NotFoundHeader.jsx';
 /**
- * class NotFound page declaration
+ * GroupUsersPage class declaration
  */
 export default class NotFoundPage extends React.Component {
   /**
-   * @return {void} void
+   * renders component
+   * @return {XML} XML/JSX
    */
-  componentDidMount() {
-    const body = document.getElementById('body');
-    const app = document.getElementById('app');
-    if (body.className === 'body' || app.className === 'site-wrapper') {
-      app.className = '';
-    }
-    body.style.backgroundImage = 'none';
-    body.style.color = 'black';
+  handleClick(e) {
+    browserHistory.goBack();
   }
-
-  /**
-   * Renders component
-   * @return {XML} XML
-   */
   render() {
     return (
-        <div className="text-center">
-          <h2>Oops! 404, page not found</h2>
-          <p>We are sorry! the page you are looking for does not exist.</p>
-        </div>
+      <div id="not-found-div">
+        <NotFoundHeader/>
+        <div id="not-found-body" onClick={this.handleClick}></div>
+      </div>
     );
   }
 }
+

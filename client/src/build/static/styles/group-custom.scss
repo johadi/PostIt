@@ -71,3 +71,8 @@ a:hover {
 .text-white{
   color: #ffffff !important;
 }
+@media (min-width: 1170px) {
+  .side-bar{
+    height: 500px;
+  }
+}

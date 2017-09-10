@@ -12,10 +12,10 @@ router.route('/v1/group')
 /**
  * @api {post} /api/v1/group Create a group
  * @apiGroup Group
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {String} name Group title
+ * @apiParam {String} name Group name
  * @apiParamExample {json} Input
  *    {"name": "Andela"}
  * @apiSuccessExample {json} Success
@@ -33,13 +33,13 @@ router.route('/v1/group/:groupId/user')
 /**
  * @api {post} /api/v1/group/:groupId/user Add user to group
  * @apiGroup Group
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {id} Id of group
- * @apiParam {user} email or username of a user
+ * @apiParam {Number} groupId ID of group
+ * @apiParam {String} username Username of a user
  * @apiParamExample {json} Input
- *    {"user": "Ortwel"}
+ *    {"username": "Ortwel"}
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 201 CREATED
  *    {
@@ -53,10 +53,10 @@ router.route('/v1/group/:groupId/message')
 /**
  * @api {get} /api/v1/group/:groupId/message Get group messages
  * @apiGroup Message
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {id} groupId ID of group
+ * @apiParam {Number} groupId ID of a group
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
@@ -91,10 +91,10 @@ router.route('/v1/group/:groupId/message')
     /**
      * @api {post} /api/v1/group/:groupId/message POST messages to group
      * @apiGroup Message
-     * @apiHeader {String} Token of authenticated user
+     * @apiHeader {String} token Token of authenticated user
      * @apiHeaderExample {json} Header
      *    {"x-auth": "JWT xyz.abc.123.hgf"}
-     * @apiParam {id} Id of group
+     * @apiParam {Number} groupId ID of group
      * @apiParam {String} message Message to send to group
      * @apiSuccessExample {json} Success
      *    HTTP/1.1 201 CREATED
@@ -102,8 +102,6 @@ router.route('/v1/group/:groupId/message')
      *      "created successfully"
      */
     .post(authenticate, groupController.postMessage);
-// router.route('/group/:groupId/user/message')
-//     .get(groupController.getUserMessages);
 router.route('/v1/group/:groupId/message/:messageId')
 /**
  * @api {get} /api/v1/group/:groupId/message/:messageId Get a message in a group
@@ -111,8 +109,8 @@ router.route('/v1/group/:groupId/message/:messageId')
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {id} groupId ID of group
- * @apiParam {id} messageId ID of message
+ * @apiParam {Number} groupId ID of group
+ * @apiParam {Number} messageId ID of message
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *       {
@@ -132,10 +130,10 @@ router.route('/v1/group/:groupId/group-users')
 /**
  * @api {get} /api/v1/group/:groupId/group-users Get group members
  * @apiGroup Group
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {id} Id of group
+ * @apiParam {Number} groupId ID of a group
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
@@ -159,12 +157,12 @@ router.route('/v1/group/:groupId/group-users')
 router.route('/v1/group/message-read/:messageId')
 /**
  * @api {post} /api/v1/group/message-read/:messageId POST update
- * status of message whether read or not
+ * status of message when it is read
  * @apiGroup Message
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {id} messageId ID of message
+ * @apiParam {Number} messageId ID of message
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *
@@ -175,7 +173,7 @@ router.route('/v1/group/user/groups')
 /**
  * @api {get} /api/v1/group/user/groups Get user's groups
  * @apiGroup Group
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
  * @apiSuccessExample {json} Success
@@ -203,7 +201,7 @@ router.route('/v1/group/user/board')
 /**
  * @api {get} /api/v1/group/user/board Get user's unread messages in all joined groups
  * @apiGroup Group
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
  * @apiSuccessExample {json} Success
@@ -242,38 +240,14 @@ router.route('/v1/group/user/board')
     .get(authenticate, groupController.userMessageBoard);
 router.route('/v1/users')
 /**
- * @api {get} /api/v1/users?search=joh Get at most 10 users
- *  in the application that match the search term only
+ * @api {get} /api/v1/users?search=joh&groupId=3
+ * Get at most 10 users in the application that match the search term and userId of a group
  * @apiGroup Group
- * @apiHeader {String} Token of authenticated user
+ * @apiHeader {String} token Token of authenticated user
  * @apiHeaderExample {json} Header
  *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *       [
- *          {
- *            "id": 1,
- *            "username": "johadi",
- *            "fullname": "jimoh hadi",
- *            "email": "johadi@test.com",
- *          },
- *         {
- *            "id": 5,
- *            "username": "john121",
- *            "fullname": "john daniel",
- *            "email": "john@test.com",
- *          },
- *        ],
- */
-/**
- * @api {get} /api/v1/users?search=joh&groupId=3 Get at most 10 users
- * in the application that match the search term and userId of a group
- * @apiGroup Group
- * @apiHeader {String} Token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {String} search
- * @apiParam {String} groupId
+ * @apiParam {String} search Search term
+ * @apiParam {Number} groupId ID of a group
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
  *    {
@@ -290,8 +264,7 @@ router.route('/v1/users')
  *            "fullname": "john daniel",
  *            "email": "john@test.com",
  *          },
- *        ],
- *        groupUsersId: [1,4,6,8,9,0]
+ *        ]
  *    }
  */
     .get(authenticate, groupController.getAllUsers);

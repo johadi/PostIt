@@ -2,9 +2,9 @@ const router = require('express').Router();
 const authController = require('../controllers/auth');
 const verifyLinkMiddleware = require('../middlewares/verifyRecoveryLink');
 
-router.route('/user/signup')
+router.route('/v1/user/signup')
 /**
- * @api {post} /api/user/signup Register a new user
+ * @api {post} /api/v1/user/signup Register a new user
  * @apiGroup User
  * @apiParam {String} username User name
  * @apiParam {String} fullname Name of user
@@ -25,9 +25,9 @@ router.route('/user/signup')
  *    "xyz.abc.123.hgf"
  */
     .post(authController.signup);
-router.route('/user/signin')
+router.route('/v1/user/signin')
 /**
- * @api {post} /api/user/signin Login user
+ * @api {post} /api/v1/user/signin Login user
  * @apiGroup Authentication
  * @apiParam {String} username Username of registered user
  * @apiParam {String} password User password
@@ -42,9 +42,9 @@ router.route('/user/signin')
  *    "xyz.abc.123.hgf"
  */
     .post(authController.signin);
-router.route('/user/recover-password')
+router.route('/v1/user/recover-password')
 /**
- * @api {post} /api/user/recover-password User recovery password
+ * @api {post} /api/v1/user/recover-password User recovery password
  * @apiGroup Authentication
  * @apiParam {String} email Email of registered user
  * @apiParamExample {json} Input
@@ -57,10 +57,10 @@ router.route('/user/recover-password')
  *    "Password recovery link sent to your email"
  */
   .post(authController.passwordRecovery);
-router.route('/user/reset-password')
+router.route('/v1/user/reset-password')
   .get(verifyLinkMiddleware, authController.resetPasswordGet)
   /**
-   * @api {post} /api/user/reset-password User reset Password
+   * @api {post} /api/v1/user/reset-password User reset Password
    * @apiGroup Authentication
    * @apiParam {String} password User password
    * @apiParam {String} confirmPassword User confirm password

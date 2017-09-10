@@ -23,8 +23,12 @@ module.exports = {
           .then((existingUser) => {
             if (existingUser) {
               let message = '';
-              if (existingUser.email === body.email) message = 'A user with this email already exists';
-              if (existingUser.username === body.username) message = 'This Username has been used';
+              if (existingUser.email === body.email) {
+                message = 'A user with this email already exists';
+              }
+              if (existingUser.username === body.username) {
+                message = 'This Username has been used';
+              }
               return Promise.reject(message);
             }
             // if user does not exist and he/she registering for the first time
@@ -34,10 +38,15 @@ module.exports = {
             body.username = body.username.toLowerCase();
             body.fullname = body.fullname.toLowerCase();
             body.email = body.email.toLowerCase();
-            return User.create(body, { fields: ['email', 'password', 'username', 'mobile', 'fullname'] });
+            return User.create(
+              body,
+              { fields: ['email', 'password', 'username', 'mobile', 'fullname'] }
+              );
           })
           .then((savedUser) => {
-            const signupData = lodash.pick(savedUser, ['id', 'username', 'email', 'mobile', 'fullname']);
+            const signupData = lodash.pick(savedUser,
+              ['id', 'username', 'email', 'mobile', 'fullname']
+            );
             const token = jwt.sign(signupData, process.env.JWT_SECRET);
             return handleSuccess(201, token, res);
           })
@@ -98,7 +107,8 @@ module.exports = {
             // If all is well
             const userData = lodash.pick(user, ['id', 'username', 'email']);
             // Create token and should expire in the next 24 hou
-            const token = jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: 3600 * 24 });
+            const token = jwt.sign(userData,
+              process.env.JWT_SECRET, { expiresIn: 3600 * 24 });
             // Handle our send email here
             const from = 'no-reply <jimoh@google.com>';
             const to = user.email;
@@ -121,20 +131,24 @@ module.exports = {
                   // Create a new log for the user, if not
                   PasswordRecovery.create({ email: user.email, hashed: token });
                 }
-                return handleSuccess(200, 'Password recovery link sent to your email', res);
+                return handleSuccess(200,
+                  'Password recovery link sent to your email', res);
               })
               .catch((err) => {
-                const errorMessage = 'Error occurred while sending your Password recovery link. Try again';
+                const errorMessage = 'Error occurred while sending your ' +
+                  'Password recovery link. Try again';
                 return handleError(errorMessage, res);
               });
           })
           .catch((err) => {
-            const errorMessage = 'Error occurred while sending your Password recovery link. Try again';
+            const errorMessage = 'Error occurred while sending your Password ' +
+              'recovery link. Try again';
             return handleError(errorMessage, res);
           });
       })
       .catch((err) => {
-        const errorMessage = 'Sorry! Error occurred while processing your request. Try again';
+        const errorMessage = 'Sorry! Error occurred while processing your ' +
+          'request. Try again';
         console.log(err);
         return handleError(errorMessage, res);
       });

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -26,23 +27,16 @@ const common = {
 // '' is needed to allow imports without an extension.
 // Note the .'s before extensions as it will fail to match without!!!
   resolve: {
-    // alias: {
-    //   WeatherForm$: path.resolve(__dirname,'app/router_components/weatherForm.js')
-    // },
     extensions: ['*', '.js', '.jsx']
   },
   output: {
     path: PATHS.build,
     filename: 'bundle.js'
   },
+  plugins: [
+    new ExtractTextPlugin('style.css')
+  ],
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\.jsx?$/,
-    //     loaders: ['eslint'],
-    //     include: PATHS.app
-    //   }
-    // ],
     loaders: [
       // Set up jsx. This accepts js too thanks to RegExp
       {
@@ -55,14 +49,12 @@ const common = {
         include: PATHS.app
       },
       {
-        test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
-        include: PATHS.styles
-      },
-      {
-        test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
-        include: PATHS.styles
+        test: /\.(scss|css)?$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          // resolve-url-loader may be chained before sass-loader if necessary
+          use: ['css-loader', 'resolve-url-loader', 'sass-loader?sourceMap']
+        })
       },
       {
         test: /\.(ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -76,16 +68,6 @@ const common = {
         test: /\.(png|jpg|gif)$/,
         loader: 'url-loader?limit=250000'
       }
-      // {
-      //   test: /\.jsx?$/,
-      //   exclude: /node_modules/,
-      //   loader: 'react-hot-loader!babel-loader'
-      // },
-      // {
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loaders: ['babel-loader', 'eslint-loader']
-      // }
     ]
   },
 };
@@ -102,7 +84,6 @@ if (TARGET === 'build:dev' || TARGET === 'test:karma' || !TARGET) {
       historyApiFallback: true,
       hot: true,
       inline: true,
-      // progress: true,
 // Display only errors to reduce the amount of output.
       stats: 'errors-only',
 // Parse host and port from env so this is easy to customize.

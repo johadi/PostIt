@@ -52,7 +52,7 @@
   * On successful logged in, Users can create a group and add other users to it
   * Users cannot add themselves to a group they already belong
   * Users cannot access protected routes until they return a token given to them when they signed in
-  * Invalid group Id in any route ,like `api/group/y/user` will be rejected
+  * Invalid group Id in any route ,like `api/v1/group/y/user` will be rejected
   * Invalid routes are rejected
   
   # API Documentation

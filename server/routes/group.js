@@ -2,15 +2,15 @@ const router = require('express').Router();
 const groupController = require('../controllers/group');
 const authenticate = require('../middlewares/authenticate');
 
-router.route('/verify-token')
+router.route('/v1/verify-token')
     .get(authenticate, (req, res) => {
       if (req.user) {
         return res.status(200).json('user verified');
       }
     });
-router.route('/group')
+router.route('/v1/group')
 /**
- * @api {post} /api/group Create a group
+ * @api {post} /api/v1/group Create a group
  * @apiGroup Group
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -29,9 +29,9 @@ router.route('/group')
      *    }
  */
     .post(authenticate, groupController.createGroup);
-router.route('/group/:groupId/user')
+router.route('/v1/group/:groupId/user')
 /**
- * @api {post} /api/group/:groupId/user Add user to group
+ * @api {post} /api/v1/group/:groupId/user Add user to group
  * @apiGroup Group
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -49,9 +49,9 @@ router.route('/group/:groupId/user')
      *    }
  */
     .post(authenticate, groupController.addUserToGroup);
-router.route('/group/:groupId/message')
+router.route('/v1/group/:groupId/message')
 /**
- * @api {get} /api/group/:groupId/message Get group messages
+ * @api {get} /api/v1/group/:groupId/message Get group messages
  * @apiGroup Message
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -87,9 +87,9 @@ router.route('/group/:groupId/message')
  *    }
  */
     .get(authenticate, groupController.getMessages);
-router.route('/group/:groupId/message')
+router.route('/v1/group/:groupId/message')
     /**
-     * @api {post} /api/group/:groupId/message POST messages to group
+     * @api {post} /api/v1/group/:groupId/message POST messages to group
      * @apiGroup Message
      * @apiHeader {String} Token of authenticated user
      * @apiHeaderExample {json} Header
@@ -104,9 +104,9 @@ router.route('/group/:groupId/message')
     .post(authenticate, groupController.postMessage);
 // router.route('/group/:groupId/user/message')
 //     .get(groupController.getUserMessages);
-router.route('/group/:groupId/message/:messageId')
+router.route('/v1/group/:groupId/message/:messageId')
 /**
- * @api {get} /api/group/:groupId/message/:messageId Get a message in a group
+ * @api {get} /api/v1/group/:groupId/message/:messageId Get a message in a group
  * @apiGroup Message
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -128,9 +128,9 @@ router.route('/group/:groupId/message/:messageId')
  *        }
  */
     .get(authenticate, groupController.viewMessage); // view single notification
-router.route('/group/:groupId/group-users')
+router.route('/v1/group/:groupId/group-users')
 /**
- * @api {get} /api/group/:groupId/group-users Get group members
+ * @api {get} /api/v1/group/:groupId/group-users Get group members
  * @apiGroup Group
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -156,9 +156,10 @@ router.route('/group/:groupId/group-users')
  *    }
  */
   .get(authenticate, groupController.getGroupUsers);
-router.route('/group/message-read/:messageId')
+router.route('/v1/group/message-read/:messageId')
 /**
- * @api {post} /api/group/message-read/:messageId POST update status of message whether read or not
+ * @api {post} /api/v1/group/message-read/:messageId POST update
+ * status of message whether read or not
  * @apiGroup Message
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -170,9 +171,9 @@ router.route('/group/message-read/:messageId')
  *      true
  */
     .post(authenticate, groupController.updateMessageReadStatus);
-router.route('/group/user/groups')
+router.route('/v1/group/user/groups')
 /**
- * @api {get} /api/group/user/groups Get user's groups
+ * @api {get} /api/v1/group/user/groups Get user's groups
  * @apiGroup Group
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -197,10 +198,10 @@ router.route('/group/user/groups')
  *        }]
  *    }
  */
-    .get(authenticate, groupController.getGroupsUserBelongsTo);
-router.route('/group/user/board')
+    .get(authenticate, groupController.getUserGroups);
+router.route('/v1/group/user/board')
 /**
- * @api {get} /api/group/user/board Get user's unread messages in all joined groups
+ * @api {get} /api/v1/group/user/board Get user's unread messages in all joined groups
  * @apiGroup Group
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -239,9 +240,10 @@ router.route('/group/user/board')
  *    }
  */
     .get(authenticate, groupController.userMessageBoard);
-router.route('/users')
+router.route('/v1/users')
 /**
- * @api {get} /api/users?search=joh Get at most 10 users in the application that match the search term only
+ * @api {get} /api/v1/users?search=joh Get at most 10 users
+ *  in the application that match the search term only
  * @apiGroup Group
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header
@@ -264,7 +266,8 @@ router.route('/users')
  *        ],
  */
 /**
- * @api {get} /api/users?search=joh&groupId=3 Get at most 10 users in the application that match the search term and userId of a group
+ * @api {get} /api/v1/users?search=joh&groupId=3 Get at most 10 users
+ * in the application that match the search term and userId of a group
  * @apiGroup Group
  * @apiHeader {String} Token of authenticated user
  * @apiHeaderExample {json} Header

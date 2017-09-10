@@ -146,12 +146,7 @@ module.exports = {
             return handleError(errorMessage, res);
           });
       })
-      .catch((err) => {
-        const errorMessage = 'Sorry! Error occurred while processing your ' +
-          'request. Try again';
-        console.log(err);
-        return handleError(errorMessage, res);
-      });
+      .catch(err => handleError(err, res));
   },
   resetPasswordGet(req, res) {
     if (!req.reset) {

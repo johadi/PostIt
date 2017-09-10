@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { SendNotification } from '../../../src/components/groups/SendNotification';
+import { SendNotification } from '../../../src/components/groups/SendNotification.jsx';
 
 describe('<SendNotification/>', () => {
   const clearPostMessageError = sinon.spy();
@@ -16,7 +16,7 @@ describe('<SendNotification/>', () => {
     // postMessage,
     groupId: '4',
     name: 'andela',
-    groupState: { post_message_error: '' }
+    groupState: { postMessageErr: '' }
   };
   const wrapper = mount(<SendNotification{ ...props} />);
   it('should check that post message div exists', () => {

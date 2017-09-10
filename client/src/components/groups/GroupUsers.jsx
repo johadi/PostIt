@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import { Pagination } from 'react-bootstrap';
-import { getGroupUsers, getGroupUsersPagination } from '../../actions/group/groupActions';
+import { getGroupUsers, getGroupUsersPaginated } from '../../actions/group/groupActions';
 
 /**
  * GroupUsers class declaration
@@ -34,7 +34,7 @@ export class GroupUsers extends React.Component {
    */
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
-    this.props.getGroupUsersPagination(this.props.groupId, eventKey);
+    this.props.getGroupUsersPaginated(this.props.groupId, eventKey);
     this.props.getGroupUsers(this.props.groupId); // necessary to keep users side bar state
   }
 
@@ -47,7 +47,9 @@ export class GroupUsers extends React.Component {
     return (
         <div className="col-md-12" id="message-board-div">
           <h2 className="text-capitalize">{this.props.name} group members</h2>
-          <p className="text-display"><strong>{count} {count === 1 ? 'member' : 'members'}</strong></p>
+          <p className="text-display">
+            <strong>{count} {count === 1 ? 'member' : 'members'}</strong>
+          </p>
           <hr/>
           <div className="list-group">
             {Users.map(user => (
@@ -77,7 +79,7 @@ export class GroupUsers extends React.Component {
 }
 GroupUsers.propTypes = {
   groupState: PropTypes.object.isRequired,
-  getGroupUsersPagination: PropTypes.func.isRequired,
+  getGroupUsersPaginated: PropTypes.func.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
   groupUsersPagination: PropTypes.object.isRequired,
@@ -86,6 +88,7 @@ GroupUsers.propTypes = {
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ getGroupUsers, getGroupUsersPagination }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getGroupUsers, getGroupUsersPaginated }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupUsers);
 

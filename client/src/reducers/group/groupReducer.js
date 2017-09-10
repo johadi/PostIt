@@ -2,27 +2,27 @@ import actionTypes from '../../actions/actionTypes';
 
 const initialState = {
   error: null,
-  add_user_error: null,
-  add_user_success: false,
-  post_message_error: null,
-  get_group_messages_error: null,
-  group_messages: null,
-  group_view_message: null, // hold a single message detail for view
-  group_view_message_error: null,
-  group_users: null,
-  group_users_error: null,
-  group_users_pagination: null,
-  group_users_pagination_error: null,
-  groups_user_belongs: null,
-  groups_user_belongs_error: null,
-  groups_user_belongs_pagination: null,
-  groups_user_belongs_pagination_error: null,
-  message_board_messages_pagination: null,
-  message_board_messages_pagination_error: null,
-  users_search: null,
-  users_search_error: null,
-  message_read: false,
-  message_read_error: null
+  addUserErr: null,
+  addUserSuccess: false,
+  postMessageErr: null,
+  groupMessagesErr: null,
+  groupMessages: null,
+  groupViewMessage: null, // hold a single message detail for view
+  groupViewMessageErr: null,
+  groupUsersStore: null,
+  groupUsersError: null,
+  groupUsersPaginated: null,
+  groupUsersPaginatedErr: null,
+  groupsUserBelongs: null,
+  groupsUserBelongsErr: null,
+  userGroupsPaginated: null,
+  userGroupsPaginatedErr: null,
+  boardMessagesPaginated: null,
+  boardMessagesPaginatedErr: null,
+  usersSearch: null,
+  usersSearchErr: null,
+  messageRead: false,
+  messageReadErr: null
 };
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -39,221 +39,221 @@ const groupReducer = (state = initialState, action) => {
     case actionTypes.GROUP_ADD_USER_SUCCESSFUL:
       state = {
         ...state,
-        add_user_error: null,
-        add_user_success: true
+        addUserErr: null,
+        addUserSuccess: true
       };
       break;
     case actionTypes.GROUP_ADD_USER_ERROR:
       state = {
         ...state,
-        add_user_success: false,
-        add_user_error: action.payload
+        addUserSuccess: false,
+        addUserErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_ADD_USER_TO_GROUP_ERROR:
+    case actionTypes.ADD_USER_TO_GROUP_CLEAR:
       state = {
         ...state,
-        add_user_success: false,
-        add_user_error: null
+        addUserSuccess: false,
+        addUserErr: null
       };
       break;
     case actionTypes.POST_MESSAGE_SUCCESSFUL:
       state = {
         ...state,
-        post_message_error: null
+        postMessageErr: null
       };
       break;
     case actionTypes.POST_MESSAGE_ERROR:
       state = {
         ...state,
-        post_message_error: action.payload
+        postMessageErr: action.payload
       };
       break;
     case actionTypes.CLEAR_POST_MESSAGE_ERROR:
       state = {
         ...state,
-        post_message_error: null
+        postMessageErr: null
       };
       break;
     case actionTypes.GET_GROUP_MESSAGES_SUCCESSFUL:
       state = {
         ...state,
-        group_messages: action.payload,
-        get_group_messages_error: null,
+        groupMessages: action.payload,
+        groupMessagesErr: null,
       };
       break;
     case actionTypes.GET_GROUP_MESSAGES_ERROR:
       state = {
         ...state,
-        group_messages: null,
-        group_view_message: null,
-        get_group_messages_error: action.payload
+        groupMessages: null,
+        groupViewMessage: null,
+        groupMessagesErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_GET_GROUP_MESSAGES_ERROR:
+    case actionTypes.GET_GROUP_MESSAGES_CLEAR:
       state = {
         ...state,
-        group_messages: null,
-        get_group_messages_error: null
+        groupMessages: null,
+        groupMessagesErr: null
       };
       break;
     case actionTypes.VIEW_MESSAGE_SUCCESSFUL:
       state = {
         ...state,
-        group_view_message: action.payload, // hold all messages to be used in message/:id route
-        group_view_message_error: null
+        groupViewMessage: action.payload,
+        groupViewMessageErr: null
       };
       break;
     case actionTypes.VIEW_MESSAGE_ERROR:
       state = {
         ...state,
-        group_view_message: null,
-        group_view_message_error: action.payload
+        groupViewMessage: null,
+        groupViewMessageErr: action.payload
       };
       break;
     case actionTypes.CLEAR_VIEW_MESSAGE_ERROR:
       state = {
         ...state,
-        group_view_message: null,
-        group_view_message_error: null
+        groupViewMessage: null,
+        groupViewMessageErr: null
       };
       break;
     case actionTypes.GET_GROUP_USERS_SUCCESSFUL:
       state = {
         ...state,
-        group_users: action.payload,
-        group_users_error: null
+        groupUsersStore: action.payload,
+        groupUsersError: null
       };
       break;
     case actionTypes.GET_GROUP_USERS_ERROR:
       state = {
         ...state,
-        group_users_error: action.payload
+        groupUsersError: action.payload
       };
       break;
     case actionTypes.CLEAR_GET_GROUP_USERS_ERROR:
       state = {
         ...state,
-        group_users_error: null
+        groupUsersError: null
       };
       break;
-    case actionTypes.GET_GROUP_USERS_PAGINATION_SUCCESSFUL:
+    case actionTypes.GROUP_USERS_PAGINATED_SUCCESS:
       state = {
         ...state,
-        group_users_pagination: action.payload,
-        group_users_pagination_error: null
+        groupUsersPaginated: action.payload,
+        groupUsersPaginatedErr: null
       };
       break;
-    case actionTypes.GET_GROUP_USERS_PAGINATION_ERROR:
+    case actionTypes.GROUP_USERS_PAGINATED_ERROR:
       state = {
         ...state,
-        group_users_pagination: null,
-        group_users_pagination_error: action.payload
+        groupUsersPaginated: null,
+        groupUsersPaginatedErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_GET_GROUP_USERS_PAGINATION_ERROR:
+    case actionTypes.GROUP_USERS_PAGINATED_CLEAR:
       state = {
         ...state,
-        group_users_pagination: null,
-        group_users_pagination_error: null
+        groupUsersPaginated: null,
+        groupUsersPaginatedErr: null
       };
       break;
-    case actionTypes.GET_GROUPS_USER_BELONGS_TO_SUCCESSFUL:
+    case actionTypes.GET_USER_GROUPS_SUCCESS:
       state = {
         ...state,
-        groups_user_belongs: action.payload,
-        groups_user_belongs_error: null
+        groupsUserBelongs: action.payload,
+        groupsUserBelongsErr: null
       };
       break;
-    case actionTypes.GET_GROUPS_USER_BELONGS_TO_ERROR:
+    case actionTypes.GET_USER_GROUPS_ERROR:
       state = {
         ...state,
-        groups_user_belongs: null,
-        groups_user_belongs_error: action.payload
+        groupsUserBelongs: null,
+        groupsUserBelongsErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_GET_GROUPS_USER_BELONGS_TO_ERROR:
+    case actionTypes.GET_USER_GROUPS_CLEAR:
       state = {
         ...state,
-        groups_user_belongs: null,
-        groups_user_belongs_error: null
+        groupsUserBelongs: null,
+        groupsUserBelongsErr: null
       };
       break;
-    case actionTypes.GET_GROUPS_USER_BELONGS_TO_PAGINATION_SUCCESSFUL:
+    case actionTypes.USER_GROUPS_PAGINATED_SUCCESS:
       state = {
         ...state,
-        groups_user_belongs_pagination: action.payload,
-        groups_user_belongs_pagination_error: null
+        userGroupsPaginated: action.payload,
+        userGroupsPaginatedErr: null
       };
       break;
-    case actionTypes.GET_GROUPS_USER_BELONGS_TO_PAGINATION_ERROR:
+    case actionTypes.USER_GROUPS_PAGINATED_ERROR:
       state = {
         ...state,
-        groups_user_belongs_pagination: null,
-        groups_user_belongs_pagination_error: action.payload
+        userGroupsPaginated: null,
+        userGroupsPaginatedErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_GET_GROUPS_USER_BELONGS_TO_PAGINATION_ERROR:
+    case actionTypes.USER_GROUPS_PAGINATED_CLEAR:
       state = {
         ...state,
-        groups_user_belongs_pagination: null,
-        groups_user_belongs_pagination_error: null
+        userGroupsPaginated: null,
+        userGroupsPaginatedErr: null
       };
       break;
-    case actionTypes.GET_MESSAGES_OF_MASSAGE_BOARD_PAGINATION_SUCCESSFUL:
+    case actionTypes.GET_BOARD_MESSAGES_SUCCESS:
       state = {
         ...state,
-        message_board_messages_pagination: action.payload,
-        message_board_messages_pagination_error: null
+        boardMessagesPaginated: action.payload,
+        boardMessagesPaginatedErr: null
       };
       break;
-    case actionTypes.GET_MESSAGES_OF_MASSAGE_BOARD_PAGINATION_ERROR:
+    case actionTypes.GET_BOARD_MESSAGES_ERROR:
       state = {
         ...state,
-        message_board_messages_pagination: null,
-        message_board_messages_pagination_error: action.payload
+        boardMessagesPaginated: null,
+        boardMessagesPaginatedErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_GET_MESSAGES_OF_MASSAGE_BOARD_PAGINATION_ERROR:
+    case actionTypes.CLEAR_BOARD_MESSAGES_ERROR:
       state = {
         ...state,
-        message_board_messages_pagination: null,
-        message_board_messages_pagination_error: null
+        boardMessagesPaginated: null,
+        boardMessagesPaginatedErr: null
       };
       break;
     case actionTypes.USERS_SEARCH_SUCCESSFUL:
       state = {
         ...state,
-        users_search: action.payload,
-        users_search_error: null
+        usersSearch: action.payload,
+        usersSearchErr: null
       };
       break;
     case actionTypes.USERS_SEARCH_ERROR:
       state = {
         ...state,
-        users_search: null,
-        users_search_error: action.payload
+        usersSearch: null,
+        usersSearchErr: action.payload
       };
       break;
     case actionTypes.CLEAR_USERS_SEARCH_ERROR:
       state = {
         ...state,
-        users_search: null,
-        users_search_error: null
+        usersSearch: null,
+        usersSearchErr: null
       };
       break;
     case actionTypes.MESSAGE_READ_SUCCESSFUL:
       state = {
         ...state,
-        message_read: action.payload,
-        message_read_error: null
+        messageRead: action.payload,
+        messageReadErr: null
       };
       break;
     case actionTypes.MESSAGE_READ_ERROR:
       state = {
         ...state,
-        message_read: null,
-        message_read_error: action.payload
+        messageRead: null,
+        messageReadErr: action.payload
       };
       break;
     default:

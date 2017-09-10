@@ -27,21 +27,18 @@ class GroupSideBar extends React.Component {
           <p>
             <Link className="btn btn-block btn-lg navy-header">Activities</Link>
             <Link to={`/group/${this.props.groupId}/board`} className="btn btn-default btn-block">
-              <i className="fa fa-envelope-open text-display" aria-hidden="true"></i> Group notifications
+              <i className="fa fa-envelope-open text-display" aria-hidden="true">
+              </i> Group notifications
             </Link>
             <Link to={`/group/${this.props.groupId}/message`} className="btn btn-default btn-block">
-              <i className="fa fa-pencil-square text-display" aria-hidden="true"></i> Send notification here
+              <i className="fa fa-pencil-square text-display" aria-hidden="true">
+              </i> Send notification here
             </Link>
             <Link to={`/group/${this.props.groupId}/add`} className="btn btn-default btn-block">
               <i className="fa fa-user-plus text-display" aria-hidden="true"></i> Add User to group
             </Link>
             <Link to={`/group/${this.props.groupId}/users`} className="btn btn-default btn-block">
               <i className="fa fa-users text-display" aria-hidden="true"></i> Group members
-            </Link>
-            <Link to="/dashboard" className="btn btn-default btn-block">
-              <span
-                className="text-danger"><strong> <i className="fa fa-user-times" aria-hidden="true"></i> Back to Dashboard</strong>
-              </span>
             </Link>
           </p>
           <hr/>

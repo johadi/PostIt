@@ -1,7 +1,7 @@
 import React from 'react';
 import { IndexLink, Link } from 'react-router';
 
-const AuthHeader = props => (
+const IndexHeader = props => (
     <div className="masthead clearfix">
       <div className="inner">
         <h2 className="masthead-brand">PostIt</h2>
@@ -15,4 +15,4 @@ const AuthHeader = props => (
       </div>
     </div>
   );
-export default AuthHeader;
+export default IndexHeader;

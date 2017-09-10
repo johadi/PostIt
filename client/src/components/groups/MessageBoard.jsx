@@ -6,7 +6,7 @@ import PropTypes from 'react-proptypes';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
-import { getGroupsUserBelongsTo, getMessagesOfMessageBoardPagination } from '../../actions/group/groupActions';
+import { getUserGroups, getBoardMessagesPaginated } from '../../actions/group/groupActions';
 
 /**
  * MessageBoard class declaration
@@ -38,7 +38,7 @@ export class MessageBoard extends React.Component {
    * @return {void} void
    */
   componentDidMount() {
-    this.props.getGroupsUserBelongsTo();
+    this.props.getUserGroups();
   }
 
   /**
@@ -48,11 +48,11 @@ export class MessageBoard extends React.Component {
    */
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
-    this.props.getMessagesOfMessageBoardPagination(eventKey);
+    this.props.getBoardMessagesPaginated(eventKey);
     // if(this.reload===1){
-    //   this.props.getGroupsUserBelongsTo();
+    //   this.props.getUserGroups();
     // }
-    this.props.getGroupsUserBelongsTo();
+    this.props.getUserGroups();
   }
 
   /**
@@ -71,39 +71,49 @@ export class MessageBoard extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    // this.props.getGroupsUserBelongsTo(); // force side bar to render anytime this page renders
-    const { messages, pages, count } = this.props.messageBoardMessagesPagination;
+    // this.props.getUserGroups(); // force side bar to render anytime this page renders
+    const { messages, pages, count } = this.props.boardMessagesPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2><strong>Notification board</strong></h2>
-          <small style={{ color: 'red' }}>{count === 1 ? `(${count}) notification` : `(${count}) notifications`} you have not read</small>
+          <small style={{ color: 'red' }}>{count === 1 ?
+            `(${count}) notification` : `(${count}) notifications`} you have not read</small>
           <hr/>
           {
             messages.map((message) => {
-              let priority = <span style={{ backgroundColor: 'green' }} className="badge text-capitalize">{message.priority}</span>;
+              let priority = <span style={{ backgroundColor: 'green' }}
+                                   className="badge text-capitalize">{message.priority}</span>;
               if (message.priority === 'urgent') {
-                priority = <span style={{ backgroundColor: 'orange' }} className="badge text-capitalize">{message.priority}</span>;
+                priority = <span style={{ backgroundColor: 'orange' }}
+                                 className="badge text-capitalize">{message.priority}</span>;
               }
               if (message.priority === 'critical') {
-                priority = <span style={{ backgroundColor: 'darkred' }} className="badge text-capitalize">{message.priority}</span>;
+                priority = <span style={{ backgroundColor: 'darkred' }}
+                                 className="badge text-capitalize">{message.priority}</span>;
               }
               return (
                 <div key={message.id} className="media">
                   <div className="media-left message">
                   </div>
                   <div className="media-body">
-                    <h4 className="media-heading"><span className="text-capitalize"> {message.User.username}</span>
+                    <h4 className="media-heading"><span className="text-capitalize">
+                      {message.User.username}</span>
                       <small>
                         <Link to={`/group/${message.Group.id}/board`}>
-                          <i><span className="text-capitalize"> {message.Group.name} </span>group</i>
+                          <i><span className="text-capitalize"
+                          > {message.Group.name} </span>group</i>
                         </Link>
                         <small> {priority} </small>
                         {this.showTime(message.createdAt) >= 23 ?
-                          <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}</small> :
+                          <small> posted on {new Date(message.createdAt)
+                            .toLocaleString('en-us', this.dateOptions)}</small> :
                           <small> Sent <Moment fromNow>{message.createdAt}</Moment></small>}
                       </small>
                     </h4>
-                    <p className="text-overflow"><Link to={`/message/${message.Group.id}/${message.id}`}>{message.body}</Link></p>
+                    <p className="text-overflow">
+                      <Link to={`/message/${message.Group.id}/${message.id}`}>
+                        {message.body}
+                      </Link></p>
                   </div>
                   <hr/>
                 </div>
@@ -125,21 +135,23 @@ export class MessageBoard extends React.Component {
               />
           }
           {
-            count === 0 ? <p className="no-message">You have no unread notifications yet. Only notifications you have not read are shown here.</p> : null
+            count === 0 ? <p className="no-message">
+              You have no unread notifications yet. Only
+              notifications you have not read are shown here.</p> : null
           }
         </div>
     );
   }
 }
 MessageBoard.propTypes = {
-  getGroupsUserBelongsTo: PropTypes.func.isRequired,
-  getMessagesOfMessageBoardPagination: PropTypes.func.isRequired,
-  messageBoardMessagesPagination: PropTypes.object.isRequired
+  getUserGroups: PropTypes.func.isRequired,
+  getBoardMessagesPaginated: PropTypes.func.isRequired,
+  boardMessagesPagination: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupsUserBelongsTo,
-  getMessagesOfMessageBoardPagination }, dispatch);
+  getUserGroups,
+  getBoardMessagesPaginated }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MessageBoard);

@@ -3,17 +3,17 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { MessageBoard } from '../../../src/components/groups/MessageBoard';
+import { MessageBoard } from '../../../src/components/groups/MessageBoard.jsx';
 
 describe('<MessageBoard/>', () => {
-  const getGroupsUserBelongsTo = sinon.spy();
-  const getMessagesOfMessageBoardPagination = sinon.spy();
+  const getUserGroups = sinon.spy();
+  const getBoardMessagesPaginated = sinon.spy();
   sinon.spy(MessageBoard.prototype, 'componentDidMount');
   sinon.spy(MessageBoard.prototype, 'handleSelect');
   const props = {
-    getGroupsUserBelongsTo,
-    getMessagesOfMessageBoardPagination,
-    messageBoardMessagesPagination: {
+    getUserGroups,
+    getBoardMessagesPaginated,
+    boardMessagesPagination: {
       messages: [],
       pages: 1,
       count: 0
@@ -26,12 +26,12 @@ describe('<MessageBoard/>', () => {
   });
   describe('No Messages', () => {
     before(() => {
-      const messageBoardMessagesPagination = {
+      const boardMessagesPagination = {
         messages: [],
         pages: 1,
         count: 0
       };
-      wrapper.setProps({ messageBoardMessagesPagination });
+      wrapper.setProps({ boardMessagesPagination });
     });
     it('should check that Pagination doesn\'t exist since our page is just 1, no pagination', () => {
       expect(wrapper.find('Pagination').length).toNotExist();
@@ -47,7 +47,7 @@ describe('<MessageBoard/>', () => {
   describe('If there is at least one message', () => {
     const pages = 4;
     before(() => {
-      const messageBoardMessagesPagination = {
+      const boardMessagesPagination = {
         messages: [
           {
             id: 1,
@@ -77,7 +77,7 @@ describe('<MessageBoard/>', () => {
         pages,
         count: 10
       };
-      wrapper.setProps({ messageBoardMessagesPagination });
+      wrapper.setProps({ boardMessagesPagination });
     });
     it('should check that Pagination exist since our pages is now 3,there is pagination', () => {
       expect(wrapper.find('Pagination').length).toBe(1);

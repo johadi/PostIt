@@ -3,20 +3,20 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { addUserToGroup, clearAddUserToGroupError, getGroupUsers } from '../../actions/group/groupActions';
+import { addUserToGroup, addUserToGroupClear, getGroupUsers } from '../../actions/group/groupActions';
 import '../../build/static/styles/group-custom.scss';
-import GroupHeader from '../headers/GroupHeader.jsx';
+import MainHeader from '../headers/MainHeader.jsx';
 import GroupSideBar from './GroupSideBar.jsx';
-import CreatedGroupAddUser from './CreatedGroupAddUser.jsx';
+import AddUserToGroup from './AddUserToGroup.jsx';
 /**
  * Created Group Add User
  */
-class CreatedGroupAddUserPage extends React.Component {
+class AddUserToGroupPage extends React.Component {
   /**
    * @return {void} void
    */
   componentWillUnmount() {
-    this.props.clearAddUserToGroupError();
+    this.props.addUserToGroupClear();
   }
 
   /**
@@ -40,13 +40,14 @@ class CreatedGroupAddUserPage extends React.Component {
     const { name, Users } = this.props.groupUsers;
     return (
         <div className="container">
-          <GroupHeader/>
+          <MainHeader/>
           <div id="group-body" className="row">
-            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"style={{ marginTop: '30px', paddingTop: '20px' }}>
-              <CreatedGroupAddUser
+            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"
+                 style={{ marginTop: '30px', paddingTop: '20px' }}>
+              <AddUserToGroup
                   onAddUser={e => this.handleAddUser(e)}
-                  addUserError={this.props.groupState.add_user_error}
-                  addUserSuccess={this.props.groupState.add_user_success}
+                  addUserError={this.props.groupState.addUserErr}
+                  addUserSuccess={this.props.groupState.addUserSuccess}
                   name={name}
                   groupId={this.props.groupId}
               />
@@ -57,16 +58,17 @@ class CreatedGroupAddUserPage extends React.Component {
     );
   }
 }
-CreatedGroupAddUserPage.propTypes = {
+AddUserToGroupPage.propTypes = {
   addUserToGroup: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
-  clearAddUserToGroupError: PropTypes.func.isRequired,
+  addUserToGroupClear: PropTypes.func.isRequired,
   groupUsers: PropTypes.object
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ addUserToGroup, clearAddUserToGroupError, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(CreatedGroupAddUserPage);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  addUserToGroup, addUserToGroupClear, getGroupUsers }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(AddUserToGroupPage);

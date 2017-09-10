@@ -5,10 +5,10 @@ const initialState = {
   success: false,
   errors: null,
   fails: null,
-  reset_message: null,
-  reset_success: false,
-  reset_errors: null,
-  reset_fails: null
+  resetMessage: null,
+  resetSuccess: false,
+  resetErrors: null,
+  resetFails: null
 };
 const passwordReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -42,28 +42,28 @@ const passwordReducer = (state = initialState, action) => {
     case actionTypes.RESET_SUCCESSFUL:
       state = {
         ...state,
-        reset_message: action.payload,
-        reset_success: true,
-        reset_errors: null,
-        reset_fails: null
+        resetMessage: action.payload,
+        resetSuccess: true,
+        resetErrors: null,
+        resetFails: null
       };
       break;
     case actionTypes.RESET_VALIDATION_ERROR:
       state = {
         ...state,
-        reset_message: null,
-        reset_success: false,
-        reset_fails: null,
-        reset_errors: action.payload // capture validation errors like Email required
+        resetMessage: null,
+        resetSuccess: false,
+        resetFails: null,
+        resetErrors: action.payload // capture validation errors like Email required
       };
       break;
     case actionTypes.RESET_UNSUCCESSFUL:
       state = {
         ...state,
-        reset_message: null,
-        reset_success: false,
-        reset_errors: null,
-        reset_fails: action.payload // capture all failed responses like User Not Found
+        resetMessage: null,
+        resetSuccess: false,
+        resetErrors: null,
+        resetFails: action.payload // capture all failed responses like User Not Found
       };
       break;
     default:

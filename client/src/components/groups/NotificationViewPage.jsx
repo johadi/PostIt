@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import lodash from 'lodash';
 import jwtDecode from 'jwt-decode';
-import { updateMessageReadAfterView } from '../../actions/group/groupActions';
-import GroupHeader from '../headers/GroupHeader.jsx';
+import { updateReadMessage } from '../../actions/group/groupActions';
+import MainHeader from '../headers/MainHeader.jsx';
 import GroupSideBar from './GroupSideBar.jsx';
 import Notification from './Notification.jsx';
 
@@ -29,7 +29,7 @@ class NotificationViewPage extends React.Component {
    */
   componentDidMount() {
     if (!lodash.includes(this.props.message.readersId, this.userDetail.id)) {
-      this.props.updateMessageReadAfterView(this.props.message.id);
+      this.props.updateReadMessage(this.props.message.id);
     }
   }
 
@@ -41,9 +41,10 @@ class NotificationViewPage extends React.Component {
     const { name, Users } = this.props.groupUsers;
     return (
         <div className="container">
-          <GroupHeader/>
+          <MainHeader/>
           <div id="group-body" className="row">
-            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
+            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"
+                 id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
                   <Notification name={name} message={this.props.message}/>
@@ -57,7 +58,7 @@ class NotificationViewPage extends React.Component {
   }
 }
 NotificationViewPage.propTypes = {
-  updateMessageReadAfterView: PropTypes.func.isRequired,
+  updateReadMessage: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   groupId: PropTypes.string.isRequired,
   message: PropTypes.object.isRequired,
@@ -66,5 +67,6 @@ NotificationViewPage.propTypes = {
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ updateMessageReadAfterView }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateReadMessage }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(NotificationViewPage);

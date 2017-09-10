@@ -14,7 +14,7 @@ module.exports = {
       email,
       mobile,
       password,
-      confirm_password: confirmPassword
+      confirmPassword
     };
   },
   setLoginData(username, password) {

@@ -19,9 +19,9 @@ export default (
         <Route path="/dashboard" component={groupPages.DashboardAuthPage}/>
         <Route path="/message/:groupId/:messageId" component={groupPages.NotificationViewAuthPage}/>
         <Route path="/group/:groupId/message" component={groupPages.SendNotificationAuthPage}/>
-        <Route path="/group/:groupId/board" component={groupPages.GroupNotificationBoardAuthPage}/>
+        <Route path="/group/:groupId/board" component={groupPages.GroupNotificationBoardAuth}/>
         <Route path="/create-group" component={groupPages.CreateGroupAuthPage}/>
-        <Route path="/group/:groupId/add" component={groupPages.CreatedGroupAddUserAuthPage}/>
+        <Route path="/group/:groupId/add" component={groupPages.AddUserGroupAuth}/>
         <Route path="/groups" component={groupPages.GroupsAuthPage}/>
         <Route path="/group/:groupId/users" component={groupPages.GroupUsersAuthPage}/>
       </Route>

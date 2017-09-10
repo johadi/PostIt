@@ -17,3 +17,20 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 60px;
 }
+#not-found-body{
+  background: url("../images/error404.gif");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: inherit;
+  width: inherit;
+}
+#not-found-div{
+  height: 100%;
+  width: 100%;
+}
+#error404-header{
+  background: #5bd6ff;
+}
+#error404-header-txt{
+  color: #ffffff !important;
+}

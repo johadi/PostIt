@@ -8,7 +8,6 @@ import './build/static/styles/auth-custom.scss';
 import './build/static/styles/group-custom.scss';
 import './build/static/styles/font-awesome/css/font-awesome.css';
 import routes from './routes.jsx';
-// import App from './AppTest';
 
 ReactDOM.render(
     <Provider store={store}>
@@ -16,6 +15,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('app')
 );
-
-// ReactDOM.render(<App speak="lawd is speaking"/>, document.getElementById('app'));
-

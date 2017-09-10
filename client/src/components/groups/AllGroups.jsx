@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { Pagination } from 'react-bootstrap';
-import { getGroupsUserBelongsTo, getGroupsUserBelongsToPagination } from '../../actions/group/groupActions';
+import { getUserGroups, getUserGroupsPaginated } from '../../actions/group/groupActions';
 
 /**
  * GroupsContainer class declaration
@@ -25,8 +25,8 @@ export class GroupsContainer extends React.Component {
    * @return {void} void
    */
   componentWillMount() {
-    this.props.getGroupsUserBelongsTo();
-    // this.props.getGroupsUserBelongsToPagination(1);
+    this.props.getUserGroups();
+    // this.props.getUserGroupsPaginated(1);
   }
 
   /**
@@ -35,8 +35,8 @@ export class GroupsContainer extends React.Component {
    */
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
-    this.props.getGroupsUserBelongsToPagination(eventKey);
-    this.props.getGroupsUserBelongsTo(); // necessary to keep side bar state else it will vanish
+    this.props.getUserGroupsPaginated(eventKey);
+    this.props.getUserGroups(); // necessary to keep side bar state else it will vanish
   }
 
   /**
@@ -44,15 +44,17 @@ export class GroupsContainer extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { pages, count, Groups } = this.props.groupsUserBelongsToPagination;
+    const { pages, count, Groups } = this.props.userGroupsPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2>Your Groups</h2>
-          <p className="text-display"><strong className="group-count">Total groups you joined: {count}</strong></p>
+          <p className="text-display"><strong className="group-count">
+            Total groups you joined: {count}</strong></p>
           <hr/>
           <div className="list-group">
             {Groups.map(userGroup => (
-                <Link to={`/group/${userGroup.Group.id}/board`} key={userGroup.Group.id} className="group-div list-group-item">
+                <Link to={`/group/${userGroup.Group.id}/board`}
+                      key={userGroup.Group.id} className="group-div list-group-item">
                   <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>
                 </Link>
             ))}
@@ -78,13 +80,14 @@ export class GroupsContainer extends React.Component {
 }
 GroupsContainer.propTypes = {
   groupState: PropTypes.object.isRequired,
-  getGroupsUserBelongsTo: PropTypes.func.isRequired,
-  getGroupsUserBelongsToPagination: PropTypes.func.isRequired,
-  groupsUserBelongsToPagination: PropTypes.object.isRequired
+  getUserGroups: PropTypes.func.isRequired,
+  getUserGroupsPaginated: PropTypes.func.isRequired,
+  userGroupsPagination: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ getGroupsUserBelongsTo, getGroupsUserBelongsToPagination }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getUserGroups, getUserGroupsPaginated }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer);
 

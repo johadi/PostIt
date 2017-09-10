@@ -15,7 +15,7 @@ export default {
       .setValue('input[name=email]', faker.internet.email())
       .setValue('input[name=fullname]', faker.name.findName())
       .setValue('input[name=password]', password)
-      .setValue('input[name=confirm_password]', password)
+      .setValue('input[name=confirmPassword]', password)
       .setValue('input[name=mobile]', faker.phone.phoneNumber())
       .waitForElementVisible('#signup', 1000)
       .execute(() => {

@@ -29,7 +29,7 @@ export default {
       .setValue('input[name=email]', faker.internet.email())
       .setValue('input[name=fullname]', faker.name.findName())
       .setValue('input[name=password]', 'andela29')
-      .setValue('input[name=confirm_password]', 'andela29')
+      .setValue('input[name=confirmPassword]', 'andela29')
       .setValue('input[name=mobile]', faker.phone.phoneNumber())
       .assert.elementPresent('#signup')
       .assert.containsText('#signup', 'Sign up')

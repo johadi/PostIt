@@ -70,14 +70,18 @@ export class SendNotification extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { post_message_error } = this.props.groupState;
+    const { postMessageErr } = this.props.groupState;
     return (
         <div className="col-sm-offset-1 col-sm-10 well well-lg" id="post-message-div">
-          <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
-            <p className="text-center"><strong>Send notification to <span className="text-capitalize">
+          <form onSubmit={e => this.handleSubmit(e)}
+                className="form-horizontal" role="form">
+            <p className="text-center">
+              <strong>Send notification to <span className="text-capitalize">
               {this.props.name} group</span></strong></p>
-            {(!!post_message_error && <h4 className="text-danger text-center">{post_message_error}</h4>) ||
-            (!this.state.isValid && <h4 className="text-danger text-center">Notification body required.</h4>)}
+            {(!!postMessageErr && <h4 className="text-danger text-center">
+              {postMessageErr}</h4>) ||
+            (!this.state.isValid && <h4 className="text-danger text-center">
+              Notification body required.</h4>)}
             <div className="form-group">
               <div className="col-lg-12">
                 <textarea value={this.state.input.message}
@@ -92,7 +96,8 @@ export class SendNotification extends React.Component {
               <div className="col-lg-12">
                 <p className="help-block">
                   <strong>
-                    Notification priority level: <span className="text-capitalize text-display">{this.state.input.priority}</span>
+                    Notification priority level: <span className="text-capitalize text-display">
+                    {this.state.input.priority}</span>
                   </strong>
                 </p>
                 <select value={this.state.input.priority}
@@ -107,7 +112,9 @@ export class SendNotification extends React.Component {
             </div>
             <div className="form-group">
               <div className="col-md-12">
-                <button type="submit" className="btn btn-block btn-post btn-lg">Send Notification</button>
+                <button type="submit" className="btn btn-block btn-post btn-lg">
+                  Send Notification
+                </button>
               </div>
             </div>
           </form>
@@ -125,5 +132,6 @@ SendNotification.propTypes = {
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ postMessage, clearPostMessageError }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+  postMessage, clearPostMessageError }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(SendNotification);

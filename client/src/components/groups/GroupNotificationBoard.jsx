@@ -7,7 +7,7 @@ import lodash from 'lodash';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
-import { getGroupMessages, getGroupUsers, clearGetGroupMessagesError } from '../../actions/group/groupActions';
+import { getGroupMessages, getGroupUsers, getGroupMessagesClear } from '../../actions/group/groupActions';
 
 /**
  * GroupNotificationBoard class declaration
@@ -60,19 +60,22 @@ export class GroupNotificationBoard extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { count, rows, pages } = this.props.groupState.group_messages;
+    const { count, rows, pages } = this.props.groupState.groupMessages;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2 className="text-capitalize">{this.props.name} Group </h2>
           <p>({count}) {count === 1 ? 'notification' : 'notifications'}</p>
           <hr/>
           {rows.map((message) => {
-            let priority = <span style={{ backgroundColor: 'green' }} className="badge text-capitalize">{message.priority}</span>;
+            let priority = <span style={{ backgroundColor: 'green' }}
+                                 className="badge text-capitalize">{message.priority}</span>;
             if (message.priority === 'urgent') {
-              priority = <span style={{ backgroundColor: 'orange' }} className="badge text-capitalize">{message.priority}</span>;
+              priority = <span style={{ backgroundColor: 'orange' }}
+                               className="badge text-capitalize">{message.priority}</span>;
             }
             if (message.priority === 'critical') {
-              priority = <span style={{ backgroundColor: 'darkred' }} className="badge text-capitalize">{message.priority}</span>;
+              priority = <span style={{ backgroundColor: 'darkred' }}
+                               className="badge text-capitalize">{message.priority}</span>;
             }
             return (
               <div key={message.id} className="media message">
@@ -81,8 +84,10 @@ export class GroupNotificationBoard extends React.Component {
                 <div className="media-body">
                   <h4 className="media-heading">{message.User.username}
                     {this.showTime(message.createdAt) >= 23 ?
-                      <small> posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
-                      </small> : <small> Sent <Moment fromNow>{message.createdAt}</Moment> {priority} |
+                      <small>
+                        posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
+                      </small> :
+                      <small> Sent <Moment fromNow>{message.createdAt}</Moment> {priority} |
                         {
                           lodash.includes(message.readersId, this.userDetail.id) ?
                             <span className="text-success"> Read</span> :
@@ -128,7 +133,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
   getGroupMessages,
-  clearGetGroupMessagesError,
+  getGroupMessagesClear,
   getGroupUsers
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupNotificationBoard);

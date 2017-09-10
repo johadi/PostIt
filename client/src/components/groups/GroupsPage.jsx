@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
-import GroupHeader from '../headers/GroupHeader.jsx';
+import MainHeader from '../headers/MainHeader.jsx';
 import SideBar from './SideBar.jsx';
-import AllGroups from './Groups.jsx';
+import AllGroups from './AllGroups.jsx';
 
 /**
  * GroupsPage class declaration
@@ -17,12 +17,14 @@ export default class GroupsPage extends React.Component {
     const { Groups } = this.props.groupsUserBelongsTo;
     return (
         <div className="container">
-          <GroupHeader/>
+          <MainHeader/>
           <div id="group-body" className="row">
-            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default" id="message-board-panel">
+            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"
+                 id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <AllGroups groupsUserBelongsToPagination={this.props.groupsUserBelongsToPagination}/>
+                  <AllGroups
+                    userGroupsPagination={this.props.userGroupsPagination}/>
                 </div>
               </div>
             </div>
@@ -34,6 +36,6 @@ export default class GroupsPage extends React.Component {
 }
 GroupsPage.propTypes = {
   groupsUserBelongsTo: PropTypes.object.isRequired,
-  groupsUserBelongsToPagination: PropTypes.object.isRequired
+  userGroupsPagination: PropTypes.object.isRequired
 };
 

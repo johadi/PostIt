@@ -3,16 +3,16 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { CreateGroupAddUser } from '../../../src/components/groups/CreatedGroupAddUser';
+import { AddUserToGroup } from '../../../src/components/groups/AddUserToGroup.jsx';
 
 
-describe('<CreateGroupAddUser/>', () => {
+describe('<AddUserToGroup/>', () => {
   const onAddUser = sinon.spy();
   const getGroupUsers = sinon.spy();
   const getUsersSearch = sinon.spy();
-  sinon.spy(CreateGroupAddUser.prototype, 'handleSubmit');
-  sinon.spy(CreateGroupAddUser.prototype, 'handleSearch');
-  // sinon.spy(CreateGroupAddUser.prototype, 'componentWIllMount'); // spy on componentWillMount
+  sinon.spy(AddUserToGroup.prototype, 'handleSubmit');
+  sinon.spy(AddUserToGroup.prototype, 'handleSearch');
+  // sinon.spy(AddUserToGroup.prototype, 'componentWIllMount'); // spy on componentWillMount
   const props = {
     name: '',
     onAddUser,
@@ -23,7 +23,7 @@ describe('<CreateGroupAddUser/>', () => {
     getUsersSearch,
     groupId: ''
   };
-  const wrapper = mount(<CreateGroupAddUser{ ...props} />);
+  const wrapper = mount(<AddUserToGroup{ ...props} />);
   it('should check if component contains form input of type text and with onKeyUp attribute', () => {
     expect(wrapper.find('input').first().props().onKeyUp).toExist();
     expect(wrapper.find('input').first().props().type).toBe('text');
@@ -33,12 +33,12 @@ describe('<CreateGroupAddUser/>', () => {
   });
   it('Should check if handleSubmit and getUsersSearch methods are called when a form is submitted', () => {
     wrapper.find('form').simulate('submit'); // trigger an event by form
-    expect(CreateGroupAddUser.prototype.handleSubmit.called).toBe(true); // handleSubmit is called
+    expect(AddUserToGroup.prototype.handleSubmit.called).toBe(true); // handleSubmit is called
     expect(getUsersSearch.called).toBe(true);
   });
   it('Should check if handleSearch and getUsersSearch methods are called on every onKeyUp', () => {
     wrapper.find('input').first().simulate('keyup'); // trigger an event by form
-    expect(CreateGroupAddUser.prototype.handleSearch.called).toBe(true);
+    expect(AddUserToGroup.prototype.handleSearch.called).toBe(true);
     expect(getUsersSearch.called).toBe(true);
   });
 });

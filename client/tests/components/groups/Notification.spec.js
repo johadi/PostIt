@@ -1,9 +1,10 @@
+/* eslint-disable newline-per-chained-call */
 import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import Notification from '../../../src/components/groups/Notification';
+import Notification from '../../../src/components/groups/Notification.jsx';
 
 describe('<Notification/>', () => {
   const props = {
@@ -22,13 +23,13 @@ describe('<Notification/>', () => {
     expect(wrapper.props().message).toExist();
   });
   it('Should show sender name', () => {
-    expect(messageDiv.find('p').at(0).find('a').first().text()).toEqual('jimoh'); // eslint-disable-line newline-per-chained-call
+    expect(messageDiv.find('p').at(0).find('span').first().text()).toEqual('jimoh');
   });
   it('Should show the group name the message was sent to', () => {
-    expect(messageDiv.find('h2').at(0).text()).toEqual('andela group'); // eslint-disable-line newline-per-chained-call
+    expect(messageDiv.find('h2').at(0).text()).toEqual('andela group');
   });
   it('Should check that message body is displayed', () => {
-    expect(messageDiv.find('p').at(2).text()).toEqual('lord of the ring'); // eslint-disable-line newline-per-chained-call
+    expect(messageDiv.find('p').at(2).text()).toEqual('lord of the ring');
   });
   // it('Should check that message sender is displayed', () => {
   //   expect(messageDiv.find().text()).toBe('Total groups you joined: 0');

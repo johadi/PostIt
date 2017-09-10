@@ -42,20 +42,27 @@ export class CreateGroup extends React.Component {
     return (
         <div className="col-sm-offset-2 col-sm-8 well well-lg" id="create-group-div">
           <form onSubmit={e => this.handleCreateGroup(e)} className="form-horizontal" role="form">
-            <p className="text-center"><strong>Create Your Group and start adding members</strong></p>
-            { !this.state.isValid ? <div className='alert alert-danger alert-dismissible text-center'>Group name required</div> :
-                (this.props.groupState.error ? <div className='alert alert-danger alert-dismissible text-center'>
-                  {this.props.groupState.error}</div> : null)
+            <p className="text-center">
+              <strong>Create Your Group and start adding members</strong></p>
+            { !this.state.isValid ?
+              <div className='alert alert-danger alert-dismissible text-center'>
+                Group name required</div> :
+                (this.props.groupState.error ?
+                  <div className='alert alert-danger alert-dismissible text-center'>
+                    {this.props.groupState.error}</div> : null)
             }
             <div className="form-group">
               <div className="col-lg-12">
-                <input type="text" name="name" ref={input => this.name = input} className="form-control input-lg" id="name" placeholder="Enter Group name"/>
+                <input type="text" name="name" ref={input => this.name = input}
+                       className="form-control input-lg" id="name" placeholder="Enter Group name"/>
               </div>
             </div>
 
             <div className="form-group">
               <div className="col-md-12">
-                <button type="submit" className="btn btn-block btn-post btn-lg">Create group</button>
+                <button type="submit" className="btn btn-block btn-post btn-lg">
+                  Create group
+                </button>
               </div>
             </div>
           </form>

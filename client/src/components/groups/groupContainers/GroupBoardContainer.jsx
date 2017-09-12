@@ -3,15 +3,14 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers, getGroupMessages, getGroupMessagesClear } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import GroupNotificationBoard from '../GroupNotificationBoardPage.jsx';
 
 /**
- * GroupNotificationBoardAuth class declaration
+ * GroupBoardContainer class declaration
  */
-class GroupNotificationBoardAuth extends React.Component {
+class GroupBoardContainer extends React.Component {
   /**
    * @return {void} void
    */
@@ -19,9 +18,6 @@ class GroupNotificationBoardAuth extends React.Component {
     this.props.getGroupMessages(this.props.params.groupId);
     this.props.getGroupUsers(this.props.params.groupId);
   }
-  // componentWillUnmount(){
-  //   this.props.getGroupMessagesClear();
-  // }
   /**
    * renders the component
    * @return {XML} XML
@@ -33,7 +29,7 @@ class GroupNotificationBoardAuth extends React.Component {
                                 groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
-GroupNotificationBoardAuth.propTypes = {
+GroupBoardContainer.propTypes = {
   getGroupMessages: PropTypes.func.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
@@ -45,6 +41,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  verifyToken, getGroupMessages, getGroupMessagesClear, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupNotificationBoardAuth);
+  getGroupMessages, getGroupMessagesClear, getGroupUsers }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupBoardContainer);
 

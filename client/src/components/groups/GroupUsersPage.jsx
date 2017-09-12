@@ -14,7 +14,6 @@ export default class GroupUsersPage extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { name, Users } = this.props.groupUsers;
     return (
         <div className="container">
           <MainHeader/>
@@ -23,19 +22,19 @@ export default class GroupUsersPage extends React.Component {
                  id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
-                  <GroupUsers groupUsersPagination={this.props.groupUsersPagination}
-                              name={name} users={Users} groupId={this.props.groupId}/>
+                  <GroupUsers
+                    groupUsersPagination={this.props.groupUsersPagination}
+                    groupId={this.props.groupId}/>
                 </div>
               </div>
             </div>
-            <GroupSideBar groupId={ this.props.groupId} users={Users}/>
+            <GroupSideBar groupId={ this.props.groupId}/>
           </div>
         </div>
     );
   }
 }
 GroupUsersPage.propTypes = {
-  groupUsers: PropTypes.object.isRequired,
   groupUsersPagination: PropTypes.object.isRequired,
   groupId: PropTypes.string.isRequired
 };

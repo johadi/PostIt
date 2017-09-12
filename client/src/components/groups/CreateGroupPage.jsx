@@ -14,7 +14,6 @@ export default class CreateGroupPage extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const { Groups } = this.props.groupsUserBelongsTo;
     return (
         <div className="container">
           <MainHeader/>
@@ -27,13 +26,10 @@ export default class CreateGroupPage extends React.Component {
                 </div>
               </div>
             </div>
-            <SideBar userGroups={Groups}/>
+            <SideBar/>
           </div>
         </div>
     );
   }
 }
-CreateGroupPage.propTypes = {
-  groupsUserBelongsTo: PropTypes.object.isRequired
-};
 

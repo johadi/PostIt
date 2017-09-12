@@ -30,7 +30,6 @@ class Dashboard extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const { Groups } = this.props.groupsUserBelongsTo;
     return (
         <div className="container">
           <MainHeader/>
@@ -45,7 +44,7 @@ class Dashboard extends React.Component {
                 </div>
               </div>
             </div>
-            <SideBar userGroups={Groups}/>
+            <SideBar/>
           </div>
           <SignupModal/>
         </div>
@@ -53,7 +52,6 @@ class Dashboard extends React.Component {
   }
 }
 Dashboard.propTypes = {
-  groupsUserBelongsTo: PropTypes.object.isRequired,
   cancelModal: PropTypes.func.isRequired,
   boardMessagesPagination: PropTypes.object.isRequired,
   signupState: PropTypes.object.isRequired

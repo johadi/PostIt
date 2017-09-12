@@ -464,7 +464,7 @@ module.exports = {
                       const groupUsersData = {
                         id: group.id,
                         name: group.name,
-                        Users: groupWithMembers.rows,
+                        users: groupWithMembers.rows,
                         count: groupWithMembers.count
                       };
                       return handleSuccess(200, groupUsersData, res);
@@ -495,7 +495,7 @@ module.exports = {
                         id: group.id,
                         name: group.name,
                         pages,
-                        Users: groupWithMembers.rows,
+                        users: groupWithMembers.rows,
                         count: groupWithMembers.count
                       };
                       return handleSuccess(200, groupUsersData, res);

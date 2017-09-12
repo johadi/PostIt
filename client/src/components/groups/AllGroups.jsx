@@ -26,7 +26,6 @@ export class GroupsContainer extends React.Component {
    */
   componentWillMount() {
     this.props.getUserGroups();
-    // this.props.getUserGroupsPaginated(1);
   }
 
   /**

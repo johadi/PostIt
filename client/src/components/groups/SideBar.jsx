@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
 import { getUserGroups } from '../../actions/group/groupActions';
 
 /**
@@ -10,22 +11,15 @@ import { getUserGroups } from '../../actions/group/groupActions';
  */
 class SideBar extends React.Component {
   /**
-   * @return {void} void
-   */
-  componentWillMount() {
-    this.props.getUserGroups();
-  }
-
-  /**
    * renders the component
    * @return {XML} JSX
    */
   render() {
-    const groupsLength = this.props.userGroups.length;
+    const userDetail = jwtDecode(window.sessionStorage.token);
     return (
         <div className="main side-bar col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
-            <Link className="btn navy-header btn-lg btn-block">Quick Links</Link>
+            <p className="btn navy-header btn-lg btn-block">Quick Links</p>
             <Link to="/create-group" className="btn btn-default btn-block">
               <i className="fa fa-lg fa-plus-circle text-display"
                  aria-hidden="true"></i> Create Group
@@ -35,36 +29,24 @@ class SideBar extends React.Component {
             </Link>
           </p>
           <hr/>
-          <div className="list-group">
-            <Link className="list-group-item active navy-header">
-              <h5 className="list-group-item-heading text-center">Your top groups</h5>
-            </Link>
+          <div className="list-group profile-items-header">
+            <p className="list-group-item profile-header">
+              <h5 className="list-group-item-heading text-center profile">Your profile</h5>
+            </p>
           </div>
-          <div className="list-group">
-            {this.props.userGroups.splice(0, 5).map(userGroup => (
-                <Link to={`/group/${userGroup.Group.id}/board`}
-                      key={userGroup.Group.id} className="list-group-item">
-                  <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>
-                </Link>
-            ))}
-            {
-              groupsLength < 6 ? null :
-                  <Link to="/group-users" className="list-group-item btn btn-primary">
-                    <h5 className="list-group-item-heading"><strong><Link to={'/groups'}>
-                      See all you groups</Link></strong></h5>
-                  </Link>
-            }
+          <div className="list-group profile-items">
+            <p className="list-group-item">
+              <h5 className="list-group-item-heading text-center">{userDetail.username}</h5>
+            </p>
+            <p className="list-group-item">
+              <h5 className="list-group-item-heading text-center">{userDetail.fullname}</h5>
+            </p>
+            <p className="list-group-item">
+              <h5 className="list-group-item-heading text-center">{userDetail.email}</h5>
+            </p>
           </div>
         </div>
     );
   }
 }
-SideBar.propTypes = {
-  userGroups: PropTypes.array.isRequired,
-  getUserGroups: PropTypes.func.isRequired
-};
-const mapStateToProps = state => ({
-  groupState: state.groupReducer
-});
-const mapDispatchToProps = dispatch => bindActionCreators({ getUserGroups }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
+export default SideBar;

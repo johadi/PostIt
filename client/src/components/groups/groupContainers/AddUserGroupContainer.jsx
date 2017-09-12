@@ -9,9 +9,9 @@ import NullPage from '../NullPage.jsx';
 import AddUserToGroupPage from '../AddUserToGroupPage.jsx';
 
 /**
- * AddUserGroupAuth class declaration
+ * AddUserGroupContainer class declaration
  */
-class AddUserGroupAuth extends React.Component {
+class AddUserGroupContainer extends React.Component {
   /**
    * @return {void} void
    */
@@ -30,7 +30,7 @@ class AddUserGroupAuth extends React.Component {
                                  groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
-AddUserGroupAuth.propTypes = {
+AddUserGroupContainer.propTypes = {
   params: PropTypes.object.isRequired,
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
@@ -42,5 +42,5 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ verifyToken, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(AddUserGroupAuth);
+export default connect(mapStateToProps, mapDispatchToProps)(AddUserGroupContainer);
 

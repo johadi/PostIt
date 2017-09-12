@@ -132,7 +132,7 @@ export class SignupPage extends React.Component {
                           <p className="text-signup">
                             Already have an Account ?
                             <Link className="text-primary" to="/signin">
-                            <strong>Login</strong></Link>
+                            <strong> Login</strong></Link>
                           </p>
                         </div>
                       </div>

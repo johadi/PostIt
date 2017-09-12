@@ -3,19 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import lodash from 'lodash';
-import { getGroupUsers, getUsersSearch } from '../../actions/group/groupActions';
+import { getUsersSearch } from '../../actions/group/groupActions';
 
 /**
  * AddUserToGroup class declaration
  */
 export class AddUserToGroup extends React.Component {
-  /**
-   * @return {void} void
-   */
-  componentWillMount() {
-    this.props.getGroupUsers(this.props.groupId);
-  }
-
   /**
    * handles form submit
    * @return {void} void
@@ -24,7 +17,6 @@ export class AddUserToGroup extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.getUsersSearch(this.props.groupId, this.search.value);
-    this.props.getGroupUsers(this.props.groupId); // to reload the group side bar
   }
   /**
    * handles user click
@@ -44,7 +36,6 @@ export class AddUserToGroup extends React.Component {
    */
   handleSearch(e) {
     this.props.getUsersSearch(this.props.groupId, e.target.value);
-    this.props.getGroupUsers(this.props.groupId); // to reload the group side bar
   }
 
   /**
@@ -55,8 +46,9 @@ export class AddUserToGroup extends React.Component {
     const { usersSearch } = this.props.groupState;
     return (
         <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
-          <h3 className="text-center">
-            Add Members to <span className="text-capitalize">{this.props.name}</span> group</h3>
+          <h4 className="text-center">
+            Add members to <span className="text-capitalize text-display">
+            {this.props.name}</span> group</h4>
           <div className="row well well-sm">
             <div className="col-lg-10 col-lg-offset-1">
               <div className="input-group">
@@ -76,7 +68,7 @@ export class AddUserToGroup extends React.Component {
             <div className="col-lg-12">
               <table className="table table-striped">
                 <caption>
-                  <h3>Search result appears here</h3>
+                  <h4>Search result appears here</h4>
                   {this.props.addUserSuccess && <h4 className="text-center text-success">
                     User added successfully</h4>
                   }
@@ -130,7 +122,6 @@ AddUserToGroup.propTypes = {
   onAddUser: PropTypes.func.isRequired,
   addUserError: PropTypes.any,
   addUserSuccess: PropTypes.bool,
-  getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   getUsersSearch: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired
@@ -139,6 +130,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupUsers, getUsersSearch }, dispatch);
+  getUsersSearch }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AddUserToGroup);
 

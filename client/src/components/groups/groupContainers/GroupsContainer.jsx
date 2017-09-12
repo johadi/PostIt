@@ -2,20 +2,18 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { verifyToken } from '../../../actions/verifyTokenAction';
-import { getUserGroups, getUserGroupsPaginated } from '../../../actions/group/groupActions';
+import { getUserGroupsPaginated } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import GroupsPage from '../GroupsPage.jsx';
 
 /**
- * GroupsAuthPage class declaration
+ * GroupsContainer class declaration
  */
-class GroupsAuthPage extends React.Component {
+class GroupsContainer extends React.Component {
   /**
    * @return {void} void
    */
   componentWillMount() {
-    this.props.getUserGroups(); // for side bar
     this.props.getUserGroupsPaginated(1); // for group page
   }
 
@@ -24,14 +22,12 @@ class GroupsAuthPage extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const { groupsUserBelongs, userGroupsPaginated } = this.props.groupState;
-    return this.props.tokenStatus.success && groupsUserBelongs && userGroupsPaginated ? <GroupsPage
-        groupsUserBelongsTo={groupsUserBelongs}
+    const { userGroupsPaginated } = this.props.groupState;
+    return this.props.tokenStatus.success && userGroupsPaginated ? <GroupsPage
         userGroupsPagination={userGroupsPaginated} /> : <NullPage/>;
   }
 }
-GroupsAuthPage.propTypes = {
-  getUserGroups: PropTypes.func.isRequired,
+GroupsContainer.propTypes = {
   getUserGroupsPaginated: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
@@ -41,8 +37,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  verifyToken,
-  getUserGroups,
   getUserGroupsPaginated }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupsAuthPage);
+export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer);
 

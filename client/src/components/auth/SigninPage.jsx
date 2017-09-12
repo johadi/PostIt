@@ -103,7 +103,7 @@ export class SigninPage extends React.Component {
                       <span className="pull-right">
                       Forget Password ?
                       <Link className="text-underline text-signin" to="/recover-password">
-                        <strong>Click</strong></Link>
+                        <strong> Click</strong></Link>
                     </span>
                     </div>
                   </div>

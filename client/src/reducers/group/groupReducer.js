@@ -28,11 +28,13 @@ const groupReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GROUP_CREATE_SUCCESSFUL:
       state = {
+        ...state,
         error: null
       };
       break;
     case actionTypes.GROUP_CREATE_ERROR:
       state = {
+        ...state,
         error: action.payload
       };
       break;

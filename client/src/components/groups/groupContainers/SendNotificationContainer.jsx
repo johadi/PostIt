@@ -1,18 +1,16 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers } from '../../../actions/group/groupActions';
 
 import NullPage from '../NullPage.jsx';
 import SendNotificationPage from '../SendNotificationPage.jsx';
 
 /**
- * SendNotificationAuthPage class declaration
+ * SendNotificationContainer class declaration
  */
-class SendNotificationAuthPage extends React.Component {
+class SendNotificationContainer extends React.Component {
   /**
    * @return {void} void
    */
@@ -30,7 +28,7 @@ class SendNotificationAuthPage extends React.Component {
         groupUsers={groupUsersStore} groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
-SendNotificationAuthPage.propTypes = {
+SendNotificationContainer.propTypes = {
   getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
@@ -41,6 +39,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ verifyToken, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(SendNotificationAuthPage);
+  bindActionCreators({ getGroupUsers }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(SendNotificationContainer);
 

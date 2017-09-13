@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/20</span>
+        <span class='fraction'>20/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/8</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/5</span>
+        <span class='fraction'>5/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/20</span>
+        <span class='fraction'>20/20</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -81,30 +81,30 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">require('dotenv').config();
@@ -112,31 +112,31 @@ const jwt = require('jsonwebtoken');
 const User = require('../database/models').User;
 const PasswordRecovery = require('../database/models').PasswordRecovery;
 &nbsp;
-module.exports = <span class="fstat-no" title="function not covered" >(</span>req, res, next) =&gt; {
-  c</span>onst token = <span class="cstat-no" title="statement not covered" >req.query.token;
-<span class="cstat-no" title="statement not covered" >  if (!token) {</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(400).json('This link is Invalid');</span>
+module.exports = (req, res, next) =&gt; {
+  const token = req.query.token;
+  if (!token) {
+    return res.status(400).json('This link is Invalid');
   }
-<span class="cstat-no" title="statement not covered" >  jwt.verify(token, process.env.JWT_SECRET, <span class="fstat-no" title="function not covered" >(</span>error, decoded) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(400).json('This link seems to have expired or invalid');</span>
+  jwt.verify(token, process.env.JWT_SECRET, (error, decoded) =&gt; {
+    if (error) {
+      return res.status(400).json('This link seems to have expired or invalid');
     }
-<span class="cstat-no" title="statement not covered" >    User.findById(decoded.id)</span>
-      .then(<span class="fstat-no" title="function not covered" >(</span>user) =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >          return Promise.reject('User with this recovery link doesn\'t match our record');</span>
+    User.findById(decoded.id)
+      .then((user) =&gt; {
+        if (!user) {
+          return Promise.reject('User with this recovery link doesn\'t match our record');
         }
         // check if you have a record of a user with this token requesting password change
-<span class="cstat-no" title="statement not covered" >        return PasswordRecovery.findOne({ hashed: token });</span>
+        return PasswordRecovery.findOne({ where: { hashed: token } });
       })
-      .then(<span class="fstat-no" title="function not covered" >(</span>foundUser) =&gt; {
-<span class="cstat-no" title="statement not covered" >        if (!foundUser) {</span>
-<span class="cstat-no" title="statement not covered" >          return Promise.reject('No record for this User requesting password change');</span>
+      .then((foundUser) =&gt; {
+        if (!foundUser) {
+          return Promise.reject('No record for this User requesting password change');
         }
-<span class="cstat-no" title="statement not covered" >        req.reset = decoded;</span>
-<span class="cstat-no" title="statement not covered" >        return next();</span>
+        req.reset = decoded;
+        return next();
       })
-      .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >err =&gt; res.status(404).json(err));</span></span>
+      .catch(err =&gt; res.status(404).json(err));
   });
 };
 &nbsp;</pre></td></tr>
@@ -145,7 +145,7 @@ module.exports = <span class="fstat-no" title="function not covered" >(</span>re
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 13 2017 13:52:03 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 13 2017 20:59:37 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>4/16</span>
+        <span class='fraction'>16/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/9</span>
+        <span class='fraction'>9/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>4/16</span>
+        <span class='fraction'>16/16</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -72,47 +72,47 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../database/models').User;
 &nbsp;
-module.exports = <span class="fstat-no" title="function not covered" >(</span>req, res, next) =&gt; {
-  c</span>onst token = <span class="cstat-no" title="statement not covered" >req.body.token || req.query.token || req.header('x-auth');
-<span class="cstat-no" title="statement not covered" >  if (!token) {</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(401).json('Unauthorized: No token provided');</span>
+module.exports = (req, res, next) =&gt; {
+  const token = req.body.token || req.query.token || req.header('x-auth');
+  if (!token) {
+    return res.status(401).json('Unauthorized: No token provided');
   }
-<span class="cstat-no" title="statement not covered" >  jwt.verify(token, process.env.JWT_SECRET, <span class="fstat-no" title="function not covered" >(</span>error, decoded) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(400).json('This token is invalid');</span>
+  jwt.verify(token, process.env.JWT_SECRET, (error, decoded) =&gt; {
+    if (error) {
+      return res.status(400).json('This token is invalid');
     }
-<span class="cstat-no" title="statement not covered" >    User.findById(decoded.id)</span>
-        .then(<span class="fstat-no" title="function not covered" >(</span>user) =&gt; {
-<span class="cstat-no" title="statement not covered" >          if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >            return Promise.reject('User with this token not found');</span>
+    User.findById(decoded.id)
+        .then((user) =&gt; {
+          if (!user) {
+            return Promise.reject('User with this token not found');
           }
-<span class="cstat-no" title="statement not covered" >          req.user = decoded;</span>
-<span class="cstat-no" title="statement not covered" >          return next();</span>
+          req.user = decoded;
+          return next();
         })
-        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >err =&gt; res.status(404).json(err));</span></span>
+        .catch(err =&gt; res.status(404).json(err));
   });
 };
 &nbsp;</pre></td></tr>
@@ -121,7 +121,7 @@ module.exports = <span class="fstat-no" title="function not covered" >(</span>re
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 13 2017 13:52:03 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Sep 13 2017 20:59:37 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

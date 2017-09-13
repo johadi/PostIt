@@ -3,25 +3,18 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getGroupUsers } from '../../actions/group/groupActions';
+import jwtDecode from 'jwt-decode';
 
 /**
  * GroupSideBar class declaration
  */
 class GroupSideBar extends React.Component {
   /**
-   * @return {void} void
-   */
-  componentWillMount() {
-    this.props.getGroupUsers(this.props.groupId);
-  }
-
-  /**
    * renders the component
    * @return {XML} XML/JSX
    */
   render() {
-    const usersLength = this.props.users.length;
+    const userDetail = jwtDecode(window.sessionStorage.token);
     return (
         <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
@@ -42,37 +35,27 @@ class GroupSideBar extends React.Component {
             </Link>
           </p>
           <hr/>
-          <div className="list-group">
-            <Link className="list-group-item active navy-header">
-              <h5 className="list-group-item-heading text-center">Group Members</h5>
-            </Link>
+          <div className="list-group profile-items-header">
+            <p className="list-group-item profile-header">
+              <h5 className="list-group-item-heading text-center profile">Your profile</h5>
+            </p>
           </div>
-          <div className="list-group">
-            {this.props.users.splice(0, 6).map(user => (
-                <Link key={user.User.id} className="list-group-item">
-                  <h5 className="list-group-item-heading">{user.User.username}</h5>
-                </Link>
-            ))}
-            {usersLength <= 6 ? null :
-                <Link to="/group-users" className="list-group-item btn btn-primary">
-                  <h5 className="list-group-item-heading"><strong>
-                    <Link to={`/group/${this.props.groupId}/users`}>See all members</Link></strong>
-                  </h5>
-                </Link>
-            }
+          <div className="list-group profile-items">
+            <p className="list-group-item">
+              <h5 className="list-group-item-heading text-center">{userDetail.username}</h5>
+            </p>
+            <p className="list-group-item">
+              <h5 className="list-group-item-heading text-center">{userDetail.fullname}</h5>
+            </p>
+            <p className="list-group-item">
+              <h5 className="list-group-item-heading text-center">{userDetail.email}</h5>
+            </p>
           </div>
         </div>
     );
   }
 }
 GroupSideBar.propTypes = {
-  groupState: PropTypes.object.isRequired,
   groupId: PropTypes.string.isRequired,
-  users: PropTypes.array.isRequired,
-  getGroupUsers: PropTypes.func.isRequired
 };
-const mapStateToProps = state => ({
-  groupState: state.groupReducer
-});
-const mapDispatchToProps = dispatch => bindActionCreators({ getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupSideBar);
+export default GroupSideBar;

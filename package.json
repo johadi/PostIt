@@ -26,7 +26,7 @@
     "build": "babel-node tools/build.js",
     "postbuild": "node tools/publicServer.js",
     "test:e2e": "nightwatch",
-    "test:mocha": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/actions/*.spec.js\""
+    "test:mocha": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/reducers/**/*.spec.js\""
   },
   "apidoc": {
     "name": "PostIt API - Documentation",

@@ -13,7 +13,6 @@ const userDetails = {
   password: '123456',
   confirmPassword: '123456'
 };
-const sendData =
 describe('SignupAction', () => {
   beforeEach(() => {
     moxios.install();
@@ -30,20 +29,44 @@ describe('SignupAction', () => {
     ];
 
     const store = mockStore({});
-    console.log(store);
-    store.dispatch({type: 'ADD'}).then(() => console.log('jkjkjkjkjjkjkjk'));
-    // store.dispatch(signupAction(userDetails)).then(() => {
-    //   expect(store.getActions()).toEqual(expectedActions);
-    //   done();
-    // });
+    console.log('xxxxxxxxxxxx',store);
+    store.dispatch(signupAction(userDetails)).then(() => {
+      console.log('----------------------');
+      // expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 201,
-        response: { user: userDetails, token: 'abcdefgjiop', status: 'success' }
+        response: 'abcdefgjiop'
       });
     });
     done();
   });
+  // it('should work unsuccessful', (done) => {
+  //   const expectedActions = [
+  //     {
+  //       type: 'SIGNUP_UNSUCCESSFUL',
+  //       payload: 'username already exists'
+  //     }
+  //   ];
+  //
+  //   const store = mockStore({});
+  //   store.dispatch(signupAction(userDetails)).then(() => {
+  //     console.log('*************************',store.getActions());
+  //     // expect(store.getActions()).toEqual(expectedActions);
+  //     done();
+  //   });
+  //
+  //   moxios.wait(() => {
+  //     const request = moxios.requests.mostRecent();
+  //     request.respondWith({
+  //       status: 200,
+  //       response: 'username already in use'
+  //     });
+  //   });
+  //   done();
+  // });
 });

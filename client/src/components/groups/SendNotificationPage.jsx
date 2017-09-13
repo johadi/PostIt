@@ -14,7 +14,7 @@ export default class SendNotificationPage extends React.Component {
    * @return {XML} JSX
    */
   render() {
-    const { name, Users } = this.props.groupUsers;
+    const { name } = this.props.groupUsers;
     return (
         <div className="container">
           <MainHeader/>
@@ -27,7 +27,7 @@ export default class SendNotificationPage extends React.Component {
                 </div>
               </div>
             </div>
-            <GroupSideBar groupId={this.props.groupId} users={Users}/>
+            <GroupSideBar groupId={this.props.groupId}/>
           </div>
         </div>
     );

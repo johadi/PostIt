@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { addUserToGroup, addUserToGroupClear, getGroupUsers } from '../../actions/group/groupActions';
+import { addUserToGroup, addUserToGroupClear } from '../../actions/group/groupActions';
 import '../../build/static/styles/group-custom.scss';
 import MainHeader from '../headers/MainHeader.jsx';
 import GroupSideBar from './GroupSideBar.jsx';
@@ -29,7 +29,6 @@ class AddUserToGroupPage extends React.Component {
     const username = e.target.id;
     const groupId = this.props.groupId;
     this.props.addUserToGroup(groupId, username);
-    this.props.getGroupUsers(this.props.groupId);// necessary here to keep users side bar state
   }
 
   /**
@@ -37,7 +36,7 @@ class AddUserToGroupPage extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { name, Users } = this.props.groupUsers;
+    const { name } = this.props.groupUsers;
     return (
         <div className="container">
           <MainHeader/>
@@ -52,7 +51,7 @@ class AddUserToGroupPage extends React.Component {
                   groupId={this.props.groupId}
               />
             </div>
-            <GroupSideBar groupId={this.props.groupId} users={Users}/>
+            <GroupSideBar groupId={this.props.groupId}/>
           </div>
         </div>
     );
@@ -61,7 +60,6 @@ class AddUserToGroupPage extends React.Component {
 AddUserToGroupPage.propTypes = {
   addUserToGroup: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
-  getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   addUserToGroupClear: PropTypes.func.isRequired,
   groupUsers: PropTypes.object
@@ -70,5 +68,5 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  addUserToGroup, addUserToGroupClear, getGroupUsers }, dispatch);
+  addUserToGroup, addUserToGroupClear }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AddUserToGroupPage);

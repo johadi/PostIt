@@ -33,7 +33,7 @@ export default class IndexPage extends React.Component {
                   </strong>
                 </h1>
                 <p className="lead"><strong>PostIt</strong> is a simple application where friends,
-                  colleagues and love ones send notifications to one another via a group</p>
+                  colleagues and love ones send notifications to one another via groups</p>
                 <p>Join and share happy moment with those you care
                   about <i className="fa fa-lg fa-smile-o" aria-hidden="true"></i></p>
                 <form className="form-horizontal" role="form">

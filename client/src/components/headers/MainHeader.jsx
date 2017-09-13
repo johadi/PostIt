@@ -30,12 +30,6 @@ const MainHeader = (props) => {
             </i> Groups</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
-            <li className="dropdown">
-              <a className="dropdown-toggle" data-toggle="dropdown">
-                <i className="fa fa-lg fa-user-circle-o" aria-hidden="true">
-                </i> {userDetail.username}
-              </a>
-            </li>
             <li style={{ marginRight: '10px' }}>
               <Link to="#" onClick={logout}>
                 <i className="fa fa-lg fa-sign-out" aria-hidden="true"></i>Logout

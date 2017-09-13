@@ -2,15 +2,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers, viewMessage, clearViewMessageError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import MessageViewPage from '../NotificationViewPage.jsx';
 
 /**
- * NotificationViewAuthPage class declaration
+ * NotificationViewContainer class declaration
  */
-class NotificationViewAuthPage extends React.Component {
+class NotificationViewContainer extends React.Component {
   /**
    * @return {void} void
    */
@@ -33,11 +32,13 @@ class NotificationViewAuthPage extends React.Component {
   render() {
     const { groupViewMessage, groupUsersStore } = this.props.groupState;
     return this.props.tokenStatus.success && groupViewMessage && groupUsersStore ?
-        <MessageViewPage groupId={this.props.params.groupId} groupUsers={groupUsersStore}
-                         message={groupViewMessage}/> : <NullPage/>;
+        <MessageViewPage
+          groupId={this.props.params.groupId}
+          groupUser={groupUsersStore}
+          message={groupViewMessage}/> : <NullPage/>;
   }
 }
-NotificationViewAuthPage.propTypes = {
+NotificationViewContainer.propTypes = {
   getGroupUsers: PropTypes.func.isRequired,
   viewMessage: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
@@ -50,6 +51,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  verifyToken, viewMessage, clearViewMessageError, getGroupUsers }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationViewAuthPage);
+  viewMessage, clearViewMessageError, getGroupUsers }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationViewContainer);
 

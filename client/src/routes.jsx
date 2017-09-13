@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './App';
 import AuthPages from './components/auth';
-import groupPages from './components/groups/groupAuthentications';
+import groupPages from './components/groups/groupContainers';
 import IndexPage from './components/IndexPage.jsx';
 import NotFoundPage from './components/NotFoundPage.jsx';
 
@@ -16,15 +16,23 @@ export default (
       <Route path="/reset-password" component={AuthPages.ResetPasswordPage}/>
 
       <Route component={groupPages.AuthenticateUser}>
-        <Route path="/dashboard" component={groupPages.DashboardAuthPage}/>
-        <Route path="/message/:groupId/:messageId" component={groupPages.NotificationViewAuthPage}/>
-        <Route path="/group/:groupId/message" component={groupPages.SendNotificationAuthPage}/>
-        <Route path="/group/:groupId/board" component={groupPages.GroupNotificationBoardAuth}/>
-        <Route path="/create-group" component={groupPages.CreateGroupAuthPage}/>
-        <Route path="/group/:groupId/add" component={groupPages.AddUserGroupAuth}/>
-        <Route path="/groups" component={groupPages.GroupsAuthPage}/>
-        <Route path="/group/:groupId/users" component={groupPages.GroupUsersAuthPage}/>
+        <Route path="/dashboard"
+               component={groupPages.DashboardContainer}/>
+        <Route path="/message/:groupId/:messageId"
+               component={groupPages.NotificationViewContainer}/>
+        <Route path="/group/:groupId/message"
+               component={groupPages.SendNotificationContainer}/>
+        <Route path="/group/:groupId/board"
+               component={groupPages.GroupBoardContainer}/>
+        <Route path="/create-group"
+               component={groupPages.CreateGroupContainer}/>
+        <Route path="/group/:groupId/add"
+               component={groupPages.AddUserGroupContainer}/>
+        <Route path="/groups"
+               component={groupPages.GroupsContainer}/>
+        <Route path="/group/:groupId/users"
+               component={groupPages.GroupUsersContainer}/>
       </Route>
-       <Route path="*" component={NotFoundPage}/>
+      <Route path="*" component={NotFoundPage}/>
     </Route>
 );

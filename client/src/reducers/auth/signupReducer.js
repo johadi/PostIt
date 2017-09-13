@@ -11,8 +11,8 @@ const signupReducer = (state = initialState, action) => {
     case actionTypes.SIGNUP_SUCCESSFUL:
       state = {
         ...state,
-        success: !!window.sessionStorage.token,
-        welcome: !!window.sessionStorage.token,
+        success: true,
+        welcome: true,
         errors: null,
         fails: null
       };
@@ -21,6 +21,7 @@ const signupReducer = (state = initialState, action) => {
       state = {
         ...state,
         success: false,
+        welcome: false,
         errors: action.payload // capture validation errors like Email required
       };
       break;
@@ -28,6 +29,7 @@ const signupReducer = (state = initialState, action) => {
       state = {
         ...state,
         success: false,
+        welcome: false,
         fails: action.payload // capture all failed responses like User Not Found
       };
       break;

@@ -142,7 +142,7 @@ export const getGroupUsers = groupId => (dispatch) => {
 // action for clearing errors when getting all users in
 // a particular group for a user
 export const clearGetGroupUsersError = () => ({
-  type: actionTypes.CLEAR_GET_GROUP_USERS_ERROR
+  type: actionTypes.CLEAR_GROUP_USERS_ERROR
 });
 // action for getting all users in a particular group for a user with pagination
 export const getGroupUsersPaginated = (groupId, pageNumber) => (dispatch) => {

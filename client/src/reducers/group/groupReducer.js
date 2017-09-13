@@ -133,7 +133,7 @@ const groupReducer = (state = initialState, action) => {
         groupUsersError: action.payload
       };
       break;
-    case actionTypes.CLEAR_GET_GROUP_USERS_ERROR:
+    case actionTypes.CLEAR_GROUP_USERS_ERROR:
       state = {
         ...state,
         groupUsersError: null

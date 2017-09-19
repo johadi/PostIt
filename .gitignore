@@ -10,3 +10,4 @@ bin/
 /reports
 screenshots/
 .DS_Store
+/coverage

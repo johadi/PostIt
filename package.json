@@ -9,6 +9,10 @@
   "nyc": {
     "exclude": [
       "server/tests/seed",
+<<<<<<< HEAD
+=======
+      "server/controllers/password",
+>>>>>>> 1111d3b6d4eb3c3f660c7eb9f033b3d166eceddb
       "server/controllers/password.js",
       "server/middlewares/verifyRecoveryLink.js"
     ]

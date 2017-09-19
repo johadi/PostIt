@@ -247,4 +247,90 @@ describe('POST api/v1/user/reset-password', () => {
         done();
       });
   });
+  it('Should return status code 404 and a message if user email not found',
+    (done) => {
+      const passwordToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjY2LCJ1c' +
+           '2VybmFtZSI6ImpvaGFkaTEwIiwiZW1haWwiOiJqaW0uaGFkaTEwQGdtYWlsLmNvbSIs' +
+           'Im1vYmlsZSI6IisyMzQ4MTYzMDQxMjY5IiwiZnVsbG5hbWUiOiJqaW1vaCBoYWRpIiwia' +
+           'WF0IjoxNTA1MzE4MjkzfQ.q8hobiKb0CGAB097s_1ujMOvowgJaurw2MUdNsaahD4';
+      request(app)
+        .post(`/api/v1/user/reset-password?token=${passwordToken}`)
+        .send({})
+        .expect(404)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body,
+            'User with this recovery link doesn\'t match our record');
+          done();
+        });
+    });
+  it('Should return status code 404 and a message if no record of a user ' +
+    'requesting to change password',
+    (done) => {
+      const passwordToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6N' +
+        'CwidXNlcm5hbWUiOiJvdmVuamUiLCJlbWFpbCI6Im92ZW5qZUB5YWhvby5jb20iLCJm' +
+        'dWxsbmFtZSI6ImppbW9oIGhhZGkiLCJpYXQiOjE1MDUzMjQ5NDZ9.yMptPZjWbs9s' +
+        'rHENrzkiYAv9ejDLn5ppZ0eBGIZaTXE';
+      request(app)
+        .post(`/api/v1/user/reset-password?token=${passwordToken}`)
+        .send({})
+        .expect(404)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body,
+            'No record for this User requesting password change');
+          done();
+        });
+    });
+  it('Should return status code 400 and a message if any of ' +
+    'the password fields is not valid',
+    (done) => {
+      // Create a new log for the user, if not
+      PasswordRecovery.create({ email: 'ovenje@yahoo.com', hashed: passwordTokenValid })
+        .then(() => {
+          request(app)
+            .post(`/api/v1/user/reset-password?token=${passwordTokenValid}`)
+            .send({})
+            .expect(400)
+            .end((err, res) => {
+              if (err) return done(err);
+              assert.equal(res.body.validateError.password[0],
+                'The password field is required.');
+              assert.equal(res.body.validateError.confirmPassword[0],
+                'The confirmPassword field is required.');
+              done();
+            });
+        });
+    });
+  it('Should return status code 404 and a message if user email not found',
+    (done) => {
+      // Create a new log for the user, if not
+      PasswordRecovery.create({ email: 'ovenje@yahoo.com', hashed: passwordTokenValid })
+        .then(() => {
+          request(app)
+            .post(`/api/v1/user/reset-password?token=${passwordTokenValid}`)
+            .send({ password: '112233', confirmPassword: '11223344' })
+            .expect(400)
+            .end((err, res) => {
+              if (err) return done(err);
+              assert.equal(res.body, 'Passwords not matched');
+              done();
+            });
+        });
+    });
+  it('Should return status code 200 and a message if password changed successfully',
+    (done) => {
+      PasswordRecovery.create({ email: 'ovenje@yahoo.com', hashed: passwordTokenValid })
+        .then(() => {
+          request(app)
+            .post(`/api/v1/user/reset-password?token=${passwordTokenValid}`)
+            .send({ password: '11223344', confirmPassword: '11223344' })
+            .expect(200)
+            .end((err, res) => {
+              if (err) return done(err);
+              assert.equal(res.body, 'Password changed successfully');
+              done();
+            });
+        });
+    });
 });

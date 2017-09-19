@@ -125,7 +125,8 @@ router.route('/v1/group/:groupId/message/:messageId')
  *          }
  *        }
  */
-    .get(authenticate, groupController.viewMessage); // view single notification
+    // view single notification
+    .get(authenticate, groupController.viewMessage);
 router.route('/v1/group/:groupId/group-users')
 /**
  * @api {get} /api/v1/group/:groupId/group-users Get group members

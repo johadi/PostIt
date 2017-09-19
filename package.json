@@ -26,7 +26,7 @@
     "build": "babel-node tools/build.js",
     "postbuild": "node tools/publicServer.js",
     "test:e2e": "nightwatch",
-    "test:mocha": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/reducers/**/*.spec.js\""
+    "test:mocha": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/actions/*.spec.js\""
   },
   "apidoc": {
     "name": "PostIt API - Documentation",
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "apidoc": "^0.15.1",
+    "axios-mock-adapter": "^1.9.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-polyfill": "^6.8.0",

@@ -60,7 +60,6 @@ router.route('/v1/user/recover-password')
  */
   .post(authController.passwordRecovery);
 router.route('/v1/user/reset-password')
-  .get(verifyLinkMiddleware, authController.resetPasswordGet)
   /**
    * @api {post} /api/v1/user/reset-password User password reset
    * @apiGroup Authentication

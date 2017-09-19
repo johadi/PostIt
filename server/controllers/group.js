@@ -6,7 +6,8 @@ const UserGroup = require('../database/models').UserGroup;
 const UserGroupAdd = require('../database/models').UserGroupAdd;
 const Message = require('../database/models').Message;
 const Constants = require('../helpers/constants');
-const { sendSMS, sendMail, handleError, handleSuccess } = require('../helpers/helpers');
+const { sendSMS, sendMail, handleError,
+  handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
   // Controller method for creating group
@@ -19,8 +20,7 @@ module.exports = {
       const name = (req.body.name).toLowerCase();
       const creatorId = req.user.id;
 
-      // Check if the
-      // group user wants to create already exists
+      // Check if the group user wants to create already exists
       Group.findOne({
         where: { name }
       })
@@ -46,7 +46,8 @@ module.exports = {
               groupId: createdGroup.id
             });
             // Automatically Adds user to the Table that
-            // indicates who adds another user to group This is like User adds himself
+            // indicates who adds another user to group
+            // This is like User adds himself
             const userAddedBy = UserGroupAdd.create({
               addedById: creatorId,
               addedToId: creatorId,
@@ -55,7 +56,8 @@ module.exports = {
             // Resolve everything and pass some info to next then.
             return Promise.all([userAndGroups, userAddedBy, createdGroup]);
           })
-          // Returns only information of the group the user created if successful
+          // Returns only information of the group
+          // the user created if successful
           .then(allResolved => handleSuccess(201, allResolved[2], res))
           .catch(err => handleError(err, res));
     } else {
@@ -79,7 +81,8 @@ module.exports = {
     if (!req.body.user) {
       return handleError('Provide Valid user detail to add to group', res);
     }
-    // let us check if the user is trying to add him/her self as that is not possible
+    // let us check if the user is trying to add him/her
+    // self as that is not possible
     const user = req.body.user;
     const groupId = req.params.groupId;
     // let us check if groupId is a valid group id
@@ -97,11 +100,14 @@ module.exports = {
           // If he doesn't belong to the group, reject him
           // from adding user unless he/she joined
           if (!foundUserAndGroup) {
-            return Promise.reject('Invalid operation: you do not belong to this group');
+            return Promise.reject('Invalid operation:' +
+              ' you do not belong to this group');
           }
           // Reject a User trying to add himself
-          if (req.body.user === req.user.username || req.body.user === req.user.email) {
-            return Promise.reject('You can\'t add yourself to group you already belong');
+          if (req.body.user === req.user.username ||
+            req.body.user === req.user.email) {
+            return Promise.reject('You can\'t add yourself to group ' +
+              'you already belong');
           }
           // Check to ensure provided detail is a detail of a valid user.
           // NOTE: The detail of a user can either be Username or Email
@@ -115,20 +121,23 @@ module.exports = {
           if (!foundUser) {
             return Promise.reject({ code: 404, message: 'User not found' });
           }
-          // Check again if this user has not been added to the group he's to be added to
+          // Check again if this user has not been added to the group
+          // he's to be added to
           const userGroup = UserGroup.findOne({
             where: { groupId, userId: foundUser.id }
           });
           return Promise.all([userGroup, foundUser]);
         })
         .then((foundUserAndGroup) => {
-          // If User is a member of this group. notify the person trying to add him/her
+          // If User is a member of this group. notify the person trying
+          // to add him/her
           if (foundUserAndGroup[0]) {
             return Promise.reject('User already belongs to this group');
           }
           // if user not a member of the group, time to add him/her to group
           // and also update the UserGroupAdd table
-          // Add user to group. foundUserGroupAndId[1] == ID of user to add to the group
+          // Add user to group.
+          // foundUserGroupAndId[1] == ID of user to add to the group
           const userGroup = UserGroup.create({ groupId,
             userId: foundUserAndGroup[1].id });
           // Add user to User-Group-Add table so we can know who added the
@@ -163,7 +172,8 @@ module.exports = {
       let priority = 'normal';
       if (req.body.priority) {
         const priorities = ['normal', 'urgent', 'critical'];
-        if (!(lodash.includes(priorities, req.body.priority.toLowerCase()))) {
+        if (!(lodash.includes(priorities,
+            req.body.priority.toLowerCase()))) {
           return handleError('Message priority level can only ' +
             'be normal or urgent or critical', res);
         }
@@ -222,22 +232,22 @@ module.exports = {
                   .then(groupAndMembers =>
                     // Using map of Bluebird promises (P)
                     // Bluebird map return array Promises values just like Promise.all()
-                    P.map(groupAndMembers, groupAndMember => groupAndMember.User.email))
+                    P.map(groupAndMembers,
+                        groupAndMember => groupAndMember.User.email))
                   .then((groupMemberEmails) => {
                     // We handle our send email here
                     const from = 'no-reply <jimoh@google.com>';
                     const to = groupMemberEmails; // groupMemberEmails is an array of emails
                     const subject = 'Notification from PostIt';
-                    const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
+                    const message = '<h2>' +
+                      'Hi!, you have one notification from PostIt' +
+                      '</h2>' +
                       '<h3>Notification level: Urgent</h3>' +
                       '<p><a href="https://jimoh-postit.herokuapp.com">' +
                       'Login to your PostIt account to view</a></p>' +
                       '<p>The PostIt management team!!!</p>';
-                    sendMail(from, to, subject, message)
-                      .then(() => console.log('Urgent message created successfully'))
-                      .catch(err => console.log(err));
-                  })
-                  .catch(err => console.log(err));
+                    sendMail(from, to, subject, message);
+                  });
               }
               // CRITICAL: Send Email, SMS and In-app notification to group members
             } else if (updatedMessage.priority === 'critical') {
@@ -246,11 +256,13 @@ module.exports = {
                 // get members of this group
                 UserGroup.findAll({
                   where: { groupId: updatedMessage.groupId },
-                  include: [{ model: User, attributes: ['username', 'email', 'mobile'] }]
+                  include: [{ model: User,
+                    attributes: ['username', 'email', 'mobile'] }]
                 })
                   .then(groupAndMembers =>
                     // Using map of Bluebird promises (P)
-                    // Bluebird map return array of Promises values just like Promise.all()
+                    // Bluebird map return array of Promises
+                    // values just like Promise.all()
                     P.map(groupAndMembers, (groupAndMember) => {
                       // We handle SMS here
                       const to = '+2347082015065';
@@ -265,18 +277,16 @@ module.exports = {
                   .then((groupMemberEmails) => {
                     // Handle our send email here
                     const from = 'no-reply <jimoh@google.com>';
-                    const to = groupMemberEmails; // groupMemberEmails is an array of emails
+                    // groupMemberEmails is an array of emails
+                    const to = groupMemberEmails;
                     const subject = 'Notification from PostIt';
                     const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
                       '<h3>Notification level: Critical</h3>' +
                       '<p><a href="https://jimoh-postit.herokuapp.com">' +
                       'Login to your PostIt account to view</a></p>' +
                       '<p>The PostIt mangement team!!!</p>';
-                    sendMail(from, to, subject, message)
-                      .then(() => console.log('Critical message sent successfully'))
-                      .catch(err => console.log(err));
-                  })
-                  .catch(err => console.log(err));
+                    sendMail(from, to, subject, message);
+                  });
               }
             } else {
               // NORMAL: Send only In-app notification
@@ -311,7 +321,8 @@ module.exports = {
           })
           .then((foundUserAndGroup) => {
             if (!foundUserAndGroup) {
-              return Promise.reject('Invalid Operation: You don\'t belong to this group');
+              return Promise.reject('Invalid Operation: You don\'t belong ' +
+                'to this group');
             }
             // Let the user view messages if he/she belongs to the group
             // perPage = limit you want to display per page
@@ -362,7 +373,8 @@ module.exports = {
           })
           .then((foundUserAndGroup) => {
             if (!foundUserAndGroup) {
-              return Promise.reject('Invalid Operation: You don\'t belong to this group');
+              return Promise.reject('Invalid Operation: You don\'t belong ' +
+                'to this group');
             }
             // Let the user read the message he satisfies all the criteria
             return Message.findOne({
@@ -447,7 +459,8 @@ module.exports = {
             })
             .then((foundUserAndGroup) => {
               if (!foundUserAndGroup) {
-                return Promise.reject('Invalid Operation: You don\'t belong to this group');
+                return Promise.reject('Invalid Operation: You don\'t belong ' +
+                  'to this group');
               }
               // we got group info like this from our promise.all()
               const group = foundUserAndGroup[1];
@@ -574,7 +587,8 @@ module.exports = {
       }
     }
   },
-  // Get all messages that are sent to groups a user belongs to but those he/she has not read
+  // Get all messages that are sent to groups a user
+  // belongs to but those he/she has not read
   userMessageBoard(req, res) {
     if (req.user) {
       const userId = req.user.id;
@@ -606,7 +620,8 @@ module.exports = {
               const offset = perPage * (currentPage - 1);
               // get all unread messages of a user in all groups
               // he/she joined (Unread only)
-              const userGroupUnreadMessages = allUserGroupMessages.rows.filter(message =>
+              const userGroupUnreadMessages = allUserGroupMessages
+                .rows.filter(message =>
                 !(lodash.includes(message.readersId, userId)));
               // pages the unread messages formed
               // to round off i.e 3/2 = 1.5 = 2
@@ -629,7 +644,8 @@ module.exports = {
                   const userUnreadMessages = messages.filter(message =>
                     !(lodash.includes(message.readersId, userId)));
                   const MessageBoardData = {
-                    // paginated messages obtained using offset and limit i.e (4 messages)
+                    // paginated messages obtained using offset
+                    // and limit i.e (4 messages)
                     messages: userUnreadMessages,
                     // count of all messages users have not read (i.e 15)
                     count: userGroupUnreadMessages.length,
@@ -695,7 +711,8 @@ module.exports = {
                     })
                     .then((groupUsers) => {
                       // converts the array of userId objects to standard array of Ids
-                      const groupUsersIdInArray = groupUsers.map(groupUser => groupUser.userId);
+                      const groupUsersIdInArray = groupUsers
+                        .map(groupUser => groupUser.userId);
                       const allUsersData = {
                         allUsers: users,
                         groupUsersId: groupUsersIdInArray

@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-nodejs');
 const lodash = require('lodash');
 const Validator = require('validatorjs');
-const { handleError, handleSuccess, sendMail } = require('../helpers/helpers');
+const { handleError, handleSuccess,
+  sendMail } = require('../helpers/helpers');
 
 module.exports = {
   signup(req, res) {
@@ -76,7 +77,8 @@ module.exports = {
             return Promise.reject('Incorrect password');
           }
           // If all is well
-          const signinData = lodash.pick(user, ['id', 'username', 'email', 'fullname']);
+          const signinData = lodash.pick(user,
+            ['id', 'username', 'mobile', 'email', 'fullname']);
           // Give the user token and should expire in the next 24 hours
           const token = jwt.sign(signinData, process.env.JWT_SECRET);
           return handleSuccess(200, token, res);
@@ -126,7 +128,8 @@ module.exports = {
                 // Do we have user data requesting for password change before?
                 // If yes ,just update his/her hash
                 if (foundUser) {
-                  PasswordRecovery.update({ hashed: token }, { where: { email: user.email } });
+                  PasswordRecovery.update({ hashed: token },
+                    { where: { email: user.email } });
                 } else {
                   // Create a new log for the user, if not
                   PasswordRecovery.create({ email: user.email, hashed: token });
@@ -134,25 +137,19 @@ module.exports = {
                 return handleSuccess(200,
                   'Password recovery link sent to your email', res);
               })
-              .catch((err) => {
+              .catch(() => {
                 const errorMessage = 'Error occurred while sending your ' +
                   'Password recovery link. Try again';
                 return handleError(errorMessage, res);
               });
           })
-          .catch((err) => {
+          .catch(() => {
             const errorMessage = 'Error occurred while sending your Password ' +
               'recovery link. Try again';
             return handleError(errorMessage, res);
           });
       })
       .catch(err => handleError(err, res));
-  },
-  resetPasswordGet(req, res) {
-    if (!req.reset) {
-      return handleError('This request is invalid', res);
-    }
-    return handleSuccess(200, 'You can reset password', res);
   },
   resetPasswordPost(req, res) {
     if (!req.reset) {
@@ -176,9 +173,11 @@ module.exports = {
         const hash = bcrypt.hashSync(req.body.password, salt);
         return user.update({ password: hash }, { where: { id: user.id } });
       })
-      .then(updatedUser => handleSuccess(200, 'Password changed successfully', res))
+      .then(updatedUser => handleSuccess(200,
+        'Password changed successfully', res))
       .catch((err) => {
-        const errorMessage = 'Error occurred while processing your request. Try again';
+        const errorMessage = 'Error occurred while processing your request.' +
+          ' Try again';
         return handleError(errorMessage, res);
       });
   }

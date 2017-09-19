@@ -15,14 +15,17 @@ module.exports = (req, res, next) => {
     User.findById(decoded.id)
       .then((user) => {
         if (!user) {
-          return Promise.reject('User with this recovery link doesn\'t match our record');
+          return Promise.reject('User with this recovery link doesn\'t ' +
+            'match our record');
         }
-        // check if you have a record of a user with this token requesting password change
+        // check if you have a record of a user with this
+        // token requesting password change
         return PasswordRecovery.findOne({ hashed: token });
       })
       .then((foundUser) => {
         if (!foundUser) {
-          return Promise.reject('No record for this User requesting password change');
+          return Promise.reject('No record for this User requesting ' +
+            'password change');
         }
         req.reset = decoded;
         return next();

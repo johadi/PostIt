@@ -206,6 +206,7 @@ describe('POST api/v1/user/reset-password', () => {
   // Empty our database
   before(seeder.emptyDB);
   before(seeder.emptyPasswordRecoveryDB);
+  // Add user to DB
   before(seeder.addUserToDb);
   it('Should return status code 400 and a message when link has no token',
     (done) => {

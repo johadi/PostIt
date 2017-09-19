@@ -168,6 +168,7 @@ describe('POST api/v1/user/signin', () => {
 describe('POST api/v1/user/recover-password', () => {
   // Empty our database
   before(seeder.emptyDB);
+  before(seeder.emptyPasswordRecoveryDB);
   // Seed database for this testing
   /* User: {
   fullname: 'jimoh hadi',
@@ -318,9 +319,8 @@ describe('POST api/v1/user/reset-password', () => {
             });
         });
     });
-  it('Should return status code 404 and a message if user email not found',
+  it('Should return status code 200 and a message if password changed successfully',
     (done) => {
-      // Create a new log for the user, if not
       PasswordRecovery.create({ email: 'ovenje@yahoo.com', hashed: passwordTokenValid })
         .then(() => {
           request(app)

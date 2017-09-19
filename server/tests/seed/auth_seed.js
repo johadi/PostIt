@@ -36,5 +36,16 @@ module.exports = {
       password: '11223344' })
         .then(user => done())
         .catch(err => done(err));
+  },
+  addUserToDb2(done) {
+    User.create({
+      id: 6,
+      fullname: 'jimoh hadi',
+      username: 'jimoh',
+      email: 'jimoh@yahoo.com',
+      mobile: '8163041269',
+      password: '11223344' })
+      .then(user => done())
+      .catch(err => done(err));
   }
 };

@@ -279,7 +279,6 @@ describe('POST api/v1/user/reset-password', () => {
           if (err) return done(err);
           assert.equal(res.body,
             'No record for this User requesting password change');
-          console.log(res.body);
           done();
         });
     });

@@ -60,14 +60,14 @@ module.exports = {
                   return handleSuccess(200,
                     'Password recovery link sent to your email', res);
                 })
-                .catch((err) => {
+                .catch(() => {
                   const errorMessage = 'Error occurred while sending your ' +
                     'Password recovery link. Try again';
                   return handleError(errorMessage, res);
                 });
             }
           })
-          .catch((err) => {
+          .catch(() => {
             const errorMessage = 'Error occurred while sending your Password ' +
               'recovery link. Try again';
             return handleError(errorMessage, res);
@@ -94,8 +94,8 @@ module.exports = {
         const hash = bcrypt.hashSync(req.body.password, salt);
         return user.update({ password: hash }, { where: { id: user.id } });
       })
-      .then(updatedUser => handleSuccess(200, 'Password changed successfully', res))
-      .catch((err) => {
+      .then(() => handleSuccess(200, 'Password changed successfully', res))
+      .catch(() => {
         const errorMessage = 'Error occurred while processing your request. Try again';
         return handleError(errorMessage, res);
       });

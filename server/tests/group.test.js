@@ -72,8 +72,7 @@ describe('POST: api/v1/group', () => {
           .then((group) => {
             assert.equal(group.name, 'lagos');
             done();
-          })
-          .catch(err => done(err));
+          });
       });
   });
 });
@@ -718,7 +717,7 @@ describe('Get api/v1/group/:groupId/group-users', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        assert.exists(res.body.Users); // array of Users in the group
+        assert.exists(res.body.users); // array of Users in the group
         assert.exists(res.body.name); // name of the group
         assert.exists(res.body.pages); // pages the users can make per page
         assert.exists(res.body.count); // number of users in the group
@@ -1111,11 +1110,8 @@ describe('Get api/v1/verify-token', () => {
               assert.equal(res.body, 'User with this token not found');
               done();
             });
-        } else {
-          return Promise.reject('row not deleted');
         }
-      })
-      .catch(err => done(err));
+      });
   });
   it('Should return 200 if user provide a valid token that matches ' +
     'database record.', (done) => {

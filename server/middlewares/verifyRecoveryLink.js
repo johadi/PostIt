@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
           return Promise.reject('User with this recovery link doesn\'t match our record');
         }
         // check if you have a record of a user with this token requesting password change
-        return PasswordRecovery.findOne({ hashed: token });
+        return PasswordRecovery.findOne({ where: { hashed: token } });
       })
       .then((foundUser) => {
         if (!foundUser) {

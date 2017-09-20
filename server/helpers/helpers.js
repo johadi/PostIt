@@ -48,9 +48,6 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
 const sendSMS = (from, to, body) => {
-  client.messages.create({ to, from, body }, (err, message) => {
-    if (err) return console.log(err);
-    return console.log(message.sid);
-  });
+  client.messages.create({ to, from, body });
 };
 module.exports = { sendSMS, sendMail, handleError, handleSuccess };

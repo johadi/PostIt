@@ -9,9 +9,6 @@ script:
 - npm test
 services:
 - postgresql
-env:
-  matrix:
-  - JWT_SECRET=abcxyz
 before_script:
 - psql -c 'CREATE DATABASE travis;' -U postgres
 before_install:

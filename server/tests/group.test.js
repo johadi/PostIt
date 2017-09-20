@@ -72,8 +72,7 @@ describe('POST: api/v1/group', () => {
           .then((group) => {
             assert.equal(group.name, 'lagos');
             done();
-          })
-          .catch(err => done(err));
+          });
       });
   });
 });
@@ -1111,11 +1110,8 @@ describe('Get api/v1/verify-token', () => {
               assert.equal(res.body, 'User with this token not found');
               done();
             });
-        } else {
-          return Promise.reject('row not deleted');
         }
-      })
-      .catch(err => done(err));
+      });
   });
   it('Should return 200 if user provide a valid token that matches ' +
     'database record.', (done) => {

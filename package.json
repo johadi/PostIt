@@ -8,7 +8,9 @@
   },
   "nyc": {
     "exclude": [
-      "server/tests/seed"
+      "server/tests/seed",
+      "server/controllers/password.js",
+      "server/middlewares/verifyRecoveryLink.js"
     ]
   },
   "scripts": {

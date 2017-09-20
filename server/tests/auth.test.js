@@ -6,8 +6,6 @@ const jwtDecode = require('jwt-decode');
 const app = require('./../../app');
 const seeder = require('./seed/auth_seed');
 const User = require('./../database/models').User;
-const db = require('./../database/models');
-
 // Test for Signup route
 describe('POST api/v1/user/signup', () => {
   beforeEach(seeder.emptyDB);
@@ -96,8 +94,7 @@ describe('POST api/v1/user/signup', () => {
           .then((user) => {
             assert.notEqual(user.password, '11223344');
             done();
-          })
-          .catch(err => done(err));
+          });
       });
   });
 });
@@ -166,4 +163,72 @@ describe('POST api/v1/user/signin', () => {
         });
     });
 });
-
+// Password recovery test
+describe('POST api/v1/user/recover-password', () => {
+  // Empty our database
+  before(seeder.emptyDB);
+  before(seeder.emptyPasswordRecoveryDB);
+  // Seed database for this testing
+  // User = {fullname: 'jimoh hadi', username: 'ovenje',
+  // email: 'ovenje@yahoo.com', mobile: '8163041269',
+  // password: '11223344' }
+  //
+  before(seeder.addUserToDb);
+  it('Should return status code 400 and a message when any input is ' +
+    'invalid. i.e email field', (done) => {
+    request(app)
+      .post('/api/v1/user/recover-password')
+      .send({})
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        assert.equal(res.body.validateError.email[0],
+          'The email field is required.');
+        done();
+      });
+  });
+  it('Should return status code 404 and a message if user email not found',
+    (done) => {
+      request(app)
+        .post('/api/v1/user/recover-password')
+        .send({ email: 'xyz@gmail.com' })
+        .expect(404)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body, 'Sorry! this email doesn\'t match our records');
+          done();
+        });
+    });
+});
+// Password reset
+describe('POST api/v1/user/reset-password', () => {
+  // Empty our database
+  before(seeder.emptyDB);
+  before(seeder.emptyPasswordRecoveryDB);
+  // Add user to DB
+  before(seeder.addUserToDb);
+  it('Should return status code 400 and a message when link has no token',
+    (done) => {
+      request(app)
+        .post('/api/v1/user/reset-password')
+        .send({ })
+        .expect(400)
+        .end((err, res) => {
+          if (err) return done(err);
+          assert.equal(res.body, 'This link is Invalid');
+          done();
+        });
+    });
+  it('Should return status code 400 and a message when any input is ' +
+    'invalid. i.e email field', (done) => {
+    request(app)
+      .post('/api/v1/user/reset-password?token=xyzabcqwerty')
+      .send({})
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        assert.equal(res.body, 'This link seems to have expired or invalid');
+        done();
+      });
+  });
+});

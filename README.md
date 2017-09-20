@@ -74,3 +74,6 @@ Users are authenticated and validated using JWT tokens.
 ## Troubleshooting and FAQ
 
 [https://github.com/johadi10/postit/issues](https://github.com/johadi10/postit/issues)
+
+## License
+[https://github.com/johadi10/PostIt/blob/develop/LICENSE](https://github.com/johadi10/PostIt/blob/develop/LICENSE)

@@ -45,7 +45,9 @@ export class GroupUsers extends React.Component {
           <div className="list-group">
             {users.map(user => (
                 <Link key={user.User.id} className="list-group-item">
-                  <h5 className="list-group-item-heading">{user.User.fullname}</h5>
+                  <h5 className="list-group-item-heading">
+                    {user.User.fullname}
+                  </h5>
                 </Link>
             ))}
           </div>

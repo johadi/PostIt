@@ -2,7 +2,9 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { postMessage, clearPostMessageError } from '../../actions/group/groupActions';
+import {
+  postMessage,
+  clearPostMessageError } from '../../actions/group/groupActions';
 
 /**
  * SendNotification class declaration
@@ -36,15 +38,18 @@ export class SendNotification extends React.Component {
    */
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.input.message && this.state.input.message.trim().length > 0) {
+    if (this.state.input.message &&
+      this.state.input.message.trim().length > 0) {
       const groupId = this.props.groupId;
       const message = this.state.input.message;
       const priority = this.state.input.priority;
       this.props.postMessage(groupId, message, priority);
     } else {
-      // Since input is empty, clear message errors to allow empty error report
+      // Since input is empty, clear message errors
+      // to allow empty error report
       this.props.clearPostMessageError();
-      this.setState({ isValid: false }); // Input is now invalid, Report field is empty
+      // Input is now invalid, Report field is empty
+      this.setState({ isValid: false });
     }
   }
 
@@ -72,7 +77,8 @@ export class SendNotification extends React.Component {
   render() {
     const { postMessageErr } = this.props.groupState;
     return (
-        <div className="col-sm-offset-1 col-sm-10 well well-lg" id="post-message-div">
+        <div className="col-sm-offset-1 col-sm-10 well well-lg"
+             id="post-message-div">
           <form onSubmit={e => this.handleSubmit(e)}
                 className="form-horizontal" role="form">
             <p className="text-center">
@@ -89,14 +95,16 @@ export class SendNotification extends React.Component {
                           onKeyUp={e => this.handleKeyUp(e)}
                           className="form-control"
                           name="message" id="message"
-                          placeholder="Type your Notification"></textarea>
+                          placeholder="Type your Notification">
+                </textarea>
               </div>
             </div>
             <div className="form-group">
               <div className="col-lg-12">
                 <p className="help-block">
                   <strong>
-                    Notification priority level: <span className="text-capitalize text-display">
+                    Notification priority level: <span
+                    className="text-capitalize text-display">
                     {this.state.input.priority}</span>
                   </strong>
                 </p>
@@ -134,4 +142,5 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
   postMessage, clearPostMessageError }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(SendNotification);
+export default connect(mapStateToProps,
+  mapDispatchToProps)(SendNotification);

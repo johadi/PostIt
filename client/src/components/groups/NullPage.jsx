@@ -1,14 +1,9 @@
 import React from 'react';
 
 /**
- * NullPage class declaration
+ * renders null
+ * @param {number} props
+ * @return {null} null
  */
-export default class NullPage extends React.Component {
-  /**
-   * renders null
-   * @return {null} null
-   */
-  render() {
-    return null;
-  }
-}
+const NullPage = props => null;
+export default NullPage;

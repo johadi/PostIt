@@ -542,7 +542,7 @@ module.exports = {
           })
               .then((result) => {
                 const userGroupsData = {
-                  Groups: result.rows,
+                  groups: result.rows,
                   count: result.count,
                   id: req.user.id,
                   username: req.user.username,
@@ -570,7 +570,7 @@ module.exports = {
                 // round off i.e 3/2 = 1.5 = 2
                 const pages = Math.ceil(result.count / perPage);
                 const groupUsersData = {
-                  Groups: result.rows,
+                  groups: result.rows,
                   count: result.count,
                   pages,
                   id: req.user.id,

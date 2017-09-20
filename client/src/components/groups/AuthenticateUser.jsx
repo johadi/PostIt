@@ -22,7 +22,8 @@ class AuthenticateUser extends React.Component {
    * @return {XML} XML
    */
   render() {
-    return this.props.tokenStatus.success ? this.props.children : <NullPage/>;
+    return this.props.tokenStatus.success ?
+      this.props.children : <NullPage/>;
   }
 }
 AuthenticateUser.propTypes = {

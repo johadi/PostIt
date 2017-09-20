@@ -23,7 +23,8 @@ class GroupsContainer extends React.Component {
    */
   render() {
     const { userGroupsPaginated } = this.props.groupState;
-    return this.props.tokenStatus.success && userGroupsPaginated ? <GroupsPage
+    return this.props.tokenStatus.success && userGroupsPaginated ?
+      <GroupsPage
         userGroupsPagination={userGroupsPaginated} /> : <NullPage/>;
   }
 }

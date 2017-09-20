@@ -18,20 +18,29 @@ const Notification = (props) => {
     minute: '2-digit'
   };
   let priority = <span style={{ backgroundColor: 'green' }}
-                       className="badge text-capitalize">{message.priority}</span>;
+                       className="badge text-capitalize">
+    {message.priority}
+    </span>;
   if (message.priority === 'urgent') {
     priority = <span style={{ backgroundColor: 'orange' }}
-                     className="badge text-capitalize">{message.priority}</span>;
+                     className="badge text-capitalize">
+      {message.priority}
+      </span>;
   }
   if (message.priority === 'critical') {
     priority = <span style={{ backgroundColor: 'darkred' }}
-                     className="badge text-capitalize">{message.priority}</span>;
+                     className="badge text-capitalize">
+      {message.priority}
+      </span>;
   }
   return (
       <div className="col-md-12" id="message-board-div">
         <h2><span className="text-capitalize">{name}</span> group</h2>
-        <p>Sent by <span style={{ color: 'green' }}>{message.User.username}</span>
-          {showTime(message.createdAt) >= 24 ? <small> on {new Date(message.createdAt)
+        <p>Sent by <span style={{ color: 'green' }}>
+          {message.User.username}
+        </span>
+          {showTime(message.createdAt) >= 24 ?
+            <small> on {new Date(message.createdAt)
             .toLocaleString('en-us', dateOptions)}
           </small> : <small> <Moment fromNow>{message.createdAt}</Moment></small>}
         </p>

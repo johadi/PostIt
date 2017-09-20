@@ -21,11 +21,13 @@ export const signinAction = userCredentials => dispatch =>
             payload: err.response.data.validateError });
         } else if (err.response.data === 'Incorrect password') {
           const error = { password: ['Incorrect password'] };
-          dispatch({ type: actionTypes.SIGNIN_VALIDATION_ERROR, payload: error });
+          dispatch({ type: actionTypes.SIGNIN_VALIDATION_ERROR,
+            payload: error });
         } else {
           dispatch({ type: actionTypes.SIGNIN_VALIDATION_ERROR,
             payload: err.response.data.validateError });
-          dispatch({ type: actionTypes.SIGNIN_UNSUCCESSFUL, payload: err.response.data });
+          dispatch({ type: actionTypes.SIGNIN_UNSUCCESSFUL,
+            payload: err.response.data });
         }
       });
 

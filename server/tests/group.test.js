@@ -718,7 +718,7 @@ describe('Get api/v1/group/:groupId/group-users', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        assert.exists(res.body.Users); // array of Users in the group
+        assert.exists(res.body.users); // array of Users in the group
         assert.exists(res.body.name); // name of the group
         assert.exists(res.body.pages); // pages the users can make per page
         assert.exists(res.body.count); // number of users in the group
@@ -794,7 +794,7 @@ describe('Get api/v1/group/user/groups', () => {
       .end((err, res) => {
         if (err) return done(err);
         // array of Groups user belongs with other information
-        assert.exists(res.body.Groups);
+        assert.exists(res.body.groups);
         // username of the person requesting his/her groups
         assert.exists(res.body.username);
         // pages the groups can make

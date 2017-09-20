@@ -16,7 +16,8 @@ const FormField = props => (
             value={ props.value }
         />
         { props.errors ?
-          <span id="show-error" style={{ backgroundColor: '#ffe6f0' }} className="show-error help-block">
+          <span id="show-error" style={{ backgroundColor: '#ffe6f0' }}
+                className="show-error help-block">
             {props.errors[props.name]}
           </span> : false }
       </div>

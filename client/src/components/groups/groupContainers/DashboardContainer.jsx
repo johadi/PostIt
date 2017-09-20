@@ -24,7 +24,8 @@ class DashboardContainer extends React.Component {
   render() {
     const { boardMessagesPaginated } = this.props.groupState;
     return this.props.tokenStatus.success && boardMessagesPaginated ?
-        <DashboardPage boardMessagesPagination={boardMessagesPaginated}/> : <NullPage/>;
+        <DashboardPage
+          boardMessagesPagination={boardMessagesPaginated}/> : <NullPage/>;
   }
 }
 DashboardContainer.propTypes = {

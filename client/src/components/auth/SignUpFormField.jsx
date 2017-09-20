@@ -14,7 +14,9 @@ const FormField = props => (
             value={ props.value }
         />
       </div>
-      { props.errors ? <span className="help-block">{props.errors[props.name]}</span> : false }
+      { props.errors ?
+        <span className="help-block">{props.errors[props.name]}</span> : false
+      }
     </div>
 );
 FormField.propTypes = {

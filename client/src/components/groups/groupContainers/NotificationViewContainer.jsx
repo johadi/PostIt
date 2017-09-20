@@ -14,7 +14,8 @@ class NotificationViewContainer extends React.Component {
    * @return {void} void
    */
   componentWillMount() {
-    this.props.viewMessage(this.props.params.groupId, this.props.params.messageId);
+    this.props.viewMessage(this.props.params.groupId,
+      this.props.params.messageId);
     this.props.getGroupUsers(this.props.params.groupId);
   }
 

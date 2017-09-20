@@ -1,9 +1,11 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getGroupUsers, getGroupMessages, getGroupMessagesClear } from '../../../actions/group/groupActions';
+import {
+  getGroupUsers,
+  getGroupMessages,
+  getGroupMessagesClear } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import GroupNotificationBoard from '../GroupNotificationBoardPage.jsx';
 

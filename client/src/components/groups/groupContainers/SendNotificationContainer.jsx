@@ -24,8 +24,10 @@ class SendNotificationContainer extends React.Component {
    */
   render() {
     const { groupUsersStore } = this.props.groupState;
-    return this.props.tokenStatus.success && groupUsersStore ? <SendNotificationPage
-        groupUsers={groupUsersStore} groupId={this.props.params.groupId}/> : <NullPage/>;
+    return this.props.tokenStatus.success && groupUsersStore ?
+      <SendNotificationPage
+        groupUsers={groupUsersStore}
+        groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
 SendNotificationContainer.propTypes = {

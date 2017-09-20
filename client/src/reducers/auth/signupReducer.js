@@ -22,7 +22,8 @@ const signupReducer = (state = initialState, action) => {
         ...state,
         success: false,
         welcome: false,
-        errors: action.payload // capture validation errors like Email required
+        // capture validation errors like Email required
+        errors: action.payload
       };
       break;
     case actionTypes.SIGNUP_UNSUCCESSFUL:
@@ -30,7 +31,8 @@ const signupReducer = (state = initialState, action) => {
         ...state,
         success: false,
         welcome: false,
-        fails: action.payload // capture all failed responses like User Not Found
+        // capture all failed responses like User Not Found
+        fails: action.payload
       };
       break;
     case actionTypes.CANCEL_MODAL:

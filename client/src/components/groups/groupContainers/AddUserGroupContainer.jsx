@@ -26,8 +26,9 @@ class AddUserGroupContainer extends React.Component {
   render() {
     const { groupUsersStore } = this.props.groupState;
     return this.props.tokenStatus.success && groupUsersStore ?
-        <AddUserToGroupPage groupUsers={groupUsersStore}
-                                 groupId={this.props.params.groupId}/> : <NullPage/>;
+      <AddUserToGroupPage
+        groupUsers={groupUsersStore}
+        groupId={this.props.params.groupId}/> : <NullPage/>;
   }
 }
 AddUserGroupContainer.propTypes = {

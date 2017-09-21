@@ -5,9 +5,9 @@ import moxios from 'moxios';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import actionTypes from '../../src/actions/actionTypes';
-import {signupAction} from '../../src/actions/auth/signupAction';
-import {signinAction} from '../../src/actions/auth/signinAction';
-import {recoverPasswordAction, resetPasswordAction } from '../../src/actions/auth/passwordAction';
+import { signupAction } from '../../src/actions/auth/signupAction';
+import { signinAction } from '../../src/actions/auth/signinAction';
+import { recoverPasswordAction, resetPasswordAction } from '../../src/actions/auth/passwordAction';
 
 const mock = new MockAdapter(axios);
 const middlewares = [thunk];
@@ -24,28 +24,11 @@ describe('SignupAction', () => {
     password: '123456',
     confirmPassword: '123456'
   };
-  it('should dispatch SIGNUP_SUCCESSFUL action when user is created', (done) => {
-    const expectedActions = [{type: actionTypes.SIGNUP_SUCCESSFUL}];
-    // arguments for reply are (status, data, headers)
-    mock.onPost('/api/v1/user/signup', userDetails).reply(201, 'hajji');
-    const store = mockStore({});
-    store.dispatch(signupAction(userDetails)).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-    setTimeout(() => {
-      done();
-    }, 1000);
-  });
-  it('should dispatch SIGNUP_VALIDATION_ERROR action when any user input is invalid',
+  it('should dispatch SIGNUP_SUCCESSFUL action when user is created',
     (done) => {
-      const expectedActions = [{
-        type: actionTypes.SIGNUP_VALIDATION_ERROR,
-        payload: 'The username field is required'
-      }];
+      const expectedActions = [{ type: actionTypes.SIGNUP_SUCCESSFUL }];
       // arguments for reply are (status, data, headers)
-      mock.onPost('/api/v1/user/signup', userDetails).reply(400, {
-        validateError: 'The username field is required'
-      });
+      mock.onPost('/api/v1/user/signup', userDetails).reply(201, 'hajji');
       const store = mockStore({});
       store.dispatch(signupAction(userDetails)).then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -54,6 +37,24 @@ describe('SignupAction', () => {
         done();
       }, 1000);
     });
+  it('should dispatch SIGNUP_VALIDATION_ERROR action when any user' +
+    'input is invalid', (done) => {
+    const expectedActions = [{
+      type: actionTypes.SIGNUP_VALIDATION_ERROR,
+      payload: 'The username field is required'
+    }];
+    // arguments for reply are (status, data, headers)
+    mock.onPost('/api/v1/user/signup', userDetails).reply(400, {
+      validateError: 'The username field is required'
+    });
+    const store = mockStore({});
+    store.dispatch(signupAction(userDetails)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+    setTimeout(() => {
+      done();
+    }, 1000);
+  });
   it('should dispatch SIGNUP_UNSUCCESSFUL action when user already exists',
     (done) => {
       const expectedActions = [{
@@ -64,7 +65,8 @@ describe('SignupAction', () => {
         payload: 'username already exists'
       }];
       // arguments for reply are (status, data, headers)
-      mock.onPost('/api/v1/user/signup', userDetails).reply(400, 'username already exists');
+      mock.onPost('/api/v1/user/signup',
+        userDetails).reply(400, 'username already exists');
       const store = mockStore({});
       store.dispatch(signupAction(userDetails)).then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -84,9 +86,10 @@ describe('SigninAction', () => {
   };
   it('should dispatch SIGNIN_SUCCESSFUL action when user is logged in ',
     (done) => {
-      const expectedActions = [{type: actionTypes.SIGNIN_SUCCESSFUL}];
+      const expectedActions = [{ type: actionTypes.SIGNIN_SUCCESSFUL }];
       // arguments for reply are (status, data, headers)
-      mock.onPost('/api/v1/user/signin', userCredentials).reply(200, 'xyz.abc.tyz.you');
+      mock.onPost('/api/v1/user/signin',
+        userCredentials).reply(200, 'xyz.abc.tyz.you');
       const store = mockStore({});
       store.dispatch(signinAction(userCredentials)).then(() => {
         expect(store.getActions()).toEqual(expectedActions);
@@ -95,24 +98,24 @@ describe('SigninAction', () => {
         done();
       }, 1000);
     });
-  it('should dispatch SIGNIN_VALIDATION_ERROR action when any user input is invalid',
-    (done) => {
-      const expectedActions = [{
-        type: actionTypes.SIGNIN_VALIDATION_ERROR,
-        payload: 'The username field is required'
-      }];
-      // arguments for reply are (status, data, headers)
-      mock.onPost('/api/v1/user/signin', userCredentials).reply(400, {
-        validateError: 'The username field is required'
-      });
-      const store = mockStore({});
-      store.dispatch(signinAction(userCredentials)).then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
-      setTimeout(() => {
-        done();
-      }, 1000);
+  it('should dispatch SIGNIN_VALIDATION_ERROR action when any user' +
+    'input is invalid', (done) => {
+    const expectedActions = [{
+      type: actionTypes.SIGNIN_VALIDATION_ERROR,
+      payload: 'The username field is required'
+    }];
+    // arguments for reply are (status, data, headers)
+    mock.onPost('/api/v1/user/signin', userCredentials).reply(400, {
+      validateError: 'The username field is required'
     });
+    const store = mockStore({});
+    store.dispatch(signinAction(userCredentials)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+    setTimeout(() => {
+      done();
+    }, 1000);
+  });
   it('should dispatch SIGNIN_UNSUCCESSFUL action when username is not found',
     (done) => {
       const expectedActions = [{
@@ -123,7 +126,8 @@ describe('SigninAction', () => {
         payload: 'User not found'
       }];
       // arguments for reply are (status, data, headers)
-      mock.onPost('/api/v1/user/signin', userCredentials).reply(400, 'User not found');
+      mock.onPost('/api/v1/user/signin',
+        userCredentials).reply(400, 'User not found');
       const store = mockStore({});
       store.dispatch(signinAction(userCredentials)).then(() => {
         expect(store.getActions()).toEqual(expectedActions);

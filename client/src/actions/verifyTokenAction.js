@@ -20,7 +20,7 @@ export const verifyToken = () => (dispatch) => {
             return dispatch({ type: actionTypes.VERIFY_TOKEN,
               payload: false });
           })
-          .catch((err) => {
+          .catch(() => {
             // Remove an invalid token if there exists one
             if (window.sessionStorage.token) {
               window.sessionStorage.removeItem('token');

@@ -35,7 +35,7 @@ class NotificationViewContainer extends React.Component {
     return this.props.tokenStatus.success && groupViewMessage && groupUsersStore ?
         <MessageViewPage
           groupId={this.props.params.groupId}
-          groupUser={groupUsersStore}
+          groupUsers={groupUsersStore}
           message={groupViewMessage}/> : <NullPage/>;
   }
 }

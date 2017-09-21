@@ -2,13 +2,15 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { CreateGroup } from '../../../src/components/groups/CreateGroup.jsx';
 
 
 describe('<CreateGroup/>', () => {
-  const createGroup = sinon.spy(); // create a spy function for createGroup Action
-  sinon.spy(CreateGroup.prototype, 'handleCreateGroup'); // spy on handleCreateGroup of CreateGroup Page
+  // create a spy function for createGroup Action
+  const createGroup = sinon.spy();
+  // spy on handleCreateGroup of CreateGroup Page
+  sinon.spy(CreateGroup.prototype, 'handleCreateGroup');
   const props = {
     groupState: {},
     createGroup
@@ -23,10 +25,7 @@ describe('<CreateGroup/>', () => {
   });
   it('Should check if handleCreateGroup is called when form is submitted', () => {
     wrapper.find('form').simulate('submit'); // trigger an event by form
-    expect(CreateGroup.prototype.handleCreateGroup.calledOnce).toBe(true); // handleCreateGroup is called
+    // handleCreateGroup is called
+    expect(CreateGroup.prototype.handleCreateGroup.calledOnce).toBe(true);
   });
-  // it('Should check if createGroup action method is called', () => {
-  //   wrapper.find('form').simulate('submit'); // trigger an event by form
-  //   expect(createGroup.called).toBe(true); // createGroup action inside handleCreateGroup is called
-  // });
 });

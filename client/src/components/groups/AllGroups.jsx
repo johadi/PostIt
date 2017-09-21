@@ -9,7 +9,7 @@ import { getUserGroups, getUserGroupsPaginated } from '../../actions/group/group
 /**
  * GroupsContainer class declaration
  */
-export class GroupsContainer extends React.Component {
+export class AllGroups extends React.Component {
   /**
    * class constructor
    * @param {object} props
@@ -76,7 +76,7 @@ export class GroupsContainer extends React.Component {
     );
   }
 }
-GroupsContainer.propTypes = {
+AllGroups.propTypes = {
   groupState: PropTypes.object.isRequired,
   getUserGroups: PropTypes.func.isRequired,
   getUserGroupsPaginated: PropTypes.func.isRequired,
@@ -87,5 +87,5 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
   getUserGroups, getUserGroupsPaginated }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AllGroups);
 

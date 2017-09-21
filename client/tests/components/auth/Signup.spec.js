@@ -10,8 +10,8 @@ import IndexHeader from '../../../src/components/headers/IndexHeader.jsx';
 
 describe('<SignupPage/>', () => {
   const signupAction = sinon.spy(); // create a spy function for signupAction
-  sinon.spy(SignupPage.prototype, 'handleSubmit'); // spy on handleSubmit of SIgnup Page
-  sinon.spy(SignupPage.prototype, 'handleChange'); // spy on handleChange of SIgnup Page
+  sinon.spy(SignupPage.prototype, 'handleSubmit');
+  sinon.spy(SignupPage.prototype, 'handleChange');
   const props = {
     signupState: {},
     signupAction
@@ -37,11 +37,13 @@ describe('<SignupPage/>', () => {
     expect(button.text()).toEqual('Sign up');
   });
   it('Should check if handleSubmit is called', () => {
-    wrapper.find('form').simulate('submit'); // trigger an event by Signup form
-    expect(SignupPage.prototype.handleSubmit.calledOnce).toBe(true); // handleSubmit is called
+    wrapper.find('form').simulate('submit');
+    expect(SignupPage.prototype.handleSubmit.calledOnce).toBe(true);
   });
   it('Should check if signupAction is called', () => {
-    wrapper.find('form').simulate('submit'); // trigger an event by Signup form
-    expect(signupAction.called).toBe(true); // singupAction inside handleSubmit is called
+    // trigger an event by Signup form
+    wrapper.find('form').simulate('submit');
+    // singupAction inside handleSubmit is called
+    expect(signupAction.called).toBe(true);
   });
 });

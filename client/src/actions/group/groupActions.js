@@ -72,19 +72,16 @@ export const getGroupMessages = (groupId, pageNumber) => (dispatch) => {
       .then((res) => {
         dispatch({ type: actionTypes.GET_GROUP_MESSAGES_SUCCESSFUL,
           payload: res.data });
-        // console.log(res.data, groupId);
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
           browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUP_MESSAGES_ERROR,
             payload: 'Error Occurred...Try again' });
-          // console.log(err.response.data.name);
         } else {
           browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUP_MESSAGES_ERROR,
             payload: err.response.data });
-          // console.log(err.response.data);
         }
       });
 };

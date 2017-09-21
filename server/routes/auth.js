@@ -13,17 +13,17 @@ router.route('/v1/user/signup')
  * @apiParam {String} confirmPassword confirm password of user
  * @apiParamExample {json} Input
  *    {
-   *      "fullname": "Jimoh Hadi",
-   *      "username": "Johadi",
-   *      "mobile": "0816304xxxx",
-   *      "email": "jimoh@program.com",
-   *      "password": "123456"
-   *      "confirmPassword": "123456"
-   *    }
+ *      "fullname": "Jimoh Hadi",
+ *      "username": "Johadi",
+ *      "mobile": "0816304xxxx",
+ *      "email": "jimoh@program.com",
+ *      "password": "123456"
+ *      "confirmPassword": "123456"
+ *    }
  * @apiSuccess {String} token Token of authenticated user
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
- *    "xyz.abc.123.hgf"
+ *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123.weewewewhgf"
  */
     .post(authController.signup);
 router.route('/v1/user/signin')
@@ -34,13 +34,13 @@ router.route('/v1/user/signin')
  * @apiParam {String} password User password
  * @apiParamExample {json} Input
  *    {
-   *      "username": "johadi",
-   *      "password": "123456"
-   *    }
+ *      "username": "johadi",
+ *      "password": "123456"
+ *    }
  * @apiSuccess {String} token Token of authenticated user
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
- *    "xyz.abc.123.hgf"
+ *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123.weewewewhgf"
  */
     .post(authController.signin);
 module.exports = router;

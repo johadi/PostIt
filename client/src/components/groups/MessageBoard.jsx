@@ -6,7 +6,9 @@ import PropTypes from 'react-proptypes';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
-import { getUserGroups, getBoardMessagesPaginated } from '../../actions/group/groupActions';
+import {
+  getUserGroups,
+  getBoardMessagesPaginated } from '../../actions/group/groupActions';
 
 /**
  * MessageBoard class declaration
@@ -49,10 +51,6 @@ export class MessageBoard extends React.Component {
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
     this.props.getBoardMessagesPaginated(eventKey);
-    // if(this.reload===1){
-    //   this.props.getUserGroups();
-    // }
-    this.props.getUserGroups();
   }
 
   /**
@@ -71,33 +69,41 @@ export class MessageBoard extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    // this.props.getUserGroups(); // force side bar to render anytime this page renders
     const { messages, pages, count } = this.props.boardMessagesPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2><strong>Notification board</strong></h2>
           <small style={{ color: 'red' }}>{count === 1 ?
-            `(${count}) notification` : `(${count}) notifications`} you have not read</small>
+            `(${count}) notification` :
+            `(${count}) notifications`} you have not read</small>
           <hr/>
           {
             messages.map((message) => {
               let priority = <span style={{ backgroundColor: 'green' }}
-                                   className="badge text-capitalize">{message.priority}</span>;
+                                   className="badge text-capitalize">
+                {message.priority}
+                </span>;
               if (message.priority === 'urgent') {
                 priority = <span style={{ backgroundColor: 'orange' }}
-                                 className="badge text-capitalize">{message.priority}</span>;
+                                 className="badge text-capitalize">
+                  {message.priority}
+                  </span>;
               }
               if (message.priority === 'critical') {
                 priority = <span style={{ backgroundColor: 'darkred' }}
-                                 className="badge text-capitalize">{message.priority}</span>;
+                                 className="badge text-capitalize">
+                  {message.priority}
+                  </span>;
               }
               return (
                 <div key={message.id} className="media">
                   <div className="media-left message">
                   </div>
                   <div className="media-body">
-                    <h4 className="media-heading"><span className="text-capitalize">
-                      {message.User.username}</span>
+                    <h4 className="media-heading">
+                      <span className="text-capitalize">
+                        {message.User.username}
+                      </span>
                       <small>
                         <Link to={`/group/${message.Group.id}/board`}>
                           <i><span className="text-capitalize"
@@ -107,7 +113,9 @@ export class MessageBoard extends React.Component {
                         {this.showTime(message.createdAt) >= 23 ?
                           <small> posted on {new Date(message.createdAt)
                             .toLocaleString('en-us', this.dateOptions)}</small> :
-                          <small> Sent <Moment fromNow>{message.createdAt}</Moment></small>}
+                          <small> Sent <Moment fromNow>
+                            {message.createdAt}</Moment>
+                          </small>}
                       </small>
                     </h4>
                     <p className="text-overflow">

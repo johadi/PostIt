@@ -6,7 +6,8 @@ const FormField = props => (
     <div className={classnames('form-group',
       { 'has-error': props.errors ? !!props.errors[props.name] : false })}>
       <div
-        className="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
+        className="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10
+        col-sm-offset-2 col-sm-8">
         <input
             onChange={ props.onChange }
             type={ props.type ? props.type : 'text' }
@@ -15,7 +16,8 @@ const FormField = props => (
             value={ props.value }
         />
         { props.errors ?
-          <span id="show-error" style={{ backgroundColor: '#ffe6f0' }} className="show-error help-block">
+          <span id="show-error" style={{ backgroundColor: '#ffe6f0' }}
+                className="show-error help-block">
             {props.errors[props.name]}
           </span> : false }
       </div>

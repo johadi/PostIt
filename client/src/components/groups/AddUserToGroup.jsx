@@ -45,7 +45,8 @@ export class AddUserToGroup extends React.Component {
   render() {
     const { usersSearch } = this.props.groupState;
     return (
-        <form onSubmit={e => this.handleSubmit(e)} className="form-horizontal" role="form">
+        <form onSubmit={e => this.handleSubmit(e)}
+              className="form-horizontal" role="form">
           <h4 className="text-center">
             Add members to <span className="text-capitalize text-display">
             {this.props.name}</span> group</h4>
@@ -53,7 +54,8 @@ export class AddUserToGroup extends React.Component {
             <div className="col-lg-10 col-lg-offset-1">
               <div className="input-group">
                 <input id="search" name="search"
-                       ref={input => this.search = input} onKeyUp={e => this.handleSearch(e)}
+                       ref={input => this.search = input}
+                       onKeyUp={e => this.handleSearch(e)}
                        placeholder="Search Users by Username or Email"
                        type="text" className="form-control"/>
                 <span className="input-group-btn">
@@ -90,8 +92,10 @@ export class AddUserToGroup extends React.Component {
                             <td>{user.username}</td>
                             <td>{user.fullname}</td>
                             <td>{user.email}</td>
-                            <td><a className="btn btn-success btn-sm btn-block" disabled >
-                              Member</a>
+                            <td>
+                              <a className="btn btn-success btn-sm btn-block" disabled >
+                                Member
+                              </a>
                             </td>
                           </tr>
                       );
@@ -101,9 +105,12 @@ export class AddUserToGroup extends React.Component {
                             <td>{user.username}</td>
                             <td>{user.fullname}</td>
                             <td>{user.email}</td>
-                            <td><a onClick={e => this.handleAddUser(e)} id={user.username}
+                            <td>
+                              <a onClick={e => this.handleAddUser(e)}
+                                   id={user.username}
                                    className="btn btn-primary btn-sm btn-block" href="">
-                              Add</a>
+                                Add
+                              </a>
                             </td>
                           </tr>
                     );

@@ -20,14 +20,16 @@ const signinReducer = (state = initialState, action) => {
         ...state,
         success: false,
         fails: null,
-        errors: action.payload // capture validation errors like Username required
+        // capture validation errors like Username required
+        errors: action.payload
       };
       break;
     case actionTypes.SIGNIN_UNSUCCESSFUL:
       state = {
         ...state,
         success: false,
-        fails: action.payload // capture all failed responses like User Not Found
+        // capture all failed responses like User Not Found
+        fails: action.payload
       };
       break;
     default:

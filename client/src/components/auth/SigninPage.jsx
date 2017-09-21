@@ -66,8 +66,12 @@ export class SigninPage extends React.Component {
             <div className="cover-container">
               <IndexHeader/>
               <div className="inner cover">
-                <h2 className="cover-heading"><strong>Login to PostIt,</strong></h2>
-                <p className="lead">Share your moment with colleagues and friends.</p>
+                <h2 className="cover-heading">
+                  <strong>Login to PostIt,</strong>
+                </h2>
+                <p className="lead">
+                  Share your moment with colleagues and friends.
+                </p>
                 <form onSubmit={e => this.handleSubmit(e)}
                       className="form-horizontal" role="form">
                   { this.props.signinState.fails ?
@@ -81,7 +85,8 @@ export class SigninPage extends React.Component {
                              value={this.state.credentials.username}
                              name="username"
                              placeholder="Username"/>
-                  <FormField type="password" errors={this.props.signinState.errors}
+                  <FormField type="password"
+                             errors={this.props.signinState.errors}
                              onChange={e => this.handleChange(e)}
                              value={this.state.credentials.password}
                              name="password"
@@ -90,15 +95,18 @@ export class SigninPage extends React.Component {
                     <div className="col-lg-offset-2
                     col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
                       <button id="signin" type="submit"
-                              className="btn btn-lg btn-success btn-block">Login now</button>
+                              className="btn btn-lg btn-success btn-block">Login now
+                      </button>
                     </div>
                   </div>
                   <div className="form-group">
                     <div className="col-lg-offset-2
                     col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
                     <span className="pull-left">
-                      No Account yet ? <Link className="text-underline text-signin" to="/signup">
-                      <strong>Sign up</strong></Link>
+                      No Account yet ?
+                      <Link className="text-underline text-signin" to="/signup">
+                        <strong> Sign up</strong>
+                      </Link>
                     </span>
                       <span className="pull-right">
                       Forget Password ?

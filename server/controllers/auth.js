@@ -71,7 +71,8 @@ module.exports = {
             return Promise.reject('Incorrect password');
           }
           // If all is well
-          const signinData = lodash.pick(user, ['id', 'username', 'email', 'fullname']);
+          const signinData = lodash.pick(user,
+            ['id', 'username', 'mobile', 'email', 'fullname']);
           // Give the user token and should expire in the next 24 hours
           const token = jwt.sign(signinData, process.env.JWT_SECRET);
           return handleSuccess(200, token, res);

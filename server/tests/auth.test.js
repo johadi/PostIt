@@ -6,7 +6,6 @@ const jwtDecode = require('jwt-decode');
 const app = require('./../../app');
 const seeder = require('./seed/auth_seed');
 const User = require('./../database/models').User;
-const PasswordRecovery = require('./../database/models').PasswordRecovery;
 // Test for Signup route
 describe('POST api/v1/user/signup', () => {
   beforeEach(seeder.emptyDB);

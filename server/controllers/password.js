@@ -10,10 +10,10 @@ const { handleError, handleSuccess, sendMail } = require('../helpers/helpers');
 module.exports = {
   // password Recovery
   passwordRecovery(req, res) {
-    const rules = {
+    const recoveryRules = {
       email: 'required|email'
     };
-    const validator = new Validator(req.body, rules);
+    const validator = new Validator(req.body, recoveryRules);
     if (validator.fails()) {
       return handleError({ validateError: validator.errors.all() }, res);
     }
@@ -31,7 +31,7 @@ module.exports = {
           .then((foundUser) => {
             // If all is well
             const userData = lodash.pick(user, ['id', 'username', 'email']);
-            // Create token and should expire in the next 24 hou
+            // Create token and should expire in the next 24 hours
             const token = jwt.sign(userData,
               process.env.JWT_SECRET, { expiresIn: 3600 * 24 });
             // Handle our send email here
@@ -52,7 +52,8 @@ module.exports = {
                   // Do we have user data requesting for password change before?
                   // If yes ,just update his/her hash
                   if (foundUser) {
-                    PasswordRecovery.update({ hashed: token }, { where: { email: user.email } });
+                    PasswordRecovery
+                      .update({ hashed: token }, { where: { email: user.email } });
                   } else {
                     // Create a new log for the user, if no log before
                     PasswordRecovery.create({ email: user.email, hashed: token });
@@ -76,11 +77,11 @@ module.exports = {
       .catch(err => handleError(err, res));
   },
   resetPasswordPost(req, res) {
-    const rules = {
+    const resetRules = {
       password: 'required|min:6',
       confirmPassword: 'required|min:6'
     };
-    const validator = new Validator(req.body, rules);
+    const validator = new Validator(req.body, resetRules);
     if (!validator.passes()) {
       return handleError({ validateError: validator.errors.all() }, res);
     }
@@ -96,7 +97,8 @@ module.exports = {
       })
       .then(() => handleSuccess(200, 'Password changed successfully', res))
       .catch(() => {
-        const errorMessage = 'Error occurred while processing your request. Try again';
+        const errorMessage = 'Error occurred while processing your ' +
+          'request. Try again';
         return handleError(errorMessage, res);
       });
   }

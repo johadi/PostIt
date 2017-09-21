@@ -18,7 +18,8 @@ export default class GroupsPage extends React.Component {
         <div className="container">
           <MainHeader/>
           <div id="group-body" className="row">
-            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"
+            <div className="col-md-push-1 col-md-7
+            col-sm-12 col-xs-12 panel panel-default"
                  id="message-board-panel">
               <div className="panel-body">
                 <div className="row">

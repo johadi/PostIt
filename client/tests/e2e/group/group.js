@@ -3,7 +3,7 @@ import config from '../config';
 
 const username = faker.internet.userName();
 const password = 'andela29';
-const password2nd = faker.internet.userName()
+const password2nd = faker.internet.userName();
 const username2nd = '112233';
 const groupName = faker.random.word();
 const getGroupIdFromUrl = (str) => {
@@ -45,8 +45,7 @@ export default {
       .waitForElementVisible('#signup', 1000)
       .execute(() => {
         document.getElementById('signup').click();
-      })
-
+      });
   },
   beforeEach: (browser) => { // login the user on every test suites
     browser
@@ -97,8 +96,10 @@ export default {
       .waitForElementVisible('form', 1000)
       .setValue('input[name=search]', username2nd)
       .pause(2000)
-      .assert.elementPresent('table tbody tr:nth-of-type(1)') // do we have search result
-      .assert.containsText('table tbody tr:nth-of-type(1) td:nth-of-type(1)', username2nd)
+      // do we have search result
+      .assert.elementPresent('table tbody tr:nth-of-type(1)')
+      .assert.containsText('table tbody tr:nth-of-type(1) td:nth-of-type(1)',
+      username2nd)
       .assert.containsText('table tbody tr:nth-of-type(1) td:nth-of-type(4) a', 'Add')
       .click('table tbody tr:nth-of-type(1) td:nth-of-type(4) a')
       .pause(2000)
@@ -113,7 +114,8 @@ export default {
       .click('button[type=submit]')
       .pause(2000)
       .assert.urlEquals(`${config.baseUrl}/group/${groupId}/board`)
-      .assert.containsText('div.message:nth-of-type(1) div.media-body p.text-overflow a', 'the north always remembers')
+      .assert.containsText('div.message:nth-of-type(1) div.media-body p.text-overflow a',
+      'the north always remembers')
       .pause(1000)
       .end();
   },
@@ -123,10 +125,8 @@ export default {
       .waitForElementVisible('div#message-board-div', 1000)
       .pause(2000)
       .assert.urlEquals(`${config.baseUrl}/group/${groupId}/board`)
-      // .assert.containsText('div.message:nth-of-type(1) div.media-body p.text-overflow a', 'the north always remembers')
-      // .assert.containsText('div.message:nth-of-type(1) div.media-body h4', username) // message sender
-      .assert.elementPresent('div.message:nth-of-type(1) div.media-body p.text-overflow a') // a message link
-      .assert.elementPresent('div.message:nth-of-type(1) div.media-body h4') // the message sender
+      .assert.elementPresent('div.message:nth-of-type(1) div.media-body p.text-overflow a')
+      .assert.elementPresent('div.message:nth-of-type(1) div.media-body h4')
       .pause(3000)
       .end();
   },

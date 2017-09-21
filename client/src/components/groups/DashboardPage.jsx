@@ -16,10 +16,12 @@ class Dashboard extends React.Component {
    * @return {void} void
    */
   componentDidMount() {
-    if (this.props.signupState.welcome) { // Show modal when user just signup
+    // Show modal when user just signup
+    if (this.props.signupState.welcome) {
       const signupModal = $('#myModal');
       signupModal.modal('show');
-      signupModal.on('hidden.bs.modal', (e) => { // Cancel Modal state whenever user cancel modal
+      // Cancel Modal state whenever user cancel modal
+      signupModal.on('hidden.bs.modal', (e) => {
         this.props.cancelModal();
       });
     }
@@ -34,8 +36,10 @@ class Dashboard extends React.Component {
         <div className="container">
           <MainHeader/>
           <div id="group-body" className="row">
-            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"
-                 id="message-board-panel">
+            <div
+              className="col-md-push-1 col-md-7 col-sm-12
+              col-xs-12 panel panel-default"
+              id="message-board-panel">
               <div className="panel-body">
                 <div className="row">
                   <MessageBoard

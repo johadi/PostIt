@@ -2,16 +2,21 @@ import React from 'react';
 import { Link, browserHistory } from 'react-router';
 import NotFoundHeader from './headers/NotFoundHeader.jsx';
 /**
- * GroupUsersPage class declaration
+ * NotFoundPage class declaration
  */
 export default class NotFoundPage extends React.Component {
   /**
    * renders component
-   * @return {XML} XML/JSX
+   * @param {object} e
+   * @return {void} void
    */
   handleClick(e) {
     browserHistory.goBack();
   }
+  /**
+   * renders component
+   * @return {XML} XML/JSX
+   */
   render() {
     return (
       <div id="not-found-div">

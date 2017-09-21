@@ -3,7 +3,9 @@ import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { addUserToGroup, addUserToGroupClear } from '../../actions/group/groupActions';
+import {
+  addUserToGroup,
+  addUserToGroupClear } from '../../actions/group/groupActions';
 import '../../build/static/styles/group-custom.scss';
 import MainHeader from '../headers/MainHeader.jsx';
 import GroupSideBar from './GroupSideBar.jsx';
@@ -41,7 +43,8 @@ class AddUserToGroupPage extends React.Component {
         <div className="container">
           <MainHeader/>
           <div id="group-body" className="row">
-            <div className="col-md-push-1 col-md-7 col-sm-12 col-xs-12 panel panel-default"
+            <div className="col-md-push-1 col-md-7
+            col-sm-12 col-xs-12 panel panel-default"
                  style={{ marginTop: '30px', paddingTop: '20px' }}>
               <AddUserToGroup
                   onAddUser={e => this.handleAddUser(e)}

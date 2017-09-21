@@ -27,7 +27,7 @@ const passwordReducer = (state = initialState, action) => {
         message: null,
         success: false,
         fails: null,
-        errors: action.payload // capture validation errors like Email required
+        errors: action.payload
       };
       break;
     case actionTypes.RECOVERY_UNSUCCESSFUL:
@@ -36,7 +36,7 @@ const passwordReducer = (state = initialState, action) => {
         message: null,
         success: false,
         errors: null,
-        fails: action.payload // capture all failed responses like User Not Found
+        fails: action.payload
       };
       break;
     case actionTypes.RESET_SUCCESSFUL:
@@ -54,7 +54,7 @@ const passwordReducer = (state = initialState, action) => {
         resetMessage: null,
         resetSuccess: false,
         resetFails: null,
-        resetErrors: action.payload // capture validation errors like Email required
+        resetErrors: action.payload
       };
       break;
     case actionTypes.RESET_UNSUCCESSFUL:
@@ -63,7 +63,7 @@ const passwordReducer = (state = initialState, action) => {
         resetMessage: null,
         resetSuccess: false,
         resetErrors: null,
-        resetFails: action.payload // capture all failed responses like User Not Found
+        resetFails: action.payload
       };
       break;
     default:

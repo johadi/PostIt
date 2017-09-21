@@ -793,7 +793,7 @@ describe('Get api/v1/group/user/groups', () => {
       .end((err, res) => {
         if (err) return done(err);
         // array of Groups user belongs with other information
-        assert.exists(res.body.Groups);
+        assert.exists(res.body.groups);
         // username of the person requesting his/her groups
         assert.exists(res.body.username);
         // pages the groups can make

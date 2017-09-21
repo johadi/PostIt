@@ -15,7 +15,8 @@ class CreateGroupContainer extends React.Component {
    * @return {XML} XML
    */
   render() {
-    return this.props.tokenStatus.success ? <CreateGroupPage/> : <NullPage/>;
+    return this.props.tokenStatus.success ?
+      <CreateGroupPage/> : <NullPage/>;
   }
 }
 CreateGroupContainer.propTypes = {

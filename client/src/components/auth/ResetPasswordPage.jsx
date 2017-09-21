@@ -32,7 +32,8 @@ class ResetPasswordPage extends React.Component {
    */
   handleSubmit(e) {
     e.preventDefault();
-    this.props.resetPasswordAction(this.props.location.query.token, this.state.user);
+    this.props.resetPasswordAction(this.props.location.query.token,
+      this.state.user);
   }
   /**
    * handles change

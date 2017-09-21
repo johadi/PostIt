@@ -7,7 +7,10 @@ import lodash from 'lodash';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
-import { getGroupMessages, getGroupUsers, getGroupMessagesClear } from '../../actions/group/groupActions';
+import {
+  getGroupMessages,
+  getGroupUsers,
+  getGroupMessagesClear } from '../../actions/group/groupActions';
 
 /**
  * GroupNotificationBoard class declaration
@@ -68,14 +71,19 @@ export class GroupNotificationBoard extends React.Component {
           <hr/>
           {rows.map((message) => {
             let priority = <span style={{ backgroundColor: 'green' }}
-                                 className="badge text-capitalize">{message.priority}</span>;
+                                 className="badge text-capitalize">
+              {message.priority}
+              </span>;
             if (message.priority === 'urgent') {
               priority = <span style={{ backgroundColor: 'orange' }}
-                               className="badge text-capitalize">{message.priority}</span>;
+                               className="badge text-capitalize">
+                {message.priority}
+                </span>;
             }
             if (message.priority === 'critical') {
               priority = <span style={{ backgroundColor: 'darkred' }}
-                               className="badge text-capitalize">{message.priority}</span>;
+                               className="badge text-capitalize">
+                {message.priority}</span>;
             }
             return (
               <div key={message.id} className="media message">
@@ -85,9 +93,11 @@ export class GroupNotificationBoard extends React.Component {
                   <h4 className="media-heading">{message.User.username}
                     {this.showTime(message.createdAt) >= 23 ?
                       <small>
-                        posted on {new Date(message.createdAt).toLocaleString('en-us', this.dateOptions)}
+                        posted on {new Date(message.createdAt)
+                        .toLocaleString('en-us', this.dateOptions)}
                       </small> :
-                      <small> Sent <Moment fromNow>{message.createdAt}</Moment> {priority} |
+                      <small> Sent <Moment fromNow>{message.createdAt}
+                      </Moment> {priority} |
                         {
                           lodash.includes(message.readersId, this.userDetail.id) ?
                             <span className="text-success"> Read</span> :
@@ -97,7 +107,8 @@ export class GroupNotificationBoard extends React.Component {
                     }
                   </h4>
                   <p className="text-overflow"><Link
-                    to={`/message/${this.props.groupId}/${message.id}`}>{message.body}</Link></p>
+                    to={`/message/${this.props.groupId}/${message.id}`}>
+                    {message.body}</Link></p>
                 </div>
                 <hr/>
               </div>
@@ -136,4 +147,5 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   getGroupMessagesClear,
   getGroupUsers
 }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupNotificationBoard);
+export default connect(mapStateToProps,
+  mapDispatchToProps)(GroupNotificationBoard);

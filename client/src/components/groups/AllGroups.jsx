@@ -9,7 +9,7 @@ import { getUserGroups, getUserGroupsPaginated } from '../../actions/group/group
 /**
  * GroupsContainer class declaration
  */
-export class GroupsContainer extends React.Component {
+export class AllGroups extends React.Component {
   /**
    * class constructor
    * @param {object} props
@@ -35,7 +35,6 @@ export class GroupsContainer extends React.Component {
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
     this.props.getUserGroupsPaginated(eventKey);
-    this.props.getUserGroups(); // necessary to keep side bar state else it will vanish
   }
 
   /**
@@ -43,7 +42,7 @@ export class GroupsContainer extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { pages, count, Groups } = this.props.userGroupsPagination;
+    const { pages, count, groups } = this.props.userGroupsPagination;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2>Your Groups</h2>
@@ -51,7 +50,7 @@ export class GroupsContainer extends React.Component {
             Total groups you joined: {count}</strong></p>
           <hr/>
           <div className="list-group">
-            {Groups.map(userGroup => (
+            {groups.map(userGroup => (
                 <Link to={`/group/${userGroup.Group.id}/board`}
                       key={userGroup.Group.id} className="group-div list-group-item">
                   <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>
@@ -77,7 +76,7 @@ export class GroupsContainer extends React.Component {
     );
   }
 }
-GroupsContainer.propTypes = {
+AllGroups.propTypes = {
   groupState: PropTypes.object.isRequired,
   getUserGroups: PropTypes.func.isRequired,
   getUserGroupsPaginated: PropTypes.func.isRequired,
@@ -88,5 +87,5 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
   getUserGroups, getUserGroupsPaginated }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AllGroups);
 

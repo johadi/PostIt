@@ -4,8 +4,6 @@ const twilio = require('twilio');
 // error message handler
 const handleError = (err, res) => {
   switch (err.code) {
-    case 401:
-      return res.status(401).json(err.message);
     case 404:
       return res.status(404).json(err.message);
     default:
@@ -41,7 +39,6 @@ const sendMail = (from, to, subject, message) => {
   };
   return transporter.sendMail(mailOptions);
 };
-
 // Sending SMS
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;

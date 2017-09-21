@@ -290,8 +290,8 @@ describe('groupReducer', () => {
     });
   });
   describe('GET MESSAGES FOR MESSAGE BOARD', () => {
-    it('should set value for boardMessagesPaginated and set boardMessagesPaginatedErr ' +
-      'to null when Type is GET_BOARD_MESSAGES_SUCCESS',
+    it('should set value for boardMessagesPaginated and set ' +
+      'boardMessagesPaginatedErr to null when Type is GET_BOARD_MESSAGES_SUCCESS',
       () => {
         const groupActionDispatch = {
           type: actionTypes.GET_BOARD_MESSAGES_SUCCESS,

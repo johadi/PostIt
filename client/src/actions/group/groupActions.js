@@ -24,7 +24,7 @@ export const createGroup = name => (dispatch) => {
 export const addUserToGroup = (groupId, username) => (dispatch) => {
   axios.post(`/api/v1/group/${groupId}/user`, { user: username },
     { headers: { 'x-auth': window.sessionStorage.token } })
-      .then((res) => {
+      .then(() => {
         dispatch({ type: actionTypes.GROUP_ADD_USER_SUCCESSFUL });
       })
       .catch((err) => {
@@ -45,7 +45,7 @@ export const addUserToGroupClear = () => ({
 export const postMessage = (groupId, message, priority) => (dispatch) => {
   axios.post(`/api/v1/group/${groupId}/message`, { message, priority },
     { headers: { 'x-auth': window.sessionStorage.token } })
-      .then((res) => {
+      .then(() => {
         browserHistory.push(`/group/${groupId}/board`);
         dispatch({ type: actionTypes.POST_MESSAGE_SUCCESSFUL });
       })
@@ -126,11 +126,9 @@ export const getGroupUsers = groupId => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR,
             payload: 'Error Occurred...Try again' });
         } else {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR,
             payload: err.response.data });
         }
@@ -152,11 +150,9 @@ export const getGroupUsersPaginated = (groupId, pageNumber) => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
             payload: 'Error Occurred...Try again' });
         } else {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
             payload: err.response.data });
         }
@@ -174,11 +170,9 @@ export const getUserGroups = () => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_USER_GROUPS_ERROR,
             payload: 'Error Occurred...Try again' });
         } else {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_USER_GROUPS_ERROR,
             payload: err.response.data });
         }
@@ -196,11 +190,9 @@ export const getUserGroupsPaginated = pageNumber => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
             payload: 'Error Occurred...Try again' });
         } else {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
             payload: err.response.data });
         }
@@ -217,16 +209,13 @@ export const getBoardMessagesPaginated = pageNumber => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_BOARD_MESSAGES_ERROR,
             payload: 'Error Occurred...Try again' });
         } else {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.GET_BOARD_MESSAGES_ERROR,
             payload: err.response.data });
         }
       });
-  // return 1;
 };
 // get the result of searching users in the application
 export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
@@ -240,11 +229,9 @@ export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.USERS_SEARCH_ERROR,
             payload: 'Error Occurred...Try again' });
         } else {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.USERS_SEARCH_ERROR,
             payload: err.response.data });
         }
@@ -264,11 +251,9 @@ export const updateReadMessage = messageId => (dispatch) => {
       })
       .catch((err) => {
         if (err.response.data.name === 'SequelizeConnectionError') {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.MESSAGE_READ_ERROR,
             payload: 'Error Occurred...Try again' });
         } else {
-          // browserHistory.goBack();
           dispatch({ type: actionTypes.MESSAGE_READ_ERROR,
             payload: err.response.data });
         }

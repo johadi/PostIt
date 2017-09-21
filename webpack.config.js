@@ -73,7 +73,7 @@ const common = {
 };
 
 // Default configuration
-if (TARGET === 'build:dev' || TARGET === 'test:karma' || !TARGET) {
+if (TARGET === 'build:dev' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {

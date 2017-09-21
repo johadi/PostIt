@@ -6,19 +6,19 @@
 #### User Authentication
 Users are authenticated and validated using JWT tokens.
 
-#### What Users can do with the Application
+#### What You can do with the Application
 * Sign up for the system
 * Login with your credentials
 * Create group
-* Search and add other registered users to groups he joined
-* Send notification to groups he joined
-* Read notifications sent by other users from his notification board
-* Receive Email notifications if urgent messages are sent to groups he joined
-* Receive SMS and Email notifications if critical messages are sent to groups he joined
-* Read all notifications available in the groups he joined
-* View list of all groups he joined
-* View list of members in a particular group he joined
-* Logout of the application
+* Search and add other registered users to groups you joined
+* Send notification to groups you joined
+* Read notifications sent by other users from your notification board
+* Receive Email notifications if urgent messages are sent to groups you joined
+* Receive SMS and Email notifications if critical messages are sent to groups you joined
+* Read all notifications available in the groups you joined
+* View list of all groups you joined
+* View list of members in a particular group you joined
+* Logout of the application any time you wish
 * Reset password if forgotten
 
 ## Technologies and Services
@@ -54,7 +54,7 @@ Users are authenticated and validated using JWT tokens.
 
 ## Testing
 -   Use separate DB's for testing and development as shown in the .env.sample file
--   Run Test `npm test`
+-   Run Test with `npm test`
 
 ## Limitations of the project
   * User's logged in session expires when the browser is closed.

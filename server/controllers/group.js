@@ -231,18 +231,19 @@ module.exports = {
                 })
                   .then(groupAndMembers =>
                     // Using map of Bluebird promises (P)
-                    // Bluebird map return array Promises values just like Promise.all()
+                    // Bluebird map return array Promises values
+                    // just like Promise.all()
                     P.map(groupAndMembers,
                         groupAndMember => groupAndMember.User.email))
                   .then((groupMemberEmails) => {
                     // We handle our send email here
                     const from = 'no-reply <jimoh@google.com>';
-                    const to = groupMemberEmails; // groupMemberEmails is an array of emails
+                    // groupMemberEmailsis an array of emails
+                    const to = groupMemberEmails;
                     const subject = 'Notification from PostIt';
                     const message = '<h2>' +
                       'Hi!, you have one notification from PostIt' +
-                      '</h2>' +
-                      '<h3>Notification level: Urgent</h3>' +
+                      '</h2><h3>Notification level: Urgent</h3>' +
                       '<p><a href="https://jimoh-postit.herokuapp.com">' +
                       'Login to your PostIt account to view</a></p>' +
                       '<p>The PostIt management team!!!</p>';
@@ -314,7 +315,7 @@ module.exports = {
             if (!group) {
               return Promise.reject({ code: 404, message: 'invalid group' });
             }
-            // to check if User belongs to the group
+            // To check if User belongs to the group
             return UserGroup.findOne({
               where: { userId, groupId }
             });
@@ -376,7 +377,7 @@ module.exports = {
               return Promise.reject('Invalid Operation: You don\'t belong ' +
                 'to this group');
             }
-            // Let the user read the message he satisfies all the criteria
+            // Let the user read the message since he satisfies all the criteria
             return Message.findOne({
               where: { id: messageId, groupId },
               include: [{ model: User, attributes: ['id', 'username', 'fullname'] }]
@@ -423,7 +424,7 @@ module.exports = {
                     where: { id: messageId }
                   });
                 })
-                .then(msg => handleSuccess(200, true, res))
+                .then(() => handleSuccess(200, true, res))
                 .catch(err => handleError(err, res));
           })
           .catch(err => handleError(err, res));
@@ -597,7 +598,7 @@ module.exports = {
         UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
             .then((result) => {
               // We then convert the groupIds from array
-              // of object to plain arrays [23, 67, 89]
+              // of objects to plain arrays [23, 67, 89]
               const userGroupIds = result.map(userGroup => userGroup.groupId);
               return userGroupIds; // arrays of group Ids i.e [23,67,89]
             })
@@ -643,7 +644,7 @@ module.exports = {
                   // read by a user with this limit and offset
                   const userUnreadMessages = messages.filter(message =>
                     !(lodash.includes(message.readersId, userId)));
-                  const MessageBoardData = {
+                  const messageBoardData = {
                     // paginated messages obtained using offset
                     // and limit i.e (4 messages)
                     messages: userUnreadMessages,
@@ -651,7 +652,7 @@ module.exports = {
                     count: userGroupUnreadMessages.length,
                     pages
                   };
-                  return handleSuccess(200, MessageBoardData, res);
+                  return handleSuccess(200, messageBoardData, res);
                 })
                 .catch(err => handleError(err, res));
             })

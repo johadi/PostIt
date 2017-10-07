@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
 
 const NotFoundHeader = props => (
     <nav className="navbar navbar-inverse navbar-fixed-top"

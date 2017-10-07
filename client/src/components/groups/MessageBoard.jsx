@@ -32,7 +32,6 @@ export class MessageBoard extends React.Component {
       hour: '2-digit',
       minute: '2-digit'
     };
-    this.reload = 0;
     this.userDetail = jwtDecode(window.sessionStorage.token);
   }
 

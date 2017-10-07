@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import NotFoundHeader from './headers/NotFoundHeader.jsx';
 /**
  * NotFoundPage class declaration

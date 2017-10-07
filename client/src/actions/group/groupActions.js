@@ -11,10 +11,7 @@ export const createGroup = name => (dispatch) => {
         dispatch({ type: actionTypes.GROUP_CREATE_SUCCESSFUL });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.GROUP_CREATE_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.GROUP_CREATE_ERROR,
             payload: err.response.data });
         }
@@ -28,10 +25,7 @@ export const addUserToGroup = (groupId, username) => (dispatch) => {
         dispatch({ type: actionTypes.GROUP_ADD_USER_SUCCESSFUL });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.GROUP_ADD_USER_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.GROUP_ADD_USER_ERROR,
             payload: err.response.data });
         }
@@ -50,10 +44,7 @@ export const postMessage = (groupId, message, priority) => (dispatch) => {
         dispatch({ type: actionTypes.POST_MESSAGE_SUCCESSFUL });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.POST_MESSAGE_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.POST_MESSAGE_ERROR,
             payload: err.response.data });
         }
@@ -74,11 +65,7 @@ export const getGroupMessages = (groupId, pageNumber) => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          browserHistory.goBack();
-          dispatch({ type: actionTypes.GET_GROUP_MESSAGES_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           browserHistory.goBack();
           dispatch({ type: actionTypes.GET_GROUP_MESSAGES_ERROR,
             payload: err.response.data });
@@ -99,14 +86,10 @@ export const viewMessage = (groupId, messageId) => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
+        if (err) {
           browserHistory.goBack();
           dispatch({ type: actionTypes.VIEW_MESSAGE_ERROR,
             payload: 'Error Occurred...Try again' });
-        } else {
-          browserHistory.goBack();
-          dispatch({ type: actionTypes.VIEW_MESSAGE_ERROR,
-            payload: err.response.data });
         }
       });
 };
@@ -125,10 +108,7 @@ export const getGroupUsers = groupId => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR,
             payload: err.response.data });
         }
@@ -149,10 +129,7 @@ export const getGroupUsersPaginated = (groupId, pageNumber) => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
             payload: err.response.data });
         }
@@ -169,10 +146,7 @@ export const getUserGroups = () => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.GET_USER_GROUPS_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.GET_USER_GROUPS_ERROR,
             payload: err.response.data });
         }
@@ -189,10 +163,7 @@ export const getUserGroupsPaginated = pageNumber => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
             payload: err.response.data });
         }
@@ -208,10 +179,7 @@ export const getBoardMessagesPaginated = pageNumber => (dispatch) => {
         dispatch({ type: actionTypes.GET_BOARD_MESSAGES_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.GET_BOARD_MESSAGES_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.GET_BOARD_MESSAGES_ERROR,
             payload: err.response.data });
         }
@@ -228,10 +196,7 @@ export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.USERS_SEARCH_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.USERS_SEARCH_ERROR,
             payload: err.response.data });
         }
@@ -250,10 +215,7 @@ export const updateReadMessage = messageId => (dispatch) => {
           payload: res.data });
       })
       .catch((err) => {
-        if (err.response.data.name === 'SequelizeConnectionError') {
-          dispatch({ type: actionTypes.MESSAGE_READ_ERROR,
-            payload: 'Error Occurred...Try again' });
-        } else {
+        if (err) {
           dispatch({ type: actionTypes.MESSAGE_READ_ERROR,
             payload: err.response.data });
         }

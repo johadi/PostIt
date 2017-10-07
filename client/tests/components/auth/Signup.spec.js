@@ -2,8 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
-import { shallow, mount } from 'enzyme';
-// import store from '../../src/store/store';
+import { mount } from 'enzyme';
 import { SignupPage } from '../../../src/components/auth/SignupPage.jsx';
 import IndexHeader from '../../../src/components/headers/IndexHeader.jsx';
 

@@ -31,7 +31,7 @@ require.extensions['.jpg'] = function () { return null; };
 
 // Configure JSDOM and set global variables
 // to simulate a browser environment for tests.
-const jsdom = require('jsdom');
+const jsdom = require('jsdom'); // eslint-disable-line import/no-extraneous-dependencies
 
 const { JSDOM } = jsdom;
 const { document } = (new JSDOM('<!doctype html><html><body></body></html>',

@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
-import jwtDecode from 'jwt-decode';
 
 const MainHeader = (props) => {
   const logout = () => {
     window.sessionStorage.removeItem('token');
     browserHistory.push('/');
   };
-  const userDetail = jwtDecode(window.sessionStorage.token);
   return (
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div className="navbar-header">

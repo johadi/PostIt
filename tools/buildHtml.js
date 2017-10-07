@@ -1,6 +1,6 @@
-import fs from 'fs';
-import cheerio from 'cheerio';
-import colors from 'colors';
+const fs = require('fs');
+const cheerio = require('cheerio');
+const colors = require('colors');
 
 fs.readFile('client/src/build/index.html', 'utf8', (err, markup) => {
   if (err) {

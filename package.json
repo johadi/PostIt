@@ -25,7 +25,6 @@
     "remove-production": "rimraf ./production",
     "build:html": "node tools/buildHtml.js",
     "heroku-prebuild": "npm run clean-production && npm run build:html",
-    "build": "node tools/build.js",
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
     "test:e2e": "nightwatch",
     "test:client": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\""

@@ -25,7 +25,7 @@
     "remove-public": "rimraf ./production",
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm-run-all clean-public build:html",
-    "build": "babel-node tools/build.js",
+    "build": "node tools/build.js",
     "postbuild": "node tools/publicServer.js",
     "test:e2e": "nightwatch",
     "test:client": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\""

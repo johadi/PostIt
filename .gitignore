@@ -11,4 +11,3 @@ bin/
 screenshots/
 .DS_Store
 /coverage
-/production

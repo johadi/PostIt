@@ -1,1 +1,1 @@
-web: npm run build
+web: node tools/publicServer.js

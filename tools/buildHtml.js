@@ -9,7 +9,7 @@ fs.readdir(directory, (err, files) => {
     console.log(err);
   }
   files.forEach((file) => {
-    if (file !== '.gitkeep') {
+    if (file !== 'index.html') {
       fs.unlink(path.join(directory, file), err => {
         if (err) {
           console.log(err);

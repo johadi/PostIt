@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const open = require('open');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');

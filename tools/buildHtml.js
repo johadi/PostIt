@@ -1,6 +1,6 @@
 import fs from 'fs';
 import cheerio from 'cheerio';
-import colors from 'colors';
+import colors from 'colors'; // eslint-disable-line no-unused-vars
 
 fs.readFile('client/src/build/index.html', 'utf8', (err, markup) => {
   if (err) {

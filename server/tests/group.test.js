@@ -6,10 +6,6 @@ const app = require('./../../app');
 const seeder = require('./seed/group_seed');
 const User = require('./../database/models').User;
 const Group = require('./../database/models').Group;
-const UserGroup = require('./../database/models').UserGroup;
-const UserGroupAdd = require('./../database/models').UserGroupAdd;
-const Message = require('./../database/models').Message;
-const db = require('./../database/models');
 // Test suit for creating group route and controller
 describe('POST: api/v1/group', () => {
   // Clear Test database
@@ -64,7 +60,7 @@ describe('POST: api/v1/group', () => {
       .post('/api/v1/group')
       .send({ name: 'Lagos', token })
       .expect(201)
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
         Group.findOne({
           where: { name: 'lagos' } // NOTE: lagos must be lowercase

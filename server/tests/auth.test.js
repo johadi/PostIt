@@ -86,7 +86,7 @@ describe('POST api/v1/user/signup', () => {
       .send(seeder.setData('jimoh', 'johadi10', 'jimoh@gmail.com',
         '0908736521', '11223344', '11223344'))
       .expect(201)
-      .end((err, res) => {
+      .end((err) => {
         if (err) return done(err);
         User.findOne({
           where: { username: 'johadi10' }

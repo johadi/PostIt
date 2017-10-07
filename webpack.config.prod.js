@@ -1,15 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'client/src'),
   build: path.join(__dirname, 'production'),
   styles: path.join(__dirname, 'client/src/build/static/styles')
 };
-process.env.BABEL_ENV = TARGET;
 const common = {
   context: PATHS.app,
 // Entry accepts a path or an object of entries. We'll be using the
@@ -71,42 +68,5 @@ const common = {
     ]
   },
 };
-
-// Default configuration
-if (TARGET === 'build:start' || !TARGET) {
-  module.exports = merge(common, {
-    devtool: 'eval-source-map',
-    devServer: {
-      contentBase: PATHS.build,
-// Enable history API fallback so HTML5 History API based
-// routing works. This is a good default that will come
-// in handy in more complicated setups.
-      historyApiFallback: true,
-      hot: true,
-      inline: true,
-// Display only errors to reduce the amount of output.
-      stats: 'errors-only',
-// Parse host and port from env so this is easy to customize.
-//
-// If you use Vagrant or Cloud9, set
-// host: process.env.HOST || '0.0.0.0';
-//
-// 0.0.0.0 is available to all network devices unlike default
-// localhost
-      host: process.env.HOST,
-      port: process.env.PORT
-    },
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production'),
-          API_HOST: 'https://jimoh-postit-api.herokuapp.com'
-        }
-      })
-    ]
-  });
-}
-if (TARGET === 'build') {
-  module.exports = merge(common, {});
-}
+module.exports = common;
 

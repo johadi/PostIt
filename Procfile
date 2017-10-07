@@ -1,1 +1,0 @@
-web: sequelize db:migrate && node tools/publicServer.js

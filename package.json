@@ -16,7 +16,7 @@
   "scripts": {
     "build:dev": "webpack-dev-server",
     "start:dev": "nodemon --watch server --exec babel-node -- app.js",
-    "start": "sequelize db:migrate && node app.js && --exec npm run build",
+    "start": "sequelize db:migrate && npm run build",
     "apidoc": "apidoc -i server/routes/ -o public/apidoc",
     "test:dev": "export NODE_ENV=test && mocha --compilers js:babel-register server/tests/*.test.js",
     "test": "export NODE_ENV=test && sequelize db:migrate && nyc --reporter=html mocha --compilers js:babel-register server/tests/*.test.js && nyc report",

@@ -22,9 +22,9 @@
     "test": "export NODE_ENV=test && sequelize db:migrate && nyc --reporter=html mocha --compilers js:babel-register server/tests/*.test.js && nyc report",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build:html": "node tools/buildHtml.js",
-    "prebuild": "npm run build:html",
+    "heroku-prebuild": "npm run build:html",
     "build": "node tools/build.js",
-    "postbuild": "node tools/publicServer.js",
+    "heroku-postbuild": "node tools/publicServer.js",
     "test:e2e": "nightwatch",
     "test:client": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\""
   },

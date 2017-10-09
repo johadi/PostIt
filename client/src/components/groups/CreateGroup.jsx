@@ -54,7 +54,8 @@ export class CreateGroup extends React.Component {
                         data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">x</span>
                 </button>
-                Group name required</div> :
+                Group name required
+              </div> :
                 (this.props.groupState.error ?
                   <div
                     className='alert alert-danger alert-dismissible text-center'>

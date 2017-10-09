@@ -28,7 +28,6 @@
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
     "test:e2e": "nightwatch",
     "test:client": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\"",
-    "test:client2": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/actions/*.spec.js\""
   },
   "apidoc": {
     "name": "PostIt API - Documentation",

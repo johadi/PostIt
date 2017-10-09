@@ -844,7 +844,6 @@ describe('Get api/v1/group/user/board', () => {
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        console.log(res.body);
         assert.equal(res.body, 'This request is invalid.Request URL must have a query ' +
           'named page with number as value');
         done();
@@ -858,7 +857,6 @@ describe('Get api/v1/group/user/board', () => {
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-        console.log(res.body);
         assert.equal(res.body, 'This request is invalid.Request URL must have a query ' +
           'named page with number as value');
         done();

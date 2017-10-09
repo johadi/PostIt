@@ -238,7 +238,7 @@ module.exports = {
                   .then((groupMemberEmails) => {
                     // We handle our send email here
                     const from = 'no-reply <jimoh@google.com>';
-                    // groupMemberEmailsis an array of emails
+                    // groupMemberEmails is an array of emails
                     const to = groupMemberEmails;
                     const subject = 'Notification from PostIt';
                     const message = '<h2>' +
@@ -620,14 +620,17 @@ module.exports = {
               const currentPage = query < 1 ? 1 : query;
               const offset = perPage * (currentPage - 1);
               // get all unread messages of a user in all groups
-              // he/she joined (Unread only)
+              // he/she joined (Unread only). good for getting count of
+              // all user unread messages in all his/her joined groups
               const userGroupUnreadMessages = allUserGroupMessages
                 .rows.filter(message =>
                 !(lodash.includes(message.readersId, userId)));
-              // pages the unread messages formed
+              // pages the unread messages in all joined groups formed
               // to round off i.e 3/2 = 1.5 = 2
               const pages = Math.ceil(userGroupUnreadMessages.length / perPage);
-              // Fetch user unread messages using pagination info like offset and limit
+              // Fetch user unread messages using pagination information
+              // like offset and limit. similar to the one above but this time,
+              // we are fetching by pagination detail
               Message.findAll({
                 // return messages that has groupIds like in [3,5,7,8,9]
                 where: { groupId: userGroupIds },

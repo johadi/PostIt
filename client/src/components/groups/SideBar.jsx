@@ -16,7 +16,7 @@ class SideBar extends React.Component {
     return (
         <div className="main side-bar col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
-            <p className="btn navy-header btn-lg btn-block">Quick Links</p>
+            <div className="btn navy-header btn-lg btn-block">Quick Links</div>
             <Link to="/create-group" className="btn btn-default btn-block">
               <i className="fa fa-lg fa-plus-circle text-display" aria-hidden="true">
               </i> Create Group

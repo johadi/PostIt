@@ -3,13 +3,20 @@ const path = require('path');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
+const morganLogger = require('morgan');
+const winston = require('winston');
 const apiRoutes = require('../server/routes/index');
 
 const port = process.env.PORT || 3000;
 const app = express();
+// Create winston logger
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)({ colorize: true })
+  ]
+});
 
-app.use(logger('dev'));
+app.use(morganLogger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
@@ -23,9 +30,7 @@ app.get('*', (req, res) => {
 
 app.listen(port, (err) => {
   if (err) {
-    // uncomment to see error message
-    // return console.log(err);
+    return logger.error(err);
   }
-  // Uncomment to see app running message
-  // console.log('app running on port', port);
+  logger.info('app running on port', port);
 });

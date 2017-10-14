@@ -1,10 +1,17 @@
 const fs = require('fs');
 const cheerio = require('cheerio');
 const colors = require('colors');
+const winston = require('winston');
 
+// Create winston logger
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)({ colorize: true })
+  ]
+});
 fs.readFile('client/src/build/index.html', 'utf8', (err, markup) => {
   if (err) {
-    return console.log(err);
+    return logger.error(err);
   }
 
   const $ = cheerio.load(markup);
@@ -12,10 +19,8 @@ fs.readFile('client/src/build/index.html', 'utf8', (err, markup) => {
 
   fs.writeFile('production/index.html', $.html(), 'utf8', (err) => {
     if (err) {
-      // Uncomment to see error message (development only)
-      // return console.log(err);
+      return logger.error(err);
     }
-    // uncomment to see error message. development only
-    // console.log('index.html written to /production'.green);
+    logger.info('index.html written to /production'.green);
   });
 });

@@ -35,6 +35,7 @@
     "no-return-assign": 1,
     "class-methods-use-this": 1,
     "import/no-named-as-default": 1,
+    "import/extensions": 1,
     "no-nested-ternary": 0,
     "no-unused-vars": 1,
     "global-require": 1,

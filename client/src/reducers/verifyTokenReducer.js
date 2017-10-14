@@ -2,7 +2,8 @@ import actionTypes from '../actions/actionTypes';
 
 const initalState = {
   tokenExist: false,
-  success: false
+  success: false,
+  userDetail: null
 };
 const VerifyTokenReducer = (state = initalState, action) => {
   switch (action.type) {
@@ -10,7 +11,8 @@ const VerifyTokenReducer = (state = initalState, action) => {
       state = {
         ...state,
         tokenExist: !!window.sessionStorage.token,
-        success: action.payload
+        success: action.payload.verified,
+        userDetail: action.payload.userDetail
       };
       break;
     default:

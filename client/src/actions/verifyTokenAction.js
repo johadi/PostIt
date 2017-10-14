@@ -9,8 +9,11 @@ export const verifyToken = () => (dispatch) => {
       { headers: { 'x-auth': window.sessionStorage.token } })
           .then((res) => {
             if (res.status === 200) {
-              return dispatch({ type: actionTypes.VERIFY_TOKEN,
-                payload: !!window.sessionStorage.token });
+              const payload = {
+                verified: !!window.sessionStorage.token,
+                userDetail: res.data
+              };
+              return dispatch({ type: actionTypes.VERIFY_TOKEN, payload });
             }
             // Remove an invalid token if there exists one
             if (window.sessionStorage.token) {

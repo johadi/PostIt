@@ -47,10 +47,7 @@ module.exports = {
         );
       })
       .then((savedUser) => {
-        const signupData = lodash.pick(savedUser,
-          ['id', 'username', 'email', 'mobile', 'fullname']
-        );
-        const token = jwt.sign(signupData, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: savedUser.id }, process.env.JWT_SECRET);
         return handleSuccess(201, token, res);
       })
       .catch(err => handleError(err, res));
@@ -73,11 +70,8 @@ module.exports = {
           if (!user.comparePassword(body.password)) {
             return Promise.reject('Incorrect password');
           }
-          // If all is well
-          const signinData = lodash.pick(user,
-            ['id', 'username', 'mobile', 'email', 'fullname']);
-          // Give the user token and should expire in the next 24 hours
-          const token = jwt.sign(signinData, process.env.JWT_SECRET);
+          // Give the user a token
+          const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
           return handleSuccess(200, token, res);
         })
         .catch(err => handleError(err, res));

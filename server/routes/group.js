@@ -5,7 +5,7 @@ const authenticate = require('../middlewares/authenticate');
 router.route('/v1/verify-token')
     .get(authenticate, (req, res) => {
       if (req.user) {
-        return res.status(200).json('user verified');
+        return res.status(200).json(req.user);
       }
     });
 router.route('/v1/group')

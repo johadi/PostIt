@@ -1,13 +1,10 @@
 const lodash = require('lodash');
-const P = require('bluebird');
 const User = require('../database/models').User;
 const Group = require('../database/models').Group;
 const UserGroup = require('../database/models').UserGroup;
-const UserGroupAdd = require('../database/models').UserGroupAdd;
 const Message = require('../database/models').Message;
 const Constants = require('../helpers/constants');
-const { sendSMS, sendMail, handleError,
-  handleSuccess } = require('../helpers/helpers');
+const { handleError, handleSuccess } = require('../helpers/helpers');
 
 module.exports = {
   // Get the list of all groups that a user belongs to

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const lodash = require('lodash');
 const User = require('../database/models').User;
 
 module.exports = (req, res, next) => {
@@ -16,7 +17,10 @@ module.exports = (req, res, next) => {
           if (!user) {
             return Promise.reject('User with this token not found');
           }
-          req.user = decoded;
+          const userData = lodash.pick(user,
+            ['id', 'username', 'email', 'mobile', 'fullname']
+          );
+          req.user = userData;
           return next();
         })
         .catch(err => res.status(404).json(err));

@@ -17,11 +17,11 @@ const SignupModal = props => (
             <div className="modal-body">
               <h4 className="text-center text-success">
                 We are excited you joined <strong>PostIt
-              </strong>. A simple notification application for love ones.
+              </strong>. A simple notification application for loved ones.
               </h4>
               <p className="text-center">
                 <strong>
-                Create groups and share every bit of your moment with love ones.
+                Create groups and share every bit of your moment with loved ones.
                 </strong>
               </p>
             </div>

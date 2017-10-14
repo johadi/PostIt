@@ -7,7 +7,8 @@ import {
   getGroupMessages,
   getGroupMessagesClear } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
-import GroupNotificationBoard from '../GroupNotificationBoardPage.jsx';
+import GroupNotificationBoard from '../GroupNotificationBoard.jsx';
+import Page from '../Page.jsx';
 
 /**
  * GroupBoardContainer class declaration
@@ -27,8 +28,11 @@ class GroupBoardContainer extends React.Component {
   render() {
     const { groupUsersStore, groupMessages } = this.props.groupState;
     return this.props.tokenStatus.success && groupMessages && groupUsersStore ?
-        <GroupNotificationBoard groupUsers={groupUsersStore}
-                                groupId={this.props.params.groupId}/> : <NullPage/>;
+      <Page groupId={this.props.params.groupId}>
+        <GroupNotificationBoard
+          name={groupUsersStore.name}
+          groupId={this.props.params.groupId}/>
+      </Page> : <NullPage/>;
   }
 }
 GroupBoardContainer.propTypes = {

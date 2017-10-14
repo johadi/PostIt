@@ -7,7 +7,8 @@ import {
   viewMessage,
   clearViewMessageError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
-import NotificationViewPage from '../NotificationViewPage.jsx';
+import Page from '../Page.jsx';
+import Notification from '../Notification.jsx';
 
 /**
  * NotificationViewContainer class declaration
@@ -36,10 +37,9 @@ class NotificationViewContainer extends React.Component {
   render() {
     const { groupViewMessage, groupUsersStore } = this.props.groupState;
     return this.props.tokenStatus.success && groupViewMessage && groupUsersStore ?
-        <NotificationViewPage
-          groupId={this.props.params.groupId}
-          groupUsers={groupUsersStore}
-          message={groupViewMessage}/> : <NullPage/>;
+      <Page groupId={this.props.params.groupId}>
+        <Notification name={groupUsersStore.name} message={groupViewMessage}/>
+      </Page> : <NullPage/>;
   }
 }
 NotificationViewContainer.propTypes = {

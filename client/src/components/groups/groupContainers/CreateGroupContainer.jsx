@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import NullPage from '../NullPage.jsx';
-import CreateGroupPage from '../CreateGroupPage.jsx';
+import CreateGroup from '../CreateGroup.jsx';
+import Page from '../Page.jsx';
 
 /**
  * CreateGroupContainer class declaration
@@ -14,7 +15,9 @@ class CreateGroupContainer extends React.Component {
    */
   render() {
     return this.props.tokenStatus.success ?
-      <CreateGroupPage/> : <NullPage/>;
+      <Page>
+        <CreateGroup/>
+      </Page> : <NullPage/>;
   }
 }
 CreateGroupContainer.propTypes = {

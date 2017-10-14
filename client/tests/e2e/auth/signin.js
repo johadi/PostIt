@@ -37,8 +37,8 @@ export default {
       .click('#signin')
       .pause(2000)
       // Remains in the same page since Signup is invalid
-      .waitForElementVisible('#error', 1000)
-      .assert.containsText('#error', 'Incorrect password')
+      .waitForElementVisible('form > .show-error', 1000)
+      .assert.containsText('form > .show-error', 'Incorrect password')
       .assert.urlEquals(`${config.baseUrl}/signin`)
       .end();
   },

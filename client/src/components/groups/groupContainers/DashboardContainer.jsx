@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getBoardMessagesPaginated } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
-import DashboardPage from '../DashboardPage.jsx';
+import MessageBoard from '../MessageBoard.jsx';
+import Page from '../Page.jsx';
 
 /**
  * DashboardContainer class declaration
@@ -24,8 +25,9 @@ class DashboardContainer extends React.Component {
   render() {
     const { boardMessagesPaginated } = this.props.groupState;
     return this.props.tokenStatus.success && boardMessagesPaginated ?
-        <DashboardPage
-          boardMessagesPagination={boardMessagesPaginated}/> : <NullPage/>;
+      <Page>
+        <MessageBoard boardMessagesPagination={boardMessagesPaginated}/>
+      </Page> : <NullPage/>;
   }
 }
 DashboardContainer.propTypes = {

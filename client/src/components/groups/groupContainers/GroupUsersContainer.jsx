@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getGroupUsersPaginated } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
-import GroupUsersPage from '../GroupUsersPage.jsx';
+import GroupUsers from '../GroupUsers.jsx';
+import Page from '../Page.jsx';
 
 /**
  * GroupUsersContainer class declaration
@@ -24,10 +25,11 @@ class GroupUsersContainer extends React.Component {
   render() {
     const { groupUsersPaginated } = this.props.groupState;
     return this.props.tokenStatus.success && groupUsersPaginated ?
-        <GroupUsersPage
+      <Page groupId={ this.props.params.groupId}>
+        <GroupUsers
           groupUsersPagination={groupUsersPaginated}
-          groupId={this.props.params.groupId}
-        /> : <NullPage/>;
+          groupId={this.props.params.groupId} />
+      </Page> : <NullPage/>;
   }
 }
 GroupUsersContainer.propTypes = {

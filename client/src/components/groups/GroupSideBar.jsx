@@ -16,9 +16,9 @@ class GroupSideBar extends React.Component {
     return (
         <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
           <p>
-            <Link className="btn btn-block btn-lg navy-header">
+            <p className="text-center btn-block btn-lg navy-header">
               Activities
-            </Link>
+            </p>
             <Link to={`/group/${this.props.groupId}/board`}
                   className="btn btn-default btn-block">
               <i className="fa fa-envelope-open text-display" aria-hidden="true">

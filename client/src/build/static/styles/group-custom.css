@@ -31,6 +31,13 @@ a:focus,
 a:hover {
   color: #19b698; }
 
+.main-header, .navbar-nav > li > a:focus, .navbar-nav > li > a:hover {
+  color: #fff !important;
+  background-color: #080808 !important; }
+
+.navbar-nav > li > a:hover {
+  color: #ffffff !important; }
+
 .text-overflow {
   white-space: nowrap;
   width: 45em;
@@ -64,5 +71,7 @@ a:hover {
 @media (min-width: 1170px) {
   .side-bar {
     height: 500px; } }
+.footer-div {
+  margin-top: 20px; }
 
 /*# sourceMappingURL=group-custom.css.map */

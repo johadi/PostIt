@@ -16,16 +16,16 @@ const MainHeader = (props) => {
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#"><strong>PostIt</strong></a>
+          <span className="navbar-brand"><strong>PostIt</strong></span>
         </div>
         <div className="collapse navbar-collapse navbar-ex1-collapse">
-          <ul className="nav navbar-nav">
-            <li className="active">
-              <Link to="/dashboard"><i className="fa fa-lg fa-tachometer" aria-hidden="true">
-              </i> Dashboard</Link>
+          <ul className="nav navbar-nav main-header-ul">
+            <li>
+              <Link activeClassName="main-header" to="/dashboard">
+                <i className="fa fa-lg fa-tachometer" aria-hidden="true"></i> Dashboard</Link>
             </li>
-            <li><Link to="/groups"><i className="fa fa-lg fa-users" aria-hidden="true">
-            </i> Groups</Link></li>
+            <li><Link activeClassName="main-header" to="/groups">
+              <i className="fa fa-lg fa-users" aria-hidden="true"></i> Groups</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li style={{ marginRight: '10px' }}>

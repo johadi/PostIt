@@ -7,9 +7,9 @@ const IndexHeader = props => (
         <h2 className="masthead-brand">PostIt</h2>
         <nav>
           <ul className="nav masthead-nav">
-            <li className="active"><IndexLink to="/">Home</IndexLink></li>
-            <li><Link to="/signin">Login</Link></li>
-            <li><Link to="/signup">Sign up</Link></li>
+            <li><IndexLink activeClassName = "index-active" to="/">Home</IndexLink></li>
+            <li><Link activeClassName = "index-active" to="/signin">Login</Link></li>
+            <li><Link activeClassName = "index-active" to="/signup">Sign up</Link></li>
           </ul>
         </nav>
       </div>

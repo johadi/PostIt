@@ -58,7 +58,7 @@ export default class IndexPage extends React.Component {
               </div>
               <div className="mastfoot">
                 <div className="inner">
-                  <p>Designed by Johadi</p>
+                  <p>Copyright &copy; Johadi PostIt 2017</p>
                 </div>
               </div>
 

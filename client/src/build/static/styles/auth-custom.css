@@ -1,8 +1,18 @@
 .body {
-  background-image: url("../images/fam3.jpg");
+  background-image: url("../images/android.png");
   background-repeat: no-repeat;
   background-size: cover; }
 
+@media only screen and (min-device-width: 768px) {
+  .body {
+    background-image: url("../images/ipad.png");
+    background-repeat: no-repeat;
+    background-size: cover; } }
+@media only screen and (min-width: 1030px) {
+  .body {
+    background-image: url("../images/web.png");
+    background-repeat: no-repeat;
+    background-size: cover; } }
 .text-signup {
   color: black;
   padding-top: 20px; }

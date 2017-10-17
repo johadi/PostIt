@@ -115,25 +115,25 @@ export class SignupPage extends React.Component {
                                  placeholder="Confirm password"/>
                     </div>
                     <div className="col-lg-6">
+                      <div className="form-group">
+                        <div className="col-lg-12">
+                          <p className="text-signup pull-left">
+                            Already have an Account ?
+                            <Link className="text-primary" to="/signin">
+                              <strong> Login</strong></Link>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
                       <div className="form-group lead">
                         <div className="col-lg-12">
                           <button
                             id="signup"
                             type="submit"
-                            className="btn btn-lg btn-primary pull-left">
+                            className="btn btn-lg btn-primary pull-right">
                             Sign up
                           </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-6">
-                      <div className="form-group">
-                        <div className="col-lg-12">
-                          <p className="text-signup">
-                            Already have an Account ?
-                            <Link className="text-primary" to="/signin">
-                            <strong> Login</strong></Link>
-                          </p>
                         </div>
                       </div>
                     </div>
@@ -143,7 +143,7 @@ export class SignupPage extends React.Component {
               </div>
               <div className="mastfoot">
                 <div className="inner">
-                  <p>Designed by Johadi</p>
+                  <p>Copyright &copy; Johadi PostIt 2017</p>
                 </div>
               </div>
             </div>

@@ -10,6 +10,14 @@ import { getUsersSearch } from '../../actions/group/groupActions';
  */
 export class AddUserToGroup extends React.Component {
   /**
+   * handles Search
+   * @return {void} void
+   * @param {e} e
+   */
+  componentWillUnmount() {
+    this.props.getUsersSearch(this.props.groupId, '');
+  }
+  /**
    * handles form submit
    * @return {void} void
    * @param {e} e

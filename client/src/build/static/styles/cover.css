@@ -87,11 +87,9 @@ body, #app {
   border-bottom-color: #a9a9a9;
   border-bottom-color: rgba(255, 255, 255, 0.25); }
 
-.masthead-nav > .active > a,
-.masthead-nav > .active > a:hover,
-.masthead-nav > .active > a:focus {
-  color: #fff;
-  border-bottom-color: #fff; }
+.index-active {
+  color: #fff !important;
+  border-bottom-color: #fff !important; }
 
 @media (min-width: 768px) {
   .masthead-brand {
@@ -113,9 +111,7 @@ body, #app {
  * Footer
  */
 .mastfoot {
-  color: #999;
-  /* IE8 proofing */
-  color: rgba(255, 255, 255, 0.5); }
+  color: #fff; }
 
 /*
  * Affix and center

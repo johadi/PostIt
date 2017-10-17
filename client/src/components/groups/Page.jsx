@@ -61,6 +61,11 @@ class Page extends React.Component {
           { this.props.groupId ?
             <GroupSideBar groupId={this.props.groupId}/> : <SideBar/> }
         </div>
+        <div className="row footer-div">
+          <footer className="text-center text-display">
+            <p>Copyright &copy; Johadi PostIt 2017</p>
+          </footer>
+        </div>
         <SignupModal/>
       </div>
     );

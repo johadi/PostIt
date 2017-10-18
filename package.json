@@ -23,7 +23,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean-production": "npm run remove-production && mkdir production",
     "remove-production": "rimraf ./production",
-    "build:html": "node tools/buildHtml.js",
+    "build:html": "npm install && node tools/buildHtml.js",
     "heroku-prebuild": "npm run clean-production && npm run build:html",
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
     "test:e2e": "nightwatch",

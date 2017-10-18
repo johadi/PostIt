@@ -1,6 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import NullPage from '../NullPage.jsx';

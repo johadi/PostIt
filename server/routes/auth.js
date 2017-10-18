@@ -23,7 +23,7 @@ router.route('/v1/user/signup')
  * @apiSuccess {String} token Token of authenticated user
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
- *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123.weewewewhgf"
+ *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123weewewewhgf"
  */
     .post(authController.signup);
 router.route('/v1/user/signin')
@@ -40,7 +40,7 @@ router.route('/v1/user/signin')
  * @apiSuccess {String} token Token of authenticated user
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
- *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123.weewewewhgf"
+ *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123weewewewhgf"
  */
     .post(authController.signin);
 module.exports = router;

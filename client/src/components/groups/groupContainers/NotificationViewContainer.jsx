@@ -2,9 +2,12 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getGroupUsers, viewMessage, clearViewMessageError } from '../../../actions/group/groupActions';
+import {
+  getGroupUsers,
+  viewMessage,
+  clearViewMessageError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
-import MessageViewPage from '../NotificationViewPage.jsx';
+import NotificationViewPage from '../NotificationViewPage.jsx';
 
 /**
  * NotificationViewContainer class declaration
@@ -33,7 +36,7 @@ class NotificationViewContainer extends React.Component {
   render() {
     const { groupViewMessage, groupUsersStore } = this.props.groupState;
     return this.props.tokenStatus.success && groupViewMessage && groupUsersStore ?
-        <MessageViewPage
+        <NotificationViewPage
           groupId={this.props.params.groupId}
           groupUsers={groupUsersStore}
           message={groupViewMessage}/> : <NullPage/>;

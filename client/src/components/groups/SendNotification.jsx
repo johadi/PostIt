@@ -21,6 +21,7 @@ export class SendNotification extends React.Component {
         message: '',
         priority: 'normal'
       },
+      event: null,
       isValid: true // Let's assume input is valid for now
     };
   }
@@ -67,7 +68,7 @@ export class SendNotification extends React.Component {
    * @param {object} e
    */
   handleKeyUp(e) {
-    this.setState({ isValid: true });
+    this.setState({ isValid: true, event: e });
   }
 
   /**

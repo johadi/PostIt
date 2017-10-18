@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
         }
         // check if you have a record of a user with this
         // token requesting password change
-        return PasswordRecovery.findOne({ hashed: token });
+        return PasswordRecovery.findOne({ where: { hashed: token } });
       })
       .then((foundUser) => {
         if (!foundUser) {

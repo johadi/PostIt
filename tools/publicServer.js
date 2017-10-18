@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const open = require('open');
 const compression = require('compression');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
@@ -24,7 +23,9 @@ app.get('*', (req, res) => {
 
 app.listen(port, (err) => {
   if (err) {
-    return console.log(err);
+    // uncomment to see error message
+    // return console.log(err);
   }
-  console.log('app running on port', port);
+  // Uncomment to see app running message
+  // console.log('app running on port', port);
 });

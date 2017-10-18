@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
 import MainHeader from '../headers/MainHeader.jsx';
 import SideBar from './SideBar.jsx';

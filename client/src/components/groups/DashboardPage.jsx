@@ -21,7 +21,7 @@ class Dashboard extends React.Component {
       const signupModal = $('#myModal');
       signupModal.modal('show');
       // Cancel Modal state whenever user cancel modal
-      signupModal.on('hidden.bs.modal', (e) => {
+      signupModal.on('hidden.bs.modal', () => {
         this.props.cancelModal();
       });
     }

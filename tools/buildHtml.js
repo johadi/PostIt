@@ -1,6 +1,6 @@
-import fs from 'fs';
-import cheerio from 'cheerio';
-import colors from 'colors';
+const fs = require('fs');
+const cheerio = require('cheerio');
+const colors = require('colors');
 
 fs.readFile('client/src/build/index.html', 'utf8', (err, markup) => {
   if (err) {
@@ -12,8 +12,10 @@ fs.readFile('client/src/build/index.html', 'utf8', (err, markup) => {
 
   fs.writeFile('production/index.html', $.html(), 'utf8', (err) => {
     if (err) {
-      return console.log(err);
+      // Uncomment to see error message (development only)
+      // return console.log(err);
     }
-    console.log('index.html written to /production'.green);
+    // uncomment to see error message. development only
+    // console.log('index.html written to /production'.green);
   });
 });

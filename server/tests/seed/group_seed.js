@@ -39,7 +39,7 @@ module.exports = {
       email: 'johadi10@yahoo.com',
       mobile: '81630412699',
       password: '11223344' })
-        .then(user => done())
+        .then(() => done())
         .catch(err => done(err));
   },
   addUserToDb2(done) {
@@ -50,7 +50,7 @@ module.exports = {
       email: 'oman@gmail.com',
       mobile: '08163041269',
       password: '11223344' })
-        .then(user => done())
+        .then(() => done())
         .catch(err => done(err));
   },
   addUserToDb3(done) {
@@ -61,7 +61,7 @@ module.exports = {
       email: 'sherif@gmail.com',
       mobile: '08163041269',
       password: '11223344' })
-        .then(user => done())
+        .then(() => done())
         .catch(err => done(err));
   },
   setMessageData(messageBody, groupId, userId) {
@@ -130,7 +130,7 @@ module.exports = {
           }, {
             where: { id: message.id }
           })
-              .then(msg => done())
+              .then(() => done())
               .catch(err => done(err));
         })
         .catch(err => done(err));
@@ -152,7 +152,7 @@ module.exports = {
           }, {
             where: { id: message.id }
           })
-              .then(msg => done())
+              .then(() => done())
               .catch(err => done(err));
         })
         .catch(err => done(err));
@@ -174,7 +174,7 @@ module.exports = {
           }, {
             where: { id: message.id }
           })
-              .then(msg => done())
+              .then(() => done())
               .catch(err => done(err));
         })
         .catch(err => done(err));
@@ -182,7 +182,7 @@ module.exports = {
   addMessageToDb4(done) {
     Message.create({
       id: 13,
-      body: 'No condition permanent',
+      body: 'No condition is permanent',
       groupId: 101,
       userId: 5
     })
@@ -196,7 +196,7 @@ module.exports = {
           }, {
             where: { id: message.id }
           })
-              .then(msg => done())
+              .then(() => done())
               .catch(err => done(err));
         })
         .catch(err => done(err));

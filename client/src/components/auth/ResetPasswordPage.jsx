@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import IndexHeader from '../headers/IndexHeader.jsx';
 import { resetPasswordAction } from '../../actions/auth/passwordAction';
 import FormField from './ResetPasswordFormField.jsx';

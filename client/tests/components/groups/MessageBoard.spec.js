@@ -6,14 +6,14 @@ import { mount } from 'enzyme';
 import { MessageBoard } from '../../../src/components/groups/MessageBoard.jsx';
 
 describe('<MessageBoard/>', () => {
-  const getUserGroups = sinon.spy();
-  const getBoardMessagesPaginated = sinon.spy();
+  const getAllUserGroups = sinon.spy();
+  const getBoardMessages = sinon.spy();
   sinon.spy(MessageBoard.prototype, 'componentDidMount');
   sinon.spy(MessageBoard.prototype, 'handleSelect');
   const props = {
-    getUserGroups,
-    getBoardMessagesPaginated,
-    boardMessagesPagination: {
+    getAllUserGroups,
+    getBoardMessages,
+    boardMessages: {
       messages: [],
       pages: 1,
       count: 0
@@ -26,12 +26,12 @@ describe('<MessageBoard/>', () => {
   });
   describe('No Messages', () => {
     before(() => {
-      const boardMessagesPagination = {
+      const boardMessages = {
         messages: [],
         pages: 1,
         count: 0
       };
-      wrapper.setProps({ boardMessagesPagination });
+      wrapper.setProps({ boardMessages });
     });
     it('should check that Pagination doesn\'t exist since our page is ' +
       'just 1, no pagination', () => {
@@ -51,7 +51,7 @@ describe('<MessageBoard/>', () => {
   describe('If there is at least one message', () => {
     const pages = 4;
     before(() => {
-      const boardMessagesPagination = {
+      const boardMessages = {
         messages: [
           {
             id: 1,
@@ -81,7 +81,7 @@ describe('<MessageBoard/>', () => {
         pages,
         count: 10
       };
-      wrapper.setProps({ boardMessagesPagination });
+      wrapper.setProps({ boardMessages });
     });
     it('should check that Pagination exist since our pages is ' +
       'now 3,there is pagination', () => {

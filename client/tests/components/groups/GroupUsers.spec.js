@@ -7,12 +7,11 @@ import { GroupUsers } from '../../../src/components/groups/GroupUsers.jsx';
 
 describe('<GroupUsers/>', () => {
   const getGroupUsers = sinon.spy();
-  const getGroupUsersPaginated = sinon.spy();
   sinon.spy(GroupUsers.prototype, 'handleSelect');
   // Note: Whenever there is a group it must have at
   // least an existing member ,likely the creator
   const props = {
-    groupUsersPagination: {
+    groupUsers: {
       users: [
         {
           User: {
@@ -25,7 +24,6 @@ describe('<GroupUsers/>', () => {
       pages: 1
     },
     name: 'andela',
-    getGroupUsersPaginated,
     getGroupUsers,
     groupId: '1',
     groupState: {}
@@ -45,7 +43,7 @@ describe('<GroupUsers/>', () => {
     'more than 1', () => {
     const pages = 3;
     before(() => {
-      const groupUsersPagination = {
+      const groupUsers = {
         users: [
           {
             User: {
@@ -63,7 +61,7 @@ describe('<GroupUsers/>', () => {
         count: 8,
         pages
       };
-      wrapper.setProps({ groupUsersPagination });
+      wrapper.setProps({ groupUsers });
     });
     it('should check that Pagination exist since our pages ' +
       'is now 3.there is pagination', () => {

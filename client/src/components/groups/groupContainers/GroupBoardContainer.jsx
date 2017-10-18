@@ -5,7 +5,7 @@ import PropTypes from 'react-proptypes';
 import {
   getGroupUsers,
   getGroupMessages,
-  getGroupMessagesClear } from '../../../actions/group/groupActions';
+  clearGroupMessagesError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import GroupNotificationBoard from '../GroupNotificationBoard.jsx';
 import Page from '../Page.jsx';
@@ -47,6 +47,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupMessages, getGroupMessagesClear, getGroupUsers }, dispatch);
+  getGroupMessages, clearGroupMessagesError, getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupBoardContainer);
 

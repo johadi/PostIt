@@ -14,13 +14,12 @@ describe('groupReducer', () => {
     groupViewMessageErr: null,
     groupUsersStore: null,
     groupUsersError: null,
-    groupUsersPaginated: null,
     groupUsersPaginatedErr: null,
     groupsUserBelongs: null,
     groupsUserBelongsErr: null,
-    userGroupsPaginated: null,
+    userGroupsStore: null,
     userGroupsPaginatedErr: null,
-    boardMessagesPaginated: null,
+    boardMessagesStore: null,
     boardMessagesPaginatedErr: null,
     usersSearch: null,
     usersSearchErr: null,
@@ -197,7 +196,7 @@ describe('groupReducer', () => {
     });
   });
   describe('GET USERS IN A GROUP PAGINATED', () => {
-    it('should set value for groupUsersPaginated and set groupUsersPaginatedErr ' +
+    it('should set value for groupUsersStore and set groupUsersPaginatedErr ' +
       'to null when Type is GROUP_USERS_PAGINATED_SUCCESS',
       () => {
         const groupActionDispatch = {
@@ -206,7 +205,7 @@ describe('groupReducer', () => {
         };
         const newState = groupReducer(initialState, groupActionDispatch);
         expect(newState.groupUsersPaginatedErr).toEqual(null);
-        expect(newState.groupUsersPaginated).toEqual(groupActionDispatch.payload);
+        expect(newState.groupUsersStore).toEqual(groupActionDispatch.payload);
       });
 
     it('should set value for groupUsersPaginatedErr when Type ' +
@@ -259,7 +258,7 @@ describe('groupReducer', () => {
     });
   });
   describe('GET GROUPS OF A USER PAGINATED', () => {
-    it('should set value for userGroupsPaginated and set userGroupsPaginatedErr ' +
+    it('should set value for userGroupsStore and set userGroupsPaginatedErr ' +
       'to null when Type is USER_GROUPS_PAGINATED_SUCCESS',
       () => {
         const groupActionDispatch = {
@@ -268,7 +267,7 @@ describe('groupReducer', () => {
         };
         const newState = groupReducer(initialState, groupActionDispatch);
         expect(newState.userGroupsPaginatedErr).toEqual(null);
-        expect(newState.userGroupsPaginated).toEqual(groupActionDispatch.payload);
+        expect(newState.userGroupsStore).toEqual(groupActionDispatch.payload);
       });
 
     it('should set value for userGroupsPaginatedErr when Type ' +
@@ -290,7 +289,7 @@ describe('groupReducer', () => {
     });
   });
   describe('GET MESSAGES FOR MESSAGE BOARD', () => {
-    it('should set value for boardMessagesPaginated and set ' +
+    it('should set value for boardMessagesStore and set ' +
       'boardMessagesPaginatedErr to null when Type is GET_BOARD_MESSAGES_SUCCESS',
       () => {
         const groupActionDispatch = {
@@ -299,7 +298,7 @@ describe('groupReducer', () => {
         };
         const newState = groupReducer(initialState, groupActionDispatch);
         expect(newState.boardMessagesPaginatedErr).toEqual(null);
-        expect(newState.boardMessagesPaginated).toEqual(groupActionDispatch.payload);
+        expect(newState.boardMessagesStore).toEqual(groupActionDispatch.payload);
       });
 
     it('should set value for boardMessagesPaginatedErr when Type ' +

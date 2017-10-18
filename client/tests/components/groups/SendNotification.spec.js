@@ -8,13 +8,13 @@ import {
 } from '../../../src/components/groups/SendNotification.jsx';
 
 describe('<SendNotification/>', () => {
-  const clearPostMessageError = sinon.spy();
+  const clearMessageError = sinon.spy();
   const postMessage = sinon.spy();
   sinon.spy(SendNotification.prototype, 'handleChange');
   sinon.spy(SendNotification.prototype, 'handleSubmit');
 
   const props = {
-    clearPostMessageError,
+    clearMessageError,
     // postMessage,
     groupId: '4',
     name: 'andela',

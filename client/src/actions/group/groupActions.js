@@ -30,7 +30,7 @@ export const addUserToGroup = (groupId, username) => dispatch =>
         }
       });
 // action for clearing error when adding user to group
-export const addUserToGroupClear = () => ({
+export const clearAddUserError = () => ({
   type: actionTypes.ADD_USER_TO_GROUP_CLEAR
 });
 // action for posting message to a group
@@ -48,7 +48,7 @@ export const postMessage = (groupId, message, priority) => dispatch =>
         }
       });
 // action for clearing errors when posting message to a group
-export const clearPostMessageError = () => ({
+export const clearMessageError = () => ({
   type: actionTypes.CLEAR_POST_MESSAGE_ERROR
 });
 
@@ -71,7 +71,7 @@ export const getGroupMessages = (groupId, pageNumber) => (dispatch) => {
 };
 // action for clearing errors when getting messages
 // in a particular group for a user
-export const getGroupMessagesClear = () => ({
+export const clearGroupMessagesError = () => ({
   type: actionTypes.GET_GROUP_MESSAGES_CLEAR
 });
 // action for getting all messages in a particular group for a user
@@ -89,29 +89,13 @@ export const viewMessage = (groupId, messageId) => dispatch =>
             payload: 'Error Occurred...Try again' });
         }
       });
-// action for clearing errors when getting messages
+// action for clearing errors when viewing a message
 // in a particular group for a user
 export const clearViewMessageError = () => ({
   type: actionTypes.CLEAR_VIEW_MESSAGE_ERROR
 });
-// action for getting all users in a particular group for a user
-export const getGroupUsers = groupId => (dispatch) => {
-  const page = 0;
-  return axios.get(`/api/v1/group/${groupId}/group-users?page=${page}`,
-    { headers: { 'x-auth': window.sessionStorage.token } })
-      .then((res) => {
-        dispatch({ type: actionTypes.GET_GROUP_USERS_SUCCESSFUL,
-          payload: res.data });
-      })
-      .catch((err) => {
-        if (err) {
-          dispatch({ type: actionTypes.GET_GROUP_USERS_ERROR,
-            payload: err.response.data });
-        }
-      });
-};
 // action for getting all users in a particular group for a user with pagination
-export const getGroupUsersPaginated = (groupId, pageNumber) => (dispatch) => {
+export const getGroupUsers = (groupId, pageNumber) => (dispatch) => {
   const page = pageNumber || 1;
   return axios.get(`/api/v1/group/${groupId}/group-users?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
@@ -127,7 +111,7 @@ export const getGroupUsersPaginated = (groupId, pageNumber) => (dispatch) => {
       });
 };
 // action for getting all users in a particular group for a user
-export const getUserGroups = () => (dispatch) => {
+export const getAllUserGroups = () => (dispatch) => {
   const page = 0;
   // This will dispatch action that group member side bar can use
   return axios.get(`/api/v1/group/user/groups?page=${page}`,
@@ -144,7 +128,7 @@ export const getUserGroups = () => (dispatch) => {
       });
 };
 // get groups user belongs to in paginated format
-export const getUserGroupsPaginated = pageNumber => (dispatch) => {
+export const getUserGroups = pageNumber => (dispatch) => {
   const page = pageNumber || 1;
   // This will dispatch action that group member side bar can use
   return axios.get(`/api/v1/group/user/groups?page=${page}`,
@@ -161,7 +145,7 @@ export const getUserGroupsPaginated = pageNumber => (dispatch) => {
       });
 };
 // get messages sent to groups a user belongs paginated
-export const getBoardMessagesPaginated = pageNumber => (dispatch) => {
+export const getBoardMessages = pageNumber => (dispatch) => {
   const page = pageNumber || 1;
   // This will dispatch action that group member side bar can use
   return axios.get(`/api/v1/group/user/board?page=${page}`,

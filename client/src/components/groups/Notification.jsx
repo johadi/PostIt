@@ -10,7 +10,7 @@ import { updateReadMessage } from '../../actions/group/groupActions';
 /**
  * Notification class declaration
  */
-class Notification extends React.Component {
+export class Notification extends React.Component {
   /**
    * constructor
    * @param {object} props

@@ -8,8 +8,8 @@ import { signupAction } from '../../src/actions/auth/signupAction';
 import { signinAction } from '../../src/actions/auth/signinAction';
 import { recoverPasswordAction } from '../../src/actions/auth/passwordAction';
 import { createGroup, addUserToGroup, postMessage, getGroupMessages,
-  viewMessage, getGroupUsers, getGroupUsersPaginated, getUserGroupsPaginated,
-  getUserGroups, getBoardMessagesPaginated, getUsersSearch,
+  viewMessage, getGroupUsers, getUserGroups,
+  getAllUserGroups, getBoardMessages, getUsersSearch,
   updateReadMessage } from '../../src/actions/group/groupActions';
 
 const mock = new MockAdapter(axios);
@@ -417,49 +417,6 @@ describe('Group Actions', () => {
     });
     const groupId = 2;
     const payload = { rows: ['johadi', 'jimoh'] };
-    it('should dispatch GET_GROUP_USERS_SUCCESSFUL action when ' +
-      'getGroupUsers method is called ',
-      (done) => {
-        const expectedActions = [{
-          type: actionTypes.GET_GROUP_USERS_SUCCESSFUL,
-          payload
-        }];
-        // arguments for reply are (status, data, headers)
-        mock.onGet(`/api/v1/group/${groupId}/group-users?page=0`)
-          .reply(200, payload);
-        const store = mockStore({});
-        store.dispatch(getGroupUsers(groupId)).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-        setTimeout(() => {
-          done();
-        }, 1000);
-      });
-    it('should dispatch GET_GROUP_USERS_ERROR action when ' +
-      'error occurred after getGroupUsers is called',
-      (done) => {
-        const expectedActions = [{
-          type: actionTypes.GET_GROUP_USERS_ERROR,
-          payload: 'Error Occurred...Try again'
-        }];
-        // arguments for reply are (status, data, headers)
-        mock.onGet(`/api/v1/group/${groupId}/group-users?page=0`)
-          .reply(400, 'Error Occurred...Try again');
-        const store = mockStore({});
-        store.dispatch(getGroupUsers(groupId)).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-        setTimeout(() => {
-          done();
-        }, 1000);
-      });
-  });
-  describe('getGroupUsersPaginated', () => {
-    beforeEach(() => {
-      mock.reset();
-    });
-    const groupId = 2;
-    const payload = { rows: ['johadi', 'jimoh'] };
     it('should dispatch GROUP_USERS_PAGINATED_SUCCESSFUL action when ' +
       'getGroupUsers method is called ',
       (done) => {
@@ -471,7 +428,7 @@ describe('Group Actions', () => {
         mock.onGet(`/api/v1/group/${groupId}/group-users?page=1`)
           .reply(200, payload);
         const store = mockStore({});
-        store.dispatch(getGroupUsersPaginated(groupId)).then(() => {
+        store.dispatch(getGroupUsers(groupId)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -489,7 +446,49 @@ describe('Group Actions', () => {
         mock.onGet(`/api/v1/group/${groupId}/group-users?page=1`)
           .reply(400, 'Error Occurred...Try again');
         const store = mockStore({});
-        store.dispatch(getGroupUsersPaginated(groupId)).then(() => {
+        store.dispatch(getGroupUsers(groupId)).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+        setTimeout(() => {
+          done();
+        }, 1000);
+      });
+  });
+  describe('getAllUserGroups', () => {
+    beforeEach(() => {
+      mock.reset();
+    });
+    const payload = { rows: ['andela', 'class29'] };
+    it('should dispatch GET_USER_GROUPS_SUCCESS action when ' +
+      'getAllUserGroups method is called ',
+      (done) => {
+        const expectedActions = [{
+          type: actionTypes.GET_USER_GROUPS_SUCCESS,
+          payload
+        }];
+        // arguments for reply are (status, data, headers)
+        mock.onGet('/api/v1/group/user/groups?page=0')
+          .reply(200, payload);
+        const store = mockStore({});
+        store.dispatch(getAllUserGroups()).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+        setTimeout(() => {
+          done();
+        }, 1000);
+      });
+    it('should dispatch GET_USER_GROUPS_ERROR action when ' +
+      'error occurred after getAllUserGroups is called',
+      (done) => {
+        const expectedActions = [{
+          type: actionTypes.GET_USER_GROUPS_ERROR,
+          payload: 'Error Occurred...Try again'
+        }];
+        // arguments for reply are (status, data, headers)
+        mock.onGet('/api/v1/group/user/groups?page=0')
+          .reply(400, 'Error Occurred...Try again');
+        const store = mockStore({});
+        store.dispatch(getAllUserGroups()).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -502,50 +501,8 @@ describe('Group Actions', () => {
       mock.reset();
     });
     const payload = { rows: ['andela', 'class29'] };
-    it('should dispatch GET_USER_GROUPS_SUCCESS action when ' +
-      'getUserGroups method is called ',
-      (done) => {
-        const expectedActions = [{
-          type: actionTypes.GET_USER_GROUPS_SUCCESS,
-          payload
-        }];
-        // arguments for reply are (status, data, headers)
-        mock.onGet('/api/v1/group/user/groups?page=0')
-          .reply(200, payload);
-        const store = mockStore({});
-        store.dispatch(getUserGroups()).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-        setTimeout(() => {
-          done();
-        }, 1000);
-      });
-    it('should dispatch GET_USER_GROUPS_ERROR action when ' +
-      'error occurred after getUserGroups is called',
-      (done) => {
-        const expectedActions = [{
-          type: actionTypes.GET_USER_GROUPS_ERROR,
-          payload: 'Error Occurred...Try again'
-        }];
-        // arguments for reply are (status, data, headers)
-        mock.onGet('/api/v1/group/user/groups?page=0')
-          .reply(400, 'Error Occurred...Try again');
-        const store = mockStore({});
-        store.dispatch(getUserGroups()).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
-        setTimeout(() => {
-          done();
-        }, 1000);
-      });
-  });
-  describe('getUserGroupsPaginated', () => {
-    beforeEach(() => {
-      mock.reset();
-    });
-    const payload = { rows: ['andela', 'class29'] };
     it('should dispatch USER_GROUPS_PAGINATED_SUCCESS action when ' +
-      'getUserGroupsPaginated method is called ',
+      'getUserGroups method is called ',
       (done) => {
         const expectedActions = [{
           type: actionTypes.USER_GROUPS_PAGINATED_SUCCESS,
@@ -555,7 +512,7 @@ describe('Group Actions', () => {
         mock.onGet('/api/v1/group/user/groups?page=1')
           .reply(200, payload);
         const store = mockStore({});
-        store.dispatch(getUserGroupsPaginated(1)).then(() => {
+        store.dispatch(getUserGroups(1)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -563,7 +520,7 @@ describe('Group Actions', () => {
         }, 1000);
       });
     it('should dispatch USER_GROUPS_PAGINATED_ERROR action when ' +
-      'error occurred after getUserGroupsPaginated is called',
+      'error occurred after getUserGroups is called',
       (done) => {
         const expectedActions = [{
           type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
@@ -573,7 +530,7 @@ describe('Group Actions', () => {
         mock.onGet('/api/v1/group/user/groups?page=1')
           .reply(400, 'Error Occurred...Try again');
         const store = mockStore({});
-        store.dispatch(getUserGroupsPaginated(1)).then(() => {
+        store.dispatch(getUserGroups(1)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -581,13 +538,13 @@ describe('Group Actions', () => {
         }, 1000);
       });
   });
-  describe('getBoardMessagesPaginated', () => {
+  describe('getBoardMessages', () => {
     beforeEach(() => {
       mock.reset();
     });
     const payload = { rows: ['who is he?', 'he is a superman'] };
     it('should dispatch GET_BOARD_MESSAGES_SUCCESS action when ' +
-      'getBoardMessagesPaginated method is called ',
+      'getBoardMessages method is called ',
       (done) => {
         const expectedActions = [{
           type: actionTypes.GET_BOARD_MESSAGES_SUCCESS,
@@ -597,7 +554,7 @@ describe('Group Actions', () => {
         mock.onGet('/api/v1/group/user/board?page=1')
           .reply(200, payload);
         const store = mockStore({});
-        store.dispatch(getBoardMessagesPaginated(1)).then(() => {
+        store.dispatch(getBoardMessages(1)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -605,7 +562,7 @@ describe('Group Actions', () => {
         }, 1000);
       });
     it('should dispatch GET_BOARD_MESSAGES_ERROR action when ' +
-      'error occurred after getBoardMessagesPaginated is called',
+      'error occurred after getBoardMessages is called',
       (done) => {
         const expectedActions = [{
           type: actionTypes.GET_BOARD_MESSAGES_ERROR,
@@ -615,7 +572,7 @@ describe('Group Actions', () => {
         mock.onGet('/api/v1/group/user/board?page=1')
           .reply(400, 'Error Occurred...Try again');
         const store = mockStore({});
-        store.dispatch(getBoardMessagesPaginated(1)).then(() => {
+        store.dispatch(getBoardMessages(1)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {

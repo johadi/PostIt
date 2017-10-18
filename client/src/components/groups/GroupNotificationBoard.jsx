@@ -9,8 +9,7 @@ import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
 import {
   getGroupMessages,
-  getGroupUsers,
-  getGroupMessagesClear } from '../../actions/group/groupActions';
+  clearGroupMessagesError } from '../../actions/group/groupActions';
 
 /**
  * GroupNotificationBoard class declaration
@@ -55,7 +54,6 @@ export class GroupNotificationBoard extends React.Component {
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
     this.props.getGroupMessages(this.props.groupId, eventKey);
-    this.props.getGroupUsers(this.props.groupId);
   }
 
   /**
@@ -134,7 +132,6 @@ export class GroupNotificationBoard extends React.Component {
 }
 GroupNotificationBoard.propTypes = {
   getGroupMessages: PropTypes.func.isRequired,
-  getGroupUsers: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
   groupState: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired
@@ -144,8 +141,6 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
   getGroupMessages,
-  getGroupMessagesClear,
-  getGroupUsers
-}, dispatch);
+  clearGroupMessagesError }, dispatch);
 export default connect(mapStateToProps,
   mapDispatchToProps)(GroupNotificationBoard);

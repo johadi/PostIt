@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getGroupUsersPaginated } from '../../../actions/group/groupActions';
+import { getGroupUsers } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import GroupUsers from '../GroupUsers.jsx';
 import Page from '../Page.jsx';
@@ -15,7 +15,7 @@ class GroupUsersContainer extends React.Component {
    * @return {void} void
    */
   componentWillMount() {
-    this.props.getGroupUsersPaginated(this.props.params.groupId, 1);
+    this.props.getGroupUsers(this.props.params.groupId, 1);
   }
 
   /**
@@ -23,17 +23,17 @@ class GroupUsersContainer extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const { groupUsersPaginated } = this.props.groupState;
-    return this.props.tokenStatus.success && groupUsersPaginated ?
+    const { groupUsersStore } = this.props.groupState;
+    return this.props.tokenStatus.success && groupUsersStore ?
       <Page groupId={ this.props.params.groupId}>
         <GroupUsers
-          groupUsersPagination={groupUsersPaginated}
+          groupUsers={groupUsersStore}
           groupId={this.props.params.groupId} />
       </Page> : <NullPage/>;
   }
 }
 GroupUsersContainer.propTypes = {
-  getGroupUsersPaginated: PropTypes.func.isRequired,
+  getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired
@@ -43,6 +43,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupUsersPaginated }, dispatch);
+  getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupUsersContainer);
 

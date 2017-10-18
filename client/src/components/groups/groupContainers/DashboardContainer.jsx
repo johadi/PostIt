@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getBoardMessagesPaginated } from '../../../actions/group/groupActions';
+import { getBoardMessages } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import MessageBoard from '../MessageBoard.jsx';
 import Page from '../Page.jsx';
@@ -15,7 +15,7 @@ class DashboardContainer extends React.Component {
    * @return {void} void
    */
   componentWillMount() {
-    this.props.getBoardMessagesPaginated();
+    this.props.getBoardMessages();
   }
 
   /**
@@ -23,23 +23,23 @@ class DashboardContainer extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const { boardMessagesPaginated } = this.props.groupState;
-    return this.props.tokenStatus.success && boardMessagesPaginated ?
+    const { boardMessagesStore } = this.props.groupState;
+    return this.props.tokenStatus.success && boardMessagesStore ?
       <Page>
-        <MessageBoard boardMessagesPagination={boardMessagesPaginated}/>
+        <MessageBoard boardMessages={boardMessagesStore}/>
       </Page> : <NullPage/>;
   }
 }
 DashboardContainer.propTypes = {
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
-  getBoardMessagesPaginated: PropTypes.func.isRequired
+  getBoardMessages: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   tokenStatus: state.verifyTokenReducer,
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getBoardMessagesPaginated }, dispatch);
+  getBoardMessages }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
 

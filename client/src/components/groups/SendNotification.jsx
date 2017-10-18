@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import {
   postMessage,
-  clearPostMessageError } from '../../actions/group/groupActions';
+  clearMessageError } from '../../actions/group/groupActions';
 
 /**
  * SendNotification class declaration
@@ -30,7 +30,7 @@ export class SendNotification extends React.Component {
    * @return {void} void
    */
   componentWillUnmount() {
-    this.props.clearPostMessageError();
+    this.props.clearMessageError();
   }
 
   /**
@@ -48,7 +48,7 @@ export class SendNotification extends React.Component {
     } else {
       // Since input is empty, clear message errors
       // to allow empty error report
-      this.props.clearPostMessageError();
+      this.props.clearMessageError();
       // Input is now invalid, Report field is empty
       this.setState({ isValid: false });
     }
@@ -133,7 +133,7 @@ export class SendNotification extends React.Component {
 }
 SendNotification.propTypes = {
   groupState: PropTypes.object.isRequired,
-  clearPostMessageError: PropTypes.func.isRequired,
+  clearMessageError: PropTypes.func.isRequired,
   postMessage: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
@@ -142,6 +142,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  postMessage, clearPostMessageError }, dispatch);
+  postMessage, clearMessageError }, dispatch);
 export default connect(mapStateToProps,
   mapDispatchToProps)(SendNotification);

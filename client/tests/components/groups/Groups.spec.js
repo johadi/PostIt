@@ -6,14 +6,14 @@ import { mount } from 'enzyme';
 import { AllGroups } from '../../../src/components/groups/AllGroups.jsx';
 
 describe('<AllGroups/>', () => {
+  const getAllUserGroups = sinon.spy();
   const getUserGroups = sinon.spy();
-  const getUserGroupsPaginated = sinon.spy();
   sinon.spy(AllGroups.prototype, 'handleSelect');
   const props = {
     groupState: {},
+    getAllUserGroups,
     getUserGroups,
-    getUserGroupsPaginated,
-    userGroupsPagination: {
+    userGroups: {
       groups: [],
       count: 0,
       pages: 1
@@ -22,12 +22,12 @@ describe('<AllGroups/>', () => {
   const wrapper = mount(<AllGroups { ...props} />);
   describe('No Groups', () => {
     before(() => {
-      const userGroupsPagination = {
+      const userGroups = {
         groups: [],
         count: 0,
         pages: 1
       };
-      wrapper.setProps({ userGroupsPagination });
+      wrapper.setProps({ userGroups });
     });
     it('should check that Pagination doesn\'t exist since our page' +
       ' is just 1, no pagination', () => {
@@ -45,7 +45,7 @@ describe('<AllGroups/>', () => {
   describe('If there is at least one Group', () => {
     const pages = 3;
     before(() => {
-      const userGroupsPagination = {
+      const userGroups = {
         groups: [
           {
             Group: {
@@ -63,7 +63,7 @@ describe('<AllGroups/>', () => {
         count: 20,
         pages
       };
-      wrapper.setProps({ userGroupsPagination });
+      wrapper.setProps({ userGroups });
     });
     it('Should check that group count is 20 since our props ' +
       'changes count to 20', () => {

@@ -11,13 +11,12 @@ const initialState = {
   groupViewMessageErr: null,
   groupUsersStore: null,
   groupUsersError: null,
-  groupUsersPaginated: null,
   groupUsersPaginatedErr: null,
   groupsUserBelongs: null,
   groupsUserBelongsErr: null,
-  userGroupsPaginated: null,
+  userGroupsStore: null,
   userGroupsPaginatedErr: null,
-  boardMessagesPaginated: null,
+  boardMessagesStore: null,
   boardMessagesPaginatedErr: null,
   usersSearch: null,
   usersSearchErr: null,
@@ -142,21 +141,21 @@ const groupReducer = (state = initialState, action) => {
     case actionTypes.GROUP_USERS_PAGINATED_SUCCESS:
       state = {
         ...state,
-        groupUsersPaginated: action.payload,
+        groupUsersStore: action.payload,
         groupUsersPaginatedErr: null
       };
       break;
     case actionTypes.GROUP_USERS_PAGINATED_ERROR:
       state = {
         ...state,
-        groupUsersPaginated: null,
+        groupUsersStore: null,
         groupUsersPaginatedErr: action.payload
       };
       break;
     case actionTypes.GROUP_USERS_PAGINATED_CLEAR:
       state = {
         ...state,
-        groupUsersPaginated: null,
+        groupUsersStore: null,
         groupUsersPaginatedErr: null
       };
       break;
@@ -184,42 +183,42 @@ const groupReducer = (state = initialState, action) => {
     case actionTypes.USER_GROUPS_PAGINATED_SUCCESS:
       state = {
         ...state,
-        userGroupsPaginated: action.payload,
+        userGroupsStore: action.payload,
         userGroupsPaginatedErr: null
       };
       break;
     case actionTypes.USER_GROUPS_PAGINATED_ERROR:
       state = {
         ...state,
-        userGroupsPaginated: null,
+        userGroupsStore: null,
         userGroupsPaginatedErr: action.payload
       };
       break;
     case actionTypes.USER_GROUPS_PAGINATED_CLEAR:
       state = {
         ...state,
-        userGroupsPaginated: null,
+        userGroupsStore: null,
         userGroupsPaginatedErr: null
       };
       break;
     case actionTypes.GET_BOARD_MESSAGES_SUCCESS:
       state = {
         ...state,
-        boardMessagesPaginated: action.payload,
+        boardMessagesStore: action.payload,
         boardMessagesPaginatedErr: null
       };
       break;
     case actionTypes.GET_BOARD_MESSAGES_ERROR:
       state = {
         ...state,
-        boardMessagesPaginated: null,
+        boardMessagesStore: null,
         boardMessagesPaginatedErr: action.payload
       };
       break;
     case actionTypes.CLEAR_BOARD_MESSAGES_ERROR:
       state = {
         ...state,
-        boardMessagesPaginated: null,
+        boardMessagesStore: null,
         boardMessagesPaginatedErr: null
       };
       break;

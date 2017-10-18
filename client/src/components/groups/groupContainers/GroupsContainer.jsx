@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getUserGroupsPaginated } from '../../../actions/group/groupActions';
+import { getUserGroups } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import AllGroups from '../AllGroups.jsx';
 import Page from '../Page.jsx';
@@ -15,7 +15,7 @@ class GroupsContainer extends React.Component {
    * @return {void} void
    */
   componentWillMount() {
-    this.props.getUserGroupsPaginated(1); // for group page
+    this.props.getUserGroups(1); // for group page
   }
 
   /**
@@ -23,15 +23,15 @@ class GroupsContainer extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const { userGroupsPaginated } = this.props.groupState;
-    return this.props.tokenStatus.success && userGroupsPaginated ?
+    const { userGroupsStore } = this.props.groupState;
+    return this.props.tokenStatus.success && userGroupsStore ?
       <Page>
-      <AllGroups userGroupsPagination={userGroupsPaginated}/>
+      <AllGroups userGroups={userGroupsStore}/>
       </Page> : <NullPage/>;
   }
 }
 GroupsContainer.propTypes = {
-  getUserGroupsPaginated: PropTypes.func.isRequired,
+  getUserGroups: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
 };
@@ -40,6 +40,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getUserGroupsPaginated }, dispatch);
+  getUserGroups }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsContainer);
 

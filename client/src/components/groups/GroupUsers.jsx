@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import { Pagination } from 'react-bootstrap';
-import { getGroupUsersPaginated } from '../../actions/group/groupActions';
+import { getGroupUsers } from '../../actions/group/groupActions';
 
 /**
  * GroupUsers class declaration
@@ -26,7 +26,7 @@ export class GroupUsers extends React.Component {
    */
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
-    this.props.getGroupUsersPaginated(this.props.groupId, eventKey);
+    this.props.getGroupUsers(this.props.groupId, eventKey);
   }
 
   /**
@@ -34,7 +34,7 @@ export class GroupUsers extends React.Component {
    * @return {XML} XML
    */
   render() {
-    const { name, users, count, pages } = this.props.groupUsersPagination;
+    const { name, users, count, pages } = this.props.groupUsers;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2 className="text-capitalize">{name} group members</h2>
@@ -72,14 +72,14 @@ export class GroupUsers extends React.Component {
 }
 GroupUsers.propTypes = {
   groupState: PropTypes.object.isRequired,
-  getGroupUsersPaginated: PropTypes.func.isRequired,
+  getGroupUsers: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
-  groupUsersPagination: PropTypes.object.isRequired,
+  groupUsers: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupUsersPaginated }, dispatch);
+  getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupUsers);
 

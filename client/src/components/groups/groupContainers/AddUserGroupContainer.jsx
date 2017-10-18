@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers,
   addUserToGroup,
-  addUserToGroupClear } from '../../../actions/group/groupActions';
+  clearAddUserError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
 import AddUserToGroup from '../AddUserToGroup.jsx';
 import Page from '../Page.jsx';
@@ -19,7 +19,7 @@ class AddUserGroupContainer extends React.Component {
    */
   componentWillMount() {
     this.props.getGroupUsers(this.props.params.groupId);
-    this.props.addUserToGroupClear();
+    this.props.clearAddUserError();
   }
 
   /**
@@ -56,7 +56,7 @@ AddUserGroupContainer.propTypes = {
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
   getGroupUsers: PropTypes.func.isRequired,
-  addUserToGroupClear: PropTypes.func.isRequired,
+  clearAddUserError: PropTypes.func.isRequired,
   addUserToGroup: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
@@ -67,6 +67,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ verifyToken,
     getGroupUsers,
     addUserToGroup,
-    addUserToGroupClear }, dispatch);
+    clearAddUserError }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AddUserGroupContainer);
 

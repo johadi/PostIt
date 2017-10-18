@@ -7,8 +7,8 @@ import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
 import {
-  getUserGroups,
-  getBoardMessagesPaginated } from '../../actions/group/groupActions';
+  getAllUserGroups,
+  getBoardMessages } from '../../actions/group/groupActions';
 
 /**
  * MessageBoard class declaration
@@ -39,7 +39,7 @@ export class MessageBoard extends React.Component {
    * @return {void} void
    */
   componentDidMount() {
-    this.props.getUserGroups();
+    this.props.getAllUserGroups();
   }
 
   /**
@@ -49,7 +49,7 @@ export class MessageBoard extends React.Component {
    */
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
-    this.props.getBoardMessagesPaginated(eventKey);
+    this.props.getBoardMessages(eventKey);
   }
 
   /**
@@ -68,7 +68,7 @@ export class MessageBoard extends React.Component {
    * @return {XML} XML/JSX
    */
   render() {
-    const { messages, pages, count } = this.props.boardMessagesPagination;
+    const { messages, pages, count } = this.props.boardMessages;
     return (
         <div className="col-md-12" id="message-board-div">
           <h2><strong>Notification board</strong></h2>
@@ -151,14 +151,14 @@ export class MessageBoard extends React.Component {
   }
 }
 MessageBoard.propTypes = {
-  getUserGroups: PropTypes.func.isRequired,
-  getBoardMessagesPaginated: PropTypes.func.isRequired,
-  boardMessagesPagination: PropTypes.object.isRequired
+  getAllUserGroups: PropTypes.func.isRequired,
+  getBoardMessages: PropTypes.func.isRequired,
+  boardMessages: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getUserGroups,
-  getBoardMessagesPaginated }, dispatch);
+  getAllUserGroups,
+  getBoardMessages }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MessageBoard);

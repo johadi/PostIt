@@ -1,1 +1,1 @@
-web: npm install && sequelize db:migrate && node tools/publicServer.js
+web: sequelize db:migrate && node tools/publicServer.js

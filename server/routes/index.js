@@ -1,12 +1,10 @@
+require('dotenv').load();
 const swaggerJSDoc = require('swagger-jsdoc');
 const authRoutes = require('./auth');
 const groupRoutes = require('./group');
 const userRoutes = require('./user');
 const messageRoutes = require('./message');
 
-// host definition
-const host = process.env.NODE_ENV === 'production' ?
-  'https://jimoh-postit.herokuapp.com' : 'localhost:4000';
 // swagger definition
 const swaggerDefinition = {
   info: {
@@ -14,7 +12,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Jimoh Hadi Andela Checkpoint API documentation',
   },
-  host,
+  host: process.env.API_HOST,
   basePath: '/',
 };
 // options for the swagger docs
@@ -29,7 +27,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
 module.exports = (app) => {
 // serve swagger
-  app.get('/swagger.json', (req, res) => {
+  app.get('/apidoc.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
   });

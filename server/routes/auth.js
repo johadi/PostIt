@@ -144,7 +144,7 @@ router.route('/v1/user/reset-password')
  *         description: Password reset message
  *         schema:
  *           properties:
- *             token:
+ *             message:
  *               type: string
  */
   .post(verifyLinkMiddleware, authController.resetPasswordPost);

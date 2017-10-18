@@ -4,95 +4,145 @@ const authenticate = require('../middlewares/authenticate');
 
 router.route('/v1/group/:groupId/message')
 /**
- * @api {get} /api/v1/group/:groupId/message Get group messages
- * @apiGroup Message
- * @apiHeader {String} token Token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {Number} groupId ID of a group
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    {
- *        "count": 2,
- *        "pages": 1,
- *        "rows": [{
- *          "id": 1,
- *          "message": "Programming is in the mind",
- *          "updated_at": "2017-06-10T15:46:51.778Z",
- *          "created_at": "2017-06-10T15:46:51.778Z",
- *          "User": {
- *            "id": 3,
- *            "username": "johadi",
- *            "fullname": "jimoh hadi"
- *          }
- *        },
- *        {
- *          "id": 4,
- *          "message": "I love Programming",
- *          "updated_at": "2017-05-10T15:46:51.778Z",
- *          "created_at": "2017-05-10T15:46:51.778Z",
- *          "User": {
- *            "id": 6,
- *            "username": "mary",
- *            "fullname": "john mary"
- *          }
- *        }]
- *    }
+ * @swagger
+ * /api/v1/group/{groupId}/message:
+ *   get:
+ *     tags:
+ *       - Message
+ *     description: Get messages of a group
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: groupId
+ *         description: Group ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Array of messages in a group with this groupId parameter
+ *         schema:
+ *           properties:
+ *             count:
+ *               type: integer
+ *             pages:
+ *               type: integer
+ *             rows:
+ *               type: array
  */
   .get(authenticate, messageController.getMessages);
 router.route('/v1/group/:groupId/message')
 /**
- * @api {post} /api/v1/group/:groupId/message POST messages to group
- * @apiGroup Message
- * @apiHeader {String} token Token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {Number} groupId ID of group
- * @apiParam {String} message Message to send to group
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 201 CREATED
- *
- *      "created successfully"
+ * @swagger
+ * /api/v1/group/{groupId}/message:
+ *   post:
+ *     tags:
+ *       - Message
+ *     description: Post message to a group
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: groupId
+ *         description: Group ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *       - name: message
+ *         in: formData
+ *         description: message body to post to group
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Message created successfully
+ *         schema:
+ *           properties:
+ *             message:
+ *               type: string
  */
   .post(authenticate, messageController.postMessage);
 router.route('/v1/group/:groupId/message/:messageId')
 /**
- * @api {get} /api/v1/group/:groupId/message/:messageId Get a message in a group
- * @apiGroup Message
- * @apiHeader {String} Token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {Number} groupId ID of group
- * @apiParam {Number} messageId ID of message
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *       {
- *          "id": 4,
- *          "message": "I love Programming",
- *          "updated_at": "2017-05-10T15:46:51.778Z",
- *          "created_at": "2017-05-10T15:46:51.778Z",
- *          "User": {
- *            "id": 6,
- *            "username": "mary",
- *            "fullname": "john mary"
- *          }
- *        }
+ * @swagger
+ * /api/v1/group/{groupId}/message/{messageId}:
+ *   get:
+ *     tags:
+ *       - Message
+ *     description: View a message in a group
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: groupId
+ *         description: Group ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: messageId
+ *         description: Message ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: View message in a group with this groupId and messageId parameters
+ *         schema:
+ *           properties:
+ *             id:
+ *               type: integer
+ *             message:
+ *               type: string
+ *             updated_at:
+ *               type: string
+ *             created_at:
+ *               type: string
+ *             User:
+ *               type: object
  */
 // view single notification
   .get(authenticate, messageController.viewMessage);
 router.route('/v1/group/message-read/:messageId')
 /**
- * @api {post} /api/v1/group/message-read/:messageId POST update
- * status of message when it is read
- * @apiGroup Message
- * @apiHeader {String} token Token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {Number} messageId ID of message
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *
- *      true
+ * @swagger
+ * /api/v1/group/message-read/{messageId}:
+ *   post:
+ *     tags:
+ *       - Message
+ *     description: Update message read status
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: messageId
+ *         description: Message ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Message updated successfully
+ *         schema:
+ *           properties:
+ *             status:
+ *               type: boolean
  */
   .post(authenticate, messageController.updateMessageReadStatus);
 module.exports = router;

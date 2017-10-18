@@ -4,77 +4,148 @@ const verifyLinkMiddleware = require('../middlewares/verifyRecoveryLink');
 
 router.route('/v1/user/signup')
 /**
- * @api {post} /api/v1/user/signup Register a new user
- * @apiGroup Authentication
- * @apiParam {String} username Username of user
- * @apiParam {String} fullname Name of user
- * @apiParam {String} mobile Mobile number of user
- * @apiParam {String} email Email of user
- * @apiParam {String} password password of user
- * @apiParam {String} confirmPassword confirm password of user
- * @apiParamExample {json} Input
- *    {
- *      "fullname": "Jimoh Hadi",
- *      "username": "Johadi",
- *      "mobile": "0816304xxxx",
- *      "email": "jimoh@program.com",
- *      "password": "123456"
- *      "confirmPassword": "123456"
- *    }
- * @apiSuccess {String} token Token of authenticated user
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123weewewewhgf"
+ * @swagger
+ * /api/v1/user/signup:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Register a new user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: fullname
+ *         description: User full name
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: username
+ *         description: Username of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: email
+ *         description: User email
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: password
+ *         description: User password
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: confirmPassword
+ *         description: User confirm password
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: mobile
+ *         description: User mobile number
+ *         in: formData
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Token of authenticated user
+ *         schema:
+ *           properties:
+ *             token:
+ *               type: string
  */
+
     .post(authController.signup);
 router.route('/v1/user/signin')
 /**
- * @api {post} /api/v1/user/signin Login user
- * @apiGroup Authentication
- * @apiParam {String} username Username of registered user
- * @apiParam {String} password User password
- * @apiParamExample {json} Input
- *    {
- *      "username": "johadi",
- *      "password": "123456"
- *    }
- * @apiSuccess {String} token Token of authenticated user
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    "xyzuewiuewuweui.wiiwiewiewiiweabc.eioiewo123weewewewhgf"
+ * @swagger
+ * /api/v1/user/signin:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Login a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: Username of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: password
+ *         description: Password of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Token of authenticated user
+ *         schema:
+ *           properties:
+ *             token:
+ *               type: string
  */
     .post(authController.signin);
 router.route('/v1/user/recover-password')
 /**
- * @api {post} /api/v1/user/recover-password User password recovery
- * @apiGroup Authentication
- * @apiParam {String} email Email of registered user
- * @apiParamExample {json} Input
- *    {
- *      "email": "jimoh@gmail.com",
- *    }
- * @apiSuccess {String} message Success message
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    "Password recovery link sent to your email"
+ * @swagger
+ * /api/v1/user/recover-password:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Recover password of a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: email
+ *         description: Valid email of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Message for recovery sent email
+ *         schema:
+ *           properties:
+ *             message:
+ *               type: string
  */
   .post(authController.passwordRecovery);
 router.route('/v1/user/reset-password')
 /**
- * @api {post} /api/v1/user/reset-password User password reset
- * @apiGroup Authentication
- * @apiParam {String} password User password
- * @apiParam {String} confirmPassword User confirm password
- * @apiParam {String} token Token in the query of password reset URL
- * @apiParamExample {json} Input
- *    {
- *      "password": "123456",
- *      "confirmPassword": "123456"
- *    }
- * @apiSuccess {String} message Message for successful password changed
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    "Password changed successfully"
+ * @swagger
+ * /api/v1/user/reset-password:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Reset user password
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: password
+ *         description: New password of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: confirmPassword
+ *         description: Confirm new password of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Password reset message
+ *         schema:
+ *           properties:
+ *             token:
+ *               type: string
  */
   .post(verifyLinkMiddleware, authController.resetPasswordPost);
 module.exports = router;

@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 app.use('/apidoc', express.static('public/apidoc'));
-app.use(express.static('production'));
+app.use(express.static('public'));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 apiRoutes(app);
 app.get('*', (req, res) => {

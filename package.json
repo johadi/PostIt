@@ -138,6 +138,7 @@
     "sequelize-cli": "^2.7.0",
     "serve-favicon": "^2.3.0",
     "style-loader": "^0.18.2",
+    "swagger-jsdoc": "^1.9.7",
     "twilio": "^3.6.1",
     "url-loader": "^0.5.9",
     "validatorjs": "^3.13.3",

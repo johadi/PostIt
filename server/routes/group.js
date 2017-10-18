@@ -3,6 +3,37 @@ const groupController = require('../controllers/group');
 const authenticate = require('../middlewares/authenticate');
 
 router.route('/v1/verify-token')
+/**
+ * @swagger
+ * /api/v1/verify-token:
+ *   get:
+ *     tags:
+ *       - Authentication
+ *     description: Verify user token
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Verified user details
+ *         schema:
+ *           properties:
+ *             id:
+ *               type: integer
+ *             username:
+ *               type: string
+ *             fullname:
+ *               type: string
+ *             email:
+ *               type: string
+ *             mobile:
+ *               type: string
+ */
     .get(authenticate, (req, res) => {
       if (req.user) {
         return res.status(200).json(req.user);
@@ -10,71 +41,119 @@ router.route('/v1/verify-token')
     });
 router.route('/v1/group')
 /**
- * @api {post} /api/v1/group Create a group
- * @apiGroup Group
- * @apiHeader {String} token token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {String} name Group name
- * @apiParamExample {json} Input
- *    {"name": "Andela"}
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 201 CREATED
- *    {
- *      "id": 1,
- *      "name": "andela",
- *      "updated_at": "2016-02-10T15:46:51.778Z",
- *      "created_at": "2016-02-10T15:46:51.778Z",
- *      "creatorId": 5
- *    }
+ * @swagger
+ * /api/v1/group:
+ *   post:
+ *     tags:
+ *       - Group
+ *     description: Create a group
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: name
+ *         description: Group name
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Created group details
+ *         schema:
+ *           properties:
+ *             id:
+ *               type: integer
+ *             name:
+ *               type: string
+ *             updated_at:
+ *               type: string
+ *             created_at:
+ *               type: string
+ *             creatorId:
+ *               type: integer
  */
     .post(authenticate, groupController.createGroup);
 router.route('/v1/group/:groupId/user')
 /**
- * @api {post} /api/v1/group/:groupId/user Add user to group
- * @apiGroup Group
- * @apiHeader {String} token Token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {Number} groupId ID of group
- * @apiParam {String} username Username of a user
- * @apiParamExample {json} Input
- *    {"username": "Ortwel"}
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 201 CREATED
- *    {
- *      "message": "User added successfully",
- *      "addedUser": "Ortwel",
- *      "addedBy": "johadi"
- *    }
+ * @swagger
+ * /api/v1/group/{groupId}/user:
+ *   post:
+ *     tags:
+ *       - Group
+ *     description: Add User to group
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: Username of a user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: groupId
+ *         description: Group ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: User successfully added
+ *         schema:
+ *           properties:
+ *             message:
+ *               type: string
+ *             addedUser:
+ *               type: string
+ *             addedBy:
+ *               type: string
  */
     .post(authenticate, groupController.addUserToGroup);
 router.route('/v1/group/:groupId/group-users')
 /**
- * @api {get} /api/v1/group/:groupId/group-users Get group members
- * @apiGroup Group
- * @apiHeader {String} token token of authenticated user
- * @apiHeaderExample {json} Header
- *    {"x-auth": "JWT xyz.abc.123.hgf"}
- * @apiParam {Number} groupId ID of a group
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    {
- *        "id": 7,
- *        "name": "andela"
- *        "count": 2,
- *        "pages": 1,
- *        "users": [{
- *          "id": 1,
- *          "username": "johadi",
- *          "fullname": "jimoh hadi",
- *        },
- *        {
- *          "id": 3,
- *          "username": "sanni",
- *          "fullname": "ali sanni"
- *        }]
- *    }
+ * @swagger
+ * /api/v1/group/{groupId}/group-users:
+ *   get:
+ *     tags:
+ *       - Group
+ *     description: Get members in a group
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: groupId
+ *         description: Group ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Array of group members
+ *         schema:
+ *           properties:
+ *             id:
+ *               type: integer
+ *             name:
+ *               type: string
+ *             count:
+ *               type: integer
+ *             pages:
+ *               type: integer
+ *             users:
+ *               type: array
  */
   .get(authenticate, groupController.getGroupUsers);
 module.exports = router;

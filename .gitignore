@@ -12,3 +12,4 @@ screenshots/
 .DS_Store
 /coverage
 /production
+/.nyc_output

@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 4000);
 app.use(express.static(path.join(__dirname, './public')));
-
 // Create winston logger
 const logger = new (winston.Logger)({
   transports: [

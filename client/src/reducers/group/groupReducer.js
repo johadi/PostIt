@@ -11,13 +11,12 @@ const initialState = {
   groupViewMessageErr: null,
   groupUsersStore: null,
   groupUsersError: null,
-  groupUsersPaginatedErr: null,
   groupsUserBelongs: null,
   groupsUserBelongsErr: null,
   userGroupsStore: null,
-  userGroupsPaginatedErr: null,
+  userGroupsError: null,
   boardMessagesStore: null,
-  boardMessagesPaginatedErr: null,
+  boardMessagesError: null,
   usersSearch: null,
   usersSearchErr: null,
   messageRead: false,
@@ -142,21 +141,21 @@ const groupReducer = (state = initialState, action) => {
       state = {
         ...state,
         groupUsersStore: action.payload,
-        groupUsersPaginatedErr: null
+        groupUsersError: null
       };
       break;
     case actionTypes.GROUP_USERS_PAGINATED_ERROR:
       state = {
         ...state,
         groupUsersStore: null,
-        groupUsersPaginatedErr: action.payload
+        groupUsersError: action.payload
       };
       break;
     case actionTypes.GROUP_USERS_PAGINATED_CLEAR:
       state = {
         ...state,
         groupUsersStore: null,
-        groupUsersPaginatedErr: null
+        groupUsersError: null
       };
       break;
     case actionTypes.GET_USER_GROUPS_SUCCESS:
@@ -184,42 +183,42 @@ const groupReducer = (state = initialState, action) => {
       state = {
         ...state,
         userGroupsStore: action.payload,
-        userGroupsPaginatedErr: null
+        userGroupsError: null
       };
       break;
     case actionTypes.USER_GROUPS_PAGINATED_ERROR:
       state = {
         ...state,
         userGroupsStore: null,
-        userGroupsPaginatedErr: action.payload
+        userGroupsError: action.payload
       };
       break;
     case actionTypes.USER_GROUPS_PAGINATED_CLEAR:
       state = {
         ...state,
         userGroupsStore: null,
-        userGroupsPaginatedErr: null
+        userGroupsError: null
       };
       break;
     case actionTypes.GET_BOARD_MESSAGES_SUCCESS:
       state = {
         ...state,
         boardMessagesStore: action.payload,
-        boardMessagesPaginatedErr: null
+        boardMessagesError: null
       };
       break;
     case actionTypes.GET_BOARD_MESSAGES_ERROR:
       state = {
         ...state,
         boardMessagesStore: null,
-        boardMessagesPaginatedErr: action.payload
+        boardMessagesError: action.payload
       };
       break;
     case actionTypes.CLEAR_BOARD_MESSAGES_ERROR:
       state = {
         ...state,
         boardMessagesStore: null,
-        boardMessagesPaginatedErr: null
+        boardMessagesError: null
       };
       break;
     case actionTypes.USERS_SEARCH_SUCCESSFUL:

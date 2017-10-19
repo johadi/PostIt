@@ -14,13 +14,12 @@ describe('groupReducer', () => {
     groupViewMessageErr: null,
     groupUsersStore: null,
     groupUsersError: null,
-    groupUsersPaginatedErr: null,
     groupsUserBelongs: null,
     groupsUserBelongsErr: null,
     userGroupsStore: null,
-    userGroupsPaginatedErr: null,
+    userGroupsError: null,
     boardMessagesStore: null,
-    boardMessagesPaginatedErr: null,
+    boardMessagesError: null,
     usersSearch: null,
     usersSearchErr: null,
     messageRead: false,
@@ -196,7 +195,7 @@ describe('groupReducer', () => {
     });
   });
   describe('GET USERS IN A GROUP PAGINATED', () => {
-    it('should set value for groupUsersStore and set groupUsersPaginatedErr ' +
+    it('should set value for groupUsersStore and set groupUsersError ' +
       'to null when Type is GROUP_USERS_PAGINATED_SUCCESS',
       () => {
         const groupActionDispatch = {
@@ -204,26 +203,26 @@ describe('groupReducer', () => {
           payload: ['johadi', 'Rasheed']
         };
         const newState = groupReducer(initialState, groupActionDispatch);
-        expect(newState.groupUsersPaginatedErr).toEqual(null);
+        expect(newState.groupUsersError).toEqual(null);
         expect(newState.groupUsersStore).toEqual(groupActionDispatch.payload);
       });
 
-    it('should set value for groupUsersPaginatedErr when Type ' +
+    it('should set value for groupUsersError when Type ' +
       'is GROUP_USERS_PAGINATED_ERROR', () => {
       const groupActionDispatch = {
         type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
         payload: 'Invalid group'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.groupUsersPaginatedErr).toEqual(groupActionDispatch.payload);
+      expect(newState.groupUsersError).toEqual(groupActionDispatch.payload);
     });
-    it('should clear values for groupUsersPaginatedErr when Type ' +
+    it('should clear values for groupUsersError when Type ' +
       'is GROUP_USERS_PAGINATED_CLEAR', () => {
       const groupActionDispatch = {
         type: actionTypes.GROUP_USERS_PAGINATED_CLEAR,
       };
       const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.groupUsersPaginatedErr).toEqual(null);
+      expect(newState.groupUsersError).toEqual(null);
     });
   });
   describe('GET GROUPS OF A USER', () => {
@@ -258,7 +257,7 @@ describe('groupReducer', () => {
     });
   });
   describe('GET GROUPS OF A USER PAGINATED', () => {
-    it('should set value for userGroupsStore and set userGroupsPaginatedErr ' +
+    it('should set value for userGroupsStore and set userGroupsError ' +
       'to null when Type is USER_GROUPS_PAGINATED_SUCCESS',
       () => {
         const groupActionDispatch = {
@@ -266,57 +265,57 @@ describe('groupReducer', () => {
           payload: ['sport', 'music']
         };
         const newState = groupReducer(initialState, groupActionDispatch);
-        expect(newState.userGroupsPaginatedErr).toEqual(null);
+        expect(newState.userGroupsError).toEqual(null);
         expect(newState.userGroupsStore).toEqual(groupActionDispatch.payload);
       });
 
-    it('should set value for userGroupsPaginatedErr when Type ' +
+    it('should set value for userGroupsError when Type ' +
       'is USER_GROUPS_PAGINATED_ERROR', () => {
       const groupActionDispatch = {
         type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
         payload: 'You are not a member of this group'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.userGroupsPaginatedErr).toEqual(groupActionDispatch.payload);
+      expect(newState.userGroupsError).toEqual(groupActionDispatch.payload);
     });
-    it('should clear values for userGroupsPaginatedErr when Type ' +
+    it('should clear values for userGroupsError when Type ' +
       'is USER_GROUPS_PAGINATED_CLEAR', () => {
       const groupActionDispatch = {
         type: actionTypes.USER_GROUPS_PAGINATED_CLEAR,
       };
       const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.userGroupsPaginatedErr).toEqual(null);
+      expect(newState.userGroupsError).toEqual(null);
     });
   });
   describe('GET MESSAGES FOR MESSAGE BOARD', () => {
     it('should set value for boardMessagesStore and set ' +
-      'boardMessagesPaginatedErr to null when Type is GET_BOARD_MESSAGES_SUCCESS',
+      'boardMessagesError to null when Type is GET_BOARD_MESSAGES_SUCCESS',
       () => {
         const groupActionDispatch = {
           type: actionTypes.GET_BOARD_MESSAGES_SUCCESS,
           payload: ['Hello young man', 'Who is young man ?']
         };
         const newState = groupReducer(initialState, groupActionDispatch);
-        expect(newState.boardMessagesPaginatedErr).toEqual(null);
+        expect(newState.boardMessagesError).toEqual(null);
         expect(newState.boardMessagesStore).toEqual(groupActionDispatch.payload);
       });
 
-    it('should set value for boardMessagesPaginatedErr when Type ' +
+    it('should set value for boardMessagesError when Type ' +
       'is GET_BOARD_MESSAGES_ERROR', () => {
       const groupActionDispatch = {
         type: actionTypes.GET_BOARD_MESSAGES_ERROR,
         payload: 'error occurred retrieving messages'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.boardMessagesPaginatedErr).toEqual(groupActionDispatch.payload);
+      expect(newState.boardMessagesError).toEqual(groupActionDispatch.payload);
     });
-    it('should clear values for boardMessagesPaginatedErr when Type ' +
+    it('should clear values for boardMessagesError when Type ' +
       'is CLEAR_BOARD_MESSAGES_ERROR', () => {
       const groupActionDispatch = {
         type: actionTypes.CLEAR_BOARD_MESSAGES_ERROR,
       };
       const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.boardMessagesPaginatedErr).toEqual(null);
+      expect(newState.boardMessagesError).toEqual(null);
     });
   });
   describe('GET SEARCH RESULT OF USERS', () => {

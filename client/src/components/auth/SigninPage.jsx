@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import IndexHeader from '../headers/IndexHeader.jsx';
-import { signinAction } from '../../actions/auth/signinAction';
-import FormField from './SignInFormField.jsx';
+import signinAction from '../../actions/auth/signinAction';
+import SignInFormField from './SignInFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
 
 /**
@@ -80,12 +80,12 @@ export class SigninPage extends React.Component {
                       fails={this.props.signinState.fails}
                     /> : null
                   }
-                  <FormField errors={this.props.signinState.errors}
+                  <SignInFormField errors={this.props.signinState.errors}
                              onChange={e => this.handleChange(e)}
                              value={this.state.credentials.username}
                              name="username"
                              placeholder="Username"/>
-                  <FormField type="password"
+                  <SignInFormField type="password"
                              errors={this.props.signinState.errors}
                              onChange={e => this.handleChange(e)}
                              value={this.state.credentials.password}

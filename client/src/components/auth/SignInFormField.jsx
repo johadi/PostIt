@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'react-proptypes';
-// #bfbfbf
-const FormField = props => (
+
+const SignInFormField = props => (
     <div className={classnames('form-group',
       { 'has-error': props.errors ? !!props.errors[props.name] : false })}>
       <div
@@ -16,14 +16,13 @@ const FormField = props => (
             value={ props.value }
         />
         { props.errors ?
-          <span id="show-error" style={{ backgroundColor: '#ffe6f0' }}
-                className="show-error help-block">
+          <span id="show-error" className="show-error help-block error-bg">
             {props.errors[props.name]}
           </span> : false }
       </div>
     </div>
 );
-FormField.propTypes = {
+SignInFormField.propTypes = {
   onChange: PropTypes.func,
   type: PropTypes.string,
   name: PropTypes.string,
@@ -31,5 +30,5 @@ FormField.propTypes = {
   value: PropTypes.string,
   errors: PropTypes.object
 };
-export default FormField;
+export default SignInFormField;
 

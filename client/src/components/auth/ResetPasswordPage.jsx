@@ -4,7 +4,7 @@ import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import IndexHeader from '../headers/IndexHeader.jsx';
 import { resetPasswordAction } from '../../actions/auth/passwordAction';
-import FormField from './ResetPasswordFormField.jsx';
+import ResetPasswordFormField from './ResetPasswordFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
 
 /**
@@ -12,7 +12,7 @@ import ErrorComponent from '../ErrorComponent.jsx';
  */
 class ResetPasswordPage extends React.Component {
   /**
-   * class cpnstructor
+   * class constructor
    * @param {object} props
    */
   constructor(props) {
@@ -56,8 +56,7 @@ class ResetPasswordPage extends React.Component {
           <div className="site-wrapper-inner">
             <div className="cover-container">
               <IndexHeader/>
-              <div className="inner cover"
-                   style={{ opacity: 0.8, backgroundColor: 'whitesmoke' }}>
+              <div className="inner cover cover-div">
                 <h2 className="cover-heading text-signup">Reset Password for PostIt</h2>
                 <div className="row">
                   <form onSubmit={e => this.handleSubmit(e)}
@@ -74,13 +73,13 @@ class ResetPasswordPage extends React.Component {
                         { this.props.resetState.resetMessage }
                       </div>}
                     <div className="col-lg-offset-2 col-lg-8">
-                      <FormField type="password"
+                      <ResetPasswordFormField type="password"
                                  errors={this.props.resetState.resetErrors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.password}
                                  name="password"
                                  placeholder="Password"/>
-                      <FormField type="password"
+                      <ResetPasswordFormField type="password"
                                  errors={this.props.resetState.resetErrors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.confirmPassword}

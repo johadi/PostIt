@@ -72,25 +72,25 @@ export class MessageBoard extends React.Component {
     return (
         <div className="col-md-12" id="message-board-div">
           <h2><strong>Notification board</strong></h2>
-          <small style={{ color: 'red' }}>{count === 1 ?
+          <small className="text-red">{count === 1 ?
             `(${count}) notification` :
             `(${count}) notifications`} you have not read</small>
           <hr/>
           {
             messages.map((message) => {
-              let priority = <span style={{ backgroundColor: 'green' }}
-                                   className="badge text-capitalize">
+              let priority = <span
+                className="badge text-capitalize notification-normal">
                 {message.priority}
                 </span>;
               if (message.priority === 'urgent') {
-                priority = <span style={{ backgroundColor: 'orange' }}
-                                 className="badge text-capitalize">
+                priority = <span
+                  className="badge text-capitalize notification-urgent">
                   {message.priority}
                   </span>;
               }
               if (message.priority === 'critical') {
-                priority = <span style={{ backgroundColor: 'darkred' }}
-                                 className="badge text-capitalize">
+                priority = <span
+                  className="badge text-capitalize notification-critical">
                   {message.priority}
                   </span>;
               }

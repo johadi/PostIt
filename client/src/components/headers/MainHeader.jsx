@@ -28,7 +28,7 @@ const MainHeader = (props) => {
               <i className="fa fa-lg fa-users" aria-hidden="true"></i> Groups</Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
-            <li style={{ marginRight: '10px' }}>
+            <li className="main-header-logout">
               <Link to="#" onClick={logout}>
                 <i className="fa fa-lg fa-sign-out" aria-hidden="true"></i>Logout
               </Link>

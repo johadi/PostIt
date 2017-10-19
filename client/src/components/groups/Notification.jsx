@@ -54,26 +54,26 @@ export class Notification extends React.Component {
       hour: '2-digit',
       minute: '2-digit'
     };
-    let priority = <span style={{ backgroundColor: 'green' }}
-                         className="badge text-capitalize">
-    {message.priority}
+    let priority = <span
+      className="badge text-capitalize notification-normal">
+      {message.priority}
     </span>;
     if (message.priority === 'urgent') {
-      priority = <span style={{ backgroundColor: 'orange' }}
-                       className="badge text-capitalize">
-      {message.priority}
+      priority = <span
+        className="badge text-capitalize notification-urgent">
+        {message.priority}
       </span>;
     }
     if (message.priority === 'critical') {
-      priority = <span style={{ backgroundColor: 'darkred' }}
-                       className="badge text-capitalize">
-      {message.priority}
+      priority = <span
+        className="badge text-capitalize notification-critical">
+        {message.priority}
       </span>;
     }
     return (
       <div className="col-md-12" id="message-board-div">
         <h2><span className="text-capitalize">{name}</span> group</h2>
-        <p>Sent by <span style={{ color: 'green' }}>
+        <p>Sent by <span className="text-green">
           {message.User.username}
         </span>
           {this.showTime(message.createdAt) >= 24 ?

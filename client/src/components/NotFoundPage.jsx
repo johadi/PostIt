@@ -11,7 +11,7 @@ export default class NotFoundPage extends React.Component {
    * @return {void} void
    */
   handleClick(e) {
-    browserHistory.goBack();
+    browserHistory.push('/');
   }
   /**
    * renders component

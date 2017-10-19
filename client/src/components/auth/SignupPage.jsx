@@ -5,7 +5,7 @@ import { Link, browserHistory } from 'react-router';
 import PropTypes from 'react-proptypes';
 import IndexHeader from '../headers/IndexHeader.jsx';
 import { signupAction } from '../../actions/auth/signupAction';
-import FormField from './SignUpFormField.jsx';
+import SignupFormField from './SignupFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
 
 /**
@@ -68,8 +68,7 @@ export class SignupPage extends React.Component {
           <div className="site-wrapper-inner">
             <div className="cover-container">
               <IndexHeader/>
-              <div className="inner cover"
-                   style={{ opacity: 0.8, backgroundColor: 'whitesmoke' }}>
+              <div className="inner cover cover-div">
                 <h1 className="cover-heading text-signup">
                   <strong>Sign up for PostIt,</strong>
                 </h1>
@@ -82,16 +81,16 @@ export class SignupPage extends React.Component {
                     { this.props.signupState.fails ? <ErrorComponent
                       fails={this.props.signupState.fails} /> : null }
                     <div className="col-lg-6">
-                      <FormField errors={this.props.signupState.errors}
+                      <SignupFormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.fullname}
                                  name="fullname" placeholder="Full name"/>
-                      <FormField errors={this.props.signupState.errors}
+                      <SignupFormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.email}
                                  type="email" name="email"
                                  placeholder="Email"/>
-                      <FormField errors={this.props.signupState.errors}
+                      <SignupFormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.mobile}
                                  name="mobile"
@@ -99,16 +98,16 @@ export class SignupPage extends React.Component {
                                  required='required'/>
                     </div>
                     <div className="col-lg-6">
-                      <FormField errors={this.props.signupState.errors}
+                      <SignupFormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.username}
                                  name="username" placeholder="Username"/>
-                      <FormField errors={this.props.signupState.errors}
+                      <SignupFormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.password}
                                  type="password"
                                  name="password" placeholder="Password"/>
-                      <FormField errors={this.props.signupState.errors}
+                      <SignupFormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.confirmPassword}
                                  type="password" name="confirmPassword"

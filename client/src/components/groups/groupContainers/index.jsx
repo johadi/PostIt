@@ -8,7 +8,7 @@ import GroupsContainer from './GroupsContainer.jsx';
 import GroupUsersContainer from './GroupUsersContainer.jsx';
 import AuthenticateUser from '../AuthenticateUser.jsx';
 
-export default {
+export {
   DashboardContainer,
   NotificationViewContainer,
   SendNotificationContainer,

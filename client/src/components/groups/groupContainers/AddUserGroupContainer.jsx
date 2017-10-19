@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'react-proptypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { verifyToken } from '../../../actions/verifyTokenAction';
 import { getGroupUsers,
   addUserToGroup,
   clearAddUserError } from '../../../actions/group/groupActions';
@@ -64,7 +63,7 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ verifyToken,
+  bindActionCreators({
     getGroupUsers,
     addUserToGroup,
     clearAddUserError }, dispatch);

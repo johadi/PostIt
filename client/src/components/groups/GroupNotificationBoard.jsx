@@ -68,19 +68,16 @@ export class GroupNotificationBoard extends React.Component {
           <p>({count}) {count === 1 ? 'notification' : 'notifications'}</p>
           <hr/>
           {rows.map((message) => {
-            let priority = <span style={{ backgroundColor: 'green' }}
-                                 className="badge text-capitalize">
+            let priority = <span className="badge text-capitalize notification-normal">
               {message.priority}
               </span>;
             if (message.priority === 'urgent') {
-              priority = <span style={{ backgroundColor: 'orange' }}
-                               className="badge text-capitalize">
+              priority = <span className="badge text-capitalize notification-urgent">
                 {message.priority}
                 </span>;
             }
             if (message.priority === 'critical') {
-              priority = <span style={{ backgroundColor: 'darkred' }}
-                               className="badge text-capitalize">
+              priority = <span className="badge text-capitalize notification-critical">
                 {message.priority}</span>;
             }
             return (
@@ -99,7 +96,7 @@ export class GroupNotificationBoard extends React.Component {
                         {
                           lodash.includes(message.readersId, this.userDetail.id) ?
                             <span className="text-success"> Read</span> :
-                            <span style={{ color: 'red' }}> Unread</span>
+                            <span className="text-red"> Unread</span>
                         }
                       </small>
                     }

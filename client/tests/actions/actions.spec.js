@@ -5,7 +5,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import actionTypes from '../../src/actions/actionTypes';
 import { signupAction } from '../../src/actions/auth/signupAction';
-import { signinAction } from '../../src/actions/auth/signinAction';
+import signinAction from '../../src/actions/auth/signinAction';
 import { recoverPasswordAction } from '../../src/actions/auth/passwordAction';
 import { createGroup, addUserToGroup, postMessage, getGroupMessages,
   viewMessage, getGroupUsers, getUserGroups,

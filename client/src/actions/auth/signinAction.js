@@ -1,9 +1,8 @@
-/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
-export const signinAction = userCredentials => dispatch =>
+const signinAction = userCredentials => dispatch =>
   axios.post('/api/v1/user/signin', userCredentials)
       .then((res) => {
         if (res.status !== 200) {
@@ -31,3 +30,4 @@ export const signinAction = userCredentials => dispatch =>
         }
       });
 
+export default signinAction;

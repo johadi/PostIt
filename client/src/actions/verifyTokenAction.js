@@ -1,9 +1,8 @@
-/* eslint-disable import/prefer-default-export */
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import actionTypes from './actionTypes';
 
-export const verifyToken = () => (dispatch) => {
+const verifyToken = () => (dispatch) => {
   if (window.sessionStorage.token) {
     axios.get('/api/v1/verify-token',
       { headers: { 'x-auth': window.sessionStorage.token } })
@@ -38,3 +37,5 @@ export const verifyToken = () => (dispatch) => {
       payload: false });
   }
 };
+
+export default verifyToken;

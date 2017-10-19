@@ -1,39 +1,43 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './App.jsx';
-import auth from './components/auth';
-import groupContainers from './components/groups/groupContainers';
+import {
+  SignupPage, SigninPage, RecoverPasswordPage, ResetPasswordPage }
+  from './components/auth';
+import { AuthenticateUser, DashboardContainer, NotificationViewContainer,
+  SendNotificationContainer, GroupBoardContainer, CreateGroupContainer,
+  AddUserGroupContainer, GroupsContainer, GroupUsersContainer }
+  from './components/groups/groupContainers';
 import IndexPage from './components/IndexPage.jsx';
 import NotFoundPage from './components/NotFoundPage.jsx';
 
 export default (
     <Route path='/' component={App}>
       <IndexRoute component={IndexPage}/>
-      <Route path="/signup" component={auth.SignupPage}/>
-      <Route path="/signin" component={auth.SigninPage}/>
+      <Route path="/signup" component={SignupPage}/>
+      <Route path="/signin" component={SigninPage}/>
       <Route path="/recover-password"
-             component={auth.RecoverPasswordPage}/>
+             component={RecoverPasswordPage}/>
       <Route path="/reset-password"
-             component={auth.ResetPasswordPage}/>
+             component={ResetPasswordPage}/>
 
-      <Route component={groupContainers.AuthenticateUser}>
+      <Route component={AuthenticateUser}>
         <Route path="/dashboard"
-               component={groupContainers.DashboardContainer}/>
+               component={DashboardContainer}/>
         <Route path="/message/:groupId/:messageId"
-               component={groupContainers.NotificationViewContainer}/>
+               component={NotificationViewContainer}/>
         <Route path="/group/:groupId/message"
-               component={groupContainers.SendNotificationContainer}/>
+               component={SendNotificationContainer}/>
         <Route path="/group/:groupId/board"
-               component={groupContainers.GroupBoardContainer}/>
+               component={GroupBoardContainer}/>
         <Route path="/create-group"
-               component={groupContainers.CreateGroupContainer}/>
+               component={CreateGroupContainer}/>
         <Route path="/group/:groupId/add"
-               component={groupContainers.AddUserGroupContainer}/>
+               component={AddUserGroupContainer}/>
         <Route path="/groups"
-               component={groupContainers.GroupsContainer}/>
+               component={GroupsContainer}/>
         <Route path="/group/:groupId/users"
-               component={groupContainers.GroupUsersContainer}/>
+               component={GroupUsersContainer}/>
       </Route>
       <Route path="*" component={NotFoundPage}/>
     </Route>

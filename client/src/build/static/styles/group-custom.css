@@ -74,4 +74,25 @@ a:hover {
 .footer-div {
   margin-top: 20px; }
 
+.notification-normal {
+  background-color: green; }
+
+.notification-urgent {
+  background-color: orange; }
+
+.notification-critical {
+  background-color: darkred; }
+
+.text-red {
+  color: red; }
+
+.text-green {
+  color: green; }
+
+.error-bg {
+  background-color: #ffe6f0; }
+
+.main-header-logout {
+  margin-rigth: 10px; }
+
 /*# sourceMappingURL=group-custom.css.map */

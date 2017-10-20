@@ -25,7 +25,7 @@ app.use(compression());
 app.use('/apidoc', express.static('public/apidoc'));
 app.use(express.static('public'));
 app.use(express.static('production'));
-app.use(favicon(path.join(__dirname, 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'favicon2.ico')));
 apiRoutes(app);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../production/index.html'));

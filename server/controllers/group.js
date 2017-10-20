@@ -1,11 +1,8 @@
-const User = require('../database/models').User;
-const Group = require('../database/models').Group;
-const UserGroup = require('../database/models').UserGroup;
-const UserGroupAdd = require('../database/models').UserGroupAdd;
-const Constants = require('../helpers/constants');
-const { handleError, handleSuccess } = require('../helpers/helpers');
+import db from '../database/models';
+import Constants from '../helpers/constants';
+import { handleError, handleSuccess } from '../helpers/helpers';
 
-module.exports = {
+export default {
   // Controller method for creating group
   createGroup(req, res) {
     if (req.user && req.user.id) {
@@ -17,7 +14,7 @@ module.exports = {
       const creatorId = req.user.id;
 
       // Check if the group user wants to create already exists
-      Group.findOne({
+      db.Group.findOne({
         where: { name }
       })
           .then((foundGroup) => {
@@ -25,7 +22,7 @@ module.exports = {
               return Promise.reject('This Group already exists');
             }
             // Create group if it doesn't exist before
-            return Group.create({
+            return db.Group.create({
               name,
               creatorId
             });
@@ -37,14 +34,14 @@ module.exports = {
             }
             // If created,
             // Automatically adds user to the group he/she created
-            const userAndGroups = UserGroup.create({
+            const userAndGroups = db.UserGroup.create({
               userId: creatorId,
               groupId: createdGroup.id
             });
             // Automatically Adds user to the Table that
             // indicates who adds another user to group
             // This is like User adds himself
-            const userAddedBy = UserGroupAdd.create({
+            const userAddedBy = db.UserGroupAdd.create({
               addedById: creatorId,
               addedToId: creatorId,
               groupId: createdGroup.id
@@ -82,13 +79,13 @@ module.exports = {
     const user = req.body.user;
     const groupId = req.params.groupId;
     // let us check if groupId is a valid group id
-    Group.findById(groupId)
+    db.Group.findById(groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'Invalid group' });
           }
           // Check if User that wants to add belongs to the group
-          return UserGroup.findOne({
+          return db.UserGroup.findOne({
             where: { userId: req.user.id, groupId }
           });
         })
@@ -107,7 +104,7 @@ module.exports = {
           }
           // Check to ensure provided detail is a detail of a valid user.
           // NOTE: The detail of a user can either be Username or Email
-          return User.findOne({
+          return db.User.findOne({
             where: {
               $or: [{ username: user }, { email: user }]
             }
@@ -119,7 +116,7 @@ module.exports = {
           }
           // Check again if this user has not been added to the group
           // he's to be added to
-          const userGroup = UserGroup.findOne({
+          const userGroup = db.UserGroup.findOne({
             where: { groupId, userId: foundUser.id }
           });
           return Promise.all([userGroup, foundUser]);
@@ -134,11 +131,11 @@ module.exports = {
           // and also update the UserGroupAdd table
           // Add user to group.
           // foundUserGroupAndId[1] == ID of user to add to the group
-          const userGroup = UserGroup.create({ groupId,
+          const userGroup = db.UserGroup.create({ groupId,
             userId: foundUserAndGroup[1].id });
           // Add user to User-Group-Add table so we can know who added the
           // user to the group he is just been added to
-          const userGroupAdd = UserGroupAdd.create({
+          const userGroupAdd = db.UserGroupAdd.create({
             groupId, addedById: req.user.id, addedToId: foundUserAndGroup[1].id
           });
           // Resolve all promises and return values to next then()
@@ -166,13 +163,13 @@ module.exports = {
       if (req.query.page && !isNaN(parseInt(req.query.page, 10))) {
         // convert the query to standard number for use
         const query = parseInt(req.query.page, 10);
-        Group.findById(req.params.groupId)
+        db.Group.findById(req.params.groupId)
             .then((group) => {
               if (!group) {
                 return Promise.reject({ code: 404, message: 'invalid group' });
               }
               // Check if User belongs to the group
-              const userGroup = UserGroup.findOne({
+              const userGroup = db.UserGroup.findOne({
                 where: { userId, groupId }
               }).then((foundUserGroup) => {
                 if (!foundUserGroup) {
@@ -191,11 +188,11 @@ module.exports = {
               // we got group info like this from our promise.all()
               const group = foundUserAndGroup[1];
               if (query === 0) { // get at most 6 users for side bar display
-                UserGroup.findAndCountAll({
+                db.UserGroup.findAndCountAll({
                   where: { groupId },
                   // limit: 6,
                   include: [{
-                    model: User,
+                    model: db.User,
                     attributes: ['id', 'username', 'fullname']
                   }]
                 })
@@ -215,12 +212,12 @@ module.exports = {
                 const perPage = Constants.GROUP_USERS_PER_PAGE;
                 const currentPage = query < 1 ? 1 : query;
                 const offset = perPage * (currentPage - 1); // items to skip
-                UserGroup.findAndCountAll({
+                db.UserGroup.findAndCountAll({
                   where: { groupId },
                   offset,
                   limit: perPage,
                   include: [{
-                    model: User,
+                    model: db.User,
                     attributes: ['id', 'username', 'fullname']
                   }]
                 })

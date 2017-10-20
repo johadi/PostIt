@@ -1,12 +1,9 @@
-const lodash = require('lodash');
-const User = require('../database/models').User;
-const Group = require('../database/models').Group;
-const UserGroup = require('../database/models').UserGroup;
-const Message = require('../database/models').Message;
-const Constants = require('../helpers/constants');
-const { handleError, handleSuccess } = require('../helpers/helpers');
+import lodash from 'lodash';
+import db from '../database/models';
+import Constants from '../helpers/constants';
+import { handleError, handleSuccess } from '../helpers/helpers';
 
-module.exports = {
+export default {
   // Get the list of all groups that a user belongs to
   getUserGroups(req, res) {
     if (req.user) {
@@ -20,9 +17,9 @@ module.exports = {
         const query = parseInt(req.query.page, 10);
         // Return groups of at most 6 . this is good for client group side bar
         if (query === 0) {
-          UserGroup.findAndCountAll({
+          db.UserGroup.findAndCountAll({
             where: { userId },
-            include: [{ model: Group, attributes: ['id', 'name', 'creatorId'] }]
+            include: [{ model: db.Group, attributes: ['id', 'name', 'creatorId'] }]
           })
             .then((result) => {
               const userGroupsData = {
@@ -44,11 +41,11 @@ module.exports = {
           // will be skipped. page2 items displays from item 10
           const offset = perPage * (currentPage - 1);
           // const nextPage = parseInt(currentPage, 10) + 1;
-          UserGroup.findAndCountAll({
+          db.UserGroup.findAndCountAll({
             where: { userId },
             limit: perPage,
             offset,
-            include: [{ model: Group, attributes: ['id', 'name', 'creatorId'] }]
+            include: [{ model: db.Group, attributes: ['id', 'name', 'creatorId'] }]
           })
             .then((result) => {
               // round off i.e 3/2 = 1.5 = 2
@@ -78,7 +75,7 @@ module.exports = {
       const userId = req.user.id;
       if (req.query.page && !isNaN(parseInt(req.query.page, 10))) {
         // Let us find all groupIds this user belongs to first
-        UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
+        db.UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
           .then((result) => {
             // We then convert the groupIds from array
             // of objects to plain arrays [23, 67, 89]
@@ -88,7 +85,7 @@ module.exports = {
           .then((userGroupIds) => {
             // get all messages of a user in all groups
             // he/she joined (read and unread)
-            const allUserGroupMessages = Message
+            const allUserGroupMessages = db.Message
               .findAndCountAll({ where: { groupId: userGroupIds } });
             return Promise.all([allUserGroupMessages, userGroupIds]);
           })
@@ -114,14 +111,14 @@ module.exports = {
             // Fetch user unread messages using pagination information
             // like offset and limit. similar to the one above but this time,
             // we are fetching by pagination detail
-            Message.findAll({
+            db.Message.findAll({
               // return messages that has groupIds like in [3,5,7,8,9]
               where: { groupId: userGroupIds },
               offset,
               limit: perPage,
               order: [['createdAt', 'DESC']],
-              include: [{ model: User, attributes: ['username', 'fullname'] }, {
-                model: Group,
+              include: [{ model: db.User, attributes: ['username', 'fullname'] }, {
+                model: db.Group,
                 attributes: ['id', 'name']
               }]
             })
@@ -157,7 +154,7 @@ module.exports = {
         // Find all users in the application
         const query = req.query.search.toLowerCase();
         const search = `%${query}%`;
-        User.findAll(
+        db.User.findAll(
           {
             where: { $or: [{ username: { like: search } },
               { email: { like: search } }] },
@@ -175,13 +172,13 @@ module.exports = {
               // group by the given groupId as object
               const groupId = req.query.groupId;
               const userId = req.user.id;
-              Group.findById(groupId)
+              db.Group.findById(groupId)
                 .then((group) => {
                   if (!group) {
                     return Promise.reject({ code: 404, message: 'Invalid group' });
                   }
                   // Check if User belongs to the group
-                  return UserGroup.findOne({
+                  return db.UserGroup.findOne({
                     where: { userId, groupId }
                   });
                 })
@@ -191,7 +188,7 @@ module.exports = {
                       'to this group');
                   }
                   // get the userId of users that belongs to this group
-                  return UserGroup.findAll({
+                  return db.UserGroup.findAll({
                     where: { groupId: req.query.groupId },
                     attributes: ['userId']
                   });

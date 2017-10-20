@@ -1,14 +1,11 @@
-const lodash = require('lodash');
-const P = require('bluebird');
-const User = require('../database/models').User;
-const Group = require('../database/models').Group;
-const UserGroup = require('../database/models').UserGroup;
-const Message = require('../database/models').Message;
-const Constants = require('../helpers/constants');
-const { sendSMS, sendMail, handleError,
-  handleSuccess } = require('../helpers/helpers');
+import lodash from 'lodash';
+import P from 'bluebird';
+import db from '../database/models';
+import Constants from '../helpers/constants';
+import { sendSMS, sendMail, handleError,
+  handleSuccess } from '../helpers/helpers';
 
-module.exports = {
+export default {
   // Controller method that allows User post messages to created group
   postMessage(req, res) {
     // Check to ensure groupId is not a String
@@ -34,7 +31,7 @@ module.exports = {
       const body = req.body.message;
       const groupId = req.params.groupId;
       // Check if groupId is a valid group id
-      Group.findById(groupId)
+      db.Group.findById(groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'Invalid group' });
@@ -43,7 +40,7 @@ module.exports = {
           return Promise.resolve();
         })
         // Check if User belongs to this group
-        .then(() => UserGroup.findOne({
+        .then(() => db.UserGroup.findOne({
           where: { userId, groupId }
         }))
         .then((foundUserAndGroup) => {
@@ -52,7 +49,7 @@ module.exports = {
               'to group You don\'t belong');
           }
           // Create Message if he belongs to this group
-          return Message.create({ userId, body, priority, groupId });
+          return db.Message.create({ userId, body, priority, groupId });
         })
         .then((messageCreated) => {
           if (!messageCreated) {
@@ -75,9 +72,9 @@ module.exports = {
             handleSuccess(201, 'Message created successfully', res);
             if (process.env.NODE_ENV !== 'test') {
               // get members of this group
-              UserGroup.findAll({
+              db.UserGroup.findAll({
                 where: { groupId: updatedMessage.groupId },
-                include: [{ model: User, attributes: ['email'] }]
+                include: [{ model: db.User, attributes: ['email'] }]
               })
                 .then(groupAndMembers =>
                   // Using map of Bluebird promises (P)
@@ -105,9 +102,9 @@ module.exports = {
             handleSuccess(201, 'Message created successfully', res);
             if (process.env.NODE_ENV !== 'test') {
               // get members of this group
-              UserGroup.findAll({
+              db.UserGroup.findAll({
                 where: { groupId: updatedMessage.groupId },
-                include: [{ model: User,
+                include: [{ model: db.User,
                   attributes: ['username', 'email', 'mobile'] }]
               })
                 .then(groupAndMembers =>
@@ -160,13 +157,13 @@ module.exports = {
           'query parameter named page with number as value', res);
       }
       const query = parseInt(req.query.page, 10);
-      Group.findById(req.params.groupId)
+      db.Group.findById(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });
           }
           // To check if User belongs to the group
-          return UserGroup.findOne({
+          return db.UserGroup.findOne({
             where: { userId, groupId }
           });
         })
@@ -180,12 +177,12 @@ module.exports = {
           const perPage = Constants.GET_MESSAGES_PER_PAGE;
           const currentPage = query < 1 ? 1 : query;
           const offset = perPage * (currentPage - 1); // items to skip
-          return Message.findAndCountAll({
+          return db.Message.findAndCountAll({
             where: { groupId },
             offset,
             limit: perPage,
             order: [['createdAt', 'DESC']],
-            include: [{ model: User, attributes: ['id', 'username', 'fullname'] }]
+            include: [{ model: db.User, attributes: ['id', 'username', 'fullname'] }]
           })
             .then((messages) => {
               // to round up i.e 3/2 = 1.5 = 2
@@ -212,13 +209,13 @@ module.exports = {
       const userId = req.user.id;
       const groupId = req.params.groupId;
       const messageId = req.params.messageId;
-      Group.findById(req.params.groupId)
+      db.Group.findById(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });
           }
           // Check if User belongs to the group
-          return UserGroup.findOne({
+          return db.UserGroup.findOne({
             where: { userId, groupId }
           });
         })
@@ -228,9 +225,9 @@ module.exports = {
               'to this group');
           }
           // Let the user read the message since he satisfies all the criteria
-          return Message.findOne({
+          return db.Message.findOne({
             where: { id: messageId, groupId },
-            include: [{ model: User, attributes: ['id', 'username', 'fullname'] }]
+            include: [{ model: db.User, attributes: ['id', 'username', 'fullname'] }]
           });
         })
         .then((message) => {
@@ -252,14 +249,14 @@ module.exports = {
       const userId = req.user.id;
       const messageId = req.params.messageId;
       // Check if groupId is a valid group id
-      Message.findById(messageId)
+      db.Message.findById(messageId)
         .then((message) => {
           if (!message) {
             return Promise.reject({ code: 404,
               message: 'Message with this ID doesn\'t exist' });
           }
           // Check if User belongs to the group
-          UserGroup.findOne({
+          db.UserGroup.findOne({
             where: { userId, groupId: message.groupId }
           })
             .then((foundUserAndGroup) => {

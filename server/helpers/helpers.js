@@ -1,6 +1,7 @@
+import nodemailer from 'nodemailer';
+import twilio from 'twilio';
+
 require('dotenv').config();
-const nodemailer = require('nodemailer');
-const twilio = require('twilio');
 // error message handler
 const handleError = (err, res) => {
   switch (err.code) {
@@ -47,4 +48,4 @@ const client = twilio(accountSid, authToken);
 const sendSMS = (from, to, body) => {
   client.messages.create({ to, from, body });
 };
-module.exports = { sendSMS, sendMail, handleError, handleSuccess };
+export { sendSMS, sendMail, handleError, handleSuccess };

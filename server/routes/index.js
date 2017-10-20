@@ -1,9 +1,15 @@
+import swaggerJSDoc from 'swagger-jsdoc';
+import authRoutes from './auth';
+import groupRoutes from './group';
+import userRoutes from './user';
+import messageRoutes from './message';
+
 require('dotenv').load();
-const swaggerJSDoc = require('swagger-jsdoc');
-const authRoutes = require('./auth');
-const groupRoutes = require('./group');
-const userRoutes = require('./user');
-const messageRoutes = require('./message');
+// const swaggerJSDoc = require('swagger-jsdoc');
+// const authRoutes = require('./auth');
+// const groupRoutes = require('./group');
+// const userRoutes = require('./user');
+// const messageRoutes = require('./message');
 
 // swagger definition
 const swaggerDefinition = {
@@ -25,7 +31,7 @@ const options = {
 // initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
 
-module.exports = (app) => {
+const apiRoutes = (app) => {
 // serve swagger
   app.get('/apidoc.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
@@ -43,3 +49,4 @@ module.exports = (app) => {
   app.use('/api/*', (req, res) =>
     res.status(404).json('Oops! 404, This route doesn\'t exist'));
 };
+export default apiRoutes;

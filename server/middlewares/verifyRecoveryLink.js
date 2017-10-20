@@ -1,9 +1,9 @@
-require('dotenv').config();
-const jwt = require('jsonwebtoken');
-const User = require('../database/models').User;
-const PasswordRecovery = require('../database/models').PasswordRecovery;
+import jwt from 'jsonwebtoken';
+import db from '../database/models';
 
-module.exports = (req, res, next) => {
+require('dotenv').config();
+
+const verifyRecoveryLink = (req, res, next) => {
   const token = req.query.token;
   if (!token) {
     return res.status(400).json('This link is Invalid');
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     if (error) {
       return res.status(400).json('This link seems to have expired or invalid');
     }
-    User.findById(decoded.id)
+    db.User.findById(decoded.id)
       .then((user) => {
         if (!user) {
           return Promise.reject('User with this recovery link doesn\'t ' +
@@ -20,7 +20,7 @@ module.exports = (req, res, next) => {
         }
         // check if you have a record of a user with this
         // token requesting password change
-        return PasswordRecovery.findOne({ where: { hashed: token } });
+        return db.PasswordRecovery.findOne({ where: { hashed: token } });
       })
       .then((foundUser) => {
         if (!foundUser) {
@@ -33,3 +33,4 @@ module.exports = (req, res, next) => {
       .catch(err => res.status(404).json(err));
   });
 };
+export default verifyRecoveryLink;

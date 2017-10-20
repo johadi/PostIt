@@ -1,12 +1,13 @@
+import express from 'express';
+import bodyParser from 'body-parser';
+import morganLogger from 'morgan';
+import http from 'http';
+import path from 'path';
+import colors from 'colors';
+import winston from 'winston';
+import apiRoutes from './server/routes';
+
 require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
-const morganLogger = require('morgan');
-const http = require('http');
-const path = require('path');
-const colors = require('colors');
-const winston = require('winston');
-const apiRoutes = require('./server/routes/index');
 
 const app = express();
 app.use(morganLogger('dev'));
@@ -35,4 +36,4 @@ server.listen(app.get('port'), (err) => {
   logger.info(`App running on port ${app.get('port')}`.blue);
 });
 
-module.exports = app;
+export default app;

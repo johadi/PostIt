@@ -15,6 +15,7 @@
   },
   "scripts": {
     "build:dev": "webpack-dev-server",
+    "start:node": "node app.js",
     "start:dev": "nodemon --watch server --exec babel-node -- app.js",
     "start": "sequelize db:migrate && npm run build",
     "apidoc": "apidoc -i server/routes/ -o public/apidoc",

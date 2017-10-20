@@ -1,7 +1,8 @@
-const router = require('express').Router();
-const userController = require('../controllers/user');
-const authenticate = require('../middlewares/authenticate');
+import express from 'express';
+import userController from '../controllers/user';
+import authenticate from '../middlewares/authenticate';
 
+const router = express.Router();
 router.route('/v1/group/user/groups')
 /**
  * @swagger
@@ -95,4 +96,4 @@ router.route('/v1/users')
  *               type: array
  */
   .get(authenticate, userController.getSearchedUsers);
-module.exports = router;
+export default router;

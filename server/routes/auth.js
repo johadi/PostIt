@@ -1,7 +1,8 @@
-const router = require('express').Router();
-const authController = require('../controllers/auth');
-const verifyLinkMiddleware = require('../middlewares/verifyRecoveryLink');
+import express from 'express';
+import authController from '../controllers/auth';
+import verifyRecoveryLink from '../middlewares/verifyRecoveryLink';
 
+const router = express.Router();
 router.route('/v1/user/signup')
 /**
  * @swagger
@@ -147,5 +148,5 @@ router.route('/v1/user/reset-password')
  *             message:
  *               type: string
  */
-  .post(verifyLinkMiddleware, authController.resetPasswordPost);
-module.exports = router;
+  .post(verifyRecoveryLink, authController.resetPasswordPost);
+export default router;

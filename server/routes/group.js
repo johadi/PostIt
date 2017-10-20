@@ -1,7 +1,8 @@
-const router = require('express').Router();
-const groupController = require('../controllers/group');
-const authenticate = require('../middlewares/authenticate');
+import express from 'express';
+import groupController from '../controllers/group';
+import authenticate from '../middlewares/authenticate';
 
+const router = express.Router();
 router.route('/v1/verify-token')
 /**
  * @swagger
@@ -156,4 +157,4 @@ router.route('/v1/group/:groupId/group-users')
  *               type: array
  */
   .get(authenticate, groupController.getGroupUsers);
-module.exports = router;
+export default router;

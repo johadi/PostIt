@@ -1,7 +1,8 @@
-const router = require('express').Router();
-const messageController = require('../controllers/message');
-const authenticate = require('../middlewares/authenticate');
+import express from 'express';
+import messageController from '../controllers/message';
+import authenticate from '../middlewares/authenticate';
 
+const router = express.Router();
 router.route('/v1/group/:groupId/message')
 /**
  * @swagger
@@ -145,4 +146,4 @@ router.route('/v1/group/message-read/:messageId')
  *               type: boolean
  */
   .post(authenticate, messageController.updateMessageReadStatus);
-module.exports = router;
+export default router;

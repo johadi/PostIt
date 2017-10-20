@@ -1,11 +1,14 @@
-require('dotenv').config();
 // auth.test.js
-const request = require('supertest');
-const assert = require('chai').assert;
-const jwtDecode = require('jwt-decode');
-const app = require('./../../app');
-const seeder = require('./seed/auth_seed');
-const User = require('./../database/models').User;
+import request from 'supertest';
+import chai from 'chai';
+import jwtDecode from 'jwt-decode';
+import dotenv from 'dotenv';
+import app from './../../app';
+import seeder from './seed/auth_seed';
+import db from './../database/models';
+
+dotenv.config();
+const assert = chai.assert;
 // Test for Signup route
 describe('POST api/v1/user/signup', () => {
   beforeEach(seeder.emptyDB);
@@ -88,7 +91,7 @@ describe('POST api/v1/user/signup', () => {
       .expect(201)
       .end((err) => {
         if (err) return done(err);
-        User.findOne({
+        db.User.findOne({
           where: { username: 'johadi10' }
         })
           .then((user) => {

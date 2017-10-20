@@ -1,7 +1,8 @@
 import nodemailer from 'nodemailer';
 import twilio from 'twilio';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 // error message handler
 const handleError = (err, res) => {
   switch (err.code) {

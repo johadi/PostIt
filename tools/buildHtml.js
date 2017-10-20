@@ -1,7 +1,7 @@
-const fs = require('fs');
-const cheerio = require('cheerio');
-const colors = require('colors');
-const winston = require('winston');
+import fs from 'fs';
+import cheerio from 'cheerio';
+import colors from 'colors';
+import winston from 'winston';
 
 // Create winston logger
 const logger = new (winston.Logger)({

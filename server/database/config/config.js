@@ -1,6 +1,7 @@
-const dotenv = require('dotenv');
-
-dotenv.config();
+// We can't use es6 import/export here as sequelize-cli we used
+// for migrations only supports require which is also natively
+// supported by nodejs
+require('dotenv').config();
 
 const config = {
   development: {

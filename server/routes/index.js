@@ -1,16 +1,11 @@
 import swaggerJSDoc from 'swagger-jsdoc';
+import dotenv from 'dotenv';
 import authRoutes from './auth';
 import groupRoutes from './group';
 import userRoutes from './user';
 import messageRoutes from './message';
 
-require('dotenv').load();
-// const swaggerJSDoc = require('swagger-jsdoc');
-// const authRoutes = require('./auth');
-// const groupRoutes = require('./group');
-// const userRoutes = require('./user');
-// const messageRoutes = require('./message');
-
+dotenv.load();
 // swagger definition
 const swaggerDefinition = {
   info: {

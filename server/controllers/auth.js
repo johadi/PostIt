@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken';
 import lodash from 'lodash';
 import Validator from 'validatorjs';
 import bcrypt from 'bcrypt-nodejs';
+import dotenv from 'dotenv';
 import db from '../database/models';
 import { sendMail, handleError, handleSuccess } from '../helpers/helpers';
 
-require('dotenv').config();
-
+dotenv.config();
 export default {
   signup(req, res) {
     const body = req.body;

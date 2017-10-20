@@ -1,11 +1,13 @@
-require('dotenv').config();
 // group.test.js
-const request = require('supertest');
-const assert = require('chai').assert;
-const app = require('./../../app');
-const seeder = require('./seed/group_seed');
-const User = require('./../database/models').User;
-const Group = require('./../database/models').Group;
+import dotenv from 'dotenv';
+import request from 'supertest';
+import chai from 'chai';
+import app from './../../app';
+import seeder from './seed/group_seed';
+import db from './../database/models';
+
+dotenv.config();
+const assert = chai.assert;
 // Test suit for creating group route and controller
 describe('POST: api/v1/group', () => {
   // Clear Test database
@@ -62,7 +64,7 @@ describe('POST: api/v1/group', () => {
       .expect(201)
       .end((err) => {
         if (err) return done(err);
-        Group.findOne({
+        db.Group.findOne({
           where: { name: 'lagos' } // NOTE: lagos must be lowercase
         })
           .then((group) => {
@@ -1092,7 +1094,7 @@ describe('Get api/v1/verify-token', () => {
   it('Should return 404 if user access a route with a valid token but decoded ' +
     'detail in the token not found in database.', (done) => {
     // Let us remove a user from database and use his token for testing here
-    User.destroy({ where: { username: 'sherif' } })
+    db.User.destroy({ where: { username: 'sherif' } })
       .then((rowDeleted) => {
         if (rowDeleted === 1) {
           request(app)

@@ -1,38 +1,34 @@
 // group_seed.js
-const User = require('./../../database/models').User;
-const Group = require('./../../database/models').Group;
-const UserGroup = require('./../../database/models').UserGroup;
-const UserGroupAdd = require('./../../database/models').UserGroupAdd;
-const Message = require('./../../database/models').Message;
+import db from './../../database/models';
 
-module.exports = {
+export default {
   emptyUserDB(done) {
-    User.destroy({ truncate: true })
+    db.User.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   emptyMessageDB(done) {
-    Message.destroy({ truncate: true })
+    db.Message.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   emptyGroupDB(done) {
-    Group.destroy({ truncate: true })
+    db.Group.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   emptyUserGroupDB(done) {
-    UserGroup.destroy({ truncate: true })
+    db.UserGroup.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   emptyUserGroupDBAdd(done) {
-    UserGroupAdd.destroy({ truncate: true })
+    db.UserGroupAdd.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   addUserToDb(done) {
-    User.create({
+    db.User.create({
       id: 5,
       fullname: 'jimoh hadi',
       username: 'johadi10',
@@ -43,7 +39,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addUserToDb2(done) {
-    User.create({
+    db.User.create({
       id: 20,
       fullname: 'jack oman',
       username: 'oman',
@@ -54,7 +50,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addUserToDb3(done) {
-    User.create({
+    db.User.create({
       id: 30,
       fullname: 'muhammed sherif',
       username: 'sherif',
@@ -72,7 +68,7 @@ module.exports = {
     };
   },
   createGroup(done) {
-    Group.create({
+    db.Group.create({
       id: 99,
       name: 'andela',
       creatorId: 1
@@ -86,7 +82,7 @@ module.exports = {
         .catch(err => done(err));
   },
   createGroup2(done) {
-    Group.create({
+    db.Group.create({
       id: 100,
       name: 'react',
       creatorId: 7
@@ -100,7 +96,7 @@ module.exports = {
         .catch(err => done(err));
   },
   createGroup3(done) {
-    Group.create({
+    db.Group.create({
       id: 101,
       name: 'lord',
       creatorId: 7
@@ -114,7 +110,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addMessageToDb(done) {
-    Message.create({
+    db.Message.create({
       id: 8,
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
       groupId: 99,
@@ -136,7 +132,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addMessageToDb2(done) {
-    Message.create({
+    db.Message.create({
       id: 9,
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
       groupId: 100,
@@ -158,7 +154,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addMessageToDb3(done) {
-    Message.create({
+    db.Message.create({
       id: 10,
       body: 'Learners are leaders',
       groupId: 99,
@@ -180,7 +176,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addMessageToDb4(done) {
-    Message.create({
+    db.Message.create({
       id: 13,
       body: 'No condition is permanent',
       groupId: 101,
@@ -202,7 +198,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addUserToGroup(done) {
-    UserGroup.create({
+    db.UserGroup.create({
       groupId: 100,
       userId: 10
     })
@@ -210,7 +206,7 @@ module.exports = {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return UserGroupAdd.create({
+          return db.UserGroupAdd.create({
             addedById: 1,
             addedToId: 10,
             groupId: 100
@@ -220,7 +216,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addUserToGroup2(done) {
-    UserGroup.create({
+    db.UserGroup.create({
       groupId: 99,
       userId: 5
     })
@@ -228,7 +224,7 @@ module.exports = {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return UserGroupAdd.create({
+          return db.UserGroupAdd.create({
             addedById: 5,
             addedToId: 5,
             groupId: 99
@@ -238,7 +234,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addUserToGroup3(done) {
-    UserGroup.create({
+    db.UserGroup.create({
       groupId: 101,
       userId: 5
     })
@@ -246,7 +242,7 @@ module.exports = {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return UserGroupAdd.create({
+          return db.UserGroupAdd.create({
             addedById: 7,
             addedToId: 5,
             groupId: 101
@@ -256,7 +252,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addUserToGroup4(done) {
-    UserGroup.create({
+    db.UserGroup.create({
       groupId: 99,
       userId: 20
     })
@@ -264,7 +260,7 @@ module.exports = {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return UserGroupAdd.create({
+          return db.UserGroupAdd.create({
             addedById: 5,
             addedToId: 20,
             groupId: 99

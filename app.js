@@ -3,12 +3,12 @@ import bodyParser from 'body-parser';
 import morganLogger from 'morgan';
 import http from 'http';
 import path from 'path';
+import dotenv from 'dotenv';
 import colors from 'colors';
 import winston from 'winston';
 import apiRoutes from './server/routes';
 
-require('dotenv').config();
-
+dotenv.config();
 const app = express();
 app.use(morganLogger('dev'));
 app.use(bodyParser.json());

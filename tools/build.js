@@ -1,10 +1,12 @@
 // This file is used to run the production webpack
 // winston logger is used to log the warning or error messages during the process
-const webpack = require('webpack');
-const colors = require('colors');
-const winston = require('winston');
-const webpackConfig = require('../webpack.config.prod');
+import dotenv from 'dotenv';
+import webpack from 'webpack';
+import colors from 'colors';
+import winston from 'winston';
+import webpackConfig from '../webpack.config.prod';
 
+dotenv.config();
 process.env.NODE_ENV = 'production';
 // Create winston logger
 const logger = new (winston.Logger)({

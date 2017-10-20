@@ -1,15 +1,14 @@
 // auth_seed.js
-const User = require('./../../database/models').User;
-const PasswordRecovery = require('./../../database/models').PasswordRecovery;
+import db from './../../database/models';
 
-module.exports = {
+export default {
   emptyDB(done) {
-    User.destroy({ truncate: true })
+    db.User.destroy({ truncate: true })
       .then(() => done())
       .catch(err => done(err));
   },
   emptyPasswordRecoveryDB(done) {
-    PasswordRecovery.destroy({ truncate: true })
+    db.PasswordRecovery.destroy({ truncate: true })
       .then(() => done())
       .catch(err => done(err));
   },
@@ -27,7 +26,7 @@ module.exports = {
     return { username, password };
   },
   addUserToDb(done) {
-    User.create({
+    db.User.create({
       id: 4,
       fullname: 'jimoh hadi',
       username: 'ovenje',
@@ -38,7 +37,7 @@ module.exports = {
         .catch(err => done(err));
   },
   addUserToDb2(done) {
-    User.create({
+    db.User.create({
       id: 6,
       fullname: 'jimoh hadi',
       username: 'jimoh',

@@ -1,12 +1,14 @@
-const express = require('express');
-const path = require('path');
-const compression = require('compression');
-const favicon = require('serve-favicon');
-const bodyParser = require('body-parser');
-const morganLogger = require('morgan');
-const winston = require('winston');
-const apiRoutes = require('../server/routes/index');
+import express from 'express';
+import path from 'path';
+import compression from 'compression';
+import favicon from 'serve-favicon';
+import bodyParser from 'body-parser';
+import morganLogger from 'morgan';
+import winston from 'winston';
+import dotenv from 'dotenv';
+import apiRoutes from '../server/routes/index';
 
+dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
 // Create winston logger

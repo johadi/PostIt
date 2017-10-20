@@ -1,12 +1,9 @@
 import jwt from 'jsonwebtoken';
 import lodash from 'lodash';
+import dotenv from 'dotenv';
 import db from '../database/models';
 
-require('dotenv').config();
-// const jwt = require('jsonwebtoken');
-// const lodash = require('lodash');
-// const User = require('../database/models').User;
-
+dotenv.config();
 const authenticate = (req, res, next) => {
   const token = req.body.token || req.query.token || req.header('x-auth');
   if (!token) {

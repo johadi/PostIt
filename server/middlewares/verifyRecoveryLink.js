@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import db from '../database/models';
 
-require('dotenv').config();
-
+dotenv.config();
 const verifyRecoveryLink = (req, res, next) => {
   const token = req.query.token;
   if (!token) {

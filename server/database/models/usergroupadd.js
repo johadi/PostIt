@@ -1,5 +1,4 @@
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const UserGroupAdd = sequelize.define('UserGroupAdd', {
     addedById: {
       type: DataTypes.INTEGER,

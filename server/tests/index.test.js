@@ -1,8 +1,9 @@
-require('dotenv').config();
 // index.test.js
-const request = require('supertest');
-const app = require('./../../app');
+import request from 'supertest';
+import dotenv from 'dotenv';
+import app from './../../app';
 
+dotenv.config();
 // Test for API home route and invalid routes
 describe('GET: /api/xyz', () => {
   it('Should return status code 404 when user accesses non-existent route',

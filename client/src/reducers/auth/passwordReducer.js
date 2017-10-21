@@ -15,7 +15,7 @@ const initialState = {
  * @function passwordReducer
  * @param {object} state
  * @param {object} action
- * @return {object} state the new state
+ * @return {object} state - the new state
  */
 const passwordReducer = (state = initialState, action) => {
   switch (action.type) {

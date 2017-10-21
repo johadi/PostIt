@@ -2,6 +2,12 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
+/**
+ * Action creator for login in a user
+ * @function signinAction
+ * @param {object} userCredentials user's login  details
+ * @return {void}
+ */
 const signinAction = userCredentials => dispatch =>
   axios.post('/api/v1/user/signin', userCredentials)
       .then((res) => {

@@ -3,19 +3,22 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import PropTypes from 'react-proptypes';
-import IndexHeader from '../headers/IndexHeader.jsx';
 import { signupAction } from '../../actions/auth/signupAction';
 import SignupFormField from './SignupFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
+import { IndexHeader } from '../headers';
+import { IndexFooter } from '../footers';
 
 /**
  * SignupPage class declaration
+ * @class SignupPage
+ * @extends {React.Component}
  */
 export class SignupPage extends React.Component {
   /**
    * Component constructor
    * @param {object} props
-   * @return {null} null
+   * @memberOf SignupPage
    */
   constructor(props) {
     super(props);
@@ -31,6 +34,7 @@ export class SignupPage extends React.Component {
     };
   }
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -39,18 +43,20 @@ export class SignupPage extends React.Component {
     }
   }
   /**
-   * handle submit
-   * @return {e} e
-   * @param {e} e
+   * Handle submit
+   * @method handleSubmit
+   * @return {void}
+   * @param {object} e - event
    */
   handleSubmit(e) {
     e.preventDefault();
     this.props.signupAction(this.state.user);
   }
   /**
-   * handle change
-   * @return {e} e
-   * @param {e} e
+   * Handle change
+   * @method handleChange
+   * @param {object} e - event
+   * @return {void}
    */
   handleChange(e) {
     const user = this.state.user;
@@ -58,8 +64,8 @@ export class SignupPage extends React.Component {
     this.setState({ user });
   }
   /**
-   * renders component
-   * @return {XML} XML/JSX
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     return (
@@ -140,11 +146,7 @@ export class SignupPage extends React.Component {
                 </div>
 
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Copyright &copy; Johadi PostIt 2017</p>
-                </div>
-              </div>
+              <IndexFooter/>
             </div>
           </div>
         </div>

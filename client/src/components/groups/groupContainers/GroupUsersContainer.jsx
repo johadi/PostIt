@@ -9,18 +9,21 @@ import Page from '../Page.jsx';
 
 /**
  * GroupUsersContainer class declaration
+ * @class GroupUsersContainer
+ * @extends {React.Component}
  */
 class GroupUsersContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.getGroupUsers(this.props.params.groupId, 1);
   }
 
   /**
-   * renders component
-   * @return {XML} XML
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     const { groupUsersStore } = this.props.groupState;

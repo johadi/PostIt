@@ -10,9 +10,12 @@ import SendNotification from '../SendNotification.jsx';
 
 /**
  * SendNotificationContainer class declaration
+ * @class SendNotificationContainer
+ * @extends {React.Component}
  */
 class SendNotificationContainer extends React.Component {
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -20,8 +23,8 @@ class SendNotificationContainer extends React.Component {
   }
 
   /**
-   * renders the component
-   * @return {XML} XML
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { groupUsersStore } = this.props.groupState;

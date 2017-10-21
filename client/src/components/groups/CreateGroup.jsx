@@ -21,8 +21,9 @@ export class CreateGroup extends React.Component {
 
   /**
    * handle create Group
-   * @return {void} void
-   * @param {e} e
+   * @method handleCreateGroup
+   * @return {void}
+   * @param {object} e - event
    */
   handleCreateGroup(e) {
     e.preventDefault();
@@ -37,7 +38,7 @@ export class CreateGroup extends React.Component {
 
   /**
    * renders the component
-   * @return {XML} XML/JSX
+   * @return {XML} JSX
    */
   render() {
     return (

@@ -2,6 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'react-proptypes';
 
+/**
+ * Recover password form field
+ * @function RecoverPasswordFormField
+ * @param {object} props
+ * @return {XML} JSX
+ */
 const RecoverPasswordFormField = props => (
   <div className={classnames('form-group',
     { 'has-error': props.errors ? !!props.errors[props.name] : false })}>

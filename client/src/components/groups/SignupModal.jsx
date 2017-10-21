@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * Signup modal
+ * @function SignupModal
+ * @param {object} props
+ * @return {XML} JSX
+ */
 const SignupModal = props => (
       <div className="modal fade" id="myModal" tabIndex="-1"
            role="dialog" aria-labelledby="myModalLabel">

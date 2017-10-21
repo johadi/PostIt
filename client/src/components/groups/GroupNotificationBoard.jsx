@@ -13,11 +13,13 @@ import {
 
 /**
  * GroupNotificationBoard class declaration
+ * @class GroupNotificationBoard
+ * @extends {React.Component}
  */
 export class GroupNotificationBoard extends React.Component {
   /**
-   * @return {void} void
    * @param {object} props
+   * @memberOf GroupNotificationBoard
    */
   constructor(props) {
     super(props);
@@ -36,8 +38,9 @@ export class GroupNotificationBoard extends React.Component {
   }
 
   /**
-   * performs time calculation
-   * @param {date} date
+   * Performs time calculation
+   * @method showTime
+   * @param {string} date
    * @return {number} number
    */
   showTime(date) {
@@ -47,8 +50,9 @@ export class GroupNotificationBoard extends React.Component {
   }
 
   /**
-   * performs time calculation
-   * @param {eventKey} eventKey
+   * Handle Select for pagination buttons
+   * @method handleSelect
+   * @param {number} eventKey
    * @return {void} void
    */
   handleSelect(eventKey) {
@@ -57,8 +61,8 @@ export class GroupNotificationBoard extends React.Component {
   }
 
   /**
-   * renders component
-   * @return {XML} XML/JSX
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     const { count, rows, pages } = this.props.groupState.groupMessages;

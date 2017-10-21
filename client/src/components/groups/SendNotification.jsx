@@ -8,11 +8,14 @@ import {
 
 /**
  * SendNotification class declaration
+ * @class SendNotification
+ * @extends {React.Component}
  */
 export class SendNotification extends React.Component {
   /**
    * class constructor
    * @param {props} props
+   * @memberOf SendNotification
    */
   constructor(props) {
     super(props);
@@ -27,15 +30,18 @@ export class SendNotification extends React.Component {
   }
 
   /**
-   * @return {void} void
+   * @method componentWillUnmount
+   * @return {void}
    */
   componentWillUnmount() {
     this.props.clearMessageError();
   }
 
   /**
+   * Handle submit
+   * @method handleSubmit
    * @return {void} void
-   * @param {object} e
+   * @param {object} e - event
    */
   handleSubmit(e) {
     e.preventDefault();
@@ -55,6 +61,8 @@ export class SendNotification extends React.Component {
   }
 
   /**
+   * Handle Change
+   * @method handleChange
    * @return {void} void
    * @param {object} e
    */
@@ -64,16 +72,18 @@ export class SendNotification extends React.Component {
     this.setState({ input });
   }
   /**
+   * Handle key up event as user is typing
+   * @method handleKeyUp
    * @return {void} void
-   * @param {object} e
+   * @param {object} e - event
    */
   handleKeyUp(e) {
     this.setState({ isValid: true, event: e });
   }
 
   /**
-   * renders the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { postMessageErr } = this.props.groupState;

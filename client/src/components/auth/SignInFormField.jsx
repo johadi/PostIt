@@ -2,6 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'react-proptypes';
 
+/**
+ * Sign in form field
+ * @function SignInFormField
+ * @param {object} props
+ * @return {XML} JSX
+ */
 const SignInFormField = props => (
     <div className={classnames('form-group',
       { 'has-error': props.errors ? !!props.errors[props.name] : false })}>

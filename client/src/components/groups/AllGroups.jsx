@@ -8,11 +8,14 @@ import { getAllUserGroups, getUserGroups } from '../../actions/group/groupAction
 
 /**
  * GroupsContainer class declaration
+ * @class GroupsContainer
+ * @extends {React.Component}
  */
 export class AllGroups extends React.Component {
   /**
    * class constructor
    * @param {object} props
+   * @memberOf GroupsContainer
    */
   constructor(props) {
     super(props);
@@ -22,15 +25,18 @@ export class AllGroups extends React.Component {
   }
 
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.getAllUserGroups();
   }
 
   /**
-   * @return {void} void
+   * Handles Select for pagination buttons
+   * @method handleSelect
    * @param {number} eventKey
+   * @return {void} void
    */
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
@@ -38,8 +44,8 @@ export class AllGroups extends React.Component {
   }
 
   /**
-   * renders the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { pages, count, groups } = this.props.userGroups;

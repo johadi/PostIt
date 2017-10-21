@@ -3,19 +3,22 @@ import { Link, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import IndexHeader from '../headers/IndexHeader.jsx';
 import signinAction from '../../actions/auth/signinAction';
 import SignInFormField from './SignInFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
+import { IndexHeader } from '../headers';
+import { IndexFooter } from '../footers';
 
 /**
  * Signin class declaration
+ * @class SigninPage
+ * @extends {React.Component}
  */
 export class SigninPage extends React.Component {
   /**
    * Component constructor
    * @param {object} props
-   * @return {void} void
+   * @memberOf SigninPage
    */
   constructor(props) {
     super(props);
@@ -28,6 +31,7 @@ export class SigninPage extends React.Component {
   }
 
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -36,8 +40,9 @@ export class SigninPage extends React.Component {
     }
   }
   /**
-   * handle submit
-   * @param {e} e
+   * Handle submit
+   * @method handleSubmit
+   * @param {object} e - event
    * @return {void} void
    */
   handleSubmit(e) {
@@ -45,8 +50,9 @@ export class SigninPage extends React.Component {
     this.props.signinAction(this.state.credentials);
   }
   /**
-   * handle change
-   * @param {e} e
+   * Handle change
+   * @method handleChange
+   * @param {e} e - event
    * @return {void} void
    */
   handleChange(e) {
@@ -55,7 +61,7 @@ export class SigninPage extends React.Component {
     this.setState({ credentials });
   }
   /**
-   * renders component
+   * Renders component
    * @return {XML} JSX
    */
   render() {
@@ -117,12 +123,7 @@ export class SigninPage extends React.Component {
                   </div>
                 </form>
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Copyright &copy; Johadi PostIt 2017</p>
-                </div>
-              </div>
-
+              <IndexFooter/>
             </div>
 
           </div>

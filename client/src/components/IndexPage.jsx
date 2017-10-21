@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
-import IndexHeader from './headers/IndexHeader.jsx';
+import { IndexHeader } from './headers';
+import { IndexFooter } from './footers';
 
 /**
  * IndexPage class declaration
+ * @class IndexPage
+ * @extends {React.Component}
  */
 export default class IndexPage extends React.Component {
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -16,7 +20,7 @@ export default class IndexPage extends React.Component {
   }
 
   /**
-   * renders the component
+   * Renders the component
    * @return {XML} JSX
    */
   render() {
@@ -56,12 +60,7 @@ export default class IndexPage extends React.Component {
                 </form>
 
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Copyright &copy; Johadi PostIt 2017</p>
-                </div>
-              </div>
-
+              <IndexFooter/>
             </div>
 
           </div>

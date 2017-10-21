@@ -11,10 +11,13 @@ import Page from '../Page.jsx';
 
 /**
  * AddUserGroupContainer class declaration
+ * @class AddUserGroupContainer
+ * @extends {React.Component}
  */
 class AddUserGroupContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.getGroupUsers(this.props.params.groupId);
@@ -22,9 +25,9 @@ class AddUserGroupContainer extends React.Component {
   }
 
   /**
-   * handles addUser
-   * @return {void} void
-   * @param {object} e
+   * Handles addUser
+   * @param {object} e - event
+   * @return {void}
    */
   handleAddUser(e) {
     e.preventDefault();

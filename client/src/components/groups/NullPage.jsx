@@ -2,8 +2,8 @@ import React from 'react';
 
 /**
  * renders null
- * @param {number} props
- * @return {null} null
+ * @param {object} props
+ * @return {*} any
  */
 const NullPage = props => null;
 export default NullPage;

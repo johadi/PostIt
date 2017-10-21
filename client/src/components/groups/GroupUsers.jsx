@@ -8,11 +8,14 @@ import { getGroupUsers } from '../../actions/group/groupActions';
 
 /**
  * GroupUsers class declaration
+ * @class GroupUsers
+ * @extends {React.Component}
  */
 export class GroupUsers extends React.Component {
   /**
-   * class constructor
+   * Class constructor
    * @param {object} props
+   * @memberOf GroupUsers
    */
   constructor(props) {
     super(props);
@@ -21,6 +24,8 @@ export class GroupUsers extends React.Component {
     };
   }
   /**
+   * Handles select for pagination buttons
+   * @method handleSelect
    * @return {void} void
    * @param {number} eventKey
    */
@@ -30,8 +35,8 @@ export class GroupUsers extends React.Component {
   }
 
   /**
-   * renders the component
-   * @return {XML} XML
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { name, users, count, pages } = this.props.groupUsers;

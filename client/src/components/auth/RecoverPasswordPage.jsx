@@ -2,18 +2,22 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import IndexHeader from '../headers/IndexHeader.jsx';
 import { recoverPasswordAction } from '../../actions/auth/passwordAction';
 import RecoverPasswordFormField from './RecoverPasswordFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
+import { IndexHeader } from '../headers';
+import { IndexFooter } from '../footers';
 
 /**
  * RecoverPasswordPage class declaration
+ * @class RecoverPasswordPage
+ * @extends {React.Component}
  */
 class RecoverPasswordPage extends React.Component {
   /**
-   * class constructor
+   * Class constructor
    * @param {object} props
+   * @memberOf RecoverPasswordPage
    */
   constructor(props) {
     super(props);
@@ -25,18 +29,20 @@ class RecoverPasswordPage extends React.Component {
   }
 
   /**
-   * handles submit
-   * @param {object} e
-   * @return {void} void
+   * Handles submit
+   * @method handleSubmit
+   * @param {object} e - event
+   * @return {void}
    */
   handleSubmit(e) {
     e.preventDefault();
     this.props.recoverPasswordAction(this.state.user);
   }
   /**
-   * handles change
-   * @param {object} e
-   * @return {void} void
+   * Handles change
+   * @method handleChange
+   * @param {object} e - event
+   * @return {void}
    */
   handleChange(e) {
     const user = this.state.user;
@@ -44,9 +50,8 @@ class RecoverPasswordPage extends React.Component {
     this.setState({ user });
   }
   /**
-   * renders component
-   * @param {object} e
-   * @return {void} void
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     return (
@@ -92,11 +97,7 @@ class RecoverPasswordPage extends React.Component {
                 </div>
 
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Copyright &copy; Johadi PostIt 2017</p>
-                </div>
-              </div>
+              <IndexFooter/>
             </div>
           </div>
         </div>

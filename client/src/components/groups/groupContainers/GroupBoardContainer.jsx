@@ -12,18 +12,21 @@ import Page from '../Page.jsx';
 
 /**
  * GroupBoardContainer class declaration
+ * @class GroupBoardContainer
+ * @extends {React.Component}
  */
 class GroupBoardContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.getGroupMessages(this.props.params.groupId);
     this.props.getGroupUsers(this.props.params.groupId);
   }
   /**
-   * renders the component
-   * @return {XML} XML
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { groupUsersStore, groupMessages } = this.props.groupState;

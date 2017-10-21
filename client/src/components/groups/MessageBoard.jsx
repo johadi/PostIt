@@ -12,12 +12,14 @@ import {
 
 /**
  * MessageBoard class declaration
+ * @class MessageBoard
+ * @extends {React.Component}
  */
 export class MessageBoard extends React.Component {
   /**
    * class constructor
-   * @return {void} void
    * @param {object} props
+   * @memberOf MessageBoard
    */
   constructor(props) {
     super(props);
@@ -36,6 +38,7 @@ export class MessageBoard extends React.Component {
   }
 
   /**
+   * @method componentDidMount
    * @return {void} void
    */
   componentDidMount() {
@@ -43,7 +46,8 @@ export class MessageBoard extends React.Component {
   }
 
   /**
-   * handle select for pagination
+   * Handle select for pagination
+   * @method handleSelect
    * @return {void} void
    * @param {number} eventKey
    */
@@ -53,8 +57,9 @@ export class MessageBoard extends React.Component {
   }
 
   /**
-   * Perform time calculation
-   * @param {date} date
+   * Performs time calculation for message
+   * @method showTime
+   * @param {string} date
    * @return {number} number
    */
   showTime(date) {
@@ -64,8 +69,8 @@ export class MessageBoard extends React.Component {
   }
 
   /**
-   * render the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { messages, pages, count } = this.props.boardMessages;

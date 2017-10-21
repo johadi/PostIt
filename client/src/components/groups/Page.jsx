@@ -2,18 +2,21 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import MainHeader from '../headers/MainHeader.jsx';
 import { cancelModal } from '../../actions/auth/signupAction';
-import SideBar from './SideBar.jsx';
-import GroupSideBar from './GroupSideBar.jsx';
 import SignupModal from './SignupModal.jsx';
+import { MainHeader } from '../headers';
+import { MainFooter } from '../footers';
+import { GroupSideBar, MainSideBar } from '../sideBars';
 
 /**
  * Page class declaration
+ * @class Page
+ * @extends {React.Component}
  */
 class Page extends React.Component {
   /**
-   * @return {void} void
+   * @method componentDidMount
+   * @return {void}
    */
   componentDidMount() {
     // Show modal when user just signup
@@ -27,7 +30,8 @@ class Page extends React.Component {
     }
   }
   /**
-   * @return {void} void
+   * @method componentDidUpdate
+   * @return {void}
    */
   componentDidUpdate() {
     // Show modal when user just signup
@@ -41,8 +45,8 @@ class Page extends React.Component {
     }
   }
   /**
-   * renders the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     return (
@@ -59,13 +63,9 @@ class Page extends React.Component {
             </div>
           </div>
           { this.props.groupId ?
-            <GroupSideBar groupId={this.props.groupId}/> : <SideBar/> }
+            <GroupSideBar groupId={this.props.groupId}/> : <MainSideBar/> }
         </div>
-        <div className="row footer-div">
-          <footer className="text-center text-display">
-            <p>Copyright &copy; Johadi PostIt 2017</p>
-          </footer>
-        </div>
+        <MainFooter/>
         <SignupModal/>
       </div>
     );

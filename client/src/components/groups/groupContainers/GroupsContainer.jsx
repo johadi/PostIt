@@ -9,10 +9,13 @@ import Page from '../Page.jsx';
 
 /**
  * GroupsContainer class declaration
+ * @class GroupsContainer
+ * @extends {React.component}
  */
 class GroupsContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.getUserGroups(1); // for group page
@@ -20,7 +23,7 @@ class GroupsContainer extends React.Component {
 
   /**
    * renders component
-   * @return {XML} XML
+   * @return {XML} JSX
    */
   render() {
     const { userGroupsStore } = this.props.groupState;

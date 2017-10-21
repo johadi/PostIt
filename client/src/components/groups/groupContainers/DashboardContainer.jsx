@@ -9,10 +9,13 @@ import Page from '../Page.jsx';
 
 /**
  * DashboardContainer class declaration
+ * @class DashboardContainer
+ * @extends {React.Component}
  */
 class DashboardContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.getBoardMessages();
@@ -20,7 +23,7 @@ class DashboardContainer extends React.Component {
 
   /**
    * Renders component
-   * @return {XML} XML
+   * @return {XML} JSX
    */
   render() {
     const { boardMessagesStore } = this.props.groupState;

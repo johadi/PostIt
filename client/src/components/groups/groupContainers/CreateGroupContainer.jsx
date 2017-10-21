@@ -7,11 +7,13 @@ import Page from '../Page.jsx';
 
 /**
  * CreateGroupContainer class declaration
+ * @class CreateGroupContainer
+ * @extends {React.Component}
  */
 class CreateGroupContainer extends React.Component {
   /**
    * Renders component
-   * @return {XML} XML
+   * @return {XML} JSX
    */
   render() {
     return this.props.tokenStatus.success ?

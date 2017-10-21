@@ -12,9 +12,12 @@ import Notification from '../Notification.jsx';
 
 /**
  * NotificationViewContainer class declaration
+ * @class NotificationViewContainer
+ * @extends {React.Component}
  */
 class NotificationViewContainer extends React.Component {
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -24,6 +27,7 @@ class NotificationViewContainer extends React.Component {
   }
 
   /**
+   * @method componentWillUnmount
    * @return {void} void
    */
   componentWillUnmount() {
@@ -31,8 +35,8 @@ class NotificationViewContainer extends React.Component {
   }
 
   /**
-   * renders component
-   * @return {XML} XML/JSX
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     const { groupViewMessage, groupUsersStore } = this.props.groupState;

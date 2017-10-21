@@ -2,6 +2,11 @@ import { browserHistory } from 'react-router';
 import axios from 'axios';
 import actionTypes from './actionTypes';
 
+/**
+ * Action creator for verifying a user's token
+ * @function verifyToken
+ * @return {void}
+ */
 const verifyToken = () => (dispatch) => {
   if (window.sessionStorage.token) {
     axios.get('/api/v1/verify-token',

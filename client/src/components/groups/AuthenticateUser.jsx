@@ -7,10 +7,13 @@ import NullPage from './NullPage.jsx';
 
 /**
  * AuthenticateUser class declaration
+ * @class AuthenticateUser
+ * @extends {React.Component}
  */
 class AuthenticateUser extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.verifyToken();
@@ -18,7 +21,7 @@ class AuthenticateUser extends React.Component {
 
   /**
    * renders component
-   * @return {XML} XML
+   * @return {XML} JSX
    */
   render() {
     return this.props.tokenStatus.success ?

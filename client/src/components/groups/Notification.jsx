@@ -9,12 +9,14 @@ import { updateReadMessage } from '../../actions/group/groupActions';
 
 /**
  * Notification class declaration
+ * @class Notification
+ * @extends {React.Component}
  */
 export class Notification extends React.Component {
   /**
    * constructor
    * @param {object} props
-   * @return {void} void
+   * @memberOf Notification
    */
   constructor(props) {
     super(props);
@@ -22,7 +24,8 @@ export class Notification extends React.Component {
   }
 
   /**
-   * @return {void} void
+   * @method componentDidMount
+   * @return {void}
    */
   componentDidMount() {
     if (!lodash.includes(this.props.message.readersId,
@@ -32,8 +35,9 @@ export class Notification extends React.Component {
   }
   /**
    * returns date
-   * @param {object} date
-   * @return {String} String
+   * @method showTime
+   * @param {string} date
+   * @return {number} number
    */
   showTime(date) {
     const postDate = new Date(date);
@@ -41,8 +45,8 @@ export class Notification extends React.Component {
     return new Date(diff).getHours();
   }
   /**
-   * renders the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { message, name } = this.props;

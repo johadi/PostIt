@@ -2,6 +2,12 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
+/**
+ * Action creator for registering a user
+ * @function signupAction
+ * @param {object} user user's details required for registration
+ * @return {void}
+ */
 export const signupAction = user => dispatch =>
   axios.post('/api/v1/user/signup', user)
     .then((res) => {
@@ -25,7 +31,11 @@ export const signupAction = user => dispatch =>
           payload: err.response.data });
       }
     });
-
+/**
+ * Action creator for cancelling pop-up modal when user signed up
+ * @function cancelModal
+ * @return {void}
+ */
 export const cancelModal = () => ({
   type: actionTypes.CANCEL_MODAL,
   payload: false

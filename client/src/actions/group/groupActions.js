@@ -2,7 +2,12 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
-// action for creating group
+/**
+ * Action creator for creating group
+ * @function createGroup
+ * @param {string} name name of the group
+ * @return {void}
+ */
 export const createGroup = name => dispatch =>
   axios.post('/api/v1/group', { name },
     { headers: { 'x-auth': window.sessionStorage.token } })
@@ -16,7 +21,13 @@ export const createGroup = name => dispatch =>
             payload: err.response.data });
         }
       });
-// action for adding user to a group
+/**
+ * Action creator for adding user to a group
+ * @function addUserToGroup
+ * @param {number} groupId group ID
+ * @param {string} username added person's username
+ * @return {void}
+ */
 export const addUserToGroup = (groupId, username) => dispatch =>
   axios.post(`/api/v1/group/${groupId}/user`, { user: username },
     { headers: { 'x-auth': window.sessionStorage.token } })
@@ -29,11 +40,22 @@ export const addUserToGroup = (groupId, username) => dispatch =>
             payload: err.response.data });
         }
       });
-// action for clearing error when adding user to group
+/**
+ * Action creator for clearing error when adding user to group
+ * @function clearAddUserError
+ * @return {void}
+ */
 export const clearAddUserError = () => ({
   type: actionTypes.ADD_USER_TO_GROUP_CLEAR
 });
-// action for posting message to a group
+/**
+ * Action creator for posting message to a group
+ * @function postMessage
+ * @param {number} groupId group ID
+ * @param {string} message message to send to the group
+ * @param {string} priority priority level of the message
+ * @return {void}
+ */
 export const postMessage = (groupId, message, priority) => dispatch =>
   axios.post(`/api/v1/group/${groupId}/message`, { message, priority },
     { headers: { 'x-auth': window.sessionStorage.token } })
@@ -47,12 +69,22 @@ export const postMessage = (groupId, message, priority) => dispatch =>
             payload: err.response.data });
         }
       });
-// action for clearing errors when posting message to a group
+/**
+ * Action creator for clearing errors when posting message to a group
+ * @function clearMessageError
+ * @return {void}
+ */
 export const clearMessageError = () => ({
   type: actionTypes.CLEAR_POST_MESSAGE_ERROR
 });
 
-// action for getting all messages in a particular group for a user
+/**
+ * Action creator for getting all messages in a particular group for a user
+ * @function getGroupMessages
+ * @param {number} groupId group ID
+ * @param {number} pageNumber page number since result is paginated
+ * @return {void}
+ */
 export const getGroupMessages = (groupId, pageNumber) => (dispatch) => {
   const page = pageNumber || 1;
   return axios.get(`/api/v1/group/${groupId}/message?page=${page}`,
@@ -69,12 +101,23 @@ export const getGroupMessages = (groupId, pageNumber) => (dispatch) => {
         }
       });
 };
-// action for clearing errors when getting messages
-// in a particular group for a user
+
+/**
+ * Action creator for clearing errors when getting messages
+ * in a particular group for a user
+ * @function clearGroupMessagesError
+ * @return {void}
+ */
 export const clearGroupMessagesError = () => ({
   type: actionTypes.GET_GROUP_MESSAGES_CLEAR
 });
-// action for getting all messages in a particular group for a user
+/**
+ * Action creator for getting all messages in a particular group for a user
+ * @function viewMessage
+ * @param {number} groupId group ID
+ * @param {number} messageId message ID
+ * @return {void}
+ */
 export const viewMessage = (groupId, messageId) => dispatch =>
   axios.get(`/api/v1/group/${groupId}/message/${messageId}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
@@ -89,12 +132,22 @@ export const viewMessage = (groupId, messageId) => dispatch =>
             payload: 'Error Occurred...Try again' });
         }
       });
-// action for clearing errors when viewing a message
-// in a particular group for a user
+/**
+ * Action creator for clearing errors when viewing a message
+ * in a particular group for a user
+ * @function clearViewMessageError
+ * @return {void}
+ */
 export const clearViewMessageError = () => ({
   type: actionTypes.CLEAR_VIEW_MESSAGE_ERROR
 });
-// action for getting all users in a particular group for a user with pagination
+/**
+ * Action for getting all users in a particular group for a user with pagination
+ * @function getGroupUsers
+ * @param {number} groupId group ID of the user
+ * @param {number} pageNumber page number since result is paginated
+ * @return {void}
+ */
 export const getGroupUsers = (groupId, pageNumber) => (dispatch) => {
   const page = pageNumber || 1;
   return axios.get(`/api/v1/group/${groupId}/group-users?page=${page}`,
@@ -110,7 +163,11 @@ export const getGroupUsers = (groupId, pageNumber) => (dispatch) => {
         }
       });
 };
-// action for getting all users in a particular group for a user
+/**
+ * Action for getting all users in a particular group for a user
+ * @function getAllUserGroups
+ * @return {void}
+ */
 export const getAllUserGroups = () => (dispatch) => {
   const page = 0;
   // This will dispatch action that group member side bar can use
@@ -127,7 +184,12 @@ export const getAllUserGroups = () => (dispatch) => {
         }
       });
 };
-// get groups user belongs to in paginated format
+/**
+ * Action creator for getting groups user belongs to in paginated format
+ * @function getUserGroups
+ * @param {number} pageNumber page number since result is paginated
+ * @return {void}
+ */
 export const getUserGroups = pageNumber => (dispatch) => {
   const page = pageNumber || 1;
   // This will dispatch action that group member side bar can use
@@ -144,7 +206,13 @@ export const getUserGroups = pageNumber => (dispatch) => {
         }
       });
 };
-// get messages sent to groups a user belongs paginated
+/**
+ * Action creator for getting messages sent to groups a user belongs to
+ * in a paginated format
+ * @function getBoardMessages
+ * @param {number} pageNumber page number since result is paginated
+ * @return {void}
+ */
 export const getBoardMessages = pageNumber => (dispatch) => {
   const page = pageNumber || 1;
   // This will dispatch action that group member side bar can use
@@ -160,7 +228,13 @@ export const getBoardMessages = pageNumber => (dispatch) => {
         }
       });
 };
-// get the result of searching users in the application
+/**
+ * Action creator for getting the result of searching users in the application
+ * @function getUsersSearch
+ * @param {number} groupId group ID
+ * @param {string} searchTerm search term
+ * @return {void}
+ */
 export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
   const search = searchTerm || '';
   const id = groupId || 0;
@@ -177,7 +251,12 @@ export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
         }
       });
 };
-// get the result of searching users in the application
+/**
+ * Action creator for updating message status when a user read a message
+ * @function updateReadMessage
+ * @param {number} messageId Id of the message
+ * @return {void}
+ */
 export const updateReadMessage = messageId => (dispatch) => {
   if (!messageId) {
     browserHistory.goBack();

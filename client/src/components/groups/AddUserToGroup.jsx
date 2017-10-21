@@ -7,29 +7,32 @@ import { getUsersSearch } from '../../actions/group/groupActions';
 
 /**
  * AddUserToGroup class declaration
+ * @class AddUserToGroup
+ * @extends {React.Component}
  */
 export class AddUserToGroup extends React.Component {
   /**
-   * handles Search
-   * @return {void} void
-   * @param {e} e
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillUnmount() {
     this.props.getUsersSearch(this.props.groupId, '');
   }
   /**
-   * handles form submit
-   * @return {void} void
-   * @param {e} e
+   * Handles form submit
+   * @method handleSubmit
+   * @return {void}
+   * @param {object} e - event
    */
   handleSubmit(e) {
     e.preventDefault();
     this.props.getUsersSearch(this.props.groupId, this.search.value);
   }
   /**
-   * handles user click
-   * @return {void} void
-   * @param {e} e
+   * Handles user click
+   * @method handleAddUser
+   * @return {void}
+   * @param {object} e - event
    */
   handleAddUser(e) {
     this.props.onAddUser(e);
@@ -38,17 +41,18 @@ export class AddUserToGroup extends React.Component {
     e.target.text = 'Member';
   }
   /**
-   * handles Search
+   * Handles Search
+   * @method handleSearch
    * @return {void} void
-   * @param {e} e
+   * @param {object} e - event
    */
   handleSearch(e) {
     this.props.getUsersSearch(this.props.groupId, e.target.value);
   }
 
   /**
-   * render component
-   * @return {XML} XML/JSX
+   * Render component
+   * @return {XML} JSX
    */
   render() {
     const { usersSearch } = this.props.groupState;

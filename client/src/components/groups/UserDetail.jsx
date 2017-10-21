@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'react-proptypes';
 
+/**
+ * User's detail component
+ * @function UserDetail
+ * @param {object} userDetail
+ * @return {XML} JSX
+ */
 const UserDetail = ({ userDetail }) => {
   const { username, fullname, mobile, email } = userDetail;
   return (

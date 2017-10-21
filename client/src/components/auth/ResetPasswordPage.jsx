@@ -2,18 +2,22 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
-import IndexHeader from '../headers/IndexHeader.jsx';
 import { resetPasswordAction } from '../../actions/auth/passwordAction';
 import ResetPasswordFormField from './ResetPasswordFormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
+import { IndexHeader } from '../headers';
+import { IndexFooter } from '../footers';
 
 /**
  * ResetPasswordPage class declaration
+ * @class ResetPasswordFormField
+ * @extends {React.Component}
  */
 class ResetPasswordPage extends React.Component {
   /**
    * class constructor
    * @param {object} props
+   * @memberOf ResetPasswordFormField
    */
   constructor(props) {
     super(props);
@@ -25,8 +29,9 @@ class ResetPasswordPage extends React.Component {
     };
   }
   /**
-   * handles submit
-   * @param {object} e
+   * Handles submit
+   * @method handleSubmit
+   * @param {object} e - event
    * @return {void} void
    */
   handleSubmit(e) {
@@ -35,8 +40,9 @@ class ResetPasswordPage extends React.Component {
       this.state.user);
   }
   /**
-   * handles change
-   * @param {object} e
+   * Handles change
+   * @method handleChange
+   * @param {object} e - event
    * @return {void} void
    */
   handleChange(e) {
@@ -45,9 +51,8 @@ class ResetPasswordPage extends React.Component {
     this.setState({ user });
   }
   /**
-   * renders component
-   * @param {object} e
-   * @return {void} void
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     return (
@@ -99,11 +104,7 @@ class ResetPasswordPage extends React.Component {
                 </div>
 
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Copyright &copy; Johadi PostIt 2017</p>
-                </div>
-              </div>
+              <IndexFooter/>
             </div>
           </div>
         </div>

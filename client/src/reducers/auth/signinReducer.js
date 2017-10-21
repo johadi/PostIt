@@ -5,6 +5,13 @@ const initialState = {
   errors: null,
   fails: null
 };
+/**
+ * Reducer function for sign in related operations
+ * @function signinReducer
+ * @param {object} state
+ * @param {object} action
+ * @return {object} state the new state
+ */
 const signinReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SIGNIN_SUCCESSFUL:

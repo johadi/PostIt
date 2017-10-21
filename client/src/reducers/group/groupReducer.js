@@ -22,6 +22,13 @@ const initialState = {
   messageRead: false,
   messageReadErr: null
 };
+/**
+ * Reducer function for group related operations
+ * @function groupReducer
+ * @param {object} state
+ * @param {object} action
+ * @return {object} state the new state
+ */
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.GROUP_CREATE_SUCCESSFUL:

@@ -6,6 +6,13 @@ const initialState = {
   errors: null,
   fails: null
 };
+/**
+ * Reducer function for sign up related operations
+ * @function signupReducer
+ * @param {object} state
+ * @param {object} action
+ * @return {object} state - the new state
+ */
 const signupReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SIGNUP_SUCCESSFUL:

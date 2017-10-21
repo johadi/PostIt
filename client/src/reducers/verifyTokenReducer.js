@@ -5,6 +5,13 @@ const initalState = {
   success: false,
   userDetail: null
 };
+/**
+ * Reducer function for verify token related operations
+ * @function verifyTokenReducer
+ * @param {object} state
+ * @param {object} action
+ * @return {object} state the new state
+ */
 const VerifyTokenReducer = (state = initalState, action) => {
   switch (action.type) {
     case actionTypes.VERIFY_TOKEN:

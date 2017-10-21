@@ -10,6 +10,13 @@ const initialState = {
   resetErrors: null,
   resetFails: null
 };
+/**
+ * Reducer function for password related operations
+ * @function passwordReducer
+ * @param {object} state
+ * @param {object} action
+ * @return {object} state the new state
+ */
 const passwordReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.RECOVERY_SUCCESSFUL:

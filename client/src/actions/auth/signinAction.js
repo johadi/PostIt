@@ -11,10 +11,6 @@ import actionTypes from '../actionTypes';
 const signinAction = userCredentials => dispatch =>
   axios.post('/api/v1/user/signin', userCredentials)
       .then((res) => {
-        if (res.status !== 200) {
-          const payload = 'Something went wrong...Try again';
-          dispatch({ type: actionTypes.SIGNIN_UNSUCCESSFUL, payload });
-        }
         const token = res.data; // get the token
         window.sessionStorage.token = token;
         browserHistory.push('/dashboard');

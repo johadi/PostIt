@@ -2,15 +2,17 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
-import UserDetail from './UserDetail.jsx';
+import UserDetail from '../groups/UserDetail.jsx';
 
 /**
  * GroupSideBar class declaration
+ * @class GroupSideBar
+ * @extends {React.Component}
  */
 class GroupSideBar extends React.Component {
   /**
-   * renders the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     return (

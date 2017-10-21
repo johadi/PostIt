@@ -2,14 +2,16 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import UserDetail from './UserDetail.jsx';
+import UserDetail from '../groups/UserDetail.jsx';
 
 /**
  * SideBar class declaration
+ * @class SideBar
+ * @extends {React.Component}
  */
 class SideBar extends React.Component {
   /**
-   * renders the component
+   * Renders the component
    * @return {XML} JSX
    */
   render() {

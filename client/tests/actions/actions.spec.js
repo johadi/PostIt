@@ -6,7 +6,8 @@ import MockAdapter from 'axios-mock-adapter';
 import actionTypes from '../../src/actions/actionTypes';
 import { signupAction } from '../../src/actions/auth/signupAction';
 import signinAction from '../../src/actions/auth/signinAction';
-import { recoverPasswordAction } from '../../src/actions/auth/passwordAction';
+import { recoverPasswordAction,
+  resetPasswordAction } from '../../src/actions/auth/passwordAction';
 import { createGroup, addUserToGroup, postMessage, getGroupMessages,
   viewMessage, getGroupUsers, getUserGroups,
   getAllUserGroups, getBoardMessages, getUsersSearch,
@@ -119,7 +120,24 @@ describe('SigninAction', () => {
       done();
     }, 1000);
   });
-  it('should dispatch SIGNIN_UNSUCCESSFUL action when username is not found',
+  it('should dispatch SIGNIN_UNSUCCESSFUL action when password is incorrect',
+    (done) => {
+      const expectedActions = [{
+        type: actionTypes.SIGNIN_VALIDATION_ERROR,
+        payload: { password: ['Incorrect password'] }
+      }];
+      // arguments for reply are (status, data, headers)
+      mock.onPost('/api/v1/user/signin',
+        userCredentials).reply(400, 'Incorrect password');
+      const store = mockStore({});
+      store.dispatch(signinAction(userCredentials)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+      setTimeout(() => {
+        done();
+      }, 1000);
+    });
+  it('should dispatch SIGNIN_UNSUCCESSFUL action when other error is thrown',
     (done) => {
       const expectedActions = [{
         type: actionTypes.SIGNIN_VALIDATION_ERROR,
@@ -195,6 +213,92 @@ describe('recoverPasswordAction', () => {
         'Sorry this email doesn\'t match our record');
       const store = mockStore({});
       store.dispatch(recoverPasswordAction(userEmail)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+      setTimeout(() => {
+        done();
+      }, 1000);
+    });
+});
+describe('resetPasswordAction', () => {
+  beforeEach(() => {
+    mock.reset();
+  });
+  const passwordDetails = {
+    password: '11223344',
+    confirmPassword: '11223344'
+  };
+  const queryParam = 'xxxyyyzzz';
+  it('should dispatch RESET_SUCCESSFUL action when password is successfully reset ',
+    (done) => {
+      const expectedActions = [{
+        type: actionTypes.RESET_SUCCESSFUL,
+        payload: 'password changed successfully'
+      }];
+      // arguments for reply are (status, data, headers)
+      mock.onPost(`/api/v1/user/reset-password?token=${queryParam}`, passwordDetails)
+        .reply(200, 'password changed successfully');
+      const store = mockStore({});
+      store.dispatch(resetPasswordAction(queryParam, passwordDetails)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+      setTimeout(() => {
+        done();
+      }, 1000);
+    });
+  it('should dispatch RESET_VALIDATION_ERROR action when ' +
+    'any user input is invalid',
+    (done) => {
+      const expectedActions = [{
+        type: actionTypes.RESET_VALIDATION_ERROR,
+        payload: 'The password field is required'
+      }];
+      // arguments for reply are (status, data, headers)
+      mock.onPost(`/api/v1/user/reset-password?token=${queryParam}`, passwordDetails).reply(400, {
+        validateError: 'The password field is required'
+      });
+      const store = mockStore({});
+      store.dispatch(resetPasswordAction(queryParam, passwordDetails)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+      setTimeout(() => {
+        done();
+      }, 1000);
+    });
+  it('should dispatch RESET_UNSUCCESSFUL action when passwords not matched',
+    (done) => {
+      const expectedActions = [{
+        type: actionTypes.RESET_VALIDATION_ERROR,
+        payload: undefined
+      }, {
+        type: actionTypes.RESET_UNSUCCESSFUL,
+        payload: 'Passwords not matched'
+      }];
+      // arguments for reply are (status, data, headers)
+      mock.onPost(`/api/v1/user/reset-password?token=${queryParam}`, passwordDetails).reply(400,
+        'Passwords not matched');
+      const store = mockStore({});
+      store.dispatch(resetPasswordAction(queryParam, passwordDetails)).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+      setTimeout(() => {
+        done();
+      }, 1000);
+    });
+  it('should dispatch RESET_UNSUCCESSFUL action when other error occurred',
+    (done) => {
+      const expectedActions = [{
+        type: actionTypes.RESET_VALIDATION_ERROR,
+        payload: undefined
+      }, {
+        type: actionTypes.RESET_UNSUCCESSFUL,
+        payload: 'Sorry this token in the query is invalid'
+      }];
+      // arguments for reply are (status, data, headers)
+      mock.onPost(`/api/v1/user/reset-password?token=${queryParam}`, passwordDetails).reply(400,
+        'Sorry this token in the query is invalid');
+      const store = mockStore({});
+      store.dispatch(resetPasswordAction(queryParam, passwordDetails)).then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
       setTimeout(() => {

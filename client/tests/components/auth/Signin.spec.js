@@ -20,12 +20,12 @@ describe('<SigninPage/>', () => {
   };
   const wrapper = mount(<SigninPage {...props} />);
   it('should check if all FormFields are defined', () => {
-    expect(wrapper.find('FormField').at(0).props().name).toBe('username');
-    expect(wrapper.find('FormField').at(1).props().name).toBe('password');
+    expect(wrapper.find('SignInFormField').at(0).props().name).toBe('username');
+    expect(wrapper.find('SignInFormField').at(1).props().name).toBe('password');
   });
   it('Should check if number of form fields is equal to 2',
     () => {
-      expect(wrapper.find('FormField').length).toBe(2);
+      expect(wrapper.find('SignInFormField').length).toBe(2);
     });
   it('Should check if Signin component has header defined',
     () => {

@@ -4,6 +4,13 @@ import dotenv from 'dotenv';
 import db from '../database/models';
 
 dotenv.config();
+/**
+ * Authenticate middleware function
+ * @param {object} req - request parameter
+ * @param {object} res - response parameter
+ * @param {function} next - next function parameter
+ * @return {*} any
+ */
 const authenticate = (req, res, next) => {
   const token = req.body.token || req.query.token || req.header('x-auth');
   if (!token) {

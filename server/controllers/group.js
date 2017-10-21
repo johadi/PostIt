@@ -3,7 +3,13 @@ import Constants from '../helpers/constants';
 import { handleError, handleSuccess } from '../helpers/helpers';
 
 export default {
-  // Controller method for creating group
+  /**
+   * Create group controller function
+   * @function createGroup
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   createGroup(req, res) {
     if (req.user && req.user.id) {
       if (!req.body.name) {
@@ -60,7 +66,13 @@ export default {
         message: 'oops! Something went wrong...Try again' }, res);
     }
   },
-  // Controller method for adding user to group
+  /**
+   * Add user to group controller function
+   * @function addUserToGroup
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   addUserToGroup(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.groupId, 10))) {
@@ -152,7 +164,13 @@ export default {
         })
         .catch(err => handleError(err, res));
   },
-  // Get the list of all users that belong to a group
+  /**
+   * get group users controller function
+   * @function getGroupUsers
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   getGroupUsers(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10))) {
       return handleError('Oops! Something went wrong, Check your route', res);

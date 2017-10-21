@@ -3,6 +3,13 @@ import dotenv from 'dotenv';
 import db from '../database/models';
 
 dotenv.config();
+/**
+ * Verify recovery link middleware function
+ * @param {object} req - request parameter
+ * @param {object} res - request parameter
+ * @param {function} next - next function parameter
+ * @return {*} any
+ */
 const verifyRecoveryLink = (req, res, next) => {
   const token = req.query.token;
   if (!token) {

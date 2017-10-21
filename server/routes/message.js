@@ -145,5 +145,5 @@ router.route('/v1/group/message-read/:messageId')
  *             status:
  *               type: boolean
  */
-  .post(authenticate, messageController.updateMessageReadStatus);
+  .post(authenticate, messageController.updateReadMessage);
 export default router;

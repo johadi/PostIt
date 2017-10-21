@@ -3,7 +3,13 @@ import twilio from 'twilio';
 import dotenv from 'dotenv';
 
 dotenv.config();
-// error message handler
+/**
+ * Helper function that handles error messages
+ * @function handleError
+ * @param {object} err - error parameter
+ * @param {object} res - response parameter
+ * @return {object} response detail
+ */
 const handleError = (err, res) => {
   switch (err.code) {
     case 404:
@@ -12,7 +18,14 @@ const handleError = (err, res) => {
       return res.status(400).json(err);
   }
 };
-// success message handler
+/**
+ * Helper function that handles success messages
+ * @function handleSuccess
+ * @param {number} code - success code parameter
+ * @param {object} body - response body
+ * @param {object} res - response parameter
+ * @return {object} response detail
+ */
 const handleSuccess = (code, body, res) => {
   switch (code) {
     case 201:
@@ -32,6 +45,14 @@ const transporter = nodemailer.createTransport({
     pass: process.env.MAIL_PASSWORD
   }
 });
+/**
+ * Helper function that handles send mail
+ * @param {string} from
+ * @param {string|array} to
+ * @param {string} subject
+ * @param {string} message
+ * @return {*} any
+ */
 const sendMail = (from, to, subject, message) => {
   const mailOptions = {
     from,
@@ -45,7 +66,13 @@ const sendMail = (from, to, subject, message) => {
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
-
+/**
+ * Helper function that handles send SMS
+ * @param {string} from
+ * @param {string} to
+ * @param {string} body
+ * @return {void}
+ */
 const sendSMS = (from, to, body) => {
   client.messages.create({ to, from, body });
 };

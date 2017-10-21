@@ -4,7 +4,13 @@ import Constants from '../helpers/constants';
 import { handleError, handleSuccess } from '../helpers/helpers';
 
 export default {
-  // Get the list of all groups that a user belongs to
+  /**
+   * Get the groups that user belongs to
+   * @function getUserGroups
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   getUserGroups(req, res) {
     if (req.user) {
       const userId = req.user.id;
@@ -68,8 +74,14 @@ export default {
       }
     }
   },
-  // Get all messages that are sent to groups a user
-  // belongs to but those he/she has not read
+  /**
+   * Get all messages that are sent to groups a user
+   * belongs to but those he/she has not read
+   * @function userMessageBoard
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   userMessageBoard(req, res) {
     if (req.user) {
       const userId = req.user.id;
@@ -146,8 +158,14 @@ export default {
       }
     }
   },
-  // Get all users in the application by search term.
-  // You can also include array of user Ids in a group
+  /**
+   * Get all users in the application by searched term.
+   * You can also include array of user Ids in a group
+   * @function getSearchedUsers
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   getSearchedUsers(req, res) {
     if (req.user) {
       if (req.query.search) {

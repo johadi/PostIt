@@ -8,6 +8,13 @@ import { sendMail, handleError, handleSuccess } from '../helpers/helpers';
 
 dotenv.config();
 export default {
+  /**
+   * Signup controller function
+   * @function signup
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   signup(req, res) {
     const body = req.body;
     const validator = new Validator(body, db.User.signupRules());
@@ -51,6 +58,13 @@ export default {
       })
       .catch(err => handleError(err, res));
   },
+  /**
+   * Signin controller function
+   * @function signin
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   signin(req, res) {
     const body = req.body;
     const validator = new Validator(body, db.User.loginRules());
@@ -75,7 +89,13 @@ export default {
         })
         .catch(err => handleError(err, res));
   },
-  // password Recovery
+  /**
+   * password Recovery controller function
+   * @function passwordRecovery
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   passwordRecovery(req, res) {
     const recoveryRules = {
       email: 'required|email'
@@ -143,6 +163,13 @@ export default {
       })
       .catch(err => handleError(err, res));
   },
+  /**
+   * Reset password controller function
+   * @function resetPasswordPost
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   resetPasswordPost(req, res) {
     const resetRules = {
       password: 'required|min:6',

@@ -2,31 +2,56 @@
 import db from './../../database/models';
 
 export default {
+  /**
+   * Empty user DB
+   * @function emptyUserDB
+   * @param {function} done
+   * @return {*} any
+   */
   emptyUserDB(done) {
     db.User.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Empty message DB
+   * @function emptyMessageDB
+   * @param {function} done
+   * @return {*} any
+   */
   emptyMessageDB(done) {
     db.Message.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Empty group DB
+   * @function emptyGroupDB
+   * @param {function} done
+   * @return {*} any
+   */
   emptyGroupDB(done) {
     db.Group.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Empty user-group DB
+   * @function emptyUserGroupDB
+   * @param {function} done
+   * @return {*} any
+   */
   emptyUserGroupDB(done) {
     db.UserGroup.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
-  emptyUserGroupDBAdd(done) {
-    db.UserGroupAdd.destroy({ truncate: true })
-        .then(() => done())
-        .catch(err => done(err));
-  },
+  /**
+   * Add user to DB function 1
+   * @function addUserToDb
+   * @param {function} done
+   * @return {*} any
+   */
   addUserToDb(done) {
     db.User.create({
       id: 5,
@@ -38,6 +63,12 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Add user to DB function 2
+   * @function addUserToDb2
+   * @param {function} done
+   * @return {*} any
+   */
   addUserToDb2(done) {
     db.User.create({
       id: 20,
@@ -49,6 +80,12 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Add user to DB function 3
+   * @function addUserToDb3
+   * @param {function} done
+   * @return {*} any
+   */
   addUserToDb3(done) {
     db.User.create({
       id: 30,
@@ -60,13 +97,12 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
-  setMessageData(messageBody, groupId, userId) {
-    return {
-      messageBody,
-      groupId,
-      userId
-    };
-  },
+  /**
+   * Create Group DB function 1
+   * @function createGroup
+   * @param {function} done
+   * @return {*} any
+   */
   createGroup(done) {
     db.Group.create({
       id: 99,
@@ -81,6 +117,12 @@ export default {
         })
         .catch(err => done(err));
   },
+  /**
+   * Create Group DB function 2
+   * @function createGroup2
+   * @param {function} done
+   * @return {*} any
+   */
   createGroup2(done) {
     db.Group.create({
       id: 100,
@@ -95,6 +137,12 @@ export default {
         })
         .catch(err => done(err));
   },
+  /**
+   * Create Group DB function 3
+   * @function createGroup3
+   * @param {function} done
+   * @return {*} any
+   */
   createGroup3(done) {
     db.Group.create({
       id: 101,
@@ -109,6 +157,12 @@ export default {
         })
         .catch(err => done(err));
   },
+  /**
+   * Add Message DB function 1
+   * @function addMessageToDb
+   * @param {function} done
+   * @return {*} any
+   */
   addMessageToDb(done) {
     db.Message.create({
       id: 8,
@@ -131,6 +185,12 @@ export default {
         })
         .catch(err => done(err));
   },
+  /**
+   * Add Message DB function 2
+   * @function addMessageToDb2
+   * @param {function} done
+   * @return {*} any
+   */
   addMessageToDb2(done) {
     db.Message.create({
       id: 9,
@@ -153,6 +213,12 @@ export default {
         })
         .catch(err => done(err));
   },
+  /**
+   * Add Message DB function 3
+   * @function addMessageToDb3
+   * @param {function} done
+   * @return {*} any
+   */
   addMessageToDb3(done) {
     db.Message.create({
       id: 10,
@@ -175,28 +241,12 @@ export default {
         })
         .catch(err => done(err));
   },
-  addMessageToDb4(done) {
-    db.Message.create({
-      id: 13,
-      body: 'No condition is permanent',
-      groupId: 101,
-      userId: 5
-    })
-        .then((message) => {
-          if (!message) {
-            return Promise.reject('Error');
-          }
-          message.readersId.push(5);
-          message.update({
-            readersId: message.readersId
-          }, {
-            where: { id: message.id }
-          })
-              .then(() => done())
-              .catch(err => done(err));
-        })
-        .catch(err => done(err));
-  },
+  /**
+   * Add User to group function 1
+   * @function addUserToGroup
+   * @param {function} done
+   * @return {*} any
+   */
   addUserToGroup(done) {
     db.UserGroup.create({
       groupId: 100,
@@ -215,6 +265,12 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Add User to group function 2
+   * @function addUserToGroup2
+   * @param {function} done
+   * @return {*} any
+   */
   addUserToGroup2(done) {
     db.UserGroup.create({
       groupId: 99,
@@ -233,6 +289,12 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Add User to group function 3
+   * @function addUserToGroup3
+   * @param {function} done
+   * @return {*} any
+   */
   addUserToGroup3(done) {
     db.UserGroup.create({
       groupId: 101,
@@ -251,6 +313,12 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+  /**
+   * Add User to group function 4
+   * @function addUserToGroup4
+   * @param {function} done
+   * @return {*} any
+   */
   addUserToGroup4(done) {
     db.UserGroup.create({
       groupId: 99,

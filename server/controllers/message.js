@@ -6,7 +6,13 @@ import { sendSMS, sendMail, handleError,
   handleSuccess } from '../helpers/helpers';
 
 export default {
-  // Controller method that allows User post messages to created group
+  /**
+   * Post message controller function
+   * @function postMessage
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   postMessage(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.groupId, 10))) {
@@ -144,7 +150,13 @@ export default {
         .catch(err => handleError(err, res));
     }
   },
-  // Controller method that allow users retrieve messages from group
+  /**
+   * get messages controller function
+   * @function getMessages
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   getMessages(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10))) {
       return handleError('Oops! Something went wrong, Check your route', res);
@@ -199,7 +211,13 @@ export default {
         .catch(err => handleError(err, res));
     }
   },
-  // to view a particular message
+  /**
+   * View message controller function
+   * @function viewMessage
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
   viewMessage(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10)) ||
       isNaN(parseInt(req.params.messageId, 10))) {
@@ -239,8 +257,14 @@ export default {
         .catch(err => handleError(err, res));
     }
   },
-  // Controller that update the read message status of a user
-  updateMessageReadStatus(req, res) {
+  /**
+   * Update message when read controller function
+   * @function updateReadMessage
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
+  updateReadMessage(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.messageId, 10))) {
       return handleError('Oops! Something went wrong, Check your route', res);

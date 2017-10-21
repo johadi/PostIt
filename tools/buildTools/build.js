@@ -6,4 +6,4 @@
 // supported by nodejs.
 require('babel-polyfill');
 require('babel-register');
-require('../tools/build');
+require('../build');

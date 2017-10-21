@@ -4,4 +4,4 @@
 // require that is natively supported by nodejs.
 require('babel-polyfill');
 require('babel-register');
-require('../app');
+require('../../app');

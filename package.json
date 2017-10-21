@@ -27,7 +27,8 @@
     "heroku-prebuild": "npm run clean-production && npm run build:html",
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
     "test:e2e": "nightwatch",
-    "test:client": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\""
+    "test:client": "nyc --reporter=html mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\" && nyc report",
+    "test:client2": "nyc --reporter=html mocha --reporter spec client/tests/setupMocha.js \"client/tests/actions/*.spec.js\" && nyc report"
   },
   "apidoc": {
     "name": "PostIt API - Documentation",

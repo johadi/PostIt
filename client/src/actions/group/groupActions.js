@@ -13,11 +13,11 @@ export const createGroup = name => dispatch =>
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         browserHistory.push(`/group/${res.data.id}/add`);
-        dispatch({ type: actionTypes.GROUP_CREATE_SUCCESSFUL });
+        dispatch({ type: actionTypes.CREATE_GROUP_SUCCESS });
       })
       .catch((err) => {
         if (err) {
-          dispatch({ type: actionTypes.GROUP_CREATE_ERROR,
+          dispatch({ type: actionTypes.CREATE_GROUP_ERROR,
             payload: err.response.data });
         }
       });
@@ -32,11 +32,11 @@ export const addUserToGroup = (groupId, username) => dispatch =>
   axios.post(`/api/v1/group/${groupId}/user`, { user: username },
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then(() => {
-        dispatch({ type: actionTypes.GROUP_ADD_USER_SUCCESSFUL });
+        dispatch({ type: actionTypes.ADD_USER_SUCCESSFUL });
       })
       .catch((err) => {
         if (err) {
-          dispatch({ type: actionTypes.GROUP_ADD_USER_ERROR,
+          dispatch({ type: actionTypes.ADD_USER_ERROR,
             payload: err.response.data });
         }
       });
@@ -46,7 +46,7 @@ export const addUserToGroup = (groupId, username) => dispatch =>
  * @return {void}
  */
 export const clearAddUserError = () => ({
-  type: actionTypes.ADD_USER_TO_GROUP_CLEAR
+  type: actionTypes.CLEAR_ADD_USER_ERROR
 });
 /**
  * Action creator for posting message to a group
@@ -109,7 +109,7 @@ export const getGroupMessages = (groupId, pageNumber) => (dispatch) => {
  * @return {void}
  */
 export const clearGroupMessagesError = () => ({
-  type: actionTypes.GET_GROUP_MESSAGES_CLEAR
+  type: actionTypes.CLEAR_GROUP_MESSAGES_ERROR
 });
 /**
  * Action creator for getting all messages in a particular group for a user
@@ -153,12 +153,12 @@ export const getGroupUsers = (groupId, pageNumber) => (dispatch) => {
   return axios.get(`/api/v1/group/${groupId}/group-users?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
-        dispatch({ type: actionTypes.GROUP_USERS_PAGINATED_SUCCESS,
+        dispatch({ type: actionTypes.GROUP_USERS_SUCCESS,
           payload: res.data });
       })
       .catch((err) => {
         if (err) {
-          dispatch({ type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
+          dispatch({ type: actionTypes.GROUP_USERS_ERROR,
             payload: err.response.data });
         }
       });
@@ -174,12 +174,12 @@ export const getAllUserGroups = () => (dispatch) => {
   return axios.get(`/api/v1/group/user/groups?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
-        dispatch({ type: actionTypes.GET_USER_GROUPS_SUCCESS,
+        dispatch({ type: actionTypes.ALL_USER_GROUPS_SUCCESS,
           payload: res.data });
       })
       .catch((err) => {
         if (err) {
-          dispatch({ type: actionTypes.GET_USER_GROUPS_ERROR,
+          dispatch({ type: actionTypes.ALL_USER_GROUPS_ERROR,
             payload: err.response.data });
         }
       });
@@ -196,12 +196,12 @@ export const getUserGroups = pageNumber => (dispatch) => {
   return axios.get(`/api/v1/group/user/groups?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
-        dispatch({ type: actionTypes.USER_GROUPS_PAGINATED_SUCCESS,
+        dispatch({ type: actionTypes.USER_GROUPS_SUCCESS,
           payload: res.data });
       })
       .catch((err) => {
         if (err) {
-          dispatch({ type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
+          dispatch({ type: actionTypes.USER_GROUPS_ERROR,
             payload: err.response.data });
         }
       });
@@ -219,11 +219,11 @@ export const getBoardMessages = pageNumber => (dispatch) => {
   return axios.get(`/api/v1/group/user/board?page=${page}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
-        dispatch({ type: actionTypes.GET_BOARD_MESSAGES_SUCCESS, payload: res.data });
+        dispatch({ type: actionTypes.BOARD_MESSAGES_SUCCESS, payload: res.data });
       })
       .catch((err) => {
         if (err) {
-          dispatch({ type: actionTypes.GET_BOARD_MESSAGES_ERROR,
+          dispatch({ type: actionTypes.BOARD_MESSAGES_ERROR,
             payload: err.response.data });
         }
       });

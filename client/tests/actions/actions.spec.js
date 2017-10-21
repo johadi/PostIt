@@ -312,10 +312,10 @@ describe('Group Actions', () => {
       mock.reset();
     });
     const name = 'andela';
-    it('should dispatch GROUP_CREATE_SUCCESSFUL action when group is created ',
+    it('should dispatch CREATE_GROUP_SUCCESS action when group is created ',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GROUP_CREATE_SUCCESSFUL
+          type: actionTypes.CREATE_GROUP_SUCCESS
         }];
         // arguments for reply are (status, data, headers)
         mock.onPost('/api/v1/group', { name })
@@ -328,11 +328,11 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
-    it('should dispatch GROUP_CREATE_ERROR action when ' +
+    it('should dispatch CREATE_GROUP_ERROR action when ' +
       'group is not created',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GROUP_CREATE_ERROR,
+          type: actionTypes.CREATE_GROUP_ERROR,
           payload: 'group name is required'
         }];
         // arguments for reply are (status, data, headers)
@@ -352,10 +352,10 @@ describe('Group Actions', () => {
     });
     const user = 'jimoh';
     const groupId = 2;
-    it('should dispatch GROUP_ADD_USER_SUCCESSFUL action when user is added to group ',
+    it('should dispatch ADD_USER_SUCCESSFUL action when user is added to group ',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GROUP_ADD_USER_SUCCESSFUL
+          type: actionTypes.ADD_USER_SUCCESSFUL
         }];
         // arguments for reply are (status, data, headers)
         mock.onPost(`/api/v1/group/${groupId}/user`, { user })
@@ -368,11 +368,11 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
-    it('should dispatch GROUP_ADD_USER_ERROR action when ' +
+    it('should dispatch ADD_USER_ERROR action when ' +
       'user is not added to group',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GROUP_ADD_USER_ERROR,
+          type: actionTypes.ADD_USER_ERROR,
           payload: 'invalid username'
         }];
         // arguments for reply are (status, data, headers)
@@ -525,7 +525,7 @@ describe('Group Actions', () => {
       'getGroupUsers method is called ',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GROUP_USERS_PAGINATED_SUCCESS,
+          type: actionTypes.GROUP_USERS_SUCCESS,
           payload
         }];
         // arguments for reply are (status, data, headers)
@@ -539,11 +539,11 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
-    it('should dispatch GROUP_USERS_PAGINATED_ERROR action when ' +
+    it('should dispatch GROUP_USERS_ERROR action when ' +
       'error occurred after getGroupUsers is called',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
+          type: actionTypes.GROUP_USERS_ERROR,
           payload: 'Error Occurred...Try again'
         }];
         // arguments for reply are (status, data, headers)
@@ -563,11 +563,11 @@ describe('Group Actions', () => {
       mock.reset();
     });
     const payload = { rows: ['andela', 'class29'] };
-    it('should dispatch GET_USER_GROUPS_SUCCESS action when ' +
+    it('should dispatch ALL_USER_GROUPS_SUCCESS action when ' +
       'getAllUserGroups method is called ',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GET_USER_GROUPS_SUCCESS,
+          type: actionTypes.ALL_USER_GROUPS_SUCCESS,
           payload
         }];
         // arguments for reply are (status, data, headers)
@@ -581,11 +581,11 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
-    it('should dispatch GET_USER_GROUPS_ERROR action when ' +
+    it('should dispatch ALL_USER_GROUPS_ERROR action when ' +
       'error occurred after getAllUserGroups is called',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GET_USER_GROUPS_ERROR,
+          type: actionTypes.ALL_USER_GROUPS_ERROR,
           payload: 'Error Occurred...Try again'
         }];
         // arguments for reply are (status, data, headers)
@@ -605,11 +605,11 @@ describe('Group Actions', () => {
       mock.reset();
     });
     const payload = { rows: ['andela', 'class29'] };
-    it('should dispatch USER_GROUPS_PAGINATED_SUCCESS action when ' +
+    it('should dispatch USER_GROUPS_SUCCESS action when ' +
       'getUserGroups method is called ',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.USER_GROUPS_PAGINATED_SUCCESS,
+          type: actionTypes.USER_GROUPS_SUCCESS,
           payload
         }];
         // arguments for reply are (status, data, headers)
@@ -623,11 +623,11 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
-    it('should dispatch USER_GROUPS_PAGINATED_ERROR action when ' +
+    it('should dispatch USER_GROUPS_ERROR action when ' +
       'error occurred after getUserGroups is called',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
+          type: actionTypes.USER_GROUPS_ERROR,
           payload: 'Error Occurred...Try again'
         }];
         // arguments for reply are (status, data, headers)
@@ -647,11 +647,11 @@ describe('Group Actions', () => {
       mock.reset();
     });
     const payload = { rows: ['who is he?', 'he is a superman'] };
-    it('should dispatch GET_BOARD_MESSAGES_SUCCESS action when ' +
+    it('should dispatch BOARD_MESSAGES_SUCCESS action when ' +
       'getBoardMessages method is called ',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GET_BOARD_MESSAGES_SUCCESS,
+          type: actionTypes.BOARD_MESSAGES_SUCCESS,
           payload
         }];
         // arguments for reply are (status, data, headers)
@@ -665,11 +665,11 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
-    it('should dispatch GET_BOARD_MESSAGES_ERROR action when ' +
+    it('should dispatch BOARD_MESSAGES_ERROR action when ' +
       'error occurred after getBoardMessages is called',
       (done) => {
         const expectedActions = [{
-          type: actionTypes.GET_BOARD_MESSAGES_ERROR,
+          type: actionTypes.BOARD_MESSAGES_ERROR,
           payload: 'Error Occurred...Try again'
         }];
         // arguments for reply are (status, data, headers)

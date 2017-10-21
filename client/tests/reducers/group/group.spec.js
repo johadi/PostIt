@@ -26,17 +26,17 @@ describe('groupReducer', () => {
     messageReadErr: null
   };
   describe('CREATE GROUP', () => {
-    it('should set error to null when Type is GROUP_CREATE_SUCCESSFUL', () => {
+    it('should set error to null when Type is CREATE_GROUP_SUCCESS', () => {
       const groupActionDispatch = {
-        type: actionTypes.GROUP_CREATE_SUCCESSFUL
+        type: actionTypes.CREATE_GROUP_SUCCESS
       };
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.error).toEqual(null);
     });
 
-    it('should set value for error when Type is GROUP_CREATE_ERROR', () => {
+    it('should set value for error when Type is CREATE_GROUP_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.GROUP_CREATE_ERROR,
+        type: actionTypes.CREATE_GROUP_ERROR,
         payload: 'The group name is required'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
@@ -44,9 +44,9 @@ describe('groupReducer', () => {
     });
   });
   describe('ADD USER TO GROUP', () => {
-    it('should set addUserSuccess to true when Type is GROUP_ADD_USER_SUCCESSFUL', () => {
+    it('should set addUserSuccess to true when Type is ADD_USER_SUCCESSFUL', () => {
       const groupActionDispatch = {
-        type: actionTypes.GROUP_ADD_USER_SUCCESSFUL
+        type: actionTypes.ADD_USER_SUCCESSFUL
       };
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.addUserSuccess).toEqual(true);
@@ -54,9 +54,9 @@ describe('groupReducer', () => {
     });
 
     it('should set value for addUserErr and set addUserSuccess to false when Type ' +
-      'is GROUP_ADD_USER_ERROR', () => {
+      'is ADD_USER_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.GROUP_ADD_USER_ERROR,
+        type: actionTypes.ADD_USER_ERROR,
         payload: 'Username not found'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
@@ -64,9 +64,9 @@ describe('groupReducer', () => {
       expect(newState.addUserSuccess).toEqual(false);
     });
     it('should clear values for addUserSuccess and addUserErr when Type ' +
-      'is ADD_USER_TO_GROUP_CLEAR', () => {
+      'is CLEAR_ADD_USER_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.ADD_USER_TO_GROUP_CLEAR,
+        type: actionTypes.CLEAR_ADD_USER_ERROR,
       };
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.addUserSuccess).toEqual(false);
@@ -124,9 +124,9 @@ describe('groupReducer', () => {
       expect(newState.groupMessagesErr).toEqual(groupActionDispatch.payload);
     });
     it('should clear values for postMessageErr when Type ' +
-      'is GET_GROUP_MESSAGES_CLEAR', () => {
+      'is CLEAR_GROUP_MESSAGES_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.GET_GROUP_MESSAGES_CLEAR,
+        type: actionTypes.CLEAR_GROUP_MESSAGES_ERROR,
       };
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.groupMessagesErr).toEqual(null);
@@ -196,10 +196,10 @@ describe('groupReducer', () => {
   });
   describe('GET USERS IN A GROUP PAGINATED', () => {
     it('should set value for groupUsersStore and set groupUsersError ' +
-      'to null when Type is GROUP_USERS_PAGINATED_SUCCESS',
+      'to null when Type is GROUP_USERS_SUCCESS',
       () => {
         const groupActionDispatch = {
-          type: actionTypes.GROUP_USERS_PAGINATED_SUCCESS,
+          type: actionTypes.GROUP_USERS_SUCCESS,
           payload: ['johadi', 'Rasheed']
         };
         const newState = groupReducer(initialState, groupActionDispatch);
@@ -208,9 +208,9 @@ describe('groupReducer', () => {
       });
 
     it('should set value for groupUsersError when Type ' +
-      'is GROUP_USERS_PAGINATED_ERROR', () => {
+      'is GROUP_USERS_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.GROUP_USERS_PAGINATED_ERROR,
+        type: actionTypes.GROUP_USERS_ERROR,
         payload: 'Invalid group'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
@@ -227,10 +227,10 @@ describe('groupReducer', () => {
   });
   describe('GET GROUPS OF A USER', () => {
     it('should set value for groupsUserBelongs and set groupsUserBelongsErr ' +
-      'to null when Type is GET_USER_GROUPS_SUCCESS',
+      'to null when Type is ALL_USER_GROUPS_SUCCESS',
       () => {
         const groupActionDispatch = {
-          type: actionTypes.GET_USER_GROUPS_SUCCESS,
+          type: actionTypes.ALL_USER_GROUPS_SUCCESS,
           payload: ['sport', 'music']
         };
         const newState = groupReducer(initialState, groupActionDispatch);
@@ -239,9 +239,9 @@ describe('groupReducer', () => {
       });
 
     it('should set value for groupsUserBelongsdErr when Type ' +
-      'is GET_USER_GROUPS_ERROR', () => {
+      'is ALL_USER_GROUPS_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.GET_USER_GROUPS_ERROR,
+        type: actionTypes.ALL_USER_GROUPS_ERROR,
         payload: 'You are not a member of this group'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
@@ -258,10 +258,10 @@ describe('groupReducer', () => {
   });
   describe('GET GROUPS OF A USER PAGINATED', () => {
     it('should set value for userGroupsStore and set userGroupsError ' +
-      'to null when Type is USER_GROUPS_PAGINATED_SUCCESS',
+      'to null when Type is USER_GROUPS_SUCCESS',
       () => {
         const groupActionDispatch = {
-          type: actionTypes.USER_GROUPS_PAGINATED_SUCCESS,
+          type: actionTypes.USER_GROUPS_SUCCESS,
           payload: ['sport', 'music']
         };
         const newState = groupReducer(initialState, groupActionDispatch);
@@ -270,9 +270,9 @@ describe('groupReducer', () => {
       });
 
     it('should set value for userGroupsError when Type ' +
-      'is USER_GROUPS_PAGINATED_ERROR', () => {
+      'is USER_GROUPS_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.USER_GROUPS_PAGINATED_ERROR,
+        type: actionTypes.USER_GROUPS_ERROR,
         payload: 'You are not a member of this group'
       };
       const newState = groupReducer(initialState, groupActionDispatch);
@@ -289,10 +289,10 @@ describe('groupReducer', () => {
   });
   describe('GET MESSAGES FOR MESSAGE BOARD', () => {
     it('should set value for boardMessagesStore and set ' +
-      'boardMessagesError to null when Type is GET_BOARD_MESSAGES_SUCCESS',
+      'boardMessagesError to null when Type is BOARD_MESSAGES_SUCCESS',
       () => {
         const groupActionDispatch = {
-          type: actionTypes.GET_BOARD_MESSAGES_SUCCESS,
+          type: actionTypes.BOARD_MESSAGES_SUCCESS,
           payload: ['Hello young man', 'Who is young man ?']
         };
         const newState = groupReducer(initialState, groupActionDispatch);
@@ -301,9 +301,9 @@ describe('groupReducer', () => {
       });
 
     it('should set value for boardMessagesError when Type ' +
-      'is GET_BOARD_MESSAGES_ERROR', () => {
+      'is BOARD_MESSAGES_ERROR', () => {
       const groupActionDispatch = {
-        type: actionTypes.GET_BOARD_MESSAGES_ERROR,
+        type: actionTypes.BOARD_MESSAGES_ERROR,
         payload: 'error occurred retrieving messages'
       };
       const newState = groupReducer(initialState, groupActionDispatch);

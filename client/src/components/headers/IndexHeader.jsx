@@ -1,6 +1,12 @@
 import React from 'react';
 import { IndexLink, Link } from 'react-router';
 
+/**
+ * Index header component
+ * @function IndexHeader
+ * @param {object} props
+ * @return {XML} JSX
+ */
 const IndexHeader = props => (
     <div className="masthead clearfix">
       <div className="inner">

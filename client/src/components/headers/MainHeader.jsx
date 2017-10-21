@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
 
+/**
+ * Main header component
+ * @function MainHeader
+ * @param {object} props
+ * @return {XML} JSX
+ */
 const MainHeader = (props) => {
   const logout = () => {
     window.sessionStorage.removeItem('token');

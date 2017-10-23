@@ -5,11 +5,11 @@ import PropTypes from 'react-proptypes';
 import UserDetail from '../groups/UserDetail.jsx';
 
 /**
- * SideBar class declaration
- * @class SideBar
+ * MainSideBar class declaration
+ * @class MainSideBar
  * @extends {React.Component}
  */
-class SideBar extends React.Component {
+export class MainSideBar extends React.Component {
   /**
    * Renders the component
    * @return {XML} JSX
@@ -34,10 +34,10 @@ class SideBar extends React.Component {
     );
   }
 }
-SideBar.propTypes = {
-  tokenStatus: PropTypes.object.isRequired
+MainSideBar.propTypes = {
+  tokenStatus: PropTypes.object
 };
 const mapStateToProps = state => ({
   tokenStatus: state.verifyTokenReducer
 });
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps)(MainSideBar);

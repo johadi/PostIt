@@ -14,7 +14,7 @@ import Page from '../Page.jsx';
  * @class AddUserGroupContainer
  * @extends {React.Component}
  */
-class AddUserGroupContainer extends React.Component {
+export class AddUserGroupContainer extends React.Component {
   /**
    * @method componentWillMount
    * @return {void}

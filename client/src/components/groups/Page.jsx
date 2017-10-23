@@ -13,7 +13,7 @@ import { GroupSideBar, MainSideBar } from '../sideBars';
  * @class Page
  * @extends {React.Component}
  */
-class Page extends React.Component {
+export class Page extends React.Component {
   /**
    * @method componentDidMount
    * @return {void}
@@ -72,14 +72,11 @@ class Page extends React.Component {
   }
 }
 Page.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element,
   groupId: PropTypes.string,
   showModal: PropTypes.bool,
   cancelModal: PropTypes.func,
   signupState: PropTypes.object
-};
-Page.contextTypes = {
-  router: PropTypes.object
 };
 const mapStateToProps = state => ({
   signupState: state.signupReducer

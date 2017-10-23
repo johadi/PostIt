@@ -2,13 +2,19 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import configureStore from 'redux-mock-store';
 import { mount } from 'enzyme';
 import { AllGroups } from '../../../src/components/groups/AllGroups.jsx';
 
+const middleware = [thunk];
+const mockStore = configureStore(middleware);
 describe('<AllGroups/>', () => {
   const getAllUserGroups = sinon.spy();
   const getUserGroups = sinon.spy();
   sinon.spy(AllGroups.prototype, 'handleSelect');
+  // sinon.spy(AllGroups.prototype, 'componentWillMount');
   const props = {
     groupState: {},
     getAllUserGroups,
@@ -20,6 +26,11 @@ describe('<AllGroups/>', () => {
     }
   };
   const wrapper = mount(<AllGroups { ...props} />);
+  // const wrapper = mount(
+  //   <Provider store={mockStore({ runtime: {} })}>
+  //     <AllGroups { ...props} />
+  //   </Provider>
+  // )
   describe('No Groups', () => {
     before(() => {
       const userGroups = {
@@ -32,6 +43,7 @@ describe('<AllGroups/>', () => {
     it('should check that Pagination doesn\'t exist since our page' +
       ' is just 1, no pagination', () => {
       expect(wrapper.find('Pagination').length).toNotExist();
+      // expect(wrapper.find('.yo').length).toBe(1);
     });
     it('Should check that no group div exists since our groups ' +
       'array is empty', () => {

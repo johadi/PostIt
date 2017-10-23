@@ -49,8 +49,8 @@ class GroupSideBar extends React.Component {
   }
 }
 GroupSideBar.propTypes = {
-  groupId: PropTypes.string.isRequired,
-  tokenStatus: PropTypes.object.isRequired
+  groupId: PropTypes.string,
+  tokenStatus: PropTypes.object
 };
 const mapStateToProps = state => ({
   tokenStatus: state.verifyTokenReducer

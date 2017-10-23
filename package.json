@@ -28,7 +28,7 @@
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
     "test:e2e": "nightwatch",
     "test:client": "nyc --reporter=html mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\" && nyc report",
-    "test:client2": "nyc --reporter=html mocha --reporter spec client/tests/setupMocha.js \"client/tests/actions/*.spec.js\" && nyc report"
+    "test:client2": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/components/**/*.spec.js\""
   },
   "apidoc": {
     "name": "PostIt API - Documentation",
@@ -60,6 +60,7 @@
     "jest": "^20.0.4",
     "jest-css-modules": "^1.1.0",
     "jsdom": "^11.1.0",
+    "jsdom-global": "^3.0.2",
     "karma-chrome-launcher": "^0.2.2",
     "karma-mocha-reporter": "^2.0.0",
     "karma-sourcemap-loader": "^0.3.7",

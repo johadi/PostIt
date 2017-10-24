@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import lodash from 'lodash';
+import { Pagination } from 'react-bootstrap';
 import { getUsersSearch } from '../../actions/group/groupActions';
 
 /**
@@ -12,11 +13,32 @@ import { getUsersSearch } from '../../actions/group/groupActions';
  */
 export class AddUserToGroup extends React.Component {
   /**
-   * @method componentWillMount
+   * class constructor
+   * @param {object} props
+   * @memberOf MessageBoard
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      activePage: 1
+    };
+  }
+  /**
+   * @method componentWillUnMount
    * @return {void}
    */
   componentWillUnmount() {
-    this.props.getUsersSearch(this.props.groupId, '');
+    this.props.getUsersSearch(this.props.groupId, '', '');
+  }
+  /**
+   * Handle select for pagination
+   * @method handleSelect
+   * @return {void} void
+   * @param {number} eventKey
+   */
+  handleSelect(eventKey) {
+    this.setState({ activePage: eventKey });
+    this.props.getUsersSearch(this.props.groupId, this.search.value, eventKey);
   }
   /**
    * Handles form submit
@@ -55,7 +77,28 @@ export class AddUserToGroup extends React.Component {
    * @return {XML} JSX
    */
   render() {
+    let pagination;
     const { usersSearch } = this.props.groupState;
+    // check if search result page is more than one and
+    // display the pagination buttons
+    if (usersSearch && usersSearch.pages > 1) {
+      pagination = <tr><td colSpan="4">
+        <Pagination
+          prev
+          next
+          first
+          last
+          ellipsis
+          boundaryLinks
+          items={usersSearch.pages}
+          maxButtons={10}
+          activePage={this.state.activePage}
+          onSelect={e => this.handleSelect(e)}
+        />
+      </td></tr>;
+    } else {
+      pagination = null;
+    }
     return (
         <form onSubmit={e => this.handleSubmit(e)}
               className="form-horizontal" role="form">
@@ -128,6 +171,7 @@ export class AddUserToGroup extends React.Component {
                     );
                   })
                 }
+                {pagination}
                 </tbody>
               </table>
             </div>

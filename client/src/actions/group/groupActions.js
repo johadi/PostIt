@@ -233,12 +233,14 @@ export const getBoardMessages = pageNumber => (dispatch) => {
  * @function getUsersSearch
  * @param {number} groupId group ID
  * @param {string} searchTerm search term
+ * @param {string} pageNumber Page number
  * @return {void}
  */
-export const getUsersSearch = (groupId, searchTerm) => (dispatch) => {
+export const getUsersSearch = (groupId, searchTerm, pageNumber) => (dispatch) => {
   const search = searchTerm || '';
   const id = groupId || 0;
-  return axios.get(`/api/v1/users?search=${search}&groupId=${id}`,
+  const page = pageNumber || 1;
+  return axios.get(`/api/v1/users?page=${page}&search=${search}&groupId=${id}`,
     { headers: { 'x-auth': window.sessionStorage.token } })
       .then((res) => {
         dispatch({ type: actionTypes.USERS_SEARCH_SUCCESSFUL,

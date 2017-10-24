@@ -170,14 +170,22 @@ export default {
     if (req.user) {
       if (req.query.search) {
         // Find all users in the application
-        const query = req.query.search.toLowerCase();
-        const search = `%${query}%`;
-        db.User.findAll(
+        // convert the query to standard number for use
+        // Let the page query default to one if user never passes page query
+        const pageQuery = parseInt(req.query.page, 10) || 1;
+        // limit you want to display per page
+        const perPage = Constants.SEARCHED_RESULT_PER_PAGE;
+        const currentPage = pageQuery < 1 ? 1 : pageQuery;
+        const offset = perPage * (currentPage - 1);
+        const searchedQuery = req.query.search.toLowerCase();
+        const search = `%${searchedQuery}%`;
+        db.User.findAndCountAll(
           {
             where: { $or: [{ username: { like: search } },
               { email: { like: search } }] },
+            offset,
+            limit: perPage,
             attributes: ['id', 'username', 'fullname', 'email'],
-            limit: Constants.MAXIMUM_SEARCH
           })
           .then((users) => { // users = foundUsers
             // If a client wants to work with all
@@ -212,11 +220,15 @@ export default {
                   });
                 })
                 .then((groupUsers) => {
+                  // pages - to round off i.e 3/2 = 1.5 = 2
+                  const pages = Math.ceil(users.count / perPage);
                   // converts the array of userId objects to standard array of Ids
                   const groupUsersIdInArray = groupUsers
                     .map(groupUser => groupUser.userId);
                   const allUsersData = {
-                    allUsers: users,
+                    allUsers: users.rows,
+                    pages,
+                    count: users.count,
                     groupUsersId: groupUsersIdInArray
                   };
                   return handleSuccess(200, allUsersData, res);

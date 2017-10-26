@@ -20,16 +20,20 @@ describe('<SigninPage/>', () => {
   };
   const wrapper = mount(<SigninPage {...props} />);
   it('should check if all FormFields are defined', () => {
-    expect(wrapper.find('SignInFormField').at(0).props().name).toBe('username');
-    expect(wrapper.find('SignInFormField').at(1).props().name).toBe('password');
+    expect(wrapper.find('FormField').at(0).props().name).toBe('username');
+    expect(wrapper.find('FormField').at(1).props().name).toBe('password');
   });
   it('Should check if number of form fields is equal to 2',
     () => {
-      expect(wrapper.find('SignInFormField').length).toBe(2);
+      expect(wrapper.find('FormField').length).toBe(2);
     });
-  it('Should check if Signin component has header defined',
+  it('Should check if SigninPage component has header defined',
     () => {
       expect(wrapper.find('IndexHeader').length).toBe(1);
+    });
+  it('Should check if SigninPage component has footer defined',
+    () => {
+      expect(wrapper.find('IndexFooter').length).toBe(1);
     });
   it('Should check if handleSubmit is called', () => {
     // trigger an event by Signup form
@@ -47,5 +51,13 @@ describe('<SigninPage/>', () => {
     wrapper.find('form').simulate('submit');
     // singinAction inside handleSubmit is called
     expect(signinAction.called).toBe(true);
+  });
+  it('Should check if ErrorComponent exists when error is thrown', () => {
+    const signinState = {
+      fails: 'invalid username'
+    };
+    wrapper.setProps({ signinState });
+    // singinAction inside handleSubmit is called
+    expect(wrapper.find('ErrorComponent').length).toBe(1);
   });
 });

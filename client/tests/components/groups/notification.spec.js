@@ -1,4 +1,3 @@
-/* eslint-disable newline-per-chained-call */
 import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
@@ -30,7 +29,8 @@ describe('<Notification/>', () => {
     expect(wrapper.props().message).toExist();
   });
   it('Should show sender name', () => {
-    expect(messageDiv.find('p').at(0).find('span').first().text()).toEqual('jimoh');
+    expect(messageDiv.find('p').at(0).find('span').first()
+      .text()).toEqual('jimoh');
   });
   it('Should show the group name the message was sent to', () => {
     expect(messageDiv.find('h2').at(0).text()).toEqual('andela group');

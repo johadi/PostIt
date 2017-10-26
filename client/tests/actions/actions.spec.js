@@ -691,6 +691,7 @@ describe('Group Actions', () => {
     const payload = { rows: ['johadi10', 'emmanuel'] };
     const search = 'joh';
     const id = 3;
+    const page = 1;
     it('should dispatch USERS_SEARCH_SUCCESSFUL action when ' +
       'getUsersSearch method is called ',
       (done) => {
@@ -699,10 +700,10 @@ describe('Group Actions', () => {
           payload
         }];
         // arguments for reply are (status, data, headers)
-        mock.onGet(`/api/v1/users?search=${search}&groupId=${id}`)
+        mock.onGet(`/api/v1/users?page=${page}&search=${search}&groupId=${id}`)
           .reply(200, payload);
         const store = mockStore({});
-        store.dispatch(getUsersSearch(id, search)).then(() => {
+        store.dispatch(getUsersSearch(id, search, page)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -717,10 +718,10 @@ describe('Group Actions', () => {
           payload: 'Error Occurred...Try again'
         }];
         // arguments for reply are (status, data, headers)
-        mock.onGet(`/api/v1/users?search=${search}&groupId=${id}`)
+        mock.onGet(`/api/v1/users?page=${page}&search=${search}&groupId=${id}`)
           .reply(400, 'Error Occurred...Try again');
         const store = mockStore({});
-        store.dispatch(getUsersSearch(id, search)).then(() => {
+        store.dispatch(getUsersSearch(id, search, page)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {

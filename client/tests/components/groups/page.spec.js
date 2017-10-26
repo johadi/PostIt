@@ -27,10 +27,6 @@ describe('<Page/>', () => {
       welcome: false
     }
   };
-  // beforeEach(() => {
-  //   store = mockStore(storeStateMock);
-  //   component = mount(<Provider store={store}><Page /></Provider>);
-  // });
   beforeEach(() => {
     store = mockStore(storeStateMock);
     wrapper = shallow(<Page {...props} store={store} />).shallow();

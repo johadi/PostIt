@@ -2,10 +2,10 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import SignupFormField from '../../../src/components/auth/SignupFormField.jsx';
+import FormField from '../../../src/components/auth/FormField.jsx';
 
-const wrapper = mount(<SignupFormField/>);
-describe('<SignupFormField/>', () => {
+const wrapper = mount(<FormField/>);
+describe('<FormField/>', () => {
   it('should check that the div with form-group class exists', () => {
     expect(wrapper.find('.form-group').length).toBe(1);
   });

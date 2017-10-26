@@ -12,6 +12,7 @@ describe('<SendNotification/>', () => {
   const postMessage = sinon.spy();
   sinon.spy(SendNotification.prototype, 'handleChange');
   sinon.spy(SendNotification.prototype, 'handleSubmit');
+  sinon.spy(SendNotification.prototype, 'handleKeyUp');
 
   const props = {
     clearMessageError,
@@ -52,7 +53,6 @@ describe('<SendNotification/>', () => {
     wrapper.find('form').simulate('submit');
     it('should display a message that message body is required', () => {
       expect(wrapper.find('h4').text()).toBe('Notification body required.');
-      // expect(wrapper.find('input').first().props().type).toBe('text');
     });
     it('Should trigger handleSubmit event handler', () => {
       expect(SendNotification.prototype.handleSubmit.called).toBe(true);
@@ -77,5 +77,19 @@ describe('<SendNotification/>', () => {
       () => {
         expect(wrapper.state(['input']).message).toBe('hello');
       });
+  });
+  describe('handleChange event', () => {
+    it('Should trigger handleChange method when textarea changes', () => {
+      wrapper.find('textarea').simulate('change');
+      expect(SendNotification.prototype.handleChange.called).toBe(true);
+    });
+    it('Should trigger handleKeyUp when typing in textarea', () => {
+      wrapper.find('textarea').simulate('keyup');
+      expect(SendNotification.prototype.handleKeyUp.called).toBe(true);
+    });
+    it('Should trigger handlechange when select option changes', () => {
+      wrapper.find('select').simulate('change');
+      expect(SendNotification.prototype.handleChange.called).toBe(true);
+    });
   });
 });

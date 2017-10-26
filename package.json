@@ -9,7 +9,7 @@
   "nyc": {
     "exclude": [
       "server/tests/seed",
-      "server/controllers/password.js",
+      "client/tests",
       "server/middlewares/verifyRecoveryLink.js"
     ]
   },
@@ -20,15 +20,15 @@
     "apidoc": "apidoc -i server/routes/ -o public/apidoc",
     "test:dev": "export NODE_ENV=test && mocha --compilers js:babel-register server/tests/*.test.js",
     "test": "export NODE_ENV=test && sequelize db:migrate && nyc --reporter=html mocha --compilers js:babel-register server/tests/*.test.js && nyc report",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc -e .jsx report --reporter=text-lcov | coveralls",
     "clean-production": "npm run remove-production && mkdir production",
     "remove-production": "rimraf ./production",
     "build:html": "npm install && node tools/buildTools/buildHtml.js",
     "heroku-prebuild": "npm run clean-production && npm run build:html",
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",
     "test:e2e": "nightwatch",
-    "test:client": "nyc --reporter=html mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\" && nyc report",
-    "test:client2": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/components/**/*.spec.js\""
+    "test:client": "nyc -e .jsx --reporter=html mocha --reporter spec client/tests/setupMocha.js \"client/tests/**/*.spec.js\" && nyc report",
+    "test:client2": "mocha --reporter spec client/tests/setupMocha.js \"client/tests/components/groups/**/*.spec.js\""
   },
   "apidoc": {
     "name": "PostIt API - Documentation",

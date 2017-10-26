@@ -305,7 +305,7 @@ describe('POST api/v1/group/:groupId/message', () => {
   it('Should return 201 and a message if message was successfully posted', (done) => {
     request(app)
       .post('/api/v1/group/99/message')
-      .send({ message: 'I love NodeJS', priority: 'critical', token })
+      .send({ message: 'I love NodeJS', priority: 'normal', token })
       .expect(201)
       .end((err, res) => {
         if (err) return done(err);
@@ -1117,7 +1117,12 @@ describe('Get api/v1/verify-token', () => {
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        assert.equal(res.body, 'user verified');
+        assert.equal(res.body.id, 5);
+        assert.equal(res.body.fullname, 'jimoh hadi');
+        assert.equal(res.body.username, 'johadi10');
+        assert.equal(res.body.email, 'johadi10@yahoo.com');
+        assert.equal(res.body.mobile, '81630412699');
+        assert.notExists(res.body.password);
         done();
       });
   });

@@ -75,8 +75,11 @@ describe('POST api/v1/user/signup', () => {
       .end((err, res) => {
         if (err) return done(err);
         const decodedToken = jwtDecode(res.body);
-        assert.equal(decodedToken.email, 'jimoh@gmail.com');
-        assert.equal(decodedToken.username, 'johadi11');
+        assert.exists(decodedToken.id);
+        assert.notExists(decodedToken.email);
+        assert.notExists(decodedToken.username);
+        // assert.equal(decodedToken.email, 'jimoh@gmail.com');
+        // assert.equal(decodedToken.username, 'johadi11');
         const password = { password: '11223344' };
         assert.notInclude(decodedToken, password);
         done();
@@ -161,7 +164,9 @@ describe('POST api/v1/user/signin', () => {
           if (err) return done(err);
           assert.exists(res.body);
           const decodedToken = jwtDecode(res.body);
-          assert.equal(decodedToken.username, 'ovenje');
+          assert.exists(decodedToken.id);
+          assert.notExists(decodedToken.email);
+          assert.notExists(decodedToken.username);
           done();
         });
     });

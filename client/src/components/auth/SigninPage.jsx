@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import signinAction from '../../actions/auth/signinAction';
-import SignInFormField from './SignInFormField.jsx';
+import FormField from './FormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
 import { IndexHeader } from '../headers';
 import { IndexFooter } from '../footers';
 
 /**
- * Signin class declaration
+ * SigninPage class declaration
  * @class SigninPage
  * @extends {React.Component}
  */
@@ -86,17 +86,21 @@ export class SigninPage extends React.Component {
                       fails={this.props.signinState.fails}
                     /> : null
                   }
-                  <SignInFormField errors={this.props.signinState.errors}
+                  <FormField errors={this.props.signinState.errors}
                              onChange={e => this.handleChange(e)}
                              value={this.state.credentials.username}
                              name="username"
-                             placeholder="Username"/>
-                  <SignInFormField type="password"
+                             placeholder="Username"
+                             auth="signin"
+                  />
+                  <FormField type="password"
                              errors={this.props.signinState.errors}
                              onChange={e => this.handleChange(e)}
                              value={this.state.credentials.password}
                              name="password"
-                             placeholder="Password"/>
+                             placeholder="Password"
+                             auth="signin"
+                  />
                   <div className="form-group lead">
                     <div className="col-lg-offset-2
                     col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { recoverPasswordAction } from '../../actions/auth/passwordAction';
-import RecoverPasswordFormField from './RecoverPasswordFormField.jsx';
+import FormField from './FormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
 import { IndexHeader } from '../headers';
 import { IndexFooter } from '../footers';
@@ -13,7 +13,7 @@ import { IndexFooter } from '../footers';
  * @class RecoverPasswordPage
  * @extends {React.Component}
  */
-class RecoverPasswordPage extends React.Component {
+export class RecoverPasswordPage extends React.Component {
   /**
    * Class constructor
    * @param {object} props
@@ -76,12 +76,14 @@ class RecoverPasswordPage extends React.Component {
                         { this.props.recoveryState.message }
                       </div>}
                     <div className="col-lg-offset-2 col-lg-8">
-                      <RecoverPasswordFormField
+                      <FormField
                         type="email"
                         errors={this.props.recoveryState.errors}
                         onChange={e => this.handleChange(e)}
-                        value={this.state.user.email} name="email"
+                        value={this.state.user.email}
+                        name="email"
                         placeholder="Enter email you used for registration"
+                        auth="any"
                       />
                     </div>
                     <div className="col-lg-offset-2 col-lg-8">

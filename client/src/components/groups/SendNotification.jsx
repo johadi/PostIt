@@ -97,7 +97,7 @@ export class SendNotification extends React.Component {
               {this.props.name} group</span></strong></p>
             {(!!postMessageErr && <h4 className="text-danger text-center">
               {postMessageErr}</h4>) ||
-            (!this.state.isValid && <h4 className="text-danger text-center">
+            (!this.state.isValid && <h4 className="msg-error text-danger text-center">
               Notification body required.</h4>)}
             <div className="form-group">
               <div className="col-lg-12">

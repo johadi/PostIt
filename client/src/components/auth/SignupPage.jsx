@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import PropTypes from 'react-proptypes';
 import { signupAction } from '../../actions/auth/signupAction';
-import SignupFormField from './SignupFormField.jsx';
+import FormField from './FormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
 import { IndexHeader } from '../headers';
 import { IndexFooter } from '../footers';
@@ -74,7 +74,7 @@ export class SignupPage extends React.Component {
           <div className="site-wrapper-inner">
             <div className="cover-container">
               <IndexHeader/>
-              <div className="inner cover cover-div">
+              <div className="col-lg-12 col-sm-offset-1 col-sm-10 inner cover cover-div">
                 <h1 className="cover-heading text-signup">
                   <strong>Sign up for PostIt,</strong>
                 </h1>
@@ -87,37 +87,50 @@ export class SignupPage extends React.Component {
                     { this.props.signupState.fails ? <ErrorComponent
                       fails={this.props.signupState.fails} /> : null }
                     <div className="col-lg-6">
-                      <SignupFormField errors={this.props.signupState.errors}
+                      <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.fullname}
-                                 name="fullname" placeholder="Full name"/>
-                      <SignupFormField errors={this.props.signupState.errors}
+                                 name="fullname"
+                                 placeholder="Full name"
+                                 auth="any"
+                      />
+                      <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.email}
                                  type="email" name="email"
-                                 placeholder="Email"/>
-                      <SignupFormField errors={this.props.signupState.errors}
+                                 placeholder="Email"
+                                 auth="any"
+                      />
+                      <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.mobile}
                                  name="mobile"
                                  placeholder="Mobile No. e.g +23480123456789"
-                                 required='required'/>
+                                 required='required'
+                                 auth="any"
+                      />
                     </div>
                     <div className="col-lg-6">
-                      <SignupFormField errors={this.props.signupState.errors}
+                      <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.username}
-                                 name="username" placeholder="Username"/>
-                      <SignupFormField errors={this.props.signupState.errors}
+                                 name="username" placeholder="Username"
+                                 auth="any"
+                      />
+                      <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.password}
                                  type="password"
-                                 name="password" placeholder="Password"/>
-                      <SignupFormField errors={this.props.signupState.errors}
+                                 name="password" placeholder="Password"
+                                 auth="any"
+                      />
+                      <FormField errors={this.props.signupState.errors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.confirmPassword}
                                  type="password" name="confirmPassword"
-                                 placeholder="Confirm password"/>
+                                 placeholder="Confirm password"
+                                 auth="any"
+                      />
                     </div>
                     <div className="col-lg-6">
                       <div className="form-group">
@@ -146,6 +159,7 @@ export class SignupPage extends React.Component {
                 </div>
 
               </div>
+              <div className="clearfix"></div>
               <IndexFooter/>
             </div>
           </div>

@@ -3,21 +3,21 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import { resetPasswordAction } from '../../actions/auth/passwordAction';
-import ResetPasswordFormField from './ResetPasswordFormField.jsx';
+import FormField from './FormField.jsx';
 import ErrorComponent from '../ErrorComponent.jsx';
 import { IndexHeader } from '../headers';
 import { IndexFooter } from '../footers';
 
 /**
  * ResetPasswordPage class declaration
- * @class ResetPasswordFormField
+ * @class ResetPasswordPage
  * @extends {React.Component}
  */
-class ResetPasswordPage extends React.Component {
+export class ResetPasswordPage extends React.Component {
   /**
    * class constructor
    * @param {object} props
-   * @memberOf ResetPasswordFormField
+   * @memberOf ResetPasswordPage
    */
   constructor(props) {
     super(props);
@@ -78,18 +78,22 @@ class ResetPasswordPage extends React.Component {
                         { this.props.resetState.resetMessage }
                       </div>}
                     <div className="col-lg-offset-2 col-lg-8">
-                      <ResetPasswordFormField type="password"
+                      <FormField type="password"
                                  errors={this.props.resetState.resetErrors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.password}
                                  name="password"
-                                 placeholder="Password"/>
-                      <ResetPasswordFormField type="password"
+                                 placeholder="Password"
+                                 auth="any"
+                      />
+                      <FormField type="password"
                                  errors={this.props.resetState.resetErrors}
                                  onChange={e => this.handleChange(e)}
                                  value={this.state.user.confirmPassword}
                                  name="confirmPassword"
-                                 placeholder="Confirm password"/>
+                                 placeholder="Confirm password"
+                                 auth="any"
+                      />
                     </div>
                     <div className="col-lg-offset-2 col-lg-8">
                       <div className="form-group lead">

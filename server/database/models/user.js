@@ -2,11 +2,54 @@ import bcrypt from 'bcrypt-nodejs';
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    fullname: { type: DataTypes.STRING, allowNull: false },
-    username: { type: DataTypes.STRING, allowNull: false, unique: true },
-    email: { type: DataTypes.STRING, allowNull: false, unique: true },
-    mobile: { type: DataTypes.STRING },
-    password: { type: DataTypes.STRING, allowNull: false }
+    fullname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Fullname can\'t be empty'
+        }
+      }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: 'This username has been used'
+      },
+      validate: {
+        notEmpty: {
+          msg: 'Username can\'t be empty'
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        args: true,
+        msg: 'User with this email already exists'
+      },
+      validate: {
+        notEmpty: {
+          msg: 'Email can\'t be empty'
+        }
+      }
+    },
+    mobile: {
+      type: DataTypes.STRING
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        min: {
+          args: 6,
+          msg: 'Password must be at least 6 characters long'
+        }
+      }
+    }
   }, {
     classMethods: {
       associate: (models) => {

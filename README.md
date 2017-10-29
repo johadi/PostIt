@@ -73,5 +73,5 @@
 * Is the appliation licensed ? 
   - Yes, the application and its contents is under MIT license which  you can viewed in the license section below
   
-  ## License
+## License
 [MIT](https://github.com/johadi10/PostIt/blob/develop/LICENSE)

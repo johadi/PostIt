@@ -55,13 +55,23 @@
 ## Want to Contribute ?
   * Fork the repository
   * Make your contributions
-  * Make sure you test your work
+  * Make sure your work is well tested
   * Create Pull request.
-
-## License
-[MIT](https://github.com/johadi10/PostIt/blob/develop/LICENSE)
 
 ## FAQ
 
 * What language is used to build this application?
-  - Ans: The application (both front-end and back-end) is entirely built with javascript
+  - The application (both front-end and back-end) is entirely built with javascript
+* Is this an open-source project?
+  Yes, Is an open-source project. You can contribute by following the contribution guide outlined above
+* Who can contribute?
+  - Anyone can contribute as long as you would follow the contribution guides outlined above
+* Is the application hosted online?
+  - Yes, the application is hosted on heroku platform. You can always visit it via this link [https://jimoh-postit.herokuapp.com](https://jimoh-postit.herokuapp.com)
+* Does the application have an API?
+  - Yes, The application has an API and the documentation can be viewed via a link in the API documentation section above
+* Is the appliation licensed ? 
+  - Yes, the application and its contents is under MIT license which  you can viewed in the license section below
+  
+  ## License
+[MIT](https://github.com/johadi10/PostIt/blob/develop/LICENSE)

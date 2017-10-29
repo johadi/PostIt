@@ -60,16 +60,16 @@
 
 ## FAQ
 
-* What language is used to build this application?
+* What language is used to build this application ?
   - The application (both front-end and back-end) is entirely built with javascript
-* Is this an open-source project?
+* Is this an open-source project ?
   - Yes, Is an open-source project. You can contribute by following the contribution guide outlined above
-* Who can contribute?
+* Who can contribute ?
   - Anyone can contribute as long as you would follow the contribution guides outlined above
-* Is the application hosted online?
+* Is the application hosted online ?
   - Yes, the application is hosted on heroku platform. You can always visit it via this link [https://jimoh-postit.herokuapp.com](https://jimoh-postit.herokuapp.com)
-* Does the application have an API?
-  - Yes, The application has an API and the documentation can be viewed via a link in the API documentation section above
+* Does the application have an API ?
+  - Yes, The application has a well documented API that can be viewed via a link in the API documentation section above
 * Is the appliation licensed ? 
   - Yes, the application and its contents is under MIT license which  you can viewed in the license section below
   

@@ -74,8 +74,8 @@
   - Yes, the application is hosted on heroku platform. You can always visit it via this link [https://jimoh-postit.herokuapp.com](https://jimoh-postit.herokuapp.com)
 * Does the application have an API ?
   - Yes, The application has a well documented API that can be viewed via a link in the API documentation section above
-* Is the appliation licensed ? 
-  - Yes, the application and its contents is under MIT license which  you can viewed in the license section below
+* Is the application licensed ? 
+  - Yes, the application and its contents is under MIT license which  you can view in the license section below
   
 ## License
 [MIT](https://github.com/johadi10/PostIt/blob/develop/LICENSE)

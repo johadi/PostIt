@@ -20,13 +20,17 @@
 
 ## Technology Stacks
 
+### Backend
 - [Node js](https://nodejs.org/en/) is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-- [Bootstrap](https://getbootstrap.com/) makes styling responsive web pages faster and easier.
 - [Express js](http://expressjs.com/) handles backend routing.
 - [Sequelize](http://docs.sequelizejs.com/) Sequelize is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations and many more.
 - [PostgreSQL](https://www.postgresql.org/) A powerful, open source object-relational database system.
-- [React](https://facebook.github.io/react/) A Javascript library for building user interfaces.
+### Frontend
+- [Bootstrap](https://getbootstrap.com/) makes styling responsive web pages faster and easier.
+- [React](https://facebook.github.io/react/) A JavaScript library for building user interfaces.
 - [Redux](http://redux.js.org/) A predictable state container for JavaScript apps.
+- [Webpack](https://webpack.js.org/) A JavaScript tool for bundling scripts, images, styles and other assets
+- [Babel](https://babeljs.io/) A JavaScript compiler for converting codes written in ES6 or JSX to ES5 that is supported by many browsers
 
 ## Installation
 

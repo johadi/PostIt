@@ -63,7 +63,7 @@
 * What language is used to build this application?
   - The application (both front-end and back-end) is entirely built with javascript
 * Is this an open-source project?
-  Yes, Is an open-source project. You can contribute by following the contribution guide outlined above
+  - Yes, Is an open-source project. You can contribute by following the contribution guide outlined above
 * Who can contribute?
   - Anyone can contribute as long as you would follow the contribution guides outlined above
 * Is the application hosted online?

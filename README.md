@@ -1,6 +1,6 @@
 # PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=develop)](https://coveralls.io/github/johadi10/PostIt?branch=develop) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=develop)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
 
-**Postit** is an Andela Application where registered users send notifications to one another via groups they belong to. It involves In-App, Email and SMS notification methods. It also includes API with well-structured documentation that can be reused by anyone. Everything about this application is detailed below:
+**Postit** is an Application where registered users send notifications to one another via groups they belong to. It involves In-App, Email and SMS notification methods. It also includes API with well-structured documentation that can be reused by anyone. Everything about this application is detailed below:
   
 ## Application Features
 

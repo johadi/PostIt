@@ -46,8 +46,8 @@
 
 ## Testing
 -   Use separate DB's for testing and development as shown in the .env.sample file
--   Run Test with `npm test`
-
+-   Run server-side test with `npm test`
+-   Run client-side test withh `npm run test:client`
 ## Limitations of the project
   * User's logged in session expires when the browser is closed.
   * Users cannot create account with same username or email if already used.

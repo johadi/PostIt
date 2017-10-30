@@ -1,44 +1,36 @@
 # PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=develop)](https://coveralls.io/github/johadi10/PostIt?branch=develop) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=develop)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
 
-**Postit** is an Andela Application where registered users send notifications to one another via groups they belong to. It involves In-App, Email and SMS notification methods. It also includes API with well-structured documentation that can be reused by anyone. Everything about this application is detailed below:
+**Postit** is an Application where registered users send notifications to one another via groups they belong to. It involves In-App, Email and SMS notification methods. It also includes API with well-structured documentation that can be reused by anyone. Everything about this application is detailed below:
   
 ## Application Features
-#### User Authentication
-Users are authenticated and validated using JWT tokens.
 
-#### What Users can do with the Application
 * Sign up for the system
 * Login with your credentials
 * Create group
-* Search and add other registered users to groups he joined
-* Send notification to groups he joined
-* Read notifications sent by other users from his notification board
-* Receive Email notifications if urgent messages are sent to groups he joined
-* Receive SMS and Email notifications if critical messages are sent to groups he joined
-* Read all notifications available in the groups he joined
-* View list of all groups he joined
-* View list of members in a particular group he joined
-* Logout of the application
+* Search and add other registered users to groups you joined
+* Send notification to groups you joined
+* Read notifications sent by other users from your notification board
+* Receive Email notifications if urgent messages are sent to groups you joined
+* Receive SMS and Email notifications if critical messages are sent to groups you joined
+* Read all notifications available in the groups you joined
+* View list of all groups you joined
+* View list of members in a particular group you joined
+* Logout of the application any time you wish
 * Reset password if forgotten
 
-## Technologies and Services
+## Technology Stack
 
-#### Written in Javascript es6 syntax and nodejs on the backend, with the following:
-
+#### Backend
 - [Node js](https://nodejs.org/en/) is a JavaScript runtime built on Chrome's V8 JavaScript engine.
-- [Bootstrap](https://getbootstrap.com/) makes styling responsive web pages faster and easier.
-- [Mocha](https://mochajs.org/)is a feature-rich JavaScript test framework running on Node.js and in the browser used for asynchronous testing.
-- [Chai](https://chaijs.com/) is a BDD / TDD assertion library for node and the browser that can be paired with any javascript testing framework.
-- [Eslint](http://eslint.org/) provides a pluggable linting utility for JavaScript.
-- [Hound CI](https://houndci.com/) comments on style violations in GitHub pull requests.
-- [Travis CI](https://travis-ci.org/) a hosted continuous integration and delivery service for GitHub projects.
 - [Express js](http://expressjs.com/) handles backend routing.
-- [Nodemon](https://nodemon.io/)monitors any changes in source codes and restarts the server.
-- [Coveralls](https://coveralls.io/) shows the parts of your code that are not covered by your test suites.
 - [Sequelize](http://docs.sequelizejs.com/) Sequelize is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations and many more.
 - [PostgreSQL](https://www.postgresql.org/) A powerful, open source object-relational database system.
-- [React](https://facebook.github.io/react/) A Javascript library for building user interfaces.
+#### Frontend
+- [Bootstrap](https://getbootstrap.com/) makes styling responsive web pages faster and easier.
+- [React](https://facebook.github.io/react/) A JavaScript library for building user interfaces.
 - [Redux](http://redux.js.org/) A predictable state container for JavaScript apps.
+- [Webpack](https://webpack.js.org/) A JavaScript tool for bundling scripts, images, styles and other assets
+- [Babel](https://babeljs.io/) A JavaScript compiler for converting codes written in ES6 or JSX to ES5 that is supported by many browsers
 
 ## Installation
 
@@ -54,26 +46,36 @@ Users are authenticated and validated using JWT tokens.
 
 ## Testing
 -   Use separate DB's for testing and development as shown in the .env.sample file
--   Run Test `npm test`
-
+-   Run server-side test with `npm test`
+-   Run client-side test withh `npm run test:client`
 ## Limitations of the project
   * User's logged in session expires when the browser is closed.
   * Users cannot create account with same username or email if already used.
   * Users cannot add themselves to other groups they don't belong. They can only be added by other registered users that are already member of the group.
   
 ## API Documentation Links
-- Access the API Documentation at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com/apidoc/)
-- Access API at [https://jimoh-postit.herokuapp.com/api/](https://jimoh-postit.herokuapp.com/api)
+- Access the API Documentation at [https://jimoh-postit.herokuapp.com/api-docs/](https://jimoh-postit.herokuapp.com/apidoc/)
 
 ## Want to Contribute ?
   * Fork the repository
   * Make your contributions
-  * Make sure you test your work
-  * Create Pull request.
- 
-## Troubleshooting and FAQ
+  * Make sure your work is well tested
+  * Create Pull request against the **develop** branch.
 
-[https://github.com/johadi10/postit/issues](https://github.com/johadi10/postit/issues)
+## FAQ
 
+* What language is used to build this application ?
+  - The application (both front-end and back-end) is entirely built with javascript
+* Is this an open-source project ?
+  - Yes, Is an open-source project.
+* Who can contribute ?
+  - Anyone can contribute as long as you would follow the contribution guides outlined above
+* Is the application hosted online ?
+  - Yes, the application is hosted on heroku platform. You can always visit it via this link [https://jimoh-postit.herokuapp.com](https://jimoh-postit.herokuapp.com)
+* Does the application have an API ?
+  - Yes, The application has a well documented API that can be viewed via a link in the API documentation section above
+* Is the application licensed ? 
+  - Yes, the application and its contents is under MIT license which  you can view in the license section below
+  
 ## License
-[https://github.com/johadi10/PostIt/blob/develop/LICENSE](https://github.com/johadi10/PostIt/blob/develop/LICENSE)
+[MIT](https://github.com/johadi10/PostIt/blob/develop/LICENSE)

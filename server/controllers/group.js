@@ -15,6 +15,9 @@ export default {
       if (!req.body.name) {
         return handleError('Group name required', res);
       }
+      if (req.body.name.trim().length > 254) {
+        return handleError('Invalid group name. It must be at most 254 characters long', res);
+      }
       // to save all groups name in lowercase
       const name = (req.body.name).toLowerCase();
       const creatorId = req.user.id;

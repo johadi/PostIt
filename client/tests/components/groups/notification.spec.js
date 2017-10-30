@@ -38,7 +38,4 @@ describe('<Notification/>', () => {
   it('Should check that message body is displayed', () => {
     expect(messageDiv.find('p').at(2).text()).toEqual('lord of the ring');
   });
-  // it('Should check that message sender is displayed', () => {
-  //   expect(messageDiv.find().text()).toBe('Total groups you joined: 0');
-  // });
 });

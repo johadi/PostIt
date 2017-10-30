@@ -3,9 +3,8 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import Page from '../../../src/components/groups/Page.jsx';
 
 const middleware = [thunk];

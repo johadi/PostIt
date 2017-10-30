@@ -4,8 +4,6 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { SignupPage } from '../../../src/components/auth/SignupPage.jsx';
-import IndexHeader from '../../../src/components/headers/IndexHeader.jsx';
-
 
 describe('<SignupPage/>', () => {
   const signupAction = sinon.spy(); // create a spy function for signupAction

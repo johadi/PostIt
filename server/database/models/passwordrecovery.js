@@ -2,13 +2,13 @@ export default (sequelize, DataTypes) => {
   const PasswordRecovery = sequelize.define('PasswordRecovery', {
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notEmpty: {
+          msg: 'email can\'t be empty'
+        },
         isEmail: {
           msg: 'This email is invalid'
-        },
-        max: {
-          args: 254,
-          msg: 'This email seems invalid because is longer than 254 characters'
         }
       }
     },

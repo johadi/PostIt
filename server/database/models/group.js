@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: {
         args: true,
-        msg: 'This group already exists'
+        msg: 'A group with this name already exists'
       }
     },
     creatorId: {
@@ -23,7 +23,8 @@ export default (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Group.belongsToMany(models.User, { through: 'UserGroup', foreignKey: 'groupId' });
+        Group.belongsToMany(models.User,
+          { through: 'UserGroup', foreignKey: 'groupId' });
         Group.hasMany(models.Message, { foreignKey: 'groupId' });
       }
     }

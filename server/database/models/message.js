@@ -50,8 +50,10 @@ export default (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Message.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
-        Message.belongsTo(models.Group, { foreignKey: 'groupId', onDelete: 'CASCADE'  });
+        Message.belongsTo(models.User,
+          { foreignKey: 'userId', onDelete: 'CASCADE' });
+        Message.belongsTo(models.Group,
+          { foreignKey: 'groupId', onDelete: 'CASCADE' });
       }
     }
   });

@@ -22,8 +22,10 @@ export default (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        UserGroup.belongsTo(models.Group, { foreignKey: 'groupId', onDelete: 'CASCADE' });
-        UserGroup.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+        UserGroup.belongsTo(models.Group,
+          { foreignKey: 'groupId', onDelete: 'CASCADE' });
+        UserGroup.belongsTo(models.User,
+          { foreignKey: 'userId', onDelete: 'CASCADE' });
       }
     },
     timestamps: false

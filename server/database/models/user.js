@@ -29,11 +29,14 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: {
         args: true,
-        msg: 'User with this email already exists'
+        msg: 'A user with this email already exists'
       },
       validate: {
         notEmpty: {
           msg: 'Email can\'t be empty'
+        },
+        isEmail: {
+          msg: 'This email is invalid'
         }
       }
     },
@@ -53,7 +56,8 @@ export default (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        User.belongsToMany(models.Group, { through: 'UserGroup', foreignKey: 'userId' });
+        User.belongsToMany(models.Group,
+          { through: 'UserGroup', foreignKey: 'userId' });
         User.hasMany(models.Message, { foreignKey: 'userId' });
       },
       signupRules: () => ({

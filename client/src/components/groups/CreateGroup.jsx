@@ -41,6 +41,15 @@ export class CreateGroup extends React.Component {
    * @return {XML} JSX
    */
   render() {
+    const createGroupError = this.props.groupState.error ?
+      <div
+        className='alert alert-danger alert-dismissible text-center'>
+        <button type="button" className="close"
+                data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+        {this.props.groupState.error}
+      </div> : null;
     return (
         <div className="col-sm-offset-2 col-sm-8 well well-lg"
              id="create-group-div">
@@ -56,16 +65,7 @@ export class CreateGroup extends React.Component {
                   <span aria-hidden="true">x</span>
                 </button>
                 Group name required
-              </div> :
-                (this.props.groupState.error ?
-                  <div
-                    className='alert alert-danger alert-dismissible text-center'>
-                    <button type="button" className="close"
-                            data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">x</span>
-                    </button>
-                    {this.props.groupState.error}
-                  </div> : null)
+              </div> : createGroupError
             }
             <div className="form-group">
               <div className="col-lg-12">

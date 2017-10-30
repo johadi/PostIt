@@ -6,7 +6,7 @@ import React from 'react';
  * @param {object} props
  * @return {XML} JSX
  */
-const MainFooter = props =>
+const MainFooter = () =>
   <div className="row footer-div">
       <footer className="text-center text-display">
         <p>Copyright &copy; Johadi PostIt 2017</p>

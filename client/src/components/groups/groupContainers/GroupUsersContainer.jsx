@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getGroupUsers } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
+import NullComponent from '../NullComponent.jsx';
 import GroupUsers from '../GroupUsers.jsx';
 import Page from '../Page.jsx';
 
@@ -31,8 +31,9 @@ class GroupUsersContainer extends React.Component {
       <Page groupId={ this.props.params.groupId}>
         <GroupUsers
           groupUsers={groupUsersStore}
-          groupId={this.props.params.groupId} />
-      </Page> : <NullPage/>;
+          groupId={this.props.params.groupId}
+        />
+      </Page> : <NullComponent/>;
   }
 }
 GroupUsersContainer.propTypes = {

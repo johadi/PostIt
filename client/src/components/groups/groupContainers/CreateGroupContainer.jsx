@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import NullPage from '../NullPage.jsx';
+import NullComponent from '../NullComponent.jsx';
 import CreateGroup from '../CreateGroup.jsx';
 import Page from '../Page.jsx';
 
@@ -19,7 +19,7 @@ class CreateGroupContainer extends React.Component {
     return this.props.tokenStatus.success ?
       <Page>
         <CreateGroup/>
-      </Page> : <NullPage/>;
+      </Page> : <NullComponent/>;
   }
 }
 CreateGroupContainer.propTypes = {

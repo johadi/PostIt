@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getBoardMessages } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
+import NullComponent from '../NullComponent.jsx';
 import MessageBoard from '../MessageBoard.jsx';
 import Page from '../Page.jsx';
 
@@ -30,7 +30,7 @@ class DashboardContainer extends React.Component {
     return this.props.tokenStatus.success && boardMessagesStore ?
       <Page>
         <MessageBoard boardMessages={boardMessagesStore}/>
-      </Page> : <NullPage/>;
+      </Page> : <NullComponent/>;
   }
 }
 DashboardContainer.propTypes = {

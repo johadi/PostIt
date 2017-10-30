@@ -13,6 +13,7 @@ export default class NotFoundPage extends React.Component {
    * @return {void}
    */
   handleClick(e) {
+    e.preventDefault();
     browserHistory.push('/');
   }
   /**

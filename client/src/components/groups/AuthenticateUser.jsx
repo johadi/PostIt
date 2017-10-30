@@ -3,7 +3,7 @@ import PropTypes from 'react-proptypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import verifyToken from '../../actions/verifyTokenAction';
-import NullPage from './NullPage.jsx';
+import NullComponent from './NullComponent.jsx';
 
 /**
  * AuthenticateUser class declaration
@@ -25,7 +25,7 @@ class AuthenticateUser extends React.Component {
    */
   render() {
     return this.props.tokenStatus.success ?
-      this.props.children : <NullPage/>;
+      this.props.children : <NullComponent/>;
   }
 }
 AuthenticateUser.propTypes = {

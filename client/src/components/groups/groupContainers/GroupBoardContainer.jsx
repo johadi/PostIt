@@ -6,7 +6,7 @@ import {
   getGroupUsers,
   getGroupMessages,
   clearGroupMessagesError } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
+import NullComponent from '../NullComponent.jsx';
 import GroupBoard from '../GroupBoard.jsx';
 import Page from '../Page.jsx';
 
@@ -34,8 +34,9 @@ class GroupBoardContainer extends React.Component {
       <Page groupId={this.props.params.groupId}>
         <GroupBoard
           name={groupUsersStore.name}
-          groupId={this.props.params.groupId}/>
-      </Page> : <NullPage/>;
+          groupId={this.props.params.groupId}
+        />
+      </Page> : <NullComponent/>;
   }
 }
 GroupBoardContainer.propTypes = {

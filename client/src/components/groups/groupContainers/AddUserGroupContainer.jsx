@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getGroupUsers,
   addUserToGroup,
   clearAddUserError } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
+import NullComponent from '../NullComponent.jsx';
 import AddUserToGroup from '../AddUserToGroup.jsx';
 import Page from '../Page.jsx';
 
@@ -50,7 +50,7 @@ class AddUserGroupContainer extends React.Component {
         name={groupUsersStore.name}
         groupId={this.props.params.groupId}
       />
-    </Page> : <NullPage/>;
+    </Page> : <NullComponent/>;
   }
 }
 AddUserGroupContainer.propTypes = {

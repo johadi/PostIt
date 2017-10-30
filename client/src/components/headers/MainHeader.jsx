@@ -7,7 +7,7 @@ import { Link, browserHistory } from 'react-router';
  * @param {object} props
  * @return {XML} JSX
  */
-const MainHeader = (props) => {
+const MainHeader = () => {
   const logout = () => {
     window.sessionStorage.removeItem('token');
     browserHistory.push('/');

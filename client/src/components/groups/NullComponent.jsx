@@ -5,5 +5,5 @@ import React from 'react';
  * @param {object} props
  * @return {*} any
  */
-const NullPage = props => null;
-export default NullPage;
+const NullComponent = () => null;
+export default NullComponent;

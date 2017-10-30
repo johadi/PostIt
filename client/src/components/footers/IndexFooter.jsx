@@ -6,7 +6,7 @@ import React from 'react';
  * @param {object} props
  * @return {XML} JSX
  */
-const IndexFooter = props =>
+const IndexFooter = () =>
   <div className="mastfoot">
     <div className="inner">
       <p>Copyright &copy; Johadi PostIt 2017</p>

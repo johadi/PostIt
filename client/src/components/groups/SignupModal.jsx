@@ -6,7 +6,7 @@ import React from 'react';
  * @param {object} props
  * @return {XML} JSX
  */
-const SignupModal = props => (
+const SignupModal = () => (
       <div className="modal fade" id="myModal" tabIndex="-1"
            role="dialog" aria-labelledby="myModalLabel">
         <div className="modal-dialog" role="document">

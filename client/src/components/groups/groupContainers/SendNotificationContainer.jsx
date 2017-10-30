@@ -5,7 +5,7 @@ import PropTypes from 'react-proptypes';
 import { getGroupUsers } from '../../../actions/group/groupActions';
 import Page from '../Page.jsx';
 
-import NullPage from '../NullPage.jsx';
+import NullComponent from '../NullComponent.jsx';
 import SendNotification from '../SendNotification.jsx';
 
 /**
@@ -34,7 +34,7 @@ class SendNotificationContainer extends React.Component {
           name={groupUsersStore.name}
           groupId={this.props.params.groupId}
         />
-      </Page> : <NullPage/>;
+      </Page> : <NullComponent/>;
   }
 }
 SendNotificationContainer.propTypes = {

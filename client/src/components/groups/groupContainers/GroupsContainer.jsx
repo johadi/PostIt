@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getUserGroups } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
+import NullComponent from '../NullComponent.jsx';
 import AllGroups from '../AllGroups.jsx';
 import Page from '../Page.jsx';
 
@@ -30,7 +30,7 @@ class GroupsContainer extends React.Component {
     return this.props.tokenStatus.success && userGroupsStore ?
       <Page>
       <AllGroups userGroups={userGroupsStore}/>
-      </Page> : <NullPage/>;
+      </Page> : <NullComponent/>;
   }
 }
 GroupsContainer.propTypes = {

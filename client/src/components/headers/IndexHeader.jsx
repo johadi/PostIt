@@ -7,7 +7,7 @@ import { IndexLink, Link } from 'react-router';
  * @param {object} props
  * @return {XML} JSX
  */
-const IndexHeader = props => (
+const IndexHeader = () => (
     <div className="masthead clearfix">
       <div className="inner">
         <h2 className="masthead-brand">PostIt</h2>

@@ -3,13 +3,13 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { GroupNotificationBoard } from
-  '../../../src/components/groups/GroupNotificationBoard.jsx';
+import { GroupBoard } from
+  '../../../src/components/groups/GroupBoard.jsx';
 
-describe('<GroupNotificationBoard/>', () => {
+describe('<GroupBoard/>', () => {
   const getGroupUsers = sinon.spy();
   const getGroupMessages = sinon.spy();
-  sinon.spy(GroupNotificationBoard.prototype, 'handleSelect');
+  sinon.spy(GroupBoard.prototype, 'handleSelect');
   const props = {
     getGroupMessages,
     getGroupUsers,
@@ -23,7 +23,7 @@ describe('<GroupNotificationBoard/>', () => {
     },
     name: 'johadi'
   };
-  const wrapper = mount(<GroupNotificationBoard{ ...props} />);
+  const wrapper = mount(<GroupBoard{ ...props} />);
   describe('No Messages', () => {
     before(() => {
       const groupState = {

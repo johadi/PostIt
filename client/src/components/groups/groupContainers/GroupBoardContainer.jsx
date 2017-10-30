@@ -7,7 +7,7 @@ import {
   getGroupMessages,
   clearGroupMessagesError } from '../../../actions/group/groupActions';
 import NullPage from '../NullPage.jsx';
-import GroupNotificationBoard from '../GroupNotificationBoard.jsx';
+import GroupBoard from '../GroupBoard.jsx';
 import Page from '../Page.jsx';
 
 /**
@@ -32,7 +32,7 @@ class GroupBoardContainer extends React.Component {
     const { groupUsersStore, groupMessages } = this.props.groupState;
     return this.props.tokenStatus.success && groupMessages && groupUsersStore ?
       <Page groupId={this.props.params.groupId}>
-        <GroupNotificationBoard
+        <GroupBoard
           name={groupUsersStore.name}
           groupId={this.props.params.groupId}/>
       </Page> : <NullPage/>;

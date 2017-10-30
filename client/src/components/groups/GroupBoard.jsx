@@ -12,14 +12,14 @@ import {
   clearGroupMessagesError } from '../../actions/group/groupActions';
 
 /**
- * GroupNotificationBoard class declaration
- * @class GroupNotificationBoard
+ * GroupBoard class declaration
+ * @class GroupBoard
  * @extends {React.Component}
  */
-export class GroupNotificationBoard extends React.Component {
+export class GroupBoard extends React.Component {
   /**
    * @param {object} props
-   * @memberOf GroupNotificationBoard
+   * @memberOf GroupBoard
    */
   constructor(props) {
     super(props);
@@ -131,7 +131,7 @@ export class GroupNotificationBoard extends React.Component {
     );
   }
 }
-GroupNotificationBoard.propTypes = {
+GroupBoard.propTypes = {
   getGroupMessages: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
   groupState: PropTypes.object.isRequired,
@@ -144,4 +144,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   getGroupMessages,
   clearGroupMessagesError }, dispatch);
 export default connect(mapStateToProps,
-  mapDispatchToProps)(GroupNotificationBoard);
+  mapDispatchToProps)(GroupBoard);

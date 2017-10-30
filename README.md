@@ -60,7 +60,7 @@
   * Fork the repository
   * Make your contributions
   * Make sure your work is well tested
-  * Create Pull request.
+  * Create Pull request against the **develop** branch.
 
 ## FAQ
 

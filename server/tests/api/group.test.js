@@ -2,9 +2,9 @@
 import dotenv from 'dotenv';
 import request from 'supertest';
 import chai from 'chai';
-import app from './../../app';
-import seeder from './seed/group_seed';
-import db from './../database/models';
+import app from '../../../app';
+import seeder from '../seed/group_seed';
+import db from '../../database/models/index';
 
 dotenv.config();
 const assert = chai.assert;

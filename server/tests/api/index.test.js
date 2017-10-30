@@ -1,7 +1,7 @@
 // index.test.js
 import request from 'supertest';
 import dotenv from 'dotenv';
-import app from './../../app';
+import app from '../../../app';
 
 dotenv.config();
 // Test for API home route and invalid routes

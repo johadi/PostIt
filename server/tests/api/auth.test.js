@@ -3,9 +3,9 @@ import request from 'supertest';
 import chai from 'chai';
 import jwtDecode from 'jwt-decode';
 import dotenv from 'dotenv';
-import app from './../../app';
-import seeder from './seed/auth_seed';
-import db from './../database/models';
+import app from '../../../app';
+import seeder from '../seed/auth_seed';
+import db from '../../database/models/index';
 
 dotenv.config();
 const assert = chai.assert;

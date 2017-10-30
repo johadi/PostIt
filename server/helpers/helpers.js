@@ -47,6 +47,7 @@ const transporter = nodemailer.createTransport({
 });
 /**
  * Helper function that handles send mail
+ * @function sendMail
  * @param {string} from
  * @param {string|array} to
  * @param {string} subject
@@ -68,6 +69,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 /**
  * Helper function that handles send SMS
+ * @function sendSMS
  * @param {string} from
  * @param {string} to
  * @param {string} body

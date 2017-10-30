@@ -15,12 +15,6 @@ export default (sequelize, DataTypes) => {
     hashed: {
       type: DataTypes.STRING,
     }
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // associations can be defined here
-      }
-    }
   });
   return PasswordRecovery;
 };

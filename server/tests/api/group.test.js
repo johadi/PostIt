@@ -406,7 +406,7 @@ describe('Get api/v1/group/groupId/message', () => {
         if (err) return done(err);
         assert.exists(res.body.pages); // pages to display in front end
         assert.exists(res.body.count); // total count of messages
-        assert.exists(res.body.rows); // rows is the array of messages as returned by Sequelize
+        assert.exists(res.body.rows); // array of messages as returned by Sequelize
         done();
       });
   });

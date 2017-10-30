@@ -8,7 +8,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  resetGroupDb: (groupData, done) => {
+  resetGroupDb(groupData, done) {
     db.Group.destroy({ truncate: true })
       .then(() => db.Group.create(groupData))
       .then(() => done())
@@ -20,7 +20,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  emptyGroupDb: (done) => {
+  emptyGroupDb(done) {
     db.Group.destroy({ truncate: true })
       .then(() => done());
   },
@@ -39,7 +39,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  resetMessageDb: (messageData, done) => {
+  resetMessageDb(messageData, done) {
     db.Message.destroy({ truncate: true })
       .then(() => db.Message.create(messageData))
       .then(() => done())
@@ -51,7 +51,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  emptyMessageDb: (done) => {
+  emptyMessageDb(done) {
     db.Message.destroy({ truncate: true })
       .then(() => done());
   },
@@ -69,7 +69,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  resetUserDb: (userData, done) => {
+  resetUserDb(userData, done) {
     db.User.destroy({ truncate: true })
       .then(() => db.User.create(userData))
       .then(() => done())
@@ -81,7 +81,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  emptyUserDb: (done) => {
+  emptyUserDb(done) {
     db.User.destroy({ truncate: true })
       .then(() => done());
   },
@@ -106,7 +106,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  resetPasswordRecoveryDb: (passwordRecoveryData, done) => {
+  resetPasswordRecoveryDb(passwordRecoveryData, done) {
     db.PasswordRecovery.destroy({ truncate: true })
       .then(() => db.PasswordRecovery.create(passwordRecoveryData))
       .then(() => done())
@@ -118,7 +118,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  emptyPasswordRecoveryDb: (done) => {
+  emptyPasswordRecoveryDb(done) {
     db.PasswordRecovery.destroy({ truncate: true })
       .then(() => done());
   },
@@ -136,7 +136,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  resetUserAddDb: (addData, done) => {
+  resetUserAddDb(addData, done) {
     db.UserGroupAdd.destroy({ truncate: true })
       .then(() => db.UserGroupAdd.create(addData))
       .then(() => done())
@@ -148,7 +148,7 @@ const modelSeed = {
    * @param {function} done
    * @return {*} any
    */
-  emptyUserAddDb: (done) => {
+  emptyUserAddDb(done) {
     db.UserGroupAdd.destroy({ truncate: true })
       .then(() => done());
   },

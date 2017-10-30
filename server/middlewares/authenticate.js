@@ -6,6 +6,7 @@ import db from '../database/models';
 dotenv.config();
 /**
  * Authenticate middleware function
+ * @function authenticate
  * @param {object} req - request parameter
  * @param {object} res - response parameter
  * @param {function} next - next function parameter

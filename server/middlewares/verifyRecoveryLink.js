@@ -5,6 +5,7 @@ import db from '../database/models';
 dotenv.config();
 /**
  * Verify recovery link middleware function
+ * @function verifyRecoveryLink
  * @param {object} req - request parameter
  * @param {object} res - request parameter
  * @param {function} next - next function parameter

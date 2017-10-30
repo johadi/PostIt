@@ -30,6 +30,7 @@ webpack(webpackConfig).run((err, stats) => {
     jsonStats.warnings.map(warning => logger.warn(warning.yellow));
   }
   logger.info(`Webpack stats: ${stats}`);
-  logger.info('Your app has been compiled in production mode and written to /production.'.green);
+  logger.info('Your app has been compiled in ' +
+    'production mode and written to /production.'.green);
   return 0;
 });

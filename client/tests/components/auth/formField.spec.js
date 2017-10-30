@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import FormField from '../../../src/components/auth/FormField.jsx';
+import FormField from '../../../src/components/auth/FormField';
 
 const wrapper = mount(<FormField/>);
 describe('<FormField/>', () => {

@@ -5,5 +5,5 @@ import React from 'react';
  * @param {object} props
  * @return {*} any
  */
-const NullComponent = () => null;
+const NullComponent = props => null;
 export default NullComponent;

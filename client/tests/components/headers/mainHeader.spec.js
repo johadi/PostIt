@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import MainHeader from '../../../src/components/headers/MainHeader.jsx';
+import MainHeader from '../../../src/components/headers/MainHeader';
 
 const wrapper = mount(<MainHeader/>);
 describe('<MainHeader/>', () => {

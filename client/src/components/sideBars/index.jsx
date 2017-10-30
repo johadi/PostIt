@@ -1,5 +1,5 @@
-import GroupSideBar from './GroupSideBar.jsx';
-import MainSideBar from './MainSideBar.jsx';
+import GroupSideBar from './GroupSideBar';
+import MainSideBar from './MainSideBar';
 
 export {
   GroupSideBar,

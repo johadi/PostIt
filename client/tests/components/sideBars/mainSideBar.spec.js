@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { mount } from 'enzyme';
-import MainSideBar from '../../../src/components/sideBars/MainSideBar.jsx';
+import MainSideBar from '../../../src/components/sideBars/MainSideBar';
 
 const middleware = [thunk];
 const mockStore = configureStore(middleware);

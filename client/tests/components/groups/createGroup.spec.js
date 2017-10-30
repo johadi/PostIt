@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { CreateGroup } from '../../../src/components/groups/CreateGroup.jsx';
+import { CreateGroup } from '../../../src/components/groups/CreateGroup';
 
 
 describe('<CreateGroup/>', () => {

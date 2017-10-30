@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import UserDetail from '../groups/UserDetail.jsx';
+import UserDetail from '../groups/UserDetail';
 
 /**
  * MainSideBar class declaration

@@ -1,6 +1,6 @@
-import IndexHeader from './IndexHeader.jsx';
-import MainHeader from './MainHeader.jsx';
-import NotFoundHeader from './NotFoundHeader.jsx';
+import IndexHeader from './IndexHeader';
+import MainHeader from './MainHeader';
+import NotFoundHeader from './NotFoundHeader';
 
 export {
   IndexHeader,

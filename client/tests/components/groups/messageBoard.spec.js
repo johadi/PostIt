@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { MessageBoard } from '../../../src/components/groups/MessageBoard.jsx';
+import { MessageBoard } from '../../../src/components/groups/MessageBoard';
 
 describe('<MessageBoard/>', () => {
   const getAllUserGroups = sinon.spy();

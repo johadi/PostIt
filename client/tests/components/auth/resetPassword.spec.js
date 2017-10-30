@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { ResetPasswordPage } from '../../../src/components/auth/ResetPasswordPage.jsx';
+import { ResetPasswordPage } from '../../../src/components/auth/ResetPasswordPage';
 
 describe('<ResetPasswordPage/>', () => {
   // create a spy function for signupAction

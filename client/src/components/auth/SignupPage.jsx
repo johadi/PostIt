@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import PropTypes from 'react-proptypes';
 import { signupAction } from '../../actions/auth/signupAction';
-import FormField from './FormField.jsx';
-import ErrorComponent from '../ErrorComponent.jsx';
+import FormField from './FormField';
+import ErrorComponent from '../ErrorComponent';
 import { IndexHeader } from '../headers';
 import { IndexFooter } from '../footers';
 

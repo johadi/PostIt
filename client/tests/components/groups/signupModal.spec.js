@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import SignupModal from '../../../src/components/groups/SignupModal.jsx';
+import SignupModal from '../../../src/components/groups/SignupModal';
 
 const wrapper = mount(<SignupModal/>);
 describe('<SignupModal/>', () => {

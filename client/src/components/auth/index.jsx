@@ -1,7 +1,7 @@
-import SigninPage from './SigninPage.jsx';
-import SignupPage from './SignupPage.jsx';
-import RecoverPasswordPage from './RecoverPasswordPage.jsx';
-import ResetPasswordPage from './ResetPasswordPage.jsx';
+import SigninPage from './SigninPage';
+import SignupPage from './SignupPage';
+import RecoverPasswordPage from './RecoverPasswordPage';
+import ResetPasswordPage from './ResetPasswordPage';
 
 export {
   SigninPage,

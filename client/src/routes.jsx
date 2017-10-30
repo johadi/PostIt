@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import App from './App.jsx';
+import App from './App';
 import {
   SignupPage, SigninPage, RecoverPasswordPage, ResetPasswordPage }
   from './components/auth';
@@ -8,8 +8,8 @@ import { AuthenticateUser, DashboardContainer, NotificationViewContainer,
   SendNotificationContainer, GroupBoardContainer, CreateGroupContainer,
   AddUserGroupContainer, GroupsContainer, GroupUsersContainer }
   from './components/groups/groupContainers';
-import IndexPage from './components/IndexPage.jsx';
-import NotFoundPage from './components/NotFoundPage.jsx';
+import IndexPage from './components/IndexPage';
+import NotFoundPage from './components/NotFoundPage';
 
 export default (
     <Route path='/' component={App}>

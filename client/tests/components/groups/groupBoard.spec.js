@@ -4,7 +4,7 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { GroupBoard } from
-  '../../../src/components/groups/GroupBoard.jsx';
+  '../../../src/components/groups/GroupBoard';
 
 describe('<GroupBoard/>', () => {
   const getGroupUsers = sinon.spy();

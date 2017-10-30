@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import MainFooter from '../../../src/components/footers/MainFooter.jsx';
+import MainFooter from '../../../src/components/footers/MainFooter';
 
 const wrapper = mount(<MainFooter/>);
 describe('<MainFooter/>', () => {

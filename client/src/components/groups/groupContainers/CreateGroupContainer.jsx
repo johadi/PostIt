@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import NullComponent from '../NullComponent.jsx';
-import CreateGroup from '../CreateGroup.jsx';
-import Page from '../Page.jsx';
+import NullComponent from '../NullComponent';
+import CreateGroup from '../CreateGroup';
+import Page from '../Page';
 
 /**
  * CreateGroupContainer class declaration

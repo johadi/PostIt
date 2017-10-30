@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { mount } from 'enzyme';
-import GroupSideBar from '../../../src/components/sideBars/GroupSideBar.jsx';
+import GroupSideBar from '../../../src/components/sideBars/GroupSideBar';
 
 const middleware = [thunk];
 const mockStore = configureStore(middleware);

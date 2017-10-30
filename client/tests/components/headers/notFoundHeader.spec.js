@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import NotFoundHeader from '../../../src/components/headers/NotFoundHeader.jsx';
+import NotFoundHeader from '../../../src/components/headers/NotFoundHeader';
 
 const wrapper = mount(<NotFoundHeader/>);
 describe('<NotFoundHeader/>', () => {

@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { SignupPage } from '../../../src/components/auth/SignupPage.jsx';
+import { SignupPage } from '../../../src/components/auth/SignupPage';
 
 describe('<SignupPage/>', () => {
   const signupAction = sinon.spy(); // create a spy function for signupAction

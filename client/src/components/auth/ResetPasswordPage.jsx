@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import { resetPasswordAction } from '../../actions/auth/passwordAction';
-import FormField from './FormField.jsx';
-import ErrorComponent from '../ErrorComponent.jsx';
+import FormField from './FormField';
+import ErrorComponent from '../ErrorComponent';
 import { IndexHeader } from '../headers';
 import { IndexFooter } from '../footers';
 

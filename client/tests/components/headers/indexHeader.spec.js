@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import IndexHeader from '../../../src/components/headers/IndexHeader.jsx';
+import IndexHeader from '../../../src/components/headers/IndexHeader';
 
 const wrapper = mount(<IndexHeader/>);
 describe('<IndexHeader/>', () => {

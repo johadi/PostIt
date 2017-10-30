@@ -6,9 +6,9 @@ import {
   getGroupUsers,
   getGroupMessages,
   clearGroupMessagesError } from '../../../actions/group/groupActions';
-import NullComponent from '../NullComponent.jsx';
-import GroupBoard from '../GroupBoard.jsx';
-import Page from '../Page.jsx';
+import NullComponent from '../NullComponent';
+import GroupBoard from '../GroupBoard';
+import Page from '../Page';
 
 /**
  * GroupBoardContainer class declaration

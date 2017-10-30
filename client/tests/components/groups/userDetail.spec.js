@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import UserDetail from '../../../src/components/groups/UserDetail.jsx';
+import UserDetail from '../../../src/components/groups/UserDetail';
 
 const props = {
   userDetail: {

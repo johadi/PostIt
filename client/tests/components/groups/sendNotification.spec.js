@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { mount } from 'enzyme';
 import {
   SendNotification
-} from '../../../src/components/groups/SendNotification.jsx';
+} from '../../../src/components/groups/SendNotification';
 
 describe('<SendNotification/>', () => {
   const clearMessageError = sinon.spy();

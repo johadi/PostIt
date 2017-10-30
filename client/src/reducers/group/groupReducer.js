@@ -158,13 +158,6 @@ const groupReducer = (state = initialState, action) => {
         groupUsersError: action.payload
       };
       break;
-    case actionTypes.GROUP_USERS_PAGINATED_CLEAR:
-      state = {
-        ...state,
-        groupUsersStore: null,
-        groupUsersError: null
-      };
-      break;
     case actionTypes.ALL_USER_GROUPS_SUCCESS:
       state = {
         ...state,
@@ -198,13 +191,6 @@ const groupReducer = (state = initialState, action) => {
         ...state,
         userGroupsStore: null,
         userGroupsError: action.payload
-      };
-      break;
-    case actionTypes.USER_GROUPS_PAGINATED_CLEAR:
-      state = {
-        ...state,
-        userGroupsStore: null,
-        userGroupsError: null
       };
       break;
     case actionTypes.BOARD_MESSAGES_SUCCESS:

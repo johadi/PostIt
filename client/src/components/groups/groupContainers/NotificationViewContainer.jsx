@@ -6,9 +6,9 @@ import {
   getGroupUsers,
   viewMessage,
   clearViewMessageError } from '../../../actions/group/groupActions';
-import NullComponent from '../NullComponent.jsx';
-import Page from '../Page.jsx';
-import Notification from '../Notification.jsx';
+import NullComponent from '../NullComponent';
+import Page from '../Page';
+import Notification from '../Notification';
 
 /**
  * NotificationViewContainer class declaration

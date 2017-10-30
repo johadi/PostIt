@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
-import IndexFooter from '../../../src/components/footers/IndexFooter.jsx';
+import IndexFooter from '../../../src/components/footers/IndexFooter';
 
 const wrapper = mount(<IndexFooter/>);
 describe('<IndexFooter/>', () => {

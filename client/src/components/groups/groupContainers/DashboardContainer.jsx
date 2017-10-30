@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getBoardMessages } from '../../../actions/group/groupActions';
-import NullComponent from '../NullComponent.jsx';
-import MessageBoard from '../MessageBoard.jsx';
-import Page from '../Page.jsx';
+import NullComponent from '../NullComponent';
+import MessageBoard from '../MessageBoard';
+import Page from '../Page';
 
 /**
  * DashboardContainer class declaration

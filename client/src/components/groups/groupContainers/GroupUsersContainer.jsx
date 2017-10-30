@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getGroupUsers } from '../../../actions/group/groupActions';
-import NullComponent from '../NullComponent.jsx';
-import GroupUsers from '../GroupUsers.jsx';
-import Page from '../Page.jsx';
+import NullComponent from '../NullComponent';
+import GroupUsers from '../GroupUsers';
+import Page from '../Page';
 
 /**
  * GroupUsersContainer class declaration

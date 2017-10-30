@@ -216,14 +216,6 @@ describe('groupReducer', () => {
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.groupUsersError).toEqual(groupActionDispatch.payload);
     });
-    it('should clear values for groupUsersError when Type ' +
-      'is GROUP_USERS_PAGINATED_CLEAR', () => {
-      const groupActionDispatch = {
-        type: actionTypes.GROUP_USERS_PAGINATED_CLEAR,
-      };
-      const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.groupUsersError).toEqual(null);
-    });
   });
   describe('GET GROUPS OF A USER', () => {
     it('should set value for groupsUserBelongs and set groupsUserBelongsErr ' +
@@ -277,14 +269,6 @@ describe('groupReducer', () => {
       };
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.userGroupsError).toEqual(groupActionDispatch.payload);
-    });
-    it('should clear values for userGroupsError when Type ' +
-      'is USER_GROUPS_PAGINATED_CLEAR', () => {
-      const groupActionDispatch = {
-        type: actionTypes.USER_GROUPS_PAGINATED_CLEAR,
-      };
-      const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.userGroupsError).toEqual(null);
     });
   });
   describe('GET MESSAGES FOR MESSAGE BOARD', () => {

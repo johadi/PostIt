@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { cancelModal } from '../../actions/auth/signupAction';
-import SignupModal from './SignupModal.jsx';
+import SignupModal from './SignupModal';
 import { MainHeader } from '../headers';
 import { MainFooter } from '../footers';
 import { GroupSideBar, MainSideBar } from '../sideBars';

@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import { shallow } from 'enzyme';
-import Page from '../../../src/components/groups/Page.jsx';
+import Page from '../../../src/components/groups/Page';
 
 const middleware = [thunk];
 const mockStore = configureStore(middleware);

@@ -4,7 +4,7 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import {
-  AddUserToGroup } from '../../../src/components/groups/AddUserToGroup.jsx';
+  AddUserToGroup } from '../../../src/components/groups/AddUserToGroup';
 
 
 describe('<AddUserToGroup/>', () => {

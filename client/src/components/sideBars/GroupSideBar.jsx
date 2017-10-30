@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
-import UserDetail from '../groups/UserDetail.jsx';
+import UserDetail from '../groups/UserDetail';
 
 /**
  * GroupSideBar class declaration

@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { Notification } from '../../../src/components/groups/Notification.jsx';
+import { Notification } from '../../../src/components/groups/Notification';
 
 describe('<Notification/>', () => {
   sinon.spy(Notification.prototype, 'componentDidMount');

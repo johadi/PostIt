@@ -1,5 +1,5 @@
-import MainFooter from './MainFooter.jsx';
-import IndexFooter from './IndexFooter.jsx';
+import MainFooter from './MainFooter';
+import IndexFooter from './IndexFooter';
 
 export {
   MainFooter,

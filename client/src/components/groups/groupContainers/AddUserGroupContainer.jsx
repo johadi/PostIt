@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { getGroupUsers,
   addUserToGroup,
   clearAddUserError } from '../../../actions/group/groupActions';
-import NullComponent from '../NullComponent.jsx';
-import AddUserToGroup from '../AddUserToGroup.jsx';
-import Page from '../Page.jsx';
+import NullComponent from '../NullComponent';
+import AddUserToGroup from '../AddUserToGroup';
+import Page from '../Page';
 
 /**
  * AddUserGroupContainer class declaration

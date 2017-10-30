@@ -3,8 +3,6 @@ import config from '../config';
 
 const username = faker.internet.userName();
 const password = 'andela29';
-const username2 = 'joseph82';
-
 export default {
   before: (browser) => {
     browser

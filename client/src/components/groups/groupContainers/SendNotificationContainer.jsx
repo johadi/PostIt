@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getGroupUsers } from '../../../actions/group/groupActions';
-import Page from '../Page.jsx';
+import Page from '../Page';
 
-import NullComponent from '../NullComponent.jsx';
-import SendNotification from '../SendNotification.jsx';
+import NullComponent from '../NullComponent';
+import SendNotification from '../SendNotification';
 
 /**
  * SendNotificationContainer class declaration

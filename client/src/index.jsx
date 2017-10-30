@@ -7,7 +7,7 @@ import './build/static/styles/cover.scss';
 import './build/static/styles/auth-custom.scss';
 import './build/static/styles/group-custom.scss';
 import './build/static/styles/font-awesome/css/font-awesome.css';
-import routes from './routes.jsx';
+import routes from './routes';
 
 ReactDOM.render(
     <Provider store={store}>

@@ -18,7 +18,7 @@
 * Logout of the application any time you wish
 * Reset password if forgotten
 
-## Technology Stacks
+## Technology Stack
 
 #### Backend
 - [Node js](https://nodejs.org/en/) is a JavaScript runtime built on Chrome's V8 JavaScript engine.

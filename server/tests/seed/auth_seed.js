@@ -1,5 +1,5 @@
 // auth_seed.js
-import db from './../../database/models';
+import models from './../../database/models';
 
 export default {
   /**
@@ -9,7 +9,7 @@ export default {
    * @return {*} any
    */
   emptyDB(done) {
-    db.User.destroy({ truncate: true })
+    models.User.destroy({ truncate: true })
       .then(() => done())
       .catch(err => done(err));
   },
@@ -20,7 +20,7 @@ export default {
    * @return {*} any
    */
   emptyPasswordRecoveryDB(done) {
-    db.PasswordRecovery.destroy({ truncate: true })
+    models.PasswordRecovery.destroy({ truncate: true })
       .then(() => done())
       .catch(err => done(err));
   },
@@ -62,7 +62,7 @@ export default {
    * @return {*} any
    */
   addUserToDb(done) {
-    db.User.create({
+    models.User.create({
       id: 4,
       fullname: 'jimoh hadi',
       username: 'ovenje',
@@ -79,7 +79,7 @@ export default {
    * @return {*} any
    */
   addUserToDb2(done) {
-    db.User.create({
+    models.User.create({
       id: 6,
       fullname: 'jimoh hadi',
       username: 'jimoh',

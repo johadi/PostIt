@@ -46,21 +46,21 @@ export class SignupPage extends React.Component {
    * Handle submit
    * @method handleSubmit
    * @return {void}
-   * @param {object} e - event
+   * @param {object} event - event
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.signupAction(this.state.user);
   }
   /**
    * Handle change
    * @method handleChange
-   * @param {object} e - event
+   * @param {object} event - event
    * @return {void}
    */
-  handleChange(e) {
+  handleChange(event) {
     const user = this.state.user;
-    user[e.target.name] = e.target.value;
+    user[event.target.name] = event.target.value;
     this.setState({ user });
   }
   /**
@@ -82,50 +82,50 @@ export class SignupPage extends React.Component {
                   Share your moment with family and friends.
                 </p>
                 <div className="row">
-                  <form onSubmit={e => this.handleSubmit(e)}
+                  <form onSubmit={event => this.handleSubmit(event)}
                         role="form" className="form-horizontal">
                     { this.props.signupState.fails ? <ErrorComponent
                       fails={this.props.signupState.fails} /> : null }
                     <div className="col-lg-6">
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.fullname}
                                  name="fullname"
                                  placeholder="Full name"
                                  auth="any"
                       />
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.email}
                                  type="email" name="email"
                                  placeholder="Email"
                                  auth="any"
                       />
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.mobile}
                                  name="mobile"
-                                 placeholder="Mobile No. e.g +23480123456789"
+                                 placeholder="Mobile No. event.g +23480123456789"
                                  required='required'
                                  auth="any"
                       />
                     </div>
                     <div className="col-lg-6">
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.username}
                                  name="username" placeholder="Username"
                                  auth="any"
                       />
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.password}
                                  type="password"
                                  name="password" placeholder="Password"
                                  auth="any"
                       />
                       <FormField errors={this.props.signupState.errors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.confirmPassword}
                                  type="password" name="confirmPassword"
                                  placeholder="Confirm password"

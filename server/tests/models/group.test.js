@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import db from './../../database/models';
+import models from './../../database/models';
 import modelSeed from '../seed/models_seed';
 
 describe('Group Model', () => {
@@ -9,7 +9,7 @@ describe('Group Model', () => {
   after(modelSeed.emptyGroupDb);
   describe('Validations', () => {
     it('should throw validation error if no group name is provided', () => {
-      db.Group.create(modelSeed.groupInvalidData)
+      models.Group.create(modelSeed.groupInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'group name can\'t be empty');
         });
@@ -17,14 +17,14 @@ describe('Group Model', () => {
     it('should throw validation error if creatorId is not provided', () => {
       modelSeed.groupInvalidData.creatorId = '';
       modelSeed.groupInvalidData.name = 'soccer';
-      db.Group.create(modelSeed.groupInvalidData)
+      models.Group.create(modelSeed.groupInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'creatorId can\'t be empty');
         });
     });
     it('should throw validation error if creatorId is not a number', () => {
       modelSeed.groupInvalidData.creatorId = 'x';
-      db.Group.create(modelSeed.groupInvalidData)
+      models.Group.create(modelSeed.groupInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'creatorId can only be a number');
         });
@@ -36,7 +36,7 @@ describe('Group Model', () => {
       creatorId: 4
     };
     it('should CREATE group', (done) => {
-      db.Group.create(newGroupData)
+      models.Group.create(newGroupData)
         .then((createdGroup) => {
           assert.equal(createdGroup.name, newGroupData.name);
           assert.equal(createdGroup.creatorId, newGroupData.creatorId);
@@ -44,7 +44,7 @@ describe('Group Model', () => {
         });
     });
     it('should READ data from group model', (done) => {
-      db.Group.findOne({ where: { name: newGroupData.name } })
+      models.Group.findOne({ where: { name: newGroupData.name } })
         .then((foundGroup) => {
           assert.equal(foundGroup.name, newGroupData.name);
           assert.equal(foundGroup.creatorId, newGroupData.creatorId);
@@ -52,7 +52,7 @@ describe('Group Model', () => {
         });
     });
     it('should UPDATE data in group model', (done) => {
-      db.Group.update(
+      models.Group.update(
         { name: 'music' },
         {
           where: { name: newGroupData.name },
@@ -67,7 +67,7 @@ describe('Group Model', () => {
         });
     });
     it('should DELETE data from group model', (done) => {
-      db.Group.destroy({ where: { creatorId: newGroupData.creatorId } })
+      models.Group.destroy({ where: { creatorId: newGroupData.creatorId } })
         .then((deletedRow) => {
           assert.equal(deletedRow, 1);
           done();

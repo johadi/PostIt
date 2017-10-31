@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { Pagination } from 'react-bootstrap';
-import { getAllUserGroups, getUserGroups } from '../../actions/group/groupActions';
+import { getUserGroups } from '../../actions/group/groupActions';
 
 /**
  * GroupsContainer class declaration
@@ -23,24 +23,23 @@ export class AllGroups extends React.Component {
       activePage: 1
     };
   }
-
   /**
+   * @return {void} void
    * @method componentWillMount
    * @return {void}
    */
   componentWillMount() {
-    this.props.getAllUserGroups();
+    this.props.getUserGroups(1);
   }
-
   /**
    * Handles Select for pagination buttons
    * @method handleSelect
-   * @param {number} eventKey
+   * @param {number} paginationNumber
    * @return {void} void
    */
-  handleSelect(eventKey) {
-    this.setState({ activePage: eventKey });
-    this.props.getUserGroups(eventKey);
+  handleSelect(paginationNumber) {
+    this.setState({ activePage: paginationNumber });
+    this.props.getUserGroups(paginationNumber);
   }
 
   /**
@@ -57,6 +56,7 @@ export class AllGroups extends React.Component {
           <hr/>
           <div className="list-group">
             {groups.map(userGroup => (
+                !!userGroup.Group &&
                 <Link to={`/group/${userGroup.Group.id}/board`}
                       key={userGroup.Group.id} className="group-div list-group-item">
                   <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>
@@ -75,7 +75,7 @@ export class AllGroups extends React.Component {
               items={pages}
               maxButtons={10}
               activePage={this.state.activePage}
-              onSelect={e => this.handleSelect(e)}
+              onSelect={event => this.handleSelect(event)}
           />
           }
         </div>
@@ -84,14 +84,13 @@ export class AllGroups extends React.Component {
 }
 AllGroups.propTypes = {
   groupState: PropTypes.object.isRequired,
-  getAllUserGroups: PropTypes.func.isRequired,
   getUserGroups: PropTypes.func.isRequired,
   userGroups: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getAllUserGroups, getUserGroups }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getUserGroups }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AllGroups);
 

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import lodash from 'lodash';
 import dotenv from 'dotenv';
-import db from '../database/models';
+import models from '../database/models';
 
 dotenv.config();
 /**
@@ -21,7 +21,7 @@ const authenticate = (req, res, next) => {
     if (error) {
       return res.status(400).json('This token is invalid');
     }
-    db.User.findById(decoded.id)
+    models.User.findById(decoded.id)
         .then((user) => {
           if (!user) {
             return Promise.reject('User with this token not found');

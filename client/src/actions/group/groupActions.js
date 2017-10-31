@@ -164,27 +164,6 @@ export const getGroupUsers = (groupId, pageNumber) => (dispatch) => {
       });
 };
 /**
- * Action for getting all users in a particular group for a user
- * @function getAllUserGroups
- * @return {void}
- */
-export const getAllUserGroups = () => (dispatch) => {
-  const page = 0;
-  // This will dispatch action that group member side bar can use
-  return axios.get(`/api/v1/group/user/groups?page=${page}`,
-    { headers: { 'x-auth': window.sessionStorage.token } })
-      .then((res) => {
-        dispatch({ type: actionTypes.ALL_USER_GROUPS_SUCCESS,
-          payload: res.data });
-      })
-      .catch((err) => {
-        if (err) {
-          dispatch({ type: actionTypes.ALL_USER_GROUPS_ERROR,
-            payload: err.response.data });
-        }
-      });
-};
-/**
  * Action creator for getting groups user belongs to in paginated format
  * @function getUserGroups
  * @param {number} pageNumber page number since result is paginated

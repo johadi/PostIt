@@ -44,32 +44,32 @@ export class AddUserToGroup extends React.Component {
    * Handles form submit
    * @method handleSubmit
    * @return {void}
-   * @param {object} e - event
+   * @param {object} event - event
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.getUsersSearch(this.props.groupId, this.search.value);
   }
   /**
    * Handles user click
    * @method handleAddUser
    * @return {void}
-   * @param {object} e - event
+   * @param {object} event - event
    */
-  handleAddUser(e) {
-    this.props.onAddUser(e);
-    e.target.setAttribute('disabled', true);
-    e.target.setAttribute('class', 'btn btn-success btn-sm btn-block');
-    e.target.text = 'Member';
+  handleAddUser(event) {
+    this.props.onAddUser(event);
+    event.target.setAttribute('disabled', true);
+    event.target.setAttribute('class', 'btn btn-success btn-sm btn-block');
+    event.target.text = 'Member';
   }
   /**
    * Handles Search
    * @method handleSearch
    * @return {void} void
-   * @param {object} e - event
+   * @param {object} event - event
    */
-  handleSearch(e) {
-    this.props.getUsersSearch(this.props.groupId, e.target.value);
+  handleSearch(event) {
+    this.props.getUsersSearch(this.props.groupId, event.target.value);
   }
 
   /**
@@ -93,14 +93,14 @@ export class AddUserToGroup extends React.Component {
           items={usersSearch.pages}
           maxButtons={10}
           activePage={this.state.activePage}
-          onSelect={e => this.handleSelect(e)}
+          onSelect={event => this.handleSelect(event)}
         />
       </td></tr>;
     } else {
       pagination = null;
     }
     return (
-        <form onSubmit={e => this.handleSubmit(e)}
+        <form onSubmit={event => this.handleSubmit(event)}
               className="form-horizontal" role="form">
           <h4 className="text-center">
             Add members to <span className="text-capitalize text-display">
@@ -110,7 +110,7 @@ export class AddUserToGroup extends React.Component {
               <div className="input-group">
                 <input id="search" name="search"
                        ref={input => this.search = input}
-                       onKeyUp={e => this.handleSearch(e)}
+                       onKeyUp={event => this.handleSearch(event)}
                        placeholder="Search Users by Username or Email"
                        type="text" className="form-control"/>
                 <span className="input-group-btn">
@@ -161,7 +161,7 @@ export class AddUserToGroup extends React.Component {
                             <td>{user.fullname}</td>
                             <td>{user.email}</td>
                             <td>
-                              <a onClick={e => this.handleAddUser(e)}
+                              <a onClick={event => this.handleAddUser(event)}
                                    id={user.username}
                                    className="btn btn-primary btn-sm btn-block" href="">
                                 Add

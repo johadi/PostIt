@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import db from './../../database/models';
+import models from './../../database/models';
 import modelSeed from '../seed/models_seed';
 
 describe('PasswordRecovery Model', () => {
@@ -11,7 +11,7 @@ describe('PasswordRecovery Model', () => {
     it('should throw validation error if no email is provided', (done) => {
       const invalidRecoveryData = { ...modelSeed.passwordRecoveryData };
       invalidRecoveryData.email = '';
-      db.PasswordRecovery.create(invalidRecoveryData)
+      models.PasswordRecovery.create(invalidRecoveryData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'email can\'t be empty');
           done();
@@ -20,7 +20,7 @@ describe('PasswordRecovery Model', () => {
     it('should throw validation error if email is invalid', (done) => {
       const invalidRecoveryData = { ...modelSeed.passwordRecoveryData };
       invalidRecoveryData.email = 'jimoh.hadi';
-      db.PasswordRecovery.create(invalidRecoveryData)
+      models.PasswordRecovery.create(invalidRecoveryData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'This email is invalid');
           done();
@@ -31,7 +31,7 @@ describe('PasswordRecovery Model', () => {
     const newRecoveryData = { ...modelSeed.passwordRecoveryData };
     newRecoveryData.email = 'johadi@mail.com';
     it('should CREATE passwordRecoveryData', (done) => {
-      db.PasswordRecovery.create(newRecoveryData)
+      models.PasswordRecovery.create(newRecoveryData)
         .then((createdRecovery) => {
           assert.equal(createdRecovery.email, newRecoveryData.email);
           assert.equal(createdRecovery.hashed, newRecoveryData.hashed);
@@ -39,7 +39,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
     it('should READ data from passwordRecovery model', (done) => {
-      db.PasswordRecovery.findOne({ where: { email: newRecoveryData.email } })
+      models.PasswordRecovery.findOne({ where: { email: newRecoveryData.email } })
         .then((foundRecovery) => {
           assert.equal(foundRecovery.email, newRecoveryData.email);
           assert.equal(foundRecovery.hashed, newRecoveryData.hashed);
@@ -48,7 +48,7 @@ describe('PasswordRecovery Model', () => {
     });
     it('should UPDATE data in passwordRecovery model', (done) => {
       const newHashed = 'xyhhjjsajsjksaksaklkslalksalksalsal';
-      db.PasswordRecovery.update(
+      models.PasswordRecovery.update(
         { hashed: newHashed },
         {
           where: { email: newRecoveryData.email },
@@ -63,7 +63,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
     it('should DELETE data from passwordRecovery model', (done) => {
-      db.PasswordRecovery.destroy({ where: { email: newRecoveryData.email } })
+      models.PasswordRecovery.destroy({ where: { email: newRecoveryData.email } })
         .then((deletedRows) => {
           assert.equal(deletedRows, 1);
           done();

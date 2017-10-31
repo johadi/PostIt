@@ -1,10 +1,12 @@
 import lodash from 'lodash';
-import P from 'bluebird';
-import db from '../database/models';
+import bluebird from 'bluebird';
+import dotenv from 'dotenv';
+import models from '../database/models';
 import Constants from '../helpers/constants';
 import { sendSMS, sendMail, handleError,
   handleSuccess } from '../helpers/helpers';
 
+dotenv.config();
 export default {
   /**
    * Post message controller function
@@ -16,7 +18,7 @@ export default {
   postMessage(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.groupId, 10))) {
-      return handleError('Oops! Something went wrong, Check your route', res);
+      return handleError('Invalid request. Parameter groupId must be a number', res);
     }
     if (req.user && req.params.groupId) {
       if (!req.body.message) {
@@ -37,7 +39,7 @@ export default {
       const body = req.body.message;
       const groupId = req.params.groupId;
       // Check if groupId is a valid group id
-      db.Group.findById(groupId)
+      models.Group.findById(groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'Invalid group' });
@@ -46,7 +48,7 @@ export default {
           return Promise.resolve();
         })
         // Check if User belongs to this group
-        .then(() => db.UserGroup.findOne({
+        .then(() => models.UserGroup.findOne({
           where: { userId, groupId }
         }))
         .then((foundUserAndGroup) => {
@@ -55,7 +57,7 @@ export default {
               'to group You don\'t belong');
           }
           // Create Message if he belongs to this group
-          return db.Message.create({ userId, body, priority, groupId });
+          return models.Message.create({ userId, body, priority, groupId });
         })
         .then((messageCreated) => {
           if (!messageCreated) {
@@ -78,15 +80,15 @@ export default {
             handleSuccess(201, 'Message created successfully', res);
             if (process.env.NODE_ENV !== 'test') {
               // get members of this group
-              db.UserGroup.findAll({
+              models.UserGroup.findAll({
                 where: { groupId: updatedMessage.groupId },
-                include: [{ model: db.User, attributes: ['email'] }]
+                include: [{ model: models.User, attributes: ['email'] }]
               })
                 .then(groupAndMembers =>
-                  // Using map of Bluebird promises (P)
+                  // Using map of Bluebird promises
                   // Bluebird map return array Promises values
                   // just like Promise.all()
-                  P.map(groupAndMembers,
+                  bluebird.map(groupAndMembers,
                     groupAndMember => groupAndMember.User.email))
                 .then((groupMemberEmails) => {
                   // We handle our send email here
@@ -108,19 +110,19 @@ export default {
             handleSuccess(201, 'Message created successfully', res);
             if (process.env.NODE_ENV !== 'test') {
               // get members of this group
-              db.UserGroup.findAll({
+              models.UserGroup.findAll({
                 where: { groupId: updatedMessage.groupId },
-                include: [{ model: db.User,
+                include: [{ model: models.User,
                   attributes: ['username', 'email', 'mobile'] }]
               })
                 .then(groupAndMembers =>
-                  // Using map of Bluebird promises (P)
+                  // Using map of Bluebird promises
                   // Bluebird map return array of Promises
                   // values just like Promise.all()
-                  P.map(groupAndMembers, (groupAndMember) => {
+                  bluebird.map(groupAndMembers, (groupAndMember) => {
                     // We handle SMS here
-                    const to = '+2347082015065';
-                    const from = '+12568264564';
+                    const to = process.env.TWILIO_TO_SAMPLE_NUMBER;
+                    const from = process.env.TWILIO_FROM_NUMBER;
                     const smsBody = `Hi ${groupAndMember.User.username}, 
                        You have one notification from PostIt. 
                        you can login to view at https://jimoh-postit.herokuapp.com`;
@@ -159,7 +161,7 @@ export default {
    */
   getMessages(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10))) {
-      return handleError('Oops! Something went wrong, Check your route', res);
+      return handleError('Invalid request. Parameter groupId must be a number', res);
     }
     if (req.user && req.params.groupId) {
       const userId = req.user.id;
@@ -169,13 +171,13 @@ export default {
           'query parameter named page with number as value', res);
       }
       const query = parseInt(req.query.page, 10);
-      db.Group.findById(req.params.groupId)
+      models.Group.findById(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });
           }
           // To check if User belongs to the group
-          return db.UserGroup.findOne({
+          return models.UserGroup.findOne({
             where: { userId, groupId }
           });
         })
@@ -189,12 +191,12 @@ export default {
           const perPage = Constants.GET_MESSAGES_PER_PAGE;
           const currentPage = query < 1 ? 1 : query;
           const offset = perPage * (currentPage - 1); // items to skip
-          return db.Message.findAndCountAll({
+          return models.Message.findAndCountAll({
             where: { groupId },
             offset,
             limit: perPage,
             order: [['createdAt', 'DESC']],
-            include: [{ model: db.User, attributes: ['id', 'username', 'fullname'] }]
+            include: [{ model: models.User, attributes: ['id', 'username', 'fullname'] }]
           })
             .then((messages) => {
               // to round up i.e 3/2 = 1.5 = 2
@@ -221,19 +223,19 @@ export default {
   viewMessage(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10)) ||
       isNaN(parseInt(req.params.messageId, 10))) {
-      return handleError('Oops! Something went wrong, Check your route', res);
+      return handleError('Invalid request. Parameter groupId must be a number', res);
     }
     if (req.user && req.params.groupId && req.params.messageId) {
       const userId = req.user.id;
       const groupId = req.params.groupId;
       const messageId = req.params.messageId;
-      db.Group.findById(req.params.groupId)
+      models.Group.findById(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });
           }
           // Check if User belongs to the group
-          return db.UserGroup.findOne({
+          return models.UserGroup.findOne({
             where: { userId, groupId }
           });
         })
@@ -243,9 +245,9 @@ export default {
               'to this group');
           }
           // Let the user read the message since he satisfies all the criteria
-          return db.Message.findOne({
+          return models.Message.findOne({
             where: { id: messageId, groupId },
-            include: [{ model: db.User, attributes: ['id', 'username', 'fullname'] }]
+            include: [{ model: models.User, attributes: ['id', 'username', 'fullname'] }]
           });
         })
         .then((message) => {
@@ -267,20 +269,20 @@ export default {
   updateReadMessage(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.messageId, 10))) {
-      return handleError('Oops! Something went wrong, Check your route', res);
+      return handleError('Invalid request. Parameter groupId must be a number', res);
     }
     if (req.user && req.params.messageId) {
       const userId = req.user.id;
       const messageId = req.params.messageId;
       // Check if groupId is a valid group id
-      db.Message.findById(messageId)
+      models.Message.findById(messageId)
         .then((message) => {
           if (!message) {
             return Promise.reject({ code: 404,
               message: 'Message with this ID doesn\'t exist' });
           }
           // Check if User belongs to the group
-          db.UserGroup.findOne({
+          models.UserGroup.findOne({
             where: { userId, groupId: message.groupId }
           })
             .then((foundUserAndGroup) => {

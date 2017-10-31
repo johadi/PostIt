@@ -12,7 +12,7 @@ const initalState = {
  * @param {object} action
  * @return {object} state - the new state
  */
-const VerifyTokenReducer = (state = initalState, action) => {
+const verifyTokenReducer = (state = initalState, action) => {
   switch (action.type) {
     case actionTypes.VERIFY_TOKEN:
       state = {
@@ -27,4 +27,4 @@ const VerifyTokenReducer = (state = initalState, action) => {
   }
   return state;
 };
-export default VerifyTokenReducer;
+export default verifyTokenReducer;

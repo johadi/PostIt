@@ -1,20 +1,20 @@
 import { assert } from 'chai';
-import db from './../../database/models';
+import models from './../../database/models';
 
 describe('Existing Models', () => {
   it('should check that Group model exists', () => {
-    assert.exists(db.Group);
+    assert.exists(models.Group);
   });
   it('should check that Group model exists', () => {
-    assert.exists(db.Message);
+    assert.exists(models.Message);
   });
   it('should check that Message model exists', () => {
-    assert.exists(db.User);
+    assert.exists(models.User);
   });
   it('should check that Group model exists', () => {
-    assert.exists(db.PasswordRecovery);
+    assert.exists(models.PasswordRecovery);
   });
   it('should check that UserGroupAdd model exists', () => {
-    assert.exists(db.UserGroupAdd);
+    assert.exists(models.UserGroupAdd);
   });
 });

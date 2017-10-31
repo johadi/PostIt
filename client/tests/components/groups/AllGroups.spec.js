@@ -6,12 +6,10 @@ import { mount } from 'enzyme';
 import { AllGroups } from '../../../src/components/groups/AllGroups';
 
 describe('<AllGroups/>', () => {
-  const getAllUserGroups = sinon.spy();
   const getUserGroups = sinon.spy();
   sinon.spy(AllGroups.prototype, 'handleSelect');
   const props = {
     groupState: {},
-    getAllUserGroups,
     getUserGroups,
     userGroups: {
       groups: [],

@@ -7,7 +7,7 @@ import actionTypes from './actionTypes';
  * @function verifyToken
  * @return {void}
  */
-const verifyToken = () => (dispatch) => {
+const verifyTokenAction = () => (dispatch) => {
   if (window.sessionStorage.token) {
     axios.get('/api/v1/verify-token',
       { headers: { 'x-auth': window.sessionStorage.token } })
@@ -43,4 +43,4 @@ const verifyToken = () => (dispatch) => {
   }
 };
 
-export default verifyToken;
+export default verifyTokenAction;

@@ -6,12 +6,9 @@ import { mount } from 'enzyme';
 import { MessageBoard } from '../../../src/components/groups/MessageBoard';
 
 describe('<MessageBoard/>', () => {
-  const getAllUserGroups = sinon.spy();
   const getBoardMessages = sinon.spy();
-  sinon.spy(MessageBoard.prototype, 'componentDidMount');
   sinon.spy(MessageBoard.prototype, 'handleSelect');
   const props = {
-    getAllUserGroups,
     getBoardMessages,
     boardMessages: {
       messages: [],
@@ -21,9 +18,6 @@ describe('<MessageBoard/>', () => {
     groupState: {}
   };
   const wrapper = mount(<MessageBoard{ ...props} />);
-  it('Should check if componentDidMount is called', () => {
-    expect(MessageBoard.prototype.componentDidMount.calledOnce).toBe(true);
-  });
   describe('No Messages', () => {
     before(() => {
       const boardMessages = {

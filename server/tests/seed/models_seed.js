@@ -1,4 +1,4 @@
-import db from './../../database/models';
+import models from './../../database/models';
 
 const modelSeed = {
   /**
@@ -9,8 +9,8 @@ const modelSeed = {
    * @return {*} any
    */
   resetGroupDb(groupData, done) {
-    db.Group.destroy({ truncate: true })
-      .then(() => db.Group.create(groupData))
+    models.Group.destroy({ truncate: true })
+      .then(() => models.Group.create(groupData))
       .then(() => done())
       .catch(error => done(error));
   },
@@ -21,7 +21,7 @@ const modelSeed = {
    * @return {*} any
    */
   emptyGroupDb(done) {
-    db.Group.destroy({ truncate: true })
+    models.Group.destroy({ truncate: true })
       .then(() => done());
   },
   groupData: {
@@ -40,8 +40,8 @@ const modelSeed = {
    * @return {*} any
    */
   resetMessageDb(messageData, done) {
-    db.Message.destroy({ truncate: true })
-      .then(() => db.Message.create(messageData))
+    models.Message.destroy({ truncate: true })
+      .then(() => models.Message.create(messageData))
       .then(() => done())
       .catch(error => done(error));
   },
@@ -52,7 +52,7 @@ const modelSeed = {
    * @return {*} any
    */
   emptyMessageDb(done) {
-    db.Message.destroy({ truncate: true })
+    models.Message.destroy({ truncate: true })
       .then(() => done());
   },
   messageData: {
@@ -70,8 +70,8 @@ const modelSeed = {
    * @return {*} any
    */
   resetUserDb(userData, done) {
-    db.User.destroy({ truncate: true })
-      .then(() => db.User.create(userData))
+    models.User.destroy({ truncate: true })
+      .then(() => models.User.create(userData))
       .then(() => done())
       .catch(error => done(error));
   },
@@ -82,7 +82,7 @@ const modelSeed = {
    * @return {*} any
    */
   emptyUserDb(done) {
-    db.User.destroy({ truncate: true })
+    models.User.destroy({ truncate: true })
       .then(() => done());
   },
   userData: {
@@ -107,8 +107,8 @@ const modelSeed = {
    * @return {*} any
    */
   resetPasswordRecoveryDb(passwordRecoveryData, done) {
-    db.PasswordRecovery.destroy({ truncate: true })
-      .then(() => db.PasswordRecovery.create(passwordRecoveryData))
+    models.PasswordRecovery.destroy({ truncate: true })
+      .then(() => models.PasswordRecovery.create(passwordRecoveryData))
       .then(() => done())
       .catch(error => done(error));
   },
@@ -119,7 +119,7 @@ const modelSeed = {
    * @return {*} any
    */
   emptyPasswordRecoveryDb(done) {
-    db.PasswordRecovery.destroy({ truncate: true })
+    models.PasswordRecovery.destroy({ truncate: true })
       .then(() => done());
   },
   passwordRecoveryData: {
@@ -137,8 +137,8 @@ const modelSeed = {
    * @return {*} any
    */
   resetUserAddDb(addData, done) {
-    db.UserGroupAdd.destroy({ truncate: true })
-      .then(() => db.UserGroupAdd.create(addData))
+    models.UserGroupAdd.destroy({ truncate: true })
+      .then(() => models.UserGroupAdd.create(addData))
       .then(() => done())
       .catch(error => done(error));
   },
@@ -149,7 +149,7 @@ const modelSeed = {
    * @return {*} any
    */
   emptyUserAddDb(done) {
-    db.UserGroupAdd.destroy({ truncate: true })
+    models.UserGroupAdd.destroy({ truncate: true })
       .then(() => done());
   },
   userAddData: {

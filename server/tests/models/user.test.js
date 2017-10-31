@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import db from './../../database/models';
+import models from './../../database/models';
 import modelSeed from '../seed/models_seed';
 
 describe('User Model', () => {
@@ -13,7 +13,7 @@ describe('User Model', () => {
       (done) => {
         const userInvalidData = { ...modelSeed.userData };
         userInvalidData.username = '';
-        db.User.create(userInvalidData)
+        models.User.create(userInvalidData)
           .catch((error) => {
             assert.equal(error.errors[0].message, 'Username can\'t be empty');
             done();
@@ -22,7 +22,7 @@ describe('User Model', () => {
     it('should throw validation error if username already exists', (done) => {
       const userInvalidData = { ...modelSeed.userData };
       // we already used this data to create user in our before hook
-      db.User.create(userInvalidData)
+      models.User.create(userInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'This username has been used');
           done();
@@ -31,7 +31,7 @@ describe('User Model', () => {
     it('should throw validation error if no fullname is provided', (done) => {
       const userInvalidData = { ...modelSeed.userData };
       userInvalidData.fullname = '';
-      db.User.create(userInvalidData)
+      models.User.create(userInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'Fullname can\'t be empty');
           done();
@@ -40,7 +40,7 @@ describe('User Model', () => {
     it('should throw validation error if no email is provided', (done) => {
       const userInvalidData = { ...modelSeed.userData };
       userInvalidData.email = '';
-      db.User.create(userInvalidData)
+      models.User.create(userInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'Email can\'t be empty');
           done();
@@ -51,7 +51,7 @@ describe('User Model', () => {
       // since username is used before,
       // to test for email only, we have to change it
       userInvalidData.username = 'ortega';
-      db.User.create(userInvalidData)
+      models.User.create(userInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message,
             'A user with this email already exists');
@@ -61,7 +61,7 @@ describe('User Model', () => {
     it('should throw validation error if email is invalid', (done) => {
       const userInvalidData = { ...modelSeed.userData };
       userInvalidData.email = 'john.samuel';
-      db.User.create(userInvalidData)
+      models.User.create(userInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'This email is invalid');
           done();
@@ -72,7 +72,7 @@ describe('User Model', () => {
       userInvalidData.username = 'samuel';
       userInvalidData.email = 'samuel@email.com';
       userInvalidData.password = ''; // no password
-      db.User.create(userInvalidData)
+      models.User.create(userInvalidData)
         .catch((error) => {
           assert.equal(error.errors[0].message,
             'Password must be at least 6 characters long');
@@ -84,7 +84,7 @@ describe('User Model', () => {
         userInvalidData.username = 'batman';
         userInvalidData.email = 'batman@email.com';
         userInvalidData.password = '234'; // no password
-        db.User.create(userInvalidData)
+        models.User.create(userInvalidData)
           .catch((error) => {
             assert.equal(error.errors[0].message,
               'Password must be at least 6 characters long');
@@ -94,7 +94,7 @@ describe('User Model', () => {
   describe('CRUD operations on user model', () => {
     const userNewData = modelSeed.userNewData;
     it('should CREATE new user', (done) => {
-      db.User.create(userNewData)
+      models.User.create(userNewData)
         .then((createdUser) => {
           assert.equal(createdUser.username, userNewData.username);
           assert.equal(createdUser.fullname, userNewData.fullname);
@@ -104,7 +104,7 @@ describe('User Model', () => {
         });
     });
     it('should READ data from user model', (done) => {
-      db.User.findOne({ where: { username: userNewData.username } })
+      models.User.findOne({ where: { username: userNewData.username } })
         .then((foundUser) => {
           assert.equal(foundUser.username, userNewData.username);
           assert.equal(foundUser.fullname, userNewData.fullname);
@@ -115,7 +115,7 @@ describe('User Model', () => {
     });
     it('should UPDATE data in user model', (done) => {
       const newEmail = 'alisuly@email.com';
-      db.User.update(
+      models.User.update(
         { email: newEmail },
         {
           where: { username: userNewData.username },
@@ -132,7 +132,7 @@ describe('User Model', () => {
         });
     });
     it('should DELETE data from user model', (done) => {
-      db.User.destroy({ where: { username: userNewData.username } })
+      models.User.destroy({ where: { username: userNewData.username } })
         .then((deletedRow) => {
           assert.equal(deletedRow, 1);
           done();

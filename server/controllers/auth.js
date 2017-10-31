@@ -3,7 +3,7 @@ import lodash from 'lodash';
 import Validator from 'validatorjs';
 import bcrypt from 'bcrypt-nodejs';
 import dotenv from 'dotenv';
-import db from '../database/models';
+import models from '../database/models';
 import { sendMail, handleError, handleSuccess } from '../helpers/helpers';
 
 dotenv.config();
@@ -17,14 +17,14 @@ export default {
    */
   signup(req, res) {
     const body = req.body;
-    const validator = new Validator(body, db.User.signupRules());
+    const validator = new Validator(body, models.User.signupRules());
     if (validator.fails()) {
       return handleError({ validateError: validator.errors.all() }, res);
     }
     if (body.confirmPassword !== body.password) {
       return handleError('passwords not matched', res);
     }
-    db.User.findOne({
+    models.User.findOne({
       where: {
         $or: [{ email: body.email }, { username: body.username }]
       }
@@ -47,7 +47,7 @@ export default {
         body.username = body.username.toLowerCase();
         body.fullname = body.fullname.toLowerCase();
         body.email = body.email.toLowerCase();
-        return db.User.create(
+        return models.User.create(
           body,
           { fields: ['email', 'password', 'username', 'mobile', 'fullname'] }
         );
@@ -67,11 +67,11 @@ export default {
    */
   signin(req, res) {
     const body = req.body;
-    const validator = new Validator(body, db.User.loginRules());
+    const validator = new Validator(body, models.User.loginRules());
     if (validator.fails()) {
       return handleError({ validateError: validator.errors.all() }, res);
     }
-    db.User.findOne({
+    models.User.findOne({
       where: {
         username: body.username.toLowerCase()
       }
@@ -104,7 +104,7 @@ export default {
     if (validator.fails()) {
       return handleError({ validateError: validator.errors.all() }, res);
     }
-    db.User.findOne({
+    models.User.findOne({
       where: {
         email: req.body.email.toLowerCase()
       }
@@ -114,7 +114,7 @@ export default {
           return Promise.reject({ code: 404,
             message: 'Sorry! this email doesn\'t match our records' });
         }
-        db.PasswordRecovery.findOne({ where: { email: user.email } })
+        models.PasswordRecovery.findOne({ where: { email: user.email } })
           .then((foundUser) => {
             // If all is well
             const userData = lodash.pick(user, ['id', 'username', 'email']);
@@ -139,11 +139,11 @@ export default {
                   // Do we have user data requesting for password change before?
                   // If yes ,just update his/her hash
                   if (foundUser) {
-                    db.PasswordRecovery
+                    models.PasswordRecovery
                       .update({ hashed: token }, { where: { email: user.email } });
                   } else {
                     // Create a new log for the user, if no log before
-                    db.PasswordRecovery.create({ email: user.email, hashed: token });
+                    models.PasswordRecovery.create({ email: user.email, hashed: token });
                   }
                   return handleSuccess(200,
                     'Password recovery link sent to your email', res);
@@ -183,7 +183,7 @@ export default {
       return handleError('Passwords not matched', res);
     }
     const userInfo = req.reset;
-    db.User.findById(userInfo.id)
+    models.User.findById(userInfo.id)
       .then((user) => {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);

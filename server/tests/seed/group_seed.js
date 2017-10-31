@@ -1,5 +1,5 @@
 // group_seed.js
-import db from './../../database/models';
+import models from './../../database/models';
 
 export default {
   /**
@@ -9,7 +9,7 @@ export default {
    * @return {*} any
    */
   emptyUserDB(done) {
-    db.User.destroy({ truncate: true })
+    models.User.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
@@ -20,7 +20,7 @@ export default {
    * @return {*} any
    */
   emptyMessageDB(done) {
-    db.Message.destroy({ truncate: true })
+    models.Message.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
@@ -31,7 +31,7 @@ export default {
    * @return {*} any
    */
   emptyGroupDB(done) {
-    db.Group.destroy({ truncate: true })
+    models.Group.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
@@ -42,7 +42,7 @@ export default {
    * @return {*} any
    */
   emptyUserGroupDB(done) {
-    db.UserGroup.destroy({ truncate: true })
+    models.UserGroup.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
@@ -53,7 +53,7 @@ export default {
    * @return {*} any
    */
   addUserToDb(done) {
-    db.User.create({
+    models.User.create({
       id: 5,
       fullname: 'jimoh hadi',
       username: 'johadi10',
@@ -70,7 +70,7 @@ export default {
    * @return {*} any
    */
   addUserToDb2(done) {
-    db.User.create({
+    models.User.create({
       id: 20,
       fullname: 'jack oman',
       username: 'oman',
@@ -87,7 +87,7 @@ export default {
    * @return {*} any
    */
   addUserToDb3(done) {
-    db.User.create({
+    models.User.create({
       id: 30,
       fullname: 'muhammed sherif',
       username: 'sherif',
@@ -104,7 +104,7 @@ export default {
    * @return {*} any
    */
   createGroup(done) {
-    db.Group.create({
+    models.Group.create({
       id: 99,
       name: 'andela',
       creatorId: 1
@@ -124,7 +124,7 @@ export default {
    * @return {*} any
    */
   createGroup2(done) {
-    db.Group.create({
+    models.Group.create({
       id: 100,
       name: 'react',
       creatorId: 7
@@ -144,7 +144,7 @@ export default {
    * @return {*} any
    */
   createGroup3(done) {
-    db.Group.create({
+    models.Group.create({
       id: 101,
       name: 'lord',
       creatorId: 7
@@ -164,7 +164,7 @@ export default {
    * @return {*} any
    */
   addMessageToDb(done) {
-    db.Message.create({
+    models.Message.create({
       id: 8,
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
       groupId: 99,
@@ -192,7 +192,7 @@ export default {
    * @return {*} any
    */
   addMessageToDb2(done) {
-    db.Message.create({
+    models.Message.create({
       id: 9,
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
       groupId: 100,
@@ -220,7 +220,7 @@ export default {
    * @return {*} any
    */
   addMessageToDb3(done) {
-    db.Message.create({
+    models.Message.create({
       id: 10,
       body: 'Learners are leaders',
       groupId: 99,
@@ -248,7 +248,7 @@ export default {
    * @return {*} any
    */
   addUserToGroup(done) {
-    db.UserGroup.create({
+    models.UserGroup.create({
       groupId: 100,
       userId: 10
     })
@@ -256,7 +256,7 @@ export default {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return db.UserGroupAdd.create({
+          return models.UserGroupAdd.create({
             addedById: 1,
             addedToId: 10,
             groupId: 100
@@ -272,7 +272,7 @@ export default {
    * @return {*} any
    */
   addUserToGroup2(done) {
-    db.UserGroup.create({
+    models.UserGroup.create({
       groupId: 99,
       userId: 5
     })
@@ -280,7 +280,7 @@ export default {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return db.UserGroupAdd.create({
+          return models.UserGroupAdd.create({
             addedById: 5,
             addedToId: 5,
             groupId: 99
@@ -296,7 +296,7 @@ export default {
    * @return {*} any
    */
   addUserToGroup3(done) {
-    db.UserGroup.create({
+    models.UserGroup.create({
       groupId: 101,
       userId: 5
     })
@@ -304,7 +304,7 @@ export default {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return db.UserGroupAdd.create({
+          return models.UserGroupAdd.create({
             addedById: 7,
             addedToId: 5,
             groupId: 101
@@ -320,7 +320,7 @@ export default {
    * @return {*} any
    */
   addUserToGroup4(done) {
-    db.UserGroup.create({
+    models.UserGroup.create({
       groupId: 99,
       userId: 20
     })
@@ -328,7 +328,7 @@ export default {
           if (!userToGroup) {
             return Promise.reject('Error');
           }
-          return db.UserGroupAdd.create({
+          return models.UserGroupAdd.create({
             addedById: 5,
             addedToId: 20,
             groupId: 99

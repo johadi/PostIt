@@ -7,12 +7,10 @@ const initialState = {
   postMessageErr: null,
   groupMessagesErr: null,
   groupMessages: null,
-  groupViewMessage: null, // hold a single message detail for view
+  groupViewMessage: null,
   groupViewMessageErr: null,
   groupUsersStore: null,
   groupUsersError: null,
-  groupsUserBelongs: null,
-  groupsUserBelongsErr: null,
   userGroupsStore: null,
   userGroupsError: null,
   boardMessagesStore: null,
@@ -156,27 +154,6 @@ const groupReducer = (state = initialState, action) => {
         ...state,
         groupUsersStore: null,
         groupUsersError: action.payload
-      };
-      break;
-    case actionTypes.ALL_USER_GROUPS_SUCCESS:
-      state = {
-        ...state,
-        groupsUserBelongs: action.payload,
-        groupsUserBelongsErr: null
-      };
-      break;
-    case actionTypes.ALL_USER_GROUPS_ERROR:
-      state = {
-        ...state,
-        groupsUserBelongs: null,
-        groupsUserBelongsErr: action.payload
-      };
-      break;
-    case actionTypes.GET_USER_GROUPS_CLEAR:
-      state = {
-        ...state,
-        groupsUserBelongs: null,
-        groupsUserBelongsErr: null
       };
       break;
     case actionTypes.USER_GROUPS_SUCCESS:

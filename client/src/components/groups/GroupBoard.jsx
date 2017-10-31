@@ -52,12 +52,12 @@ export class GroupBoard extends React.Component {
   /**
    * Handle Select for pagination buttons
    * @method handleSelect
-   * @param {number} eventKey
+   * @param {number} paginationNumber
    * @return {void} void
    */
-  handleSelect(eventKey) {
-    this.setState({ activePage: eventKey });
-    this.props.getGroupMessages(this.props.groupId, eventKey);
+  handleSelect(paginationNumber) {
+    this.setState({ activePage: paginationNumber });
+    this.props.getGroupMessages(this.props.groupId, paginationNumber);
   }
 
   /**
@@ -124,7 +124,7 @@ export class GroupBoard extends React.Component {
                   items={pages}
                   maxButtons={10}
                   activePage={this.state.activePage}
-                  onSelect={e => this.handleSelect(e)}
+                  onSelect={event => this.handleSelect(event)}
               />
           }
         </div>

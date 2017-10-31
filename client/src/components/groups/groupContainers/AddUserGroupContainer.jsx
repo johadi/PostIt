@@ -26,12 +26,12 @@ class AddUserGroupContainer extends React.Component {
 
   /**
    * Handles addUser
-   * @param {object} e - event
+   * @param {object} event - event
    * @return {void}
    */
-  handleAddUser(e) {
-    e.preventDefault();
-    const username = e.target.id;
+  handleAddUser(event) {
+    event.preventDefault();
+    const username = event.target.id;
     const groupId = this.props.params.groupId;
     this.props.addUserToGroup(groupId, username);
   }
@@ -44,7 +44,7 @@ class AddUserGroupContainer extends React.Component {
     return this.props.tokenStatus.success && groupUsersStore ?
     <Page groupId={this.props.params.groupId}>
       <AddUserToGroup
-        onAddUser={e => this.handleAddUser(e)}
+        onAddUser={event => this.handleAddUser(event)}
         addUserError={this.props.groupState.addUserErr}
         addUserSuccess={this.props.groupState.addUserSuccess}
         name={groupUsersStore.name}

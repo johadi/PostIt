@@ -31,22 +31,22 @@ export class RecoverPasswordPage extends React.Component {
   /**
    * Handles submit
    * @method handleSubmit
-   * @param {object} e - event
+   * @param {object} event - event
    * @return {void}
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.recoverPasswordAction(this.state.user);
   }
   /**
    * Handles change
    * @method handleChange
-   * @param {object} e - event
+   * @param {object} event - event
    * @return {void}
    */
-  handleChange(e) {
+  handleChange(event) {
     const user = this.state.user;
-    user[e.target.name] = e.target.value;
+    user[event.target.name] = event.target.value;
     this.setState({ user });
   }
   /**
@@ -63,7 +63,7 @@ export class RecoverPasswordPage extends React.Component {
               <div className="inner cover col-sm-offset-1 col-sm-10 cover-div">
                 <h2 className="cover-heading text-signup">Recover Password for PostIt</h2>
                 <div className="row">
-                  <form onSubmit={e => this.handleSubmit(e)}
+                  <form onSubmit={event => this.handleSubmit(event)}
                         role="form" className="form-horizontal">
                     { this.props.recoveryState.fails ?
                       <ErrorComponent fails={this.props.recoveryState.fails} /> : null }
@@ -79,7 +79,7 @@ export class RecoverPasswordPage extends React.Component {
                       <FormField
                         type="email"
                         errors={this.props.recoveryState.errors}
-                        onChange={e => this.handleChange(e)}
+                        onChange={event => this.handleChange(event)}
                         value={this.state.user.email}
                         name="email"
                         placeholder="Enter email you used for registration"

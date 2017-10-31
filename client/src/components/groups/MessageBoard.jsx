@@ -6,9 +6,7 @@ import PropTypes from 'react-proptypes';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
-import {
-  getAllUserGroups,
-  getBoardMessages } from '../../actions/group/groupActions';
+import { getBoardMessages } from '../../actions/group/groupActions';
 
 /**
  * MessageBoard class declaration
@@ -36,24 +34,15 @@ export class MessageBoard extends React.Component {
     };
     this.userDetail = jwtDecode(window.sessionStorage.token);
   }
-
-  /**
-   * @method componentDidMount
-   * @return {void} void
-   */
-  componentDidMount() {
-    this.props.getAllUserGroups();
-  }
-
   /**
    * Handle select for pagination
    * @method handleSelect
    * @return {void} void
-   * @param {number} eventKey
+   * @param {number} paginationNumber
    */
-  handleSelect(eventKey) {
-    this.setState({ activePage: eventKey });
-    this.props.getBoardMessages(eventKey);
+  handleSelect(paginationNumber) {
+    this.setState({ activePage: paginationNumber });
+    this.props.getBoardMessages(paginationNumber);
   }
 
   /**
@@ -143,7 +132,7 @@ export class MessageBoard extends React.Component {
                   items={pages}
                   maxButtons={10}
                   activePage={this.state.activePage}
-                  onSelect={e => this.handleSelect(e)}
+                  onSelect={event => this.handleSelect(event)}
               />
           }
           {
@@ -156,14 +145,11 @@ export class MessageBoard extends React.Component {
   }
 }
 MessageBoard.propTypes = {
-  getAllUserGroups: PropTypes.func.isRequired,
   getBoardMessages: PropTypes.func.isRequired,
   boardMessages: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getAllUserGroups,
-  getBoardMessages }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getBoardMessages }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MessageBoard);

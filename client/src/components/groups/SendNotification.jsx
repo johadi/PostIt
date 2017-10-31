@@ -41,10 +41,10 @@ export class SendNotification extends React.Component {
    * Handle submit
    * @method handleSubmit
    * @return {void} void
-   * @param {object} e - event
+   * @param {object} event - event
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     if (this.state.input.message &&
       this.state.input.message.trim().length > 0) {
       const groupId = this.props.groupId;
@@ -64,21 +64,21 @@ export class SendNotification extends React.Component {
    * Handle Change
    * @method handleChange
    * @return {void} void
-   * @param {object} e
+   * @param {object} event
    */
-  handleChange(e) {
+  handleChange(event) {
     const input = this.state.input;
-    input[e.target.name] = e.target.value;
+    input[event.target.name] = event.target.value;
     this.setState({ input });
   }
   /**
    * Handle key up event as user is typing
    * @method handleKeyUp
    * @return {void} void
-   * @param {object} e - event
+   * @param {object} event - event
    */
-  handleKeyUp(e) {
-    this.setState({ isValid: true, event: e });
+  handleKeyUp(event) {
+    this.setState({ isValid: true, event });
   }
 
   /**
@@ -90,7 +90,7 @@ export class SendNotification extends React.Component {
     return (
         <div className="col-sm-offset-1 col-sm-10 well well-lg"
              id="post-message-div">
-          <form onSubmit={e => this.handleSubmit(e)}
+          <form onSubmit={event => this.handleSubmit(event)}
                 className="form-horizontal" role="form">
             <p className="text-center">
               <strong>Send notification to <span className="text-capitalize">
@@ -102,8 +102,8 @@ export class SendNotification extends React.Component {
             <div className="form-group">
               <div className="col-lg-12">
                 <textarea value={this.state.input.message}
-                          onChange={e => this.handleChange(e)} rows="5"
-                          onKeyUp={e => this.handleKeyUp(e)}
+                          onChange={event => this.handleChange(event)} rows="5"
+                          onKeyUp={event => this.handleKeyUp(event)}
                           className="form-control"
                           name="message" id="message"
                           placeholder="Type your Notification">
@@ -120,7 +120,7 @@ export class SendNotification extends React.Component {
                   </strong>
                 </p>
                 <select value={this.state.input.priority}
-                          onChange={e => this.handleChange(e)}
+                          onChange={event => this.handleChange(event)}
                           className="form-control"
                           name="priority" id="priority">
                   <option value={'normal'}>Normal</option>

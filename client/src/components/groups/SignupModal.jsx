@@ -22,9 +22,8 @@ const SignupModal = () => (
             </div>
             <div className="modal-body">
               <h4 className="text-center text-success">
-                We are excited you joined
-                <strong>PostIt</strong>.
-                A simple notification application for loved ones.
+                We are excited you joined <strong>PostIt</strong>.
+                 A simple notification application for loved ones.
               </h4>
               <p className="text-center">
                 <strong>

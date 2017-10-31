@@ -4,7 +4,8 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import {
-  AddUserToGroup } from '../../../src/components/groups/AddUserToGroup';
+  AddUserToGroup
+} from '../../../src/components/groups/AddUserToGroup';
 
 
 describe('<AddUserToGroup/>', () => {
@@ -23,16 +24,16 @@ describe('<AddUserToGroup/>', () => {
     getUsersSearch,
     groupId: ''
   };
-  const wrapper = mount(<AddUserToGroup{ ...props} />);
+  const wrapper = mount(<AddUserToGroup{...props} />);
   it('should check if component contains form input of type' +
     ' text and with onKeyUp attribute', () => {
     expect(wrapper.find('input').first().props().onKeyUp).toExist();
     expect(wrapper.find('input').first().props().type).toBe('text');
   });
-  it('Should check if a form has a button of type submit for' +
-    ' searching user', () => {
-    expect(wrapper.find('button').props().type).toBe('submit');
-  });
+  it('Should check if a form has a button of type submit forsearching user',
+    () => {
+      expect(wrapper.find('button').props().type).toBe('submit');
+    });
   it('Should check if handleSubmit and getUsersSearch methods are ' +
     'called when a form is submitted', () => {
     wrapper.find('form').simulate('submit'); // trigger an event by form

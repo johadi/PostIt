@@ -42,22 +42,22 @@ export class SigninPage extends React.Component {
   /**
    * Handle submit
    * @method handleSubmit
-   * @param {object} e - event
+   * @param {object} event - event
    * @return {void} void
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.signinAction(this.state.credentials);
   }
   /**
    * Handle change
    * @method handleChange
-   * @param {e} e - event
+   * @param {event} event - event
    * @return {void} void
    */
-  handleChange(e) {
+  handleChange(event) {
     const credentials = this.state.credentials;
-    credentials[e.target.name] = e.target.value;
+    credentials[event.target.name] = event.target.value;
     this.setState({ credentials });
   }
   /**
@@ -78,7 +78,7 @@ export class SigninPage extends React.Component {
                 <p className="lead">
                   Share your moment with colleagues and friends.
                 </p>
-                <form onSubmit={e => this.handleSubmit(e)}
+                <form onSubmit={event => this.handleSubmit(event)}
                       className="form-horizontal" role="form">
                   { this.props.signinState.fails ?
                     <ErrorComponent
@@ -87,7 +87,7 @@ export class SigninPage extends React.Component {
                     /> : null
                   }
                   <FormField errors={this.props.signinState.errors}
-                             onChange={e => this.handleChange(e)}
+                             onChange={event => this.handleChange(event)}
                              value={this.state.credentials.username}
                              name="username"
                              placeholder="Username"
@@ -95,7 +95,7 @@ export class SigninPage extends React.Component {
                   />
                   <FormField type="password"
                              errors={this.props.signinState.errors}
-                             onChange={e => this.handleChange(e)}
+                             onChange={event => this.handleChange(event)}
                              value={this.state.credentials.password}
                              name="password"
                              placeholder="Password"

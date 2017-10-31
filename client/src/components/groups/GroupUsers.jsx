@@ -68,7 +68,7 @@ export class GroupUsers extends React.Component {
                   items={pages}
                   maxButtons={10}
                   activePage={this.state.activePage}
-                  onSelect={e => this.handleSelect(e)}
+                  onSelect={event => this.handleSelect(event)}
               />
           }
         </div>

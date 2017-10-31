@@ -14,8 +14,6 @@ describe('groupReducer', () => {
     groupViewMessageErr: null,
     groupUsersStore: null,
     groupUsersError: null,
-    groupsUserBelongs: null,
-    groupsUserBelongsErr: null,
     userGroupsStore: null,
     userGroupsError: null,
     boardMessagesStore: null,
@@ -215,37 +213,6 @@ describe('groupReducer', () => {
       };
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.groupUsersError).toEqual(groupActionDispatch.payload);
-    });
-  });
-  describe('GET GROUPS OF A USER', () => {
-    it('should set value for groupsUserBelongs and set groupsUserBelongsErr ' +
-      'to null when Type is ALL_USER_GROUPS_SUCCESS',
-      () => {
-        const groupActionDispatch = {
-          type: actionTypes.ALL_USER_GROUPS_SUCCESS,
-          payload: ['sport', 'music']
-        };
-        const newState = groupReducer(initialState, groupActionDispatch);
-        expect(newState.groupsUserBelongsErr).toEqual(null);
-        expect(newState.groupsUserBelongs).toEqual(groupActionDispatch.payload);
-      });
-
-    it('should set value for groupsUserBelongsdErr when Type ' +
-      'is ALL_USER_GROUPS_ERROR', () => {
-      const groupActionDispatch = {
-        type: actionTypes.ALL_USER_GROUPS_ERROR,
-        payload: 'You are not a member of this group'
-      };
-      const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.groupsUserBelongsErr).toEqual(groupActionDispatch.payload);
-    });
-    it('should clear values for groupsUserBelongsErr when Type ' +
-      'is GET_USER_GROUPS_CLEAR', () => {
-      const groupActionDispatch = {
-        type: actionTypes.GET_USER_GROUPS_CLEAR,
-      };
-      const newState = groupReducer(initialState, groupActionDispatch);
-      expect(newState.groupsUserBelongsErr).toEqual(null);
     });
   });
   describe('GET GROUPS OF A USER PAGINATED', () => {

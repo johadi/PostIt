@@ -9,11 +9,11 @@ import { NotFoundHeader } from './headers';
 export default class NotFoundPage extends React.Component {
   /**
    * Handles click to go back home
-   * @param {object} e - event
+   * @param {object} event - event
    * @return {void}
    */
-  handleClick(e) {
-    e.preventDefault();
+  handleClick(event) {
+    event.preventDefault();
     browserHistory.push('/');
   }
   /**

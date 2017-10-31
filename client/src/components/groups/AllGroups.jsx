@@ -23,7 +23,14 @@ export class AllGroups extends React.Component {
       activePage: 1
     };
   }
-
+  /**
+   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
+   */
+  componentWillMount() {
+    this.props.getUserGroups(1);
+  }
   /**
    * Handles Select for pagination buttons
    * @method handleSelect
@@ -49,6 +56,7 @@ export class AllGroups extends React.Component {
           <hr/>
           <div className="list-group">
             {groups.map(userGroup => (
+                !!userGroup.Group &&
                 <Link to={`/group/${userGroup.Group.id}/board`}
                       key={userGroup.Group.id} className="group-div list-group-item">
                   <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>

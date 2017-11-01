@@ -128,10 +128,13 @@ export default {
               `https://jimoh-postit.herokuapp.com/reset-password?token=${token}` :
               `http://localhost:8080/reset-password?token=${token}`;
             const subject = 'Your PostIt Password recovery link';
-            const message = `<h2>Click the link below to reset your PostIt password</h2>
-                         <p><a href="${link}">Recover Password</a></p>`;
+            const template = 'passwordRecovery';
+            const context = {
+              link,
+              username: user.username
+            };
             if (process.env.NODE_ENV !== 'test') {
-              sendMail(from, to, subject, message)
+              sendMail(from, to, subject, template, context)
                 .then((sent) => {
                   if (!sent) {
                     return Promise.reject('Password recovery failed...try again');

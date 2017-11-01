@@ -96,13 +96,12 @@ export default {
                   // groupMemberEmails is an array of emails
                   const to = groupMemberEmails;
                   const subject = 'Notification from PostIt';
-                  const message = '<h2>' +
-                    'Hi!, you have one notification from PostIt' +
-                    '</h2><h3>Notification level: Urgent</h3>' +
-                    '<p><a href="https://jimoh-postit.herokuapp.com">' +
-                    'Login to your PostIt account to view</a></p>' +
-                    '<p>The PostIt management team!!!</p>';
-                  sendMail(from, to, subject, message);
+                  const template = 'notification';
+                  const context = {
+                    level: 'urgent',
+                    color: 'orangered'
+                  };
+                  sendMail(from, to, subject, template, context);
                 });
             }
             // CRITICAL: Send Email, SMS and In-app notification to group members
@@ -136,12 +135,12 @@ export default {
                   // groupMemberEmails is an array of emails
                   const to = groupMemberEmails;
                   const subject = 'Notification from PostIt';
-                  const message = '<h2>Hi!, you have one notification from PostIt</h2>' +
-                    '<h3>Notification level: Critical</h3>' +
-                    '<p><a href="https://jimoh-postit.herokuapp.com">' +
-                    'Login to your PostIt account to view</a></p>' +
-                    '<p>The PostIt mangement team!!!</p>';
-                  sendMail(from, to, subject, message);
+                  const template = 'notification';
+                  const context = {
+                    level: 'critical',
+                    color: 'darkred'
+                  };
+                  sendMail(from, to, subject, template, context);
                 });
             }
           } else {

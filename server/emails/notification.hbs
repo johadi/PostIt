@@ -1,0 +1,36 @@
+<html>
+<head>
+    <style>
+        #body{
+            background-color: #f5f5f5;
+            margin-right: 20%;
+            margin-left: 20%;
+        }
+        #level{
+            color: {{color}};
+        }
+        #header{
+            background-color: #e3e3e3;
+            padding: 10px 0px 10px 10px;
+        }
+        #footer{
+            background-color: #e3e3e3;
+            padding: 10px 10px 10px 10px;
+        }
+        #inner-body{
+            padding: 0px 0px 5px 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="body">
+    <h2 id="header"><span>Hi!,</span></h2>
+    <div id="inner-body">
+        <h3>You have one notification from PostIt</h3>
+        <p>Notification Level: <span id="level">{{level}}</span></p>
+        <p><a href="https://jimoh-postit.herokuapp.com/signin">Click here</a> to access your PostIt account</p>
+    </div>
+    <p id="footer">The PostIt management team!!!</p>
+</div>
+</body>
+</html>

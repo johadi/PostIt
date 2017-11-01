@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import twilio from 'twilio';
+import handlebars from 'nodemailer-express-handlebars';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -34,8 +35,15 @@ const handleSuccess = (code, body, res) => {
       return res.status(200).json(body);
   }
 };
-// create reusable transporter object using the default SMTP transport
+
 // Sending Email
+// Create handlebars options
+const handlebarsOptions = {
+  viewPath: 'server/emails',
+  extName: '.hbs'
+};
+
+// create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 465,
@@ -45,21 +53,26 @@ const transporter = nodemailer.createTransport({
     pass: process.env.MAIL_PASSWORD
   }
 });
+// Tells transport to use handlebars
+transporter.use('compile', handlebars(handlebarsOptions));
+
 /**
  * Helper function that handles send mail
  * @function sendMail
  * @param {string} from
  * @param {string|array} to
  * @param {string} subject
- * @param {string} message
+ * @param {string} template
+ * @param {string} context
  * @return {*} any
  */
-const sendMail = (from, to, subject, message) => {
+const sendMail = (from, to, subject, template, context) => {
   const mailOptions = {
     from,
     to,
     subject,
-    html: message
+    template,
+    context
   };
   return transporter.sendMail(mailOptions);
 };

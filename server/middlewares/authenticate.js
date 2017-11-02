@@ -26,10 +26,10 @@ const authenticate = (req, res, next) => {
           if (!user) {
             return Promise.reject('User with this token not found');
           }
-          const userData = lodash.pick(user,
+          const userDetails = lodash.pick(user,
             ['id', 'username', 'email', 'mobile', 'fullname']
           );
-          req.user = userData;
+          req.user = userDetails;
           return next();
         })
         .catch(err => res.status(404).json(err));

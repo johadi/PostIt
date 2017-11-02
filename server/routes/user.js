@@ -95,5 +95,5 @@ router.route('/v1/users')
  *             allUsers:
  *               type: array
  */
-  .get(authenticate, userController.getSearchedUsers);
+  .get(authenticate, userController.getUsers);
 export default router;

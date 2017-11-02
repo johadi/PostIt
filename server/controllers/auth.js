@@ -117,9 +117,9 @@ export default {
         models.PasswordRecovery.findOne({ where: { email: user.email } })
           .then((foundUser) => {
             // If all is well
-            const userData = lodash.pick(user, ['id', 'username', 'email']);
+            const userDetails = lodash.pick(user, ['id', 'username', 'email']);
             // Create token and should expire in the next 24 hours
-            const token = jwt.sign(userData,
+            const token = jwt.sign(userDetails,
               process.env.JWT_SECRET, { expiresIn: 3600 * 24 });
             // Handle our send email here
             const from = 'no-reply <jimoh@google.com>';

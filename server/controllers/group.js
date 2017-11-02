@@ -1,6 +1,6 @@
 import models from '../database/models';
 import Constants from '../helpers/constants';
-import { handleError, handleSuccess } from '../helpers/helpers';
+import { handleError, handleSuccess, paginateResult } from '../helpers/helpers';
 
 export default {
   /**
@@ -157,13 +157,13 @@ export default {
           return Promise.all([userGroup, userGroupAdd, foundUserAndGroup[1]]);
         })
         .then((allResolved) => {
-          // set data to be sent since all our promises have been resolved
-          const addToGroupData = {
+          // set details to be sent since all our promises have been resolved
+          const addToGroupDetails = {
             message: 'User added successfully',
             addedUser: allResolved[2].username,
             addedBy: req.user.username
           };
-          return handleSuccess(201, addToGroupData, res);
+          return handleSuccess(201, addToGroupDetails, res);
         })
         .catch(err => handleError(err, res));
   },
@@ -183,7 +183,6 @@ export default {
       const groupId = req.params.groupId;
       if (req.query.page && !isNaN(parseInt(req.query.page, 10))) {
         // convert the query to standard number for use
-        const query = parseInt(req.query.page, 10);
         models.Group.findById(req.params.groupId)
             .then((group) => {
               if (!group) {
@@ -208,57 +207,34 @@ export default {
               }
               // we got group info like this from our promise.all()
               const group = foundUserAndGroup[1];
-              if (query === 0) { // get at most 6 users for side bar display
-                models.UserGroup.findAndCountAll({
-                  where: { groupId },
-                  // limit: 6,
-                  include: [{
-                    model: models.User,
-                    attributes: ['id', 'username', 'fullname']
-                  }]
+              const page = req.query.page;
+              const itemsPerPage = Constants.GROUP_USERS_PER_PAGE;
+              const { limit, offset } = paginateResult(page, itemsPerPage);
+              models.UserGroup.findAndCountAll({
+                where: { groupId },
+                offset,
+                limit,
+                include: [{
+                  model: models.User,
+                  attributes: ['id', 'username', 'fullname']
+                }]
+              })
+                .then((groupWithMembers) => {
+                  if (!groupWithMembers) {
+                    return Promise.reject('group not found');
+                  }
+                  // to round up i.e 3/2 = 1.5 = 2
+                  const pages = Math.ceil(groupWithMembers.count / limit);
+                  const groupUsersDetails = {
+                    id: group.id,
+                    name: group.name,
+                    pages,
+                    users: groupWithMembers.rows,
+                    count: groupWithMembers.count
+                  };
+                  return handleSuccess(200, groupUsersDetails, res);
                 })
-                    .then((groupWithMembers) => {
-                      const groupUsersData = {
-                        id: group.id,
-                        name: group.name,
-                        users: groupWithMembers.rows,
-                        count: groupWithMembers.count
-                      };
-                      return handleSuccess(200, groupUsersData, res);
-                    })
-                    .catch(err => handleError(err, res));
-              } else {
-                // Paginate result of group users
-                // limit you want to display per page
-                const perPage = Constants.GROUP_USERS_PER_PAGE;
-                const currentPage = query < 1 ? 1 : query;
-                const offset = perPage * (currentPage - 1); // items to skip
-                models.UserGroup.findAndCountAll({
-                  where: { groupId },
-                  offset,
-                  limit: perPage,
-                  include: [{
-                    model: models.User,
-                    attributes: ['id', 'username', 'fullname']
-                  }]
-                })
-                    .then((groupWithMembers) => {
-                      if (!groupWithMembers) {
-                        return Promise.reject('group not found');
-                      }
-                      // to round up i.e 3/2 = 1.5 = 2
-                      const pages = Math.ceil(groupWithMembers.count / perPage);
-                      const groupUsersData = {
-                        id: group.id,
-                        name: group.name,
-                        pages,
-                        users: groupWithMembers.rows,
-                        count: groupWithMembers.count
-                      };
-                      return handleSuccess(200, groupUsersData, res);
-                    })
-                    .catch(err => handleError(err, res));
-              } // end of the else of if (query==0)
+                .catch(err => handleError(err, res));
             })
             .catch(err => handleError(err, res));
       } else {

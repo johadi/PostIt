@@ -1,7 +1,7 @@
 import lodash from 'lodash';
 import models from '../database/models';
 import Constants from '../helpers/constants';
-import { handleError, handleSuccess } from '../helpers/helpers';
+import { handleError, handleSuccess, paginateResult } from '../helpers/helpers';
 
 export default {
   /**
@@ -20,54 +20,29 @@ export default {
             'value must be a number', res);
         }
         // convert the query to standard number for use
-        const query = parseInt(req.query.page, 10);
-        // Return groups of at most 6 . this is good for client group side bar
-        if (query === 0) {
-          models.UserGroup.findAndCountAll({
-            where: { userId },
-            include: [{ model: models.Group, attributes: ['id', 'name', 'creatorId'] }]
+        const page = req.query.page;
+        const itemsPerPage = Constants.USER_GROUPS_PER_PAGE;
+        const { limit, offset } = paginateResult(page, itemsPerPage);
+        models.UserGroup.findAndCountAll({
+          where: { userId },
+          limit,
+          offset,
+          include: [{ model: models.Group, attributes: ['id', 'name', 'creatorId'] }]
+        })
+          .then((result) => {
+            // round off i.e 3/2 = 1.5 = 2
+            const pages = Math.ceil(result.count / limit);
+            const groupUsersDetails = {
+              groups: result.rows,
+              count: result.count,
+              pages,
+              id: req.user.id,
+              username: req.user.username,
+              fullname: req.user.fullname
+            };
+            return handleSuccess(200, groupUsersDetails, res);
           })
-            .then((result) => {
-              const userGroupsData = {
-                groups: result.rows,
-                count: result.count,
-                id: req.user.id,
-                username: req.user.username,
-                fullname: req.user.fullname
-              };
-              return handleSuccess(200, userGroupsData, res);
-            })
-            .catch(err => handleError(err, res));
-        } else {
-          // Return result as it supposed to be.
-          // limit you want to display per page
-          const perPage = Constants.USER_GROUPS_PER_PAGE;
-          const currentPage = query < 1 ? 1 : query;
-          // i.e page2 items=9*(2-1) =9*1= 9 items
-          // will be skipped. page2 items displays from item 10
-          const offset = perPage * (currentPage - 1);
-          // const nextPage = parseInt(currentPage, 10) + 1;
-          models.UserGroup.findAndCountAll({
-            where: { userId },
-            limit: perPage,
-            offset,
-            include: [{ model: models.Group, attributes: ['id', 'name', 'creatorId'] }]
-          })
-            .then((result) => {
-              // round off i.e 3/2 = 1.5 = 2
-              const pages = Math.ceil(result.count / perPage);
-              const groupUsersData = {
-                groups: result.rows,
-                count: result.count,
-                pages,
-                id: req.user.id,
-                username: req.user.username,
-                fullname: req.user.fullname
-              };
-              return handleSuccess(200, groupUsersData, res);
-            })
-            .catch(err => handleError(err, res));
-        }
+          .catch(err => handleError(err, res));
       } else {
         return handleError('Oops! Error. Request url must have ' +
           'query string named page with number as value', res);
@@ -106,11 +81,9 @@ export default {
             const allUserGroupMessages = allResolvedPromise[0];
             const userGroupIds = allResolvedPromise[1]; // user groups Id
             // convert the query to standard number for use
-            const query = parseInt(req.query.page, 10);
-            // limit you want to display per page
-            const perPage = Constants.BOARD_MESSAGES_PER_PAGE;
-            const currentPage = query < 1 ? 1 : query;
-            const offset = perPage * (currentPage - 1);
+            const page = req.query.page;
+            const itemsPerPage = Constants.BOARD_MESSAGES_PER_PAGE;
+            const { limit, offset } = paginateResult(page, itemsPerPage);
             // get all unread messages of a user in all groups
             // he/she joined (Unread only). good for getting count of
             // all user unread messages in all his/her joined groups
@@ -119,7 +92,7 @@ export default {
                 !(lodash.includes(message.readersId, userId)));
             // pages the unread messages in all joined groups formed
             // to round off i.e 3/2 = 1.5 = 2
-            const pages = Math.ceil(userGroupUnreadMessages.length / perPage);
+            const pages = Math.ceil(userGroupUnreadMessages.length / limit);
             // Fetch user unread messages using pagination information
             // like offset and limit. similar to the one above but this time,
             // we are fetching by pagination detail
@@ -127,7 +100,7 @@ export default {
               // return messages that has groupIds like in [3,5,7,8,9]
               where: { groupId: userGroupIds },
               offset,
-              limit: perPage,
+              limit,
               order: [['createdAt', 'DESC']],
               include: [{ model: models.User, attributes: ['username', 'fullname'] }, {
                 model: models.Group,
@@ -139,7 +112,7 @@ export default {
                 // read by a user with this limit and offset
                 const userUnreadMessages = messages.filter(message =>
                   !(lodash.includes(message.readersId, userId)));
-                const messageBoardData = {
+                const messageBoardDetails = {
                   // paginated messages obtained using offset
                   // and limit i.e (4 messages)
                   messages: userUnreadMessages,
@@ -147,7 +120,7 @@ export default {
                   count: userGroupUnreadMessages.length,
                   pages
                 };
-                return handleSuccess(200, messageBoardData, res);
+                return handleSuccess(200, messageBoardDetails, res);
               })
               .catch(err => handleError(err, res));
           })
@@ -161,22 +134,17 @@ export default {
   /**
    * Get all users in the application by searched term.
    * You can also include array of user Ids in a group
-   * @function getSearchedUsers
+   * @function getUsers
    * @param {object} req - request parameter
    * @param {object} res - response parameter
    * @return {object} response detail
    */
-  getSearchedUsers(req, res) {
+  getUsers(req, res) {
     if (req.user) {
       if (req.query.search) {
-        // Find all users in the application
-        // convert the query to standard number for use
-        // Let the page query default to one if user never passes page query
-        const pageQuery = parseInt(req.query.page, 10) || 1;
-        // limit you want to display per page
-        const perPage = Constants.SEARCHED_RESULT_PER_PAGE;
-        const currentPage = pageQuery < 1 ? 1 : pageQuery;
-        const offset = perPage * (currentPage - 1);
+        const page = req.query.page;
+        const itemsPerPage = Constants.SEARCHED_RESULT_PER_PAGE;
+        const { limit, offset } = paginateResult(page, itemsPerPage);
         const searchedQuery = req.query.search.toLowerCase();
         const search = `%${searchedQuery}%`;
         models.User.findAndCountAll(
@@ -184,7 +152,7 @@ export default {
             where: { $or: [{ username: { like: search } },
               { email: { like: search } }] },
             offset,
-            limit: perPage,
+            limit,
             attributes: ['id', 'username', 'fullname', 'email'],
           })
           .then((users) => { // users = foundUsers
@@ -221,17 +189,17 @@ export default {
                 })
                 .then((groupUsers) => {
                   // pages - to round off i.e 3/2 = 1.5 = 2
-                  const pages = Math.ceil(users.count / perPage);
+                  const pages = Math.ceil(users.count / limit);
                   // converts the array of userId objects to standard array of Ids
                   const groupUsersIdInArray = groupUsers
                     .map(groupUser => groupUser.userId);
-                  const allUsersData = {
+                  const allUsersDetails = {
                     allUsers: users.rows,
                     pages,
                     count: users.count,
                     groupUsersId: groupUsersIdInArray
                   };
-                  return handleSuccess(200, allUsersData, res);
+                  return handleSuccess(200, allUsersDetails, res);
                 })
                 .catch(err => handleError(err, res));
             } else {

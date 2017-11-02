@@ -200,12 +200,12 @@ export default {
             .then((messages) => {
               // to round up i.e 3/2 = 1.5 = 2
               const pages = Math.ceil(messages.count / perPage);
-              const getMessagesData = {
+              const getMessagesDetails = {
                 count: messages.count,
                 pages,
                 rows: messages.rows
               };
-              return handleSuccess(200, getMessagesData, res);
+              return handleSuccess(200, getMessagesDetails, res);
             })
             .catch(err => handleError(err, res));
         })

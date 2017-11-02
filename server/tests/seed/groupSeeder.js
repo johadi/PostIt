@@ -1,58 +1,58 @@
-// group_seed.js
+// groupSeeder.js
 import models from './../../database/models';
 
 export default {
   /**
-   * Empty user DB
-   * @function emptyUserDB
+   * Empty user Database
+   * @function emptyUser
    * @param {function} done
    * @return {*} any
    */
-  emptyUserDB(done) {
+  emptyUser(done) {
     models.User.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   /**
-   * Empty message DB
-   * @function emptyMessageDB
+   * Empty message Database
+   * @function emptyMessage
    * @param {function} done
    * @return {*} any
    */
-  emptyMessageDB(done) {
+  emptyMessage(done) {
     models.Message.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   /**
-   * Empty group DB
-   * @function emptyGroupDB
+   * Empty group Database
+   * @function emptyGroup
    * @param {function} done
    * @return {*} any
    */
-  emptyGroupDB(done) {
+  emptyGroup(done) {
     models.Group.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   /**
-   * Empty user-group DB
-   * @function emptyUserGroupDB
+   * Empty user-group Database
+   * @function emptyUserGroup
    * @param {function} done
    * @return {*} any
    */
-  emptyUserGroupDB(done) {
+  emptyUserGroup(done) {
     models.UserGroup.destroy({ truncate: true })
         .then(() => done())
         .catch(err => done(err));
   },
   /**
-   * Add user to DB function 1
-   * @function addUserToDb
+   * Add user to Database function 1
+   * @function addFirstUser
    * @param {function} done
    * @return {*} any
    */
-  addUserToDb(done) {
+  addFirstUser(done) {
     models.User.create({
       id: 5,
       fullname: 'jimoh hadi',
@@ -64,12 +64,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Add user to DB function 2
-   * @function addUserToDb2
+   * Add user to Database function 2
+   * @function addSecondUser
    * @param {function} done
    * @return {*} any
    */
-  addUserToDb2(done) {
+  addSecondUser(done) {
     models.User.create({
       id: 20,
       fullname: 'jack oman',
@@ -81,12 +81,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Add user to DB function 3
-   * @function addUserToDb3
+   * Add user to Database function 3
+   * @function addThirdUser
    * @param {function} done
    * @return {*} any
    */
-  addUserToDb3(done) {
+  addThirdUser(done) {
     models.User.create({
       id: 30,
       fullname: 'muhammed sherif',
@@ -98,12 +98,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Create Group DB function 1
-   * @function createGroup
+   * Create Group Database function 1
+   * @function createFirstGroup
    * @param {function} done
    * @return {*} any
    */
-  createGroup(done) {
+  createFirstGroup(done) {
     models.Group.create({
       id: 99,
       name: 'andela',
@@ -118,12 +118,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Create Group DB function 2
-   * @function createGroup2
+   * Create Group Database function 2
+   * @function createSecondGroup
    * @param {function} done
    * @return {*} any
    */
-  createGroup2(done) {
+  createSecondGroup(done) {
     models.Group.create({
       id: 100,
       name: 'react',
@@ -138,7 +138,7 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Create Group DB function 3
+   * Create Group Database function 3
    * @function createGroup3
    * @param {function} done
    * @return {*} any
@@ -158,12 +158,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Add Message DB function 1
-   * @function addMessageToDb
+   * Add Message Database function 1
+   * @function addFirstMessage
    * @param {function} done
    * @return {*} any
    */
-  addMessageToDb(done) {
+  addFirstMessage(done) {
     models.Message.create({
       id: 8,
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
@@ -186,12 +186,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Add Message DB function 2
-   * @function addMessageToDb2
+   * Add Message Database function 2
+   * @function addSecondMessage
    * @param {function} done
    * @return {*} any
    */
-  addMessageToDb2(done) {
+  addSecondMessage(done) {
     models.Message.create({
       id: 9,
       body: 'Carry something more than a brain to Andela Bootcamp..lol',
@@ -214,12 +214,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Add Message DB function 3
-   * @function addMessageToDb3
+   * Add Message Database function 3
+   * @function addThirdMessage
    * @param {function} done
    * @return {*} any
    */
-  addMessageToDb3(done) {
+  addThirdMessage(done) {
     models.Message.create({
       id: 10,
       body: 'Learners are leaders',
@@ -243,11 +243,11 @@ export default {
   },
   /**
    * Add User to group function 1
-   * @function addUserToGroup
+   * @function addFirstUserGroup
    * @param {function} done
    * @return {*} any
    */
-  addUserToGroup(done) {
+  addFirstUserGroup(done) {
     models.UserGroup.create({
       groupId: 100,
       userId: 10
@@ -267,11 +267,11 @@ export default {
   },
   /**
    * Add User to group function 2
-   * @function addUserToGroup2
+   * @function addSecondUserGroup
    * @param {function} done
    * @return {*} any
    */
-  addUserToGroup2(done) {
+  addSecondUserGroup(done) {
     models.UserGroup.create({
       groupId: 99,
       userId: 5
@@ -291,11 +291,11 @@ export default {
   },
   /**
    * Add User to group function 3
-   * @function addUserToGroup3
+   * @function addThirdUser
    * @param {function} done
    * @return {*} any
    */
-  addUserToGroup3(done) {
+  addThirdUserGroup(done) {
     models.UserGroup.create({
       groupId: 101,
       userId: 5
@@ -315,11 +315,11 @@ export default {
   },
   /**
    * Add User to group function 4
-   * @function addUserToGroup4
+   * @function addFourthUserGroup
    * @param {function} done
    * @return {*} any
    */
-  addUserToGroup4(done) {
+  addFourthUserGroup(done) {
     models.UserGroup.create({
       groupId: 99,
       userId: 20
@@ -336,6 +336,37 @@ export default {
         })
         .then(() => done())
         .catch(err => done(err));
+  },
+  loginDetails: {
+    username: 'johadi10',
+    password: '11223344'
+  },
+  validUserDetails: {
+    id: 5,
+    fullname: 'jimoh hadi',
+    username: 'johadi10',
+    email: 'johadi10@yahoo.com',
+    mobile: '81630412699'
+  },
+  newUserDetails: {
+    username: 'sherif',
+    password: '11223344'
+  },
+  firstGroupDetails: {
+    id: 99,
+    name: 'andela',
+    creatorId: 1
+  },
+  firstUserDetails: {
+    id: 20,
+    username: 'oman',
+    fullname: 'jack oman',
+    email: 'oman@gmail.com'
+  },
+  secondUserDetails: {
+    id: 30,
+    username: 'sherif',
+    fullname: 'muhammed sherif',
+    email: 'sherif@gmail.com'
   }
 };
-

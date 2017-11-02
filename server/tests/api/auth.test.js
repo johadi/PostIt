@@ -4,21 +4,26 @@ import { assert } from 'chai';
 import jwtDecode from 'jwt-decode';
 import dotenv from 'dotenv';
 import app from '../../../app';
-import seeder from '../seed/auth_seed';
+import authSeeder from '../seed/authSeeder';
 import models from '../../database/models';
 
 dotenv.config();
 describe('Authentication API test', () => {
   // Test for Signup route
   describe('POST api/v1/user/signup', () => {
-    beforeEach(seeder.emptyDB);
-    beforeEach(seeder.addUserToDb);
+    const {
+      username, fullname, email, mobile,
+      password, confirmPassword
+    } = authSeeder.userDetails;
+    beforeEach(authSeeder.emptyUser);
+    beforeEach(authSeeder.addFirstUser);
     it('Should return status code 400 and a message when some ' +
       'inputs are invalid. i.e Username', (done) => {
+      const invalidUsername = '';
       request(app)
         .post('/api/v1/user/signup')
-        .send(seeder.setData('jimoh hadi', '',
-          'jimoh@gmail.com', '0908736521', '11223344', '11223344'))
+        .send(authSeeder.setUserDetails(fullname, invalidUsername,
+          email, mobile, password, confirmPassword))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
@@ -29,10 +34,12 @@ describe('Authentication API test', () => {
     });
     it('should return status code 400 and a message when passwords ' +
       'not matched', (done) => {
+      const newPassword = '123456';
+      const newConfirmPassword = '11223344';
       request(app)
         .post('/api/v1/user/signup')
-        .send(seeder.setData('jimoh hadi', 'johadi', 'jimoh@gmail.com',
-          '0908736521', '123456', '11223344'))
+        .send(authSeeder.setUserDetails(fullname, username, email,
+          mobile, newPassword, newConfirmPassword))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
@@ -41,10 +48,11 @@ describe('Authentication API test', () => {
         });
     });
     it('should return status code 400 if Username already exists', (done) => {
+      const existingUsername = 'ovenje';
       request(app)
         .post('/api/v1/user/signup')
-        .send(seeder.setData('jimoh hadi', 'ovenje', 'jimoh@gmail.com',
-          '090112233', '11223344', '11223344'))
+        .send(authSeeder.setUserDetails(fullname, existingUsername, email,
+          mobile, password, confirmPassword))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
@@ -54,10 +62,11 @@ describe('Authentication API test', () => {
     });
     it('should return status code 400 and a message if there is ' +
       'an existing email', (done) => {
+      const existingEmail = 'ovenje@yahoo.com';
       request(app)
         .post('/api/v1/user/signup')
-        .send(seeder.setData('jimoh ali', 'ali', 'ovenje@yahoo.com',
-          '090112233', '11223344', '11223344'))
+        .send(authSeeder.setUserDetails(fullname, username, existingEmail,
+          mobile, password, confirmPassword))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
@@ -67,10 +76,11 @@ describe('Authentication API test', () => {
     });
     it('Should create a new user account when input is valid and return ' +
       'status code 201 with a token', (done) => {
+      const newUsername = 'johadi11';
       request(app)
         .post('/api/v1/user/signup')
-        .send(seeder.setData('jimoh', 'johadi11', 'jimoh@gmail.com',
-          '0908736521', '11223344', '11223344'))
+        .send(authSeeder.setUserDetails(fullname, newUsername, email,
+          mobile, password, confirmPassword))
         .expect(201)
         .end((err, res) => {
           if (err) return done(err);
@@ -78,25 +88,26 @@ describe('Authentication API test', () => {
           assert.exists(decodedToken.id);
           assert.notExists(decodedToken.email);
           assert.notExists(decodedToken.username);
-          const password = { password: '11223344' };
-          assert.notInclude(decodedToken, password);
+          const returnedPassword = { password: '11223344' };
+          assert.notInclude(decodedToken, returnedPassword);
           done();
         });
     });
     it('it Should return true if raw password not equal to hashed password ' +
       'in database', (done) => {
+      const newUsername = 'johadi10';
       request(app)
         .post('/api/v1/user/signup')
-        .send(seeder.setData('jimoh', 'johadi10', 'jimoh@gmail.com',
-          '0908736521', '11223344', '11223344'))
+        .send(authSeeder.setUserDetails(fullname, newUsername, email,
+          mobile, password, confirmPassword))
         .expect(201)
         .end((err) => {
           if (err) return done(err);
           models.User.findOne({
-            where: { username: 'johadi10' }
+            where: { username: newUsername }
           })
             .then((user) => {
-              assert.notEqual(user.password, '11223344');
+              assert.notEqual(user.password, password);
               done();
             });
         });
@@ -104,14 +115,16 @@ describe('Authentication API test', () => {
   });
   // Test for Signin route
   describe('POST api/v1/user/signin', () => {
+    const { username, password } = authSeeder.loginDetails;
     // Empty our database
-    before(seeder.emptyDB);
-    before(seeder.addUserToDb);
+    before(authSeeder.emptyUser);
+    before(authSeeder.addFirstUser);
     it('Should return status code 400 and a message when any input is ' +
-      'invalid. i.e username field', (done) => {
+      'empty. i.e username field', (done) => {
+      const invalidUsername = '';
       request(app)
         .post('/api/v1/user/signin')
-        .send(seeder.setLoginData('', '11223344'))
+        .send(authSeeder.setLoginDetails(invalidUsername, password))
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
@@ -122,9 +135,10 @@ describe('Authentication API test', () => {
     });
     it('Should return status code 404 and a message if User not found',
       (done) => {
+        const notFoundUsername = 'jimoh';
         request(app)
           .post('/api/v1/user/signin')
-          .send(seeder.setLoginData('jimoh', '11223344'))
+          .send(authSeeder.setLoginDetails(notFoundUsername, password))
           .expect(404)
           .end((err, res) => {
             if (err) return done(err);
@@ -134,9 +148,10 @@ describe('Authentication API test', () => {
       });
     it('Should return status code 400 and a message when password is incorrect.',
       (done) => {
+        const incorrectPassword = '11223366';
         request(app)
           .post('/api/v1/user/signin')
-          .send(seeder.setLoginData('ovenje', '11223366'))
+          .send(authSeeder.setLoginDetails(username, incorrectPassword))
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
@@ -148,7 +163,7 @@ describe('Authentication API test', () => {
       (done) => {
         request(app)
           .post('/api/v1/user/signin')
-          .send(seeder.setLoginData('ovenje', '11223344'))
+          .send(authSeeder.setLoginDetails(username, password))
           .expect(200)
           .end((err, res) => {
             if (err) return done(err);
@@ -164,9 +179,9 @@ describe('Authentication API test', () => {
   // Password recovery test
   describe('POST api/v1/user/recover-password', () => {
     // Empty our database
-    before(seeder.emptyDB);
-    before(seeder.emptyPasswordRecoveryDB);
-    before(seeder.addUserToDb);
+    before(authSeeder.emptyUser);
+    before(authSeeder.emptyPasswordRecovery);
+    before(authSeeder.addFirstUser);
     it('Should return status code 400 and a message when any input is ' +
       'invalid. i.e email field', (done) => {
       request(app)
@@ -182,9 +197,10 @@ describe('Authentication API test', () => {
     });
     it('Should return status code 404 and a message if user email not found',
       (done) => {
+        const invalidEmail = 'xyz@gmail.com';
         request(app)
           .post('/api/v1/user/recover-password')
-          .send({ email: 'xyz@gmail.com' })
+          .send({ email: invalidEmail })
           .expect(404)
           .end((err, res) => {
             if (err) return done(err);
@@ -196,15 +212,15 @@ describe('Authentication API test', () => {
 // Password reset
   describe('POST api/v1/user/reset-password', () => {
     // Empty our database
-    before(seeder.emptyDB);
-    before(seeder.emptyPasswordRecoveryDB);
-    // Add user to DB
-    before(seeder.addUserToDb);
+    before(authSeeder.emptyUser);
+    before(authSeeder.emptyPasswordRecovery);
+    // Add user to Database
+    before(authSeeder.addFirstUser);
     it('Should return status code 400 and a message when link has no token',
       (done) => {
         request(app)
           .post('/api/v1/user/reset-password')
-          .send({ })
+          .send({})
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);

@@ -2,60 +2,60 @@ import models from './../../database/models';
 
 const modelSeed = {
   /**
-   * Reset group DB
-   * @function resetGroupDB
-   * @param {object} groupData
+   * Reset group Database
+   * @function resetGroup
+   * @param {object} groupDetails
    * @param {function} done
    * @return {*} any
    */
-  resetGroupDb(groupData, done) {
+  resetGroup(groupDetails, done) {
     models.Group.destroy({ truncate: true })
-      .then(() => models.Group.create(groupData))
+      .then(() => models.Group.create(groupDetails))
       .then(() => done())
       .catch(error => done(error));
   },
   /**
-   * Empty group DB
-   * @function resetGroupDB
+   * Empty group Database
+   * @function emptyGroup
    * @param {function} done
    * @return {*} any
    */
-  emptyGroupDb(done) {
+  emptyGroup(done) {
     models.Group.destroy({ truncate: true })
       .then(() => done());
   },
-  groupData: {
+  groupDetails: {
     name: 'fruits',
     creatorId: 3
   },
-  groupInvalidData: {
+  groupInvalidDetails: {
     name: '',
     creatorId: 3
   },
   /**
-   * Reset Message DB
-   * @function resetMessageDB
-   * @param {object} messageData
+   * Reset Message Database
+   * @function resetMessage
+   * @param {object} messageDetails
    * @param {function} done
    * @return {*} any
    */
-  resetMessageDb(messageData, done) {
+  resetMessage(messageDetails, done) {
     models.Message.destroy({ truncate: true })
-      .then(() => models.Message.create(messageData))
+      .then(() => models.Message.create(messageDetails))
       .then(() => done())
       .catch(error => done(error));
   },
   /**
-   * Empty Message DB
-   * @function resetGroupDB
+   * Empty Message Database
+   * @function emptyMessage
    * @param {function} done
    * @return {*} any
    */
-  emptyMessageDb(done) {
+  emptyMessage(done) {
     models.Message.destroy({ truncate: true })
       .then(() => done());
   },
-  messageData: {
+  messageDetails: {
     body: 'How was your day?',
     userId: 3,
     groupId: 5,
@@ -63,36 +63,36 @@ const modelSeed = {
     readersId: [3]
   },
   /**
-   * Reset User DB
-   * @function resetUserDB
-   * @param {object} userData
+   * Reset User Database
+   * @function resetUser
+   * @param {object} userDetails
    * @param {function} done
    * @return {*} any
    */
-  resetUserDb(userData, done) {
+  resetUser(userDetails, done) {
     models.User.destroy({ truncate: true })
-      .then(() => models.User.create(userData))
+      .then(() => models.User.create(userDetails))
       .then(() => done())
       .catch(error => done(error));
   },
   /**
-   * Empty User DB
-   * @function resetUserDB
+   * Empty User Database
+   * @function emptyUser
    * @param {function} done
    * @return {*} any
    */
-  emptyUserDb(done) {
+  emptyUser(done) {
     models.User.destroy({ truncate: true })
       .then(() => done());
   },
-  userData: {
+  userDetails: {
     fullname: 'jimoh hady',
     username: 'johady',
     email: 'jimoh.hady@mail.com',
     password: '112233',
     mobile: '09065748390'
   },
-  userNewData: {
+  newUserDetails: {
     fullname: 'Jimoh Ali',
     username: 'ali',
     email: 'jimoh.ali@mail.com',
@@ -100,29 +100,29 @@ const modelSeed = {
     mobile: '09065748390'
   },
   /**
-   * Reset passwordRecovery DB
-   * @function resetGroupDB
-   * @param {object} passwordRecoveryData
+   * Reset passwordRecovery Database
+   * @function resetresetPasswordRecovery
+   * @param {object} passwordRecoveryDetails
    * @param {function} done
    * @return {*} any
    */
-  resetPasswordRecoveryDb(passwordRecoveryData, done) {
+  resetPasswordRecovery(passwordRecoveryDetails, done) {
     models.PasswordRecovery.destroy({ truncate: true })
-      .then(() => models.PasswordRecovery.create(passwordRecoveryData))
+      .then(() => models.PasswordRecovery.create(passwordRecoveryDetails))
       .then(() => done())
       .catch(error => done(error));
   },
   /**
-   * Empty passwordRecovery DB
-   * @function emptyPasswordRecoveryDB
+   * Empty passwordRecovery Database
+   * @function emptyPasswordRecovery
    * @param {function} done
    * @return {*} any
    */
-  emptyPasswordRecoveryDb(done) {
+  emptyPasswordRecovery(done) {
     models.PasswordRecovery.destroy({ truncate: true })
       .then(() => done());
   },
-  passwordRecoveryData: {
+  passwordRecoveryDetails: {
     email: 'jim.hadi@gmail.com',
     hashed: 'xjsdjksjkdskdskdskdslkdsldsldlkslkdsjhdsjkdsjsdjkjkdsd'
   },
@@ -130,29 +130,29 @@ const modelSeed = {
   'sopssdhvdshjsdhjshjdshjdshjsdhjdjhsdjhdsjhdsjkdskjjksdjkdskjdsbhefj' +
   'fhjjkdskjsdkdsklkdlskldskldsklsdkldsklkdlshdfjhjimoh@gmail.com',
   /**
-   * Reset UserGroupAdd DB
-   * @function resetUserAddDb
-   * @param {object} addData
+   * Reset UserGroupAdd Database
+   * @function resetUserGroupAdd
+   * @param {object} addUserGroupDetails
    * @param {function} done
    * @return {*} any
    */
-  resetUserAddDb(addData, done) {
+  resetUserGroupAdd(addUserGroupDetails, done) {
     models.UserGroupAdd.destroy({ truncate: true })
-      .then(() => models.UserGroupAdd.create(addData))
+      .then(() => models.UserGroupAdd.create(addUserGroupDetails))
       .then(() => done())
       .catch(error => done(error));
   },
   /**
-   * Empty UserGroupAdd DB
-   * @function emptyUserAddDb
+   * Empty UserGroupAdd Database
+   * @function emptyUserGroupAdd
    * @param {function} done
    * @return {*} any
    */
-  emptyUserAddDb(done) {
+  emptyUserGroupAdd(done) {
     models.UserGroupAdd.destroy({ truncate: true })
       .then(() => done());
   },
-  userAddData: {
+  userGroupAddDetails: {
     addedById: 4,
     addedToId: 6,
     groupId: 3

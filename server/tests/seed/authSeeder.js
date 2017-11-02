@@ -1,32 +1,32 @@
-// auth_seed.js
+// authSeeder.js
 import models from './../../database/models';
 
 export default {
   /**
-   * Empty user DB
-   * @function emptyDB
+   * Empty user Database
+   * @function emptyUser
    * @param {function} done
    * @return {*} any
    */
-  emptyDB(done) {
+  emptyUser(done) {
     models.User.destroy({ truncate: true })
       .then(() => done())
       .catch(err => done(err));
   },
   /**
-   * Empty password recovery DB
-   * @function emptyPasswordRecoveryDB
+   * Empty password recovery Database
+   * @function emptyPasswordRecovery
    * @param {function} done
    * @return {*} any
    */
-  emptyPasswordRecoveryDB(done) {
+  emptyPasswordRecovery(done) {
     models.PasswordRecovery.destroy({ truncate: true })
       .then(() => done())
       .catch(err => done(err));
   },
   /**
    * Set user's data
-   * @function setData
+   * @function setUserDetails
    * @param {string} fullname
    * @param {string} username
    * @param {string} email
@@ -35,7 +35,7 @@ export default {
    * @param {string} confirmPassword
    * @return {object} user's data
    */
-  setData(fullname, username, email, mobile, password, confirmPassword) {
+  setUserDetails(fullname, username, email, mobile, password, confirmPassword) {
     return {
       fullname,
       username,
@@ -47,21 +47,21 @@ export default {
   },
   /**
    * Set login data
-   * @function setLoginData
+   * @function setLoginDetails
    * @param {string} username
    * @param {string} password
    * @return {object} login's data
    */
-  setLoginData(username, password) {
+  setLoginDetails(username, password) {
     return { username, password };
   },
   /**
-   * Add user to DB function 1
+   * Add user to Database function 1
    * @function addUserToDB
    * @param {function} done
    * @return {*} any
    */
-  addUserToDb(done) {
+  addFirstUser(done) {
     models.User.create({
       id: 4,
       fullname: 'jimoh hadi',
@@ -73,12 +73,12 @@ export default {
         .catch(err => done(err));
   },
   /**
-   * Add user to DB function 2
-   * @function addUserToDb2
+   * Add user to Database function 2
+   * @function addSecondUser
    * @param {function} done
    * @return {*} any
    */
-  addUserToDb2(done) {
+  addSecondUser(done) {
     models.User.create({
       id: 6,
       fullname: 'jimoh hadi',
@@ -88,5 +88,17 @@ export default {
       password: '11223344' })
       .then(() => done())
       .catch(err => done(err));
+  },
+  userDetails: {
+    username: 'johadi',
+    fullname: 'jimoh hadi',
+    email: 'jimoh@gmail.com',
+    mobile: '0908736521',
+    password: '11223344',
+    confirmPassword: '11223344'
+  },
+  loginDetails: {
+    username: 'ovenje',
+    password: '11223344'
   }
 };

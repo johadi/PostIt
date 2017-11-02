@@ -1,57 +1,57 @@
 import { assert } from 'chai';
 import models from './../../database/models';
-import modelSeed from '../seed/models_seed';
+import modelSeeder from '../seed/modelSeeder';
 
 describe('User Model', () => {
   before((done) => {
-    modelSeed.resetUserDb(modelSeed.userData, done);
+    modelSeeder.resetUser(modelSeeder.userDetails, done);
   });
-  after(modelSeed.emptyUserDb);
+  after(modelSeeder.emptyUser);
 
   describe('Validations', () => {
     it('should throw validation error if no username is provided',
       (done) => {
-        const userInvalidData = { ...modelSeed.userData };
-        userInvalidData.username = '';
-        models.User.create(userInvalidData)
+        const userInvalidDetails = { ...modelSeeder.userDetails };
+        userInvalidDetails.username = '';
+        models.User.create(userInvalidDetails)
           .catch((error) => {
             assert.equal(error.errors[0].message, 'Username can\'t be empty');
             done();
           });
       });
     it('should throw validation error if username already exists', (done) => {
-      const userInvalidData = { ...modelSeed.userData };
+      const userInvalidDetails = { ...modelSeeder.userDetails };
       // we already used this data to create user in our before hook
-      models.User.create(userInvalidData)
+      models.User.create(userInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'This username has been used');
           done();
         });
     });
     it('should throw validation error if no fullname is provided', (done) => {
-      const userInvalidData = { ...modelSeed.userData };
-      userInvalidData.fullname = '';
-      models.User.create(userInvalidData)
+      const userInvalidDetails = { ...modelSeeder.userDetails };
+      userInvalidDetails.fullname = '';
+      models.User.create(userInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'Fullname can\'t be empty');
           done();
         });
     });
     it('should throw validation error if no email is provided', (done) => {
-      const userInvalidData = { ...modelSeed.userData };
-      userInvalidData.email = '';
-      models.User.create(userInvalidData)
+      const userInvalidDetails = { ...modelSeeder.userDetails };
+      userInvalidDetails.email = '';
+      models.User.create(userInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'Email can\'t be empty');
           done();
         });
     });
     it('should throw validation error if email is already used', (done) => {
-      const userInvalidData = { ...modelSeed.userData };
+      const userInvalidDetails = { ...modelSeeder.userDetails };
       // since username is used before,
       // to test for email only, we have to change it
-      userInvalidData.username = 'ortega';
-      models.User.create(userInvalidData)
+      userInvalidDetails.username = 'ortega';
+      models.User.create(userInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message,
             'A user with this email already exists');
@@ -59,20 +59,20 @@ describe('User Model', () => {
         });
     });
     it('should throw validation error if email is invalid', (done) => {
-      const userInvalidData = { ...modelSeed.userData };
-      userInvalidData.email = 'john.samuel';
-      models.User.create(userInvalidData)
+      const userInvalidDetails = { ...modelSeeder.userDetails };
+      userInvalidDetails.email = 'john.samuel';
+      models.User.create(userInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'This email is invalid');
           done();
         });
     });
     it('should throw validation error if password is empty', () => {
-      const userInvalidData = { ...modelSeed.userData };
-      userInvalidData.username = 'samuel';
-      userInvalidData.email = 'samuel@email.com';
-      userInvalidData.password = ''; // no password
-      models.User.create(userInvalidData)
+      const userInvalidDetails = { ...modelSeeder.userDetails };
+      userInvalidDetails.username = 'samuel';
+      userInvalidDetails.email = 'samuel@email.com';
+      userInvalidDetails.password = ''; // no password
+      models.User.create(userInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message,
             'Password must be at least 6 characters long');
@@ -80,11 +80,11 @@ describe('User Model', () => {
     });
     it('should throw validation error if password length not up to 6',
       () => {
-        const userInvalidData = { ...modelSeed.userData };
-        userInvalidData.username = 'batman';
-        userInvalidData.email = 'batman@email.com';
-        userInvalidData.password = '234'; // no password
-        models.User.create(userInvalidData)
+        const userInvalidDetails = { ...modelSeeder.userDetails };
+        userInvalidDetails.username = 'batman';
+        userInvalidDetails.email = 'batman@email.com';
+        userInvalidDetails.password = '234'; // no password
+        models.User.create(userInvalidDetails)
           .catch((error) => {
             assert.equal(error.errors[0].message,
               'Password must be at least 6 characters long');
@@ -92,24 +92,24 @@ describe('User Model', () => {
       });
   });
   describe('CRUD operations on user model', () => {
-    const userNewData = modelSeed.userNewData;
+    const newUserDetails = modelSeeder.newUserDetails;
     it('should CREATE new user', (done) => {
-      models.User.create(userNewData)
+      models.User.create(newUserDetails)
         .then((createdUser) => {
-          assert.equal(createdUser.username, userNewData.username);
-          assert.equal(createdUser.fullname, userNewData.fullname);
-          assert.equal(createdUser.email, userNewData.email);
-          assert.equal(createdUser.mobile, userNewData.mobile);
+          assert.equal(createdUser.username, newUserDetails.username);
+          assert.equal(createdUser.fullname, newUserDetails.fullname);
+          assert.equal(createdUser.email, newUserDetails.email);
+          assert.equal(createdUser.mobile, newUserDetails.mobile);
           done();
         });
     });
     it('should READ data from user model', (done) => {
-      models.User.findOne({ where: { username: userNewData.username } })
+      models.User.findOne({ where: { username: newUserDetails.username } })
         .then((foundUser) => {
-          assert.equal(foundUser.username, userNewData.username);
-          assert.equal(foundUser.fullname, userNewData.fullname);
-          assert.equal(foundUser.email, userNewData.email);
-          assert.equal(foundUser.mobile, userNewData.mobile);
+          assert.equal(foundUser.username, newUserDetails.username);
+          assert.equal(foundUser.fullname, newUserDetails.fullname);
+          assert.equal(foundUser.email, newUserDetails.email);
+          assert.equal(foundUser.mobile, newUserDetails.mobile);
           done();
         });
     });
@@ -118,21 +118,21 @@ describe('User Model', () => {
       models.User.update(
         { email: newEmail },
         {
-          where: { username: userNewData.username },
+          where: { username: newUserDetails.username },
           returning: true,
           plain: true
         })
         .then((result) => {
           const updatedUser = result[1].dataValues;
-          assert.equal(updatedUser.username, userNewData.username);
-          assert.equal(updatedUser.fullname, userNewData.fullname);
+          assert.equal(updatedUser.username, newUserDetails.username);
+          assert.equal(updatedUser.fullname, newUserDetails.fullname);
           assert.equal(updatedUser.email, newEmail);
-          assert.equal(updatedUser.mobile, userNewData.mobile);
+          assert.equal(updatedUser.mobile, newUserDetails.mobile);
           done();
         });
     });
     it('should DELETE data from user model', (done) => {
-      models.User.destroy({ where: { username: userNewData.username } })
+      models.User.destroy({ where: { username: newUserDetails.username } })
         .then((deletedRow) => {
           assert.equal(deletedRow, 1);
           done();

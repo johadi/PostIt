@@ -1,19 +1,19 @@
 import { assert } from 'chai';
 import models from './../../database/models';
-import modelSeed from '../seed/models_seed';
+import modelSeeder from '../seed/modelSeeder';
 
 describe('Message Model', () => {
   before((done) => {
-    modelSeed.resetMessageDb(modelSeed.messageData, done);
+    modelSeeder.resetMessage(modelSeeder.messageDetails, done);
   });
-  after(modelSeed.emptyMessageDb);
+  after(modelSeeder.emptyMessage);
 
   describe('Validations', () => {
     it('should throw validation error if no message body provided',
       (done) => {
-        const messageInvalidData = { ...modelSeed.messageData };
-        messageInvalidData.body = '';
-        models.Message.create(messageInvalidData)
+        const messageInvalidDetails = { ...modelSeeder.messageDetails };
+        messageInvalidDetails.body = '';
+        models.Message.create(messageInvalidDetails)
           .catch((error) => {
             assert.equal(error.errors[0].message,
               'Message body can\' be empty');
@@ -21,42 +21,42 @@ describe('Message Model', () => {
           });
       });
     it('should throw validation error if userId is not provided', () => {
-      const messageInvalidData = { ...modelSeed.messageData };
-      messageInvalidData.userId = '';
-      models.Message.create(messageInvalidData)
+      const messageInvalidDetails = { ...modelSeeder.messageDetails };
+      messageInvalidDetails.userId = '';
+      models.Message.create(messageInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'userId can\'t be empty');
         });
     });
     it('should throw validation error if userId is not a number', () => {
-      const messageInvalidData = { ...modelSeed.messageData };
-      messageInvalidData.userId = 'y';
-      models.Message.create(messageInvalidData)
+      const messageInvalidDetails = { ...modelSeeder.messageDetails };
+      messageInvalidDetails.userId = 'y';
+      models.Message.create(messageInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'userId must be a number');
         });
     });
     it('should throw validation error if groupId is not provided', () => {
-      const messageInvalidData = { ...modelSeed.messageData };
-      messageInvalidData.groupId = '';
-      models.Message.create(messageInvalidData)
+      const messageInvalidDetails = { ...modelSeeder.messageDetails };
+      messageInvalidDetails.groupId = '';
+      models.Message.create(messageInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'groupId can\'t be empty');
         });
     });
     it('should throw validation error if groupId is not a number', () => {
-      const messageInvalidData = { ...modelSeed.messageData };
-      messageInvalidData.groupId = 'q';
-      models.Message.create(messageInvalidData)
+      const messageInvalidDetails = { ...modelSeeder.messageDetails };
+      messageInvalidDetails.groupId = 'q';
+      models.Message.create(messageInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message, 'groupId must be a number');
         });
     });
     it('should throw validation error if priority is neither normal, ' +
       'urgent nor critical', () => {
-      const messageInvalidData = { ...modelSeed.messageData };
-      messageInvalidData.priority = 'abnormal';
-      models.Message.create(messageInvalidData)
+      const messageInvalidDetails = { ...modelSeeder.messageDetails };
+      messageInvalidDetails.priority = 'abnormal';
+      models.Message.create(messageInvalidDetails)
         .catch((error) => {
           assert.equal(error.errors[0].message,
             'priority must be normal, urgent or critical');
@@ -64,17 +64,17 @@ describe('Message Model', () => {
     });
   });
   describe('CRUD operations on message model', () => {
-    const messageValidData = modelSeed.messageData;
+    const messageValidDetails = modelSeeder.messageDetails;
     let messageId;
     it('should CREATE message', (done) => {
-      models.Message.create(messageValidData)
+      models.Message.create(messageValidDetails)
         .then((createdMessage) => {
           messageId = createdMessage.id;
-          assert.equal(createdMessage.body, messageValidData.body);
-          assert.equal(createdMessage.userId, messageValidData.userId);
-          assert.equal(createdMessage.groupId, messageValidData.groupId);
-          assert.equal(createdMessage.priority, messageValidData.priority);
-          assert.deepEqual(createdMessage.readersId, messageValidData.readersId);
+          assert.equal(createdMessage.body, messageValidDetails.body);
+          assert.equal(createdMessage.userId, messageValidDetails.userId);
+          assert.equal(createdMessage.groupId, messageValidDetails.groupId);
+          assert.equal(createdMessage.priority, messageValidDetails.priority);
+          assert.deepEqual(createdMessage.readersId, messageValidDetails.readersId);
           done();
         });
     });
@@ -82,11 +82,11 @@ describe('Message Model', () => {
       models.Message.findById(messageId)
         .then((foundMessage) => {
           assert.equal(foundMessage.id, messageId);
-          assert.equal(foundMessage.body, messageValidData.body);
-          assert.equal(foundMessage.userId, messageValidData.userId);
-          assert.equal(foundMessage.groupId, messageValidData.groupId);
-          assert.equal(foundMessage.priority, messageValidData.priority);
-          assert.deepEqual(foundMessage.readersId, messageValidData.readersId);
+          assert.equal(foundMessage.body, messageValidDetails.body);
+          assert.equal(foundMessage.userId, messageValidDetails.userId);
+          assert.equal(foundMessage.groupId, messageValidDetails.groupId);
+          assert.equal(foundMessage.priority, messageValidDetails.priority);
+          assert.deepEqual(foundMessage.readersId, messageValidDetails.readersId);
           done();
         });
     });
@@ -102,10 +102,10 @@ describe('Message Model', () => {
           const updatedMessage = result[1].dataValues;
           assert.equal(updatedMessage.id, messageId);
           assert.equal(updatedMessage.body, 'no man is an island');
-          assert.equal(updatedMessage.userId, messageValidData.userId);
-          assert.equal(updatedMessage.groupId, messageValidData.groupId);
-          assert.equal(updatedMessage.priority, messageValidData.priority);
-          assert.deepEqual(updatedMessage.readersId, messageValidData.readersId);
+          assert.equal(updatedMessage.userId, messageValidDetails.userId);
+          assert.equal(updatedMessage.groupId, messageValidDetails.groupId);
+          assert.equal(updatedMessage.priority, messageValidDetails.priority);
+          assert.deepEqual(updatedMessage.readersId, messageValidDetails.readersId);
           done();
         });
     });

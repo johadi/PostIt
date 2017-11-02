@@ -3,39 +3,44 @@ import dotenv from 'dotenv';
 import request from 'supertest';
 import { assert } from 'chai';
 import app from '../../../app';
-import seeder from '../seed/group_seed';
+import groupSeeder from '../seed/groupSeeder';
 
 dotenv.config();
 describe('Message API test', () => {
   // Test suite for posting a message
   describe('POST api/v1/group/:groupId/message', () => {
     // Clear Test database
-    before(seeder.emptyUserDB);
-    before(seeder.emptyMessageDB);
-    before(seeder.emptyGroupDB);
-    before(seeder.emptyUserGroupDB);
-    // Add users to DB
+    before(groupSeeder.emptyUser);
+    before(groupSeeder.emptyMessage);
+    before(groupSeeder.emptyGroup);
+    before(groupSeeder.emptyUserGroup);
+    // Add users to Database
     // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(seeder.addUserToDb);
+    before(groupSeeder.addFirstUser);
     // {id: 20, username: oman, email: oman@gmail.com} User
-    before(seeder.addUserToDb2);
+    before(groupSeeder.addSecondUser);
     // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(seeder.addUserToDb3);
+    before(groupSeeder.addThirdUser);
     // Create a group
-    before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
-    before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
+    // {id: 99, name: andela, creatorId: 1} Group
+    before(groupSeeder.createFirstGroup);
+    // {id: 100, name: react, creatorId: 7} Group
+    before(groupSeeder.createSecondGroup);
     // Add users to groups
-    before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
-    before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
-    before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+    // {groupId: 100, userId: 10} UserGroup
+    before(groupSeeder.addFirstUserGroup);
+    // {groupId: 99, userId: 5} UserGroup
+    before(groupSeeder.addSecondUserGroup);
+    // {groupId: 99, userId: 20} UserGroup
+    before(groupSeeder.addFourthUserGroup);
     // create a message
     // {groupId: 99, userId: 5, body: 'Carry Something .....'}
-    before(seeder.addMessageToDb);
+    before(groupSeeder.addFirstMessage);
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send({ username: 'johadi10', password: '11223344' })
+        .send(groupSeeder.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -55,9 +60,10 @@ describe('Message API test', () => {
         });
     });
     it('Should return 400 and a message if no message body', (done) => {
+      const emptyMessage = '';
       request(app)
         .post('/api/v1/group/99/message')
-        .send({ message: '', token })
+        .send({ message: emptyMessage, token })
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
@@ -67,9 +73,10 @@ describe('Message API test', () => {
     });
     it('Should return 400 and a message if priority level not either' +
       'normal, urgent or critical', (done) => {
+      const priority = 'abnormal';
       request(app)
         .post('/api/v1/group/99/message')
-        .send({ message: 'I love NodeJS', priority: 'abnormal', token })
+        .send({ message: 'I love NodeJS', priority, token })
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
@@ -116,36 +123,36 @@ describe('Message API test', () => {
   // Test suite for getting messages in a particular group
   describe('Get api/v1/group/groupId/message', () => {
     // Clear Test database
-    before(seeder.emptyUserDB);
-    before(seeder.emptyMessageDB);
-    before(seeder.emptyGroupDB);
-    before(seeder.emptyUserGroupDB);
-    // Add users to DB
+    before(groupSeeder.emptyUser);
+    before(groupSeeder.emptyMessage);
+    before(groupSeeder.emptyGroup);
+    before(groupSeeder.emptyUserGroup);
+    // Add users to Database
     // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(seeder.addUserToDb);
+    before(groupSeeder.addFirstUser);
     // {id: 20, username: oman, email: oman@gmail.com} User
-    before(seeder.addUserToDb2);
+    before(groupSeeder.addSecondUser);
     // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(seeder.addUserToDb3);
+    before(groupSeeder.addThirdUser);
     // Create a group
-    before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
-    before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
+    before(groupSeeder.createFirstGroup);
+    before(groupSeeder.createSecondGroup);
     // Add users to groups
-    before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
-    before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
-    before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+    before(groupSeeder.addFirstUserGroup);
+    before(groupSeeder.addSecondUserGroup);
+    before(groupSeeder.addFourthUserGroup);
     // create a message
     // {groupId: 99, userId: 5, body: 'Carry Something .....'}
-    before(seeder.addMessageToDb);
+    before(groupSeeder.addFirstMessage);
     // {groupId: 100, userId: 20, body: 'Carry Something more than .....'}
-    before(seeder.addMessageToDb2);
+    before(groupSeeder.addSecondMessage);
     // {groupId: 99, userId: 5, body: 'Learners are leaders .....'}
-    before(seeder.addMessageToDb3);
+    before(groupSeeder.addThirdMessage);
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send({ username: 'johadi10', password: '11223344' })
+        .send(groupSeeder.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -213,37 +220,37 @@ describe('Message API test', () => {
   // Test suite for Viewing a single message
   describe('Get api/v1/group/:groupId/message/:messageId', () => {
     // Clear Test database
-    before(seeder.emptyUserDB);
-    before(seeder.emptyMessageDB);
-    before(seeder.emptyGroupDB);
-    before(seeder.emptyUserGroupDB);
-    // Add users to DB
+    before(groupSeeder.emptyUser);
+    before(groupSeeder.emptyMessage);
+    before(groupSeeder.emptyGroup);
+    before(groupSeeder.emptyUserGroup);
+    // Add users to Database
     // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(seeder.addUserToDb);
+    before(groupSeeder.addFirstUser);
     // {id: 20, username: oman, email: oman@gmail.com} User
-    before(seeder.addUserToDb2);
+    before(groupSeeder.addSecondUser);
     // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(seeder.addUserToDb3);
+    before(groupSeeder.addThirdUser);
     // Create a group
-    before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
-    before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
+    before(groupSeeder.createFirstGroup);
+    before(groupSeeder.createSecondGroup);
     // Add users to groups
-    before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
-    before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
-    before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+    before(groupSeeder.addFirstUserGroup);
+    before(groupSeeder.addSecondUserGroup);
+    before(groupSeeder.addFourthUserGroup);
     // create a message
     // {id: 8, groupId: 99, userId: 5, body: 'Carry Something .....'} Message
-    before(seeder.addMessageToDb);
+    before(groupSeeder.addFirstMessage);
     // {id: 9, groupId: 100, userId: 20,
     // body: 'Carry Something more than .....'} Message
-    before(seeder.addMessageToDb2);
+    before(groupSeeder.addSecondMessage);
     // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
-    before(seeder.addMessageToDb3);
+    before(groupSeeder.addThirdMessage);
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send({ username: 'johadi10', password: '11223344' })
+        .send(groupSeeder.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -324,37 +331,37 @@ describe('Message API test', () => {
   // Test suite for controller that update Read status of message
   describe('POST api/v1/group/message-read/:messageId', () => {
     // Clear Test database
-    before(seeder.emptyUserDB);
-    before(seeder.emptyMessageDB);
-    before(seeder.emptyGroupDB);
-    before(seeder.emptyUserGroupDB);
-    // Add users to DB
+    before(groupSeeder.emptyUser);
+    before(groupSeeder.emptyMessage);
+    before(groupSeeder.emptyGroup);
+    before(groupSeeder.emptyUserGroup);
+    // Add users to Database
     // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(seeder.addUserToDb);
+    before(groupSeeder.addFirstUser);
     // {id: 20, username: oman, email: oman@gmail.com} User
-    before(seeder.addUserToDb2);
+    before(groupSeeder.addSecondUser);
     // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(seeder.addUserToDb3);
+    before(groupSeeder.addThirdUser);
     // Create a group
-    before(seeder.createGroup); // {id: 99, name: andela, creatorId: 1} Group
-    before(seeder.createGroup2); // {id: 100, name: react, creatorId: 7} Group
+    before(groupSeeder.createFirstGroup);
+    before(groupSeeder.createSecondGroup);
     // Add users to groups
-    before(seeder.addUserToGroup); // {groupId: 100, userId: 10} UserGroup
-    before(seeder.addUserToGroup2); // {groupId: 99, userId: 5} UserGroup
-    before(seeder.addUserToGroup4); // {groupId: 99, userId: 20} UserGroup
+    before(groupSeeder.addFirstUserGroup);
+    before(groupSeeder.addSecondUserGroup);
+    before(groupSeeder.addFourthUserGroup);
     // create a message
     // {id: 8, groupId: 99, userId: 5, body: 'Carry Something .....'} Message
-    before(seeder.addMessageToDb);
+    before(groupSeeder.addFirstMessage);
     // {id: 9, groupId: 100, userId: 20,
     // body: 'Carry Something more than .....'} Message
-    before(seeder.addMessageToDb2);
+    before(groupSeeder.addSecondMessage);
     // {id: 10, groupId: 99, userId: 5, body: 'Learners are leaders .....'} Message
-    before(seeder.addMessageToDb3);
+    before(groupSeeder.addThirdMessage);
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send({ username: 'johadi10', password: '11223344' })
+        .send(groupSeeder.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);

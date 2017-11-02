@@ -19,6 +19,7 @@ const handleError = (err, res) => {
       return res.status(400).json(err);
   }
 };
+
 /**
  * Helper function that handles success messages
  * @function handleSuccess
@@ -76,6 +77,7 @@ const sendMail = (from, to, subject, template, context) => {
   };
   return transporter.sendMail(mailOptions);
 };
+
 // Sending SMS
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -91,4 +93,16 @@ const client = twilio(accountSid, authToken);
 const sendSMS = (from, to, body) => {
   client.messages.create({ to, from, body });
 };
-export { sendSMS, sendMail, handleError, handleSuccess };
+
+const paginateResult = (page, itemsPerPage) => {
+  // convert the query to standard number for use
+  // Let the page query default to one if user never passes page query
+  const pageQuery = parseInt(page, 10) || 1;
+  // limit you want to display per page
+  const limit = itemsPerPage;
+  const currentPage = pageQuery < 1 ? 1 : pageQuery;
+  // Number of items to skip
+  const offset = limit * (currentPage - 1);
+  return { limit, offset };
+};
+export { sendSMS, sendMail, handleError, handleSuccess, paginateResult };

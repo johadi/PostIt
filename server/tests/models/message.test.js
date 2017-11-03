@@ -91,8 +91,9 @@ describe('Message Model', () => {
         });
     });
     it('should UPDATE data in message model', (done) => {
+      const newBody = 'no man is an island';
       models.Message.update(
-        { body: 'no man is an island' },
+        { body: newBody },
         {
           where: { id: messageId },
           returning: true,
@@ -101,7 +102,7 @@ describe('Message Model', () => {
         .then((result) => {
           const updatedMessage = result[1].dataValues;
           assert.equal(updatedMessage.id, messageId);
-          assert.equal(updatedMessage.body, 'no man is an island');
+          assert.equal(updatedMessage.body, newBody);
           assert.equal(updatedMessage.userId, messageValidDetails.userId);
           assert.equal(updatedMessage.groupId, messageValidDetails.groupId);
           assert.equal(updatedMessage.priority, messageValidDetails.priority);

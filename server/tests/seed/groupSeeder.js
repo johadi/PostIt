@@ -139,11 +139,11 @@ export default {
   },
   /**
    * Create Group Database function 3
-   * @function createGroup3
+   * @function createThirdGroup
    * @param {function} done
    * @return {*} any
    */
-  createGroup3(done) {
+  createThirdGroup(done) {
     models.Group.create({
       id: 101,
       name: 'lord',
@@ -357,13 +357,13 @@ export default {
     name: 'andela',
     creatorId: 1
   },
-  firstUserDetails: {
+  secondUserDetails: {
     id: 20,
     username: 'oman',
     fullname: 'jack oman',
     email: 'oman@gmail.com'
   },
-  secondUserDetails: {
+  thirdUserDetails: {
     id: 30,
     username: 'sherif',
     fullname: 'muhammed sherif',

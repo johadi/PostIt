@@ -10,72 +10,72 @@ import models from '../../database/models';
 dotenv.config();
 describe('Authentication API test', () => {
   // Test for Signup route
-  describe('POST api/v1/user/signup', () => {
+  describe('User Signup', () => {
     const {
       username, fullname, email, mobile,
       password, confirmPassword
     } = authSeeder.userDetails;
     beforeEach(authSeeder.emptyUser);
     beforeEach(authSeeder.addFirstUser);
-    it('Should return status code 400 and a message when some ' +
-      'inputs are invalid. i.e Username', (done) => {
-      const invalidUsername = '';
-      request(app)
-        .post('/api/v1/user/signup')
-        .send(authSeeder.setUserDetails(fullname, invalidUsername,
-          email, mobile, password, confirmPassword))
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body.validateError.username[0],
-            'The username field is required.');
-          done();
-        });
-    });
-    it('should return status code 400 and a message when passwords ' +
-      'not matched', (done) => {
-      const newPassword = '123456';
-      const newConfirmPassword = '11223344';
-      request(app)
-        .post('/api/v1/user/signup')
-        .send(authSeeder.setUserDetails(fullname, username, email,
-          mobile, newPassword, newConfirmPassword))
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'passwords not matched');
-          done();
-        });
-    });
-    it('should return status code 400 if Username already exists', (done) => {
-      const existingUsername = 'ovenje';
-      request(app)
-        .post('/api/v1/user/signup')
-        .send(authSeeder.setUserDetails(fullname, existingUsername, email,
-          mobile, password, confirmPassword))
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'This Username has been used');
-          done();
-        });
-    });
-    it('should return status code 400 and a message if there is ' +
-      'an existing email', (done) => {
-      const existingEmail = 'ovenje@yahoo.com';
-      request(app)
-        .post('/api/v1/user/signup')
-        .send(authSeeder.setUserDetails(fullname, username, existingEmail,
-          mobile, password, confirmPassword))
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'A user with this email already exists');
-          done();
-        });
-    });
-    it('Should create a new user account when input is valid and return ' +
-      'status code 201 with a token', (done) => {
+    it('Should throw validation error message with status 400 for invalid inputs',
+      (done) => {
+        const invalidUsername = '';
+        request(app)
+          .post('/api/v1/user/signup')
+          .send(authSeeder.setUserDetails(fullname, invalidUsername,
+            email, mobile, password, confirmPassword))
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body.validateError.username[0],
+              'The username field is required.');
+            done();
+          });
+      });
+    it('should throw error message with status 400 when passwords not matched',
+      (done) => {
+        const newPassword = '123456';
+        const newConfirmPassword = '11223344';
+        request(app)
+          .post('/api/v1/user/signup')
+          .send(authSeeder.setUserDetails(fullname, username, email,
+            mobile, newPassword, newConfirmPassword))
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'passwords not matched');
+            done();
+          });
+      });
+    it('Should throw error message with status 400 for existing username',
+      (done) => {
+        const existingUsername = 'ovenje';
+        request(app)
+          .post('/api/v1/user/signup')
+          .send(authSeeder.setUserDetails(fullname, existingUsername, email,
+            mobile, password, confirmPassword))
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'This Username has been used');
+            done();
+          });
+      });
+    it('Should throw error message with status 400 for existing email',
+      (done) => {
+        const existingEmail = 'ovenje@yahoo.com';
+        request(app)
+          .post('/api/v1/user/signup')
+          .send(authSeeder.setUserDetails(fullname, username, existingEmail,
+            mobile, password, confirmPassword))
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'A user with this email already exists');
+            done();
+          });
+      });
+    it('Should return token with status 201 when inputs are valid', (done) => {
       const newUsername = 'johadi11';
       request(app)
         .post('/api/v1/user/signup')
@@ -93,8 +93,7 @@ describe('Authentication API test', () => {
           done();
         });
     });
-    it('it Should return true if raw password not equal to hashed password ' +
-      'in database', (done) => {
+    it('it Should return true if password is hashed in database', (done) => {
       const newUsername = 'johadi10';
       request(app)
         .post('/api/v1/user/signup')
@@ -114,25 +113,25 @@ describe('Authentication API test', () => {
     });
   });
   // Test for Signin route
-  describe('POST api/v1/user/signin', () => {
+  describe('User Signin', () => {
     const { username, password } = authSeeder.loginDetails;
     // Empty our database
     before(authSeeder.emptyUser);
     before(authSeeder.addFirstUser);
-    it('Should return status code 400 and a message when any input is ' +
-      'empty. i.e username field', (done) => {
-      const invalidUsername = '';
-      request(app)
-        .post('/api/v1/user/signin')
-        .send(authSeeder.setLoginDetails(invalidUsername, password))
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body.validateError.username[0],
-            'The username field is required.');
-          done();
-        });
-    });
+    it('Should throw validation error with status 400 when input is invalid',
+      (done) => {
+        const invalidUsername = '';
+        request(app)
+          .post('/api/v1/user/signin')
+          .send(authSeeder.setLoginDetails(invalidUsername, password))
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body.validateError.username[0],
+              'The username field is required.');
+            done();
+          });
+      });
     it('Should return status code 404 and a message if User not found',
       (done) => {
         const notFoundUsername = 'jimoh';
@@ -177,25 +176,25 @@ describe('Authentication API test', () => {
       });
   });
   // Password recovery test
-  describe('POST api/v1/user/recover-password', () => {
+  describe('User Recover Password', () => {
     // Empty our database
     before(authSeeder.emptyUser);
     before(authSeeder.emptyPasswordRecovery);
     before(authSeeder.addFirstUser);
-    it('Should return status code 400 and a message when any input is ' +
-      'invalid. i.e email field', (done) => {
-      request(app)
-        .post('/api/v1/user/recover-password')
-        .send({})
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body.validateError.email[0],
-            'The email field is required.');
-          done();
-        });
-    });
-    it('Should return status code 404 and a message if user email not found',
+    it('Should return status 400 and error message when input is invalid',
+      (done) => {
+        request(app)
+          .post('/api/v1/user/recover-password')
+          .send({})
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body.validateError.email[0],
+              'The email field is required.');
+            done();
+          });
+      });
+    it('Should return status 404 with error message if email not found',
       (done) => {
         const invalidEmail = 'xyz@gmail.com';
         request(app)
@@ -210,7 +209,7 @@ describe('Authentication API test', () => {
       });
   });
 // Password reset
-  describe('POST api/v1/user/reset-password', () => {
+  describe('User reset password', () => {
     // Empty our database
     before(authSeeder.emptyUser);
     before(authSeeder.emptyPasswordRecovery);
@@ -228,17 +227,17 @@ describe('Authentication API test', () => {
             done();
           });
       });
-    it('Should return status code 400 and a message when any input is ' +
-      'invalid. i.e email field', (done) => {
-      request(app)
-        .post('/api/v1/user/reset-password?token=xyzabcqwerty')
-        .send({})
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'This link seems to have expired or invalid');
-          done();
-        });
-    });
+    it('Should return status 400 with error message when input is invalid',
+      (done) => {
+        request(app)
+          .post('/api/v1/user/reset-password?token=xyzabcqwerty')
+          .send({})
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'This link seems to have expired or invalid');
+            done();
+          });
+      });
   });
 });

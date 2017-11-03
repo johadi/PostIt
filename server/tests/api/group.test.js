@@ -10,7 +10,7 @@ dotenv.config();
 describe('Group API test', () => {
   const { username, fullname, id, email, mobile } = groupSeeder.validUserDetails;
   // Test suit for creating group route and controller
-  describe('POST: api/v1/group', () => {
+  describe('Create Group', () => {
     const { name } = groupSeeder.firstGroupDetails;
     // Clear Test database
     before(groupSeeder.emptyUser);
@@ -18,10 +18,12 @@ describe('Group API test', () => {
     before(groupSeeder.emptyGroup);
     before(groupSeeder.emptyUserGroup);
     // Start adding users to Database
-    before(groupSeeder.addFirstUser); // username = johadi10
-    before(groupSeeder.addSecondUser); // username = oman
+    // username = johadi10
+    before(groupSeeder.addFirstUser);
+    // username = oman
+    before(groupSeeder.addSecondUser);
     // Create a group
-    // name=andela creatorId = 1 id = 1
+    // {name=andela creatorId = 1 id = 1}
     before(groupSeeder.createFirstGroup);
     let token = ''; // Hold token for authentication
     before((done) => {
@@ -81,7 +83,7 @@ describe('Group API test', () => {
     });
   });
   // Test suit for adding user to group
-  describe('POST api/v1/group/:groupId/user', () => {
+  describe('Add Users to Group', () => {
     // Clear Test database
     before(groupSeeder.emptyUser);
     before(groupSeeder.emptyMessage);
@@ -97,6 +99,7 @@ describe('Group API test', () => {
     // Create a group
     before(groupSeeder.createFirstGroup);
     before(groupSeeder.createSecondGroup);
+    // Add users to groups
     before(groupSeeder.addFirstUserGroup);
     before(groupSeeder.addSecondUserGroup);
     before(groupSeeder.addFourthUserGroup);
@@ -112,7 +115,6 @@ describe('Group API test', () => {
           done();
         });
     });
-    // before(groupSeeder.addFirstUser);
     it('Should return status code 400 and a message when groupId ' +
       'is not a number.', (done) => {
       const invalidGroupId = 'x';
@@ -214,15 +216,15 @@ describe('Group API test', () => {
             if (err) return done(err);
             assert.equal(res.body.message, 'User added successfully');
             // user that was added
-            assert.equal(res.body.addedUser, 'sherif');
+            assert.equal(res.body.addedUser, existingUser);
             // user that added is user which is johadi10
-            assert.equal(res.body.addedBy, 'johadi10');
+            assert.equal(res.body.addedBy, username);
             done();
           });
       });
   }); // end
   // Test suite for controllers that get all users of a group
-  describe('Get api/v1/group/:groupId/group-users', () => {
+  describe('Get Users in a Group', () => {
     // Clear Test database
     before(groupSeeder.emptyUser);
     before(groupSeeder.emptyMessage);
@@ -329,16 +331,20 @@ describe('Group API test', () => {
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
-          assert.exists(res.body.users); // array of Users in the group
-          assert.exists(res.body.name); // name of the group
-          assert.exists(res.body.pages); // pages the users can make per page
-          assert.exists(res.body.count); // number of users in the group
+          // array of Users in the group
+          assert.exists(res.body.users);
+          // name of the group
+          assert.exists(res.body.name);
+          // pages the users can make per page
+          assert.exists(res.body.pages);
+          // number of users in the group
+          assert.exists(res.body.count);
           done();
         });
     });
   });
   // Verify if a User has token or not
-  describe('Get api/v1/verify-token', () => {
+  describe('Verify User\'s token', () => {
     // Clear Test database
     before(groupSeeder.emptyUser);
     before(groupSeeder.emptyMessage);

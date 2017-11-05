@@ -4,20 +4,16 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { Notification } from '../../../src/components/groups/Notification';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<Notification/>', () => {
   sinon.spy(Notification.prototype, 'componentDidMount');
   const updateReadMessage = sinon.spy();
+  const { message, name } = componentsSeeder.notification;
   const props = {
     updateReadMessage,
-    message: {
-      User: {
-        username: 'jimoh'
-      },
-      createdAt: new Date(),
-      body: 'lord of the ring'
-    },
-    name: 'andela',
+    message,
+    name,
     groupState: {}
   };
   const wrapper = mount(<Notification { ...props} />);

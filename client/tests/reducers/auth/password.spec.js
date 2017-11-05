@@ -1,18 +1,11 @@
 import expect from 'expect';
 import actionTypes from '../../../src/actions/actionTypes';
 import passwordReducer from '../../../src/reducers/auth/passwordReducer';
+import { passwordInitialState } from '../../seeds/reducersSeeder';
 
 describe('passwordReducer', () => {
-  const initialState = {
-    message: null,
-    success: false,
-    errors: null,
-    fails: null,
-    resetMessage: null,
-    resetSuccess: false,
-    resetErrors: null,
-    resetFails: null
-  };
+  // Initial state
+  const initialState = passwordInitialState;
   describe('PASSWORD RECOVERY', () => {
     it('should set welcome to true when Type is RECOVERY_SUCCESSFUL', () => {
       const passwordDispatch = {

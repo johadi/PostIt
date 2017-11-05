@@ -4,28 +4,19 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { GroupUsers } from '../../../src/components/groups/GroupUsers';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<GroupUsers/>', () => {
   const getGroupUsers = sinon.spy();
   sinon.spy(GroupUsers.prototype, 'handleSelect');
+  const { groupId, name, groupUsers, newGroupUsers } = componentsSeeder.groupUsers;
   // Note: Whenever there is a group it must have at
   // least an existing member ,likely the creator
   const props = {
-    groupUsers: {
-      users: [
-        {
-          User: {
-            username: 'johadi',
-            id: 5
-          }
-        }
-      ],
-      count: 3,
-      pages: 1
-    },
-    name: 'andela',
+    groupUsers,
+    name,
     getGroupUsers,
-    groupId: '1',
+    groupId,
     groupState: {}
   };
   const wrapper = mount(<GroupUsers{ ...props} />);
@@ -43,25 +34,7 @@ describe('<GroupUsers/>', () => {
     'more than 1', () => {
     const pages = 3;
     before(() => {
-      const groupUsers = {
-        users: [
-          {
-            User: {
-              username: 'johadi',
-              id: 5
-            }
-          },
-          {
-            User: {
-              username: 'jimoh',
-              id: 2
-            }
-          }
-        ],
-        count: 8,
-        pages
-      };
-      wrapper.setProps({ groupUsers });
+      wrapper.setProps({ groupUsers: newGroupUsers });
     });
     it('should check that Pagination exist since our pages ' +
       'is now 3.there is pagination', () => {

@@ -3,15 +3,9 @@ import React from 'react';
 import expect from 'expect';
 import { mount } from 'enzyme';
 import UserDetail from '../../../src/components/groups/UserDetail';
+import { userDetail } from '../../seeds/componentsSeeder';
 
-const props = {
-  userDetail: {
-    username: 'johadi',
-    fullname: 'jimoh hadi',
-    mobile: '09087653456',
-    email: 'jimoh@hadi.com',
-  }
-};
+const props = { userDetail };
 const wrapper = mount(<UserDetail {...props} />);
 describe('<UserDetail/>', () => {
   it('should check that the div with profile-items class exists', () => {

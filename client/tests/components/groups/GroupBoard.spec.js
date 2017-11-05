@@ -5,33 +5,25 @@ import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { GroupBoard } from
   '../../../src/components/groups/GroupBoard';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<GroupBoard/>', () => {
   const getGroupUsers = sinon.spy();
   const getGroupMessages = sinon.spy();
   sinon.spy(GroupBoard.prototype, 'handleSelect');
+  const { groupMessages, name, groupId } = componentsSeeder.groupBoard;
   const props = {
     getGroupMessages,
     getGroupUsers,
-    groupId: '1',
-    groupState: {
-      groupMessages: {
-        rows: [],
-        pages: 1,
-        count: 0
-      }
-    },
-    name: 'johadi'
+    name,
+    groupId,
+    groupState: { groupMessages }
   };
   const wrapper = mount(<GroupBoard{ ...props} />);
   describe('No Messages', () => {
     before(() => {
       const groupState = {
-        groupMessages: {
-          rows: [],
-          pages: 1,
-          count: 0
-        }
+        groupMessages
       };
       wrapper.setProps({ groupState });
     });
@@ -46,40 +38,10 @@ describe('<GroupBoard/>', () => {
   });
   describe('If there is at least one message', () => {
     const pages = 4;
+    const { newGroupMessages } = componentsSeeder.groupBoard;
     before(() => {
       const groupState = {
-        groupMessages: {
-          rows: [
-            {
-              id: 1,
-              body: 'world apart',
-              readersId: [5],
-              createdAt: new Date(),
-              User: {
-                username: 'johadi'
-              },
-              Group: {
-                id: '2',
-                name: 'game of thrones'
-              }
-            },
-            {
-              id: 4,
-              body: 'lord of the ring',
-              readersId: [8],
-              createdAt: new Date(),
-              User: {
-                username: 'ovenje'
-              },
-              Group: {
-                id: '4',
-                name: 'ferrari'
-              }
-            }
-          ],
-          pages,
-          count: 0
-        }
+        groupMessages: newGroupMessages
       };
       wrapper.setProps({ groupState });
     });

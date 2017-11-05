@@ -10,8 +10,8 @@ import Page from '../../../src/components/groups/Page';
 const middleware = [thunk];
 const mockStore = configureStore(middleware);
 const storeStateMock = {
-  myReducer: {
-    someState: 'ABC'
+  groupReducer: {
+    groupState: 'somestate'
   }
 };
 let store;

@@ -1,14 +1,11 @@
 import expect from 'expect';
 import actionTypes from '../../../src/actions/actionTypes';
 import signUpReducer from '../../../src/reducers/auth/signupReducer';
+import { signupInitialState } from '../../seeds/reducersSeeder';
 
 describe('signUpReducer', () => {
-  const initialState = {
-    success: false,
-    welcome: false,
-    errors: null,
-    fails: null
-  };
+  // initial state
+  const initialState = signupInitialState;
   it('should set welcome to true when Type is SIGNUP_SUCCESSFUL', () => {
     const signUpDispatch = {
       type: actionTypes.SIGNUP_SUCCESSFUL

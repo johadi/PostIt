@@ -6,6 +6,7 @@ import { mount } from 'enzyme';
 import {
   SendNotification
 } from '../../../src/components/groups/SendNotification';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<SendNotification/>', () => {
   const clearMessageError = sinon.spy();
@@ -14,11 +15,12 @@ describe('<SendNotification/>', () => {
   sinon.spy(SendNotification.prototype, 'handleSubmit');
   sinon.spy(SendNotification.prototype, 'handleKeyUp');
 
+  const { groupId, name, priority, firstMessage, secondMessage }
+  = componentsSeeder.sendNotification;
   const props = {
     clearMessageError,
-    // postMessage,
-    groupId: '4',
-    name: 'andela',
+    groupId,
+    name,
     groupState: { postMessageErr: '' }
   };
   const wrapper = mount(<SendNotification{...props} />);
@@ -45,8 +47,8 @@ describe('<SendNotification/>', () => {
   describe('User wants to send message with no message body', () => {
     before(() => {
       const input = {
-        message: '',
-        priority: 'normal'
+        priority,
+        message: firstMessage,
       };
       wrapper.setState({ input });
     });
@@ -64,8 +66,8 @@ describe('<SendNotification/>', () => {
   describe('If message body is not empty', () => {
     before(() => {
       const input = {
-        message: 'hello',
-        priority: 'normal'
+        priority,
+        message: secondMessage,
       };
       wrapper.setState({ input });
     });

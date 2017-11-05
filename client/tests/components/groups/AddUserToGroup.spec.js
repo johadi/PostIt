@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 import {
   AddUserToGroup
 } from '../../../src/components/groups/AddUserToGroup';
-
+import { addUser } from '../../seeds/componentsSeeder';
 
 describe('<AddUserToGroup/>', () => {
   const onAddUser = sinon.spy();
@@ -15,14 +15,10 @@ describe('<AddUserToGroup/>', () => {
   sinon.spy(AddUserToGroup.prototype, 'handleSubmit');
   sinon.spy(AddUserToGroup.prototype, 'handleSearch');
   const props = {
-    name: '',
+    ...addUser,
     onAddUser,
-    addUserError: null,
-    addUserSuccess: false,
     getGroupUsers,
-    groupState: {},
     getUsersSearch,
-    groupId: ''
   };
   const wrapper = mount(<AddUserToGroup{...props} />);
   it('should check if component contains form input of type' +

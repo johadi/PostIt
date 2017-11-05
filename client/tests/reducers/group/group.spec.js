@@ -1,28 +1,11 @@
 import expect from 'expect';
 import actionTypes from '../../../src/actions/actionTypes';
 import groupReducer from '../../../src/reducers/group/groupReducer';
+import { groupInitialState } from '../../seeds/reducersSeeder';
 
 describe('groupReducer', () => {
-  const initialState = {
-    error: null,
-    addUserErr: null,
-    addUserSuccess: false,
-    postMessageErr: null,
-    groupMessagesErr: null,
-    groupMessages: null,
-    groupViewMessage: null, // hold a single message detail for view
-    groupViewMessageErr: null,
-    groupUsersStore: null,
-    groupUsersError: null,
-    userGroupsStore: null,
-    userGroupsError: null,
-    boardMessagesStore: null,
-    boardMessagesError: null,
-    usersSearch: null,
-    usersSearchErr: null,
-    messageRead: false,
-    messageReadErr: null
-  };
+  // initial state
+  const initialState = groupInitialState;
   describe('CREATE GROUP', () => {
     it('should set error to null when Type is CREATE_GROUP_SUCCESS', () => {
       const groupActionDispatch = {

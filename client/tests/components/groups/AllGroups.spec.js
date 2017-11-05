@@ -4,27 +4,20 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { AllGroups } from '../../../src/components/groups/AllGroups';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<AllGroups/>', () => {
   const getUserGroups = sinon.spy();
   sinon.spy(AllGroups.prototype, 'handleSelect');
+  const { userGroups, newUserGroups } = componentsSeeder.allGroups;
   const props = {
-    groupState: {},
     getUserGroups,
-    userGroups: {
-      groups: [],
-      count: 0,
-      pages: 1
-    }
+    userGroups,
+    groupState: {}
   };
   const wrapper = mount(<AllGroups { ...props} />);
   describe('No Groups', () => {
     before(() => {
-      const userGroups = {
-        groups: [],
-        count: 0,
-        pages: 1
-      };
       wrapper.setProps({ userGroups });
     });
     it('should check that Pagination doesn\'t exist since our page' +
@@ -44,25 +37,7 @@ describe('<AllGroups/>', () => {
   describe('If there is at least one Group', () => {
     const pages = 3;
     before(() => {
-      const userGroups = {
-        groups: [
-          {
-            Group: {
-              id: '2',
-              name: 'twilight'
-            }
-          },
-          {
-            Group: {
-              id: '4',
-              name: 'jamboree'
-            }
-          }
-        ],
-        count: 20,
-        pages
-      };
-      wrapper.setProps({ userGroups });
+      wrapper.setProps({ userGroups: newUserGroups });
     });
     it('Should check that group count is 20 since our props ' +
       'changes count to 20', () => {

@@ -11,6 +11,7 @@ import { recoverPasswordAction,
 import { createGroup, addUserToGroup, postMessage, getGroupMessages,
   viewMessage, getGroupUsers, getUserGroups, getBoardMessages, getUsersSearch,
   updateReadMessage } from '../../src/actions/group/groupActions';
+import actionsSeeder from '../seeds/actionsSeeder';
 
 const mock = new MockAdapter(axios);
 const middlewares = [thunk];
@@ -21,20 +22,14 @@ describe('Authentication Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const userDetails = {
-      fullname: 'jimoh hadi',
-      username: 'johadi10',
-      email: 'jim33@gmail.com',
-      password: '123456',
-      confirmPassword: '123456'
-    };
+    const { signupDetails, signupReply } = actionsSeeder;
     it('should dispatch SIGNUP_SUCCESSFUL action when user is created',
       (done) => {
         const expectedActions = [{ type: actionTypes.SIGNUP_SUCCESSFUL }];
         // arguments for reply are (status, data, headers)
-        mock.onPost('/api/v1/user/signup', userDetails).reply(201, 'hajji');
+        mock.onPost('/api/v1/user/signup', signupDetails).reply(201, signupReply);
         const store = mockStore({});
-        store.dispatch(signupAction(userDetails)).then(() => {
+        store.dispatch(signupAction(signupDetails)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -48,11 +43,11 @@ describe('Authentication Actions', () => {
         payload: 'The username field is required'
       }];
       // arguments for reply are (status, data, headers)
-      mock.onPost('/api/v1/user/signup', userDetails).reply(400, {
+      mock.onPost('/api/v1/user/signup', signupDetails).reply(400, {
         validateError: 'The username field is required'
       });
       const store = mockStore({});
-      store.dispatch(signupAction(userDetails)).then(() => {
+      store.dispatch(signupAction(signupDetails)).then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
       setTimeout(() => {
@@ -70,9 +65,9 @@ describe('Authentication Actions', () => {
         }];
         // arguments for reply are (status, data, headers)
         mock.onPost('/api/v1/user/signup',
-          userDetails).reply(400, 'username already exists');
+          signupDetails).reply(400, 'username already exists');
         const store = mockStore({});
-        store.dispatch(signupAction(userDetails)).then(() => {
+        store.dispatch(signupAction(signupDetails)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -84,18 +79,15 @@ describe('Authentication Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const userCredentials = {
-      username: 'johadi10',
-      password: '123456',
-    };
+    const { signinDetails } = actionsSeeder;
     it('should dispatch SIGNIN_SUCCESSFUL action when user is logged in ',
       (done) => {
         const expectedActions = [{ type: actionTypes.SIGNIN_SUCCESSFUL }];
         // arguments for reply are (status, data, headers)
         mock.onPost('/api/v1/user/signin',
-          userCredentials).reply(200, 'xyz.abc.tyz.you');
+          signinDetails).reply(200, 'xyz.abc.tyz.you');
         const store = mockStore({});
-        store.dispatch(signinAction(userCredentials)).then(() => {
+        store.dispatch(signinAction(signinDetails)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -109,11 +101,11 @@ describe('Authentication Actions', () => {
         payload: 'The username field is required'
       }];
       // arguments for reply are (status, data, headers)
-      mock.onPost('/api/v1/user/signin', userCredentials).reply(400, {
+      mock.onPost('/api/v1/user/signin', signinDetails).reply(400, {
         validateError: 'The username field is required'
       });
       const store = mockStore({});
-      store.dispatch(signinAction(userCredentials)).then(() => {
+      store.dispatch(signinAction(signinDetails)).then(() => {
         expect(store.getActions()).toEqual(expectedActions);
       });
       setTimeout(() => {
@@ -128,9 +120,9 @@ describe('Authentication Actions', () => {
         }];
         // arguments for reply are (status, data, headers)
         mock.onPost('/api/v1/user/signin',
-          userCredentials).reply(400, 'Incorrect password');
+          signinDetails).reply(400, 'Incorrect password');
         const store = mockStore({});
-        store.dispatch(signinAction(userCredentials)).then(() => {
+        store.dispatch(signinAction(signinDetails)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -148,9 +140,9 @@ describe('Authentication Actions', () => {
         }];
         // arguments for reply are (status, data, headers)
         mock.onPost('/api/v1/user/signin',
-          userCredentials).reply(400, 'User not found');
+          signinDetails).reply(400, 'User not found');
         const store = mockStore({});
-        store.dispatch(signinAction(userCredentials)).then(() => {
+        store.dispatch(signinAction(signinDetails)).then(() => {
           expect(store.getActions()).toEqual(expectedActions);
         });
         setTimeout(() => {
@@ -162,7 +154,7 @@ describe('Authentication Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const userEmail = 'johadi@gmail.com';
+    const { userEmail } = actionsSeeder;
     it('should dispatch RECOVERY_SUCCESSFUL action when user is logged in ',
       (done) => {
         const expectedActions = [{
@@ -224,10 +216,7 @@ describe('Authentication Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const passwordDetails = {
-      password: '11223344',
-      confirmPassword: '11223344'
-    };
+    const { passwordDetails } = actionsSeeder;
     const queryParam = 'xxxyyyzzz';
     it('should dispatch RESET_SUCCESSFUL action when password is successfully reset ',
       (done) => {
@@ -356,7 +345,8 @@ describe('Message Actions', () => {
     });
     const groupId = 2;
     const messageId = 3;
-    const payload = { body: 'hello', groupId: 5 };
+    const { viewBody, viewGroupId } = actionsSeeder;
+    const payload = { body: viewBody, groupId: viewGroupId };
     it('should dispatch VIEW_MESSAGE_SUCCESSFUL action a message is retrieved ',
       (done) => {
         const expectedActions = [{
@@ -484,7 +474,8 @@ describe('User Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const payload = { rows: ['andela', 'class29'] };
+    const { userGroupsPayload } = actionsSeeder;
+    const payload = userGroupsPayload;
     it('should dispatch USER_GROUPS_SUCCESS action when ' +
       'getUserGroups method is called ',
       (done) => {
@@ -526,8 +517,9 @@ describe('User Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const payload = { rows: ['johadi10', 'emmanuel'] };
-    const search = 'joh';
+    const { searchPayload, searchTerm } = actionsSeeder;
+    const payload = searchPayload;
+    const search = searchTerm;
     const id = 3;
     const page = 1;
     it('should dispatch USERS_SEARCH_SUCCESSFUL action when ' +
@@ -612,8 +604,9 @@ describe('Group Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const user = 'jimoh';
-    const groupId = 2;
+    const { addUser, addUserGroupId } = actionsSeeder;
+    const user = addUser;
+    const groupId = addUserGroupId;
     it('should dispatch ADD_USER_SUCCESSFUL action when user is added to group ',
       (done) => {
         const expectedActions = [{
@@ -653,8 +646,8 @@ describe('Group Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const groupId = 2;
-    const payload = { body: 'hello', groupId: 5 };
+    const { groupId, messagePayload } = actionsSeeder;
+    const payload = messagePayload;
     it('should dispatch GET_GROUP_MESSAGES_SUCCESSFUL ' +
       'action when messages are retrieved ',
       (done) => {
@@ -696,8 +689,8 @@ describe('Group Actions', () => {
     beforeEach(() => {
       mock.reset();
     });
-    const groupId = 2;
-    const payload = { rows: ['johadi', 'jimoh'] };
+    const { groupId, getUsersPayload } = actionsSeeder;
+    const payload = getUsersPayload;
     it('should dispatch GROUP_USERS_PAGINATED_SUCCESSFUL action when ' +
       'getGroupUsers method is called ',
       (done) => {

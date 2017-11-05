@@ -4,6 +4,7 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { ResetPasswordPage } from '../../../src/components/auth/ResetPasswordPage';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<ResetPasswordPage/>', () => {
   // create a spy function for signupAction
@@ -12,12 +13,11 @@ describe('<ResetPasswordPage/>', () => {
   sinon.spy(ResetPasswordPage.prototype, 'handleSubmit');
   // spy on handleChange of SIgnup Page
   sinon.spy(ResetPasswordPage.prototype, 'handleChange');
+  const { token } = componentsSeeder;
   const props = {
     resetState: {},
     location: {
-      query: {
-        token: 'dummytokenstring'
-      }
+      query: { token }
     },
     resetPasswordAction
   };

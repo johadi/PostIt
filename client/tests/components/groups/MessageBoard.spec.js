@@ -4,27 +4,20 @@ import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { MessageBoard } from '../../../src/components/groups/MessageBoard';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<MessageBoard/>', () => {
   const getBoardMessages = sinon.spy();
   sinon.spy(MessageBoard.prototype, 'handleSelect');
+  const { boardMessages, newBoardMessages } = componentsSeeder.messageBoard;
   const props = {
     getBoardMessages,
-    boardMessages: {
-      messages: [],
-      pages: 1,
-      count: 0
-    },
+    boardMessages,
     groupState: {}
   };
   const wrapper = mount(<MessageBoard{ ...props} />);
   describe('No Messages', () => {
     before(() => {
-      const boardMessages = {
-        messages: [],
-        pages: 1,
-        count: 0
-      };
       wrapper.setProps({ boardMessages });
     });
     it('should check that Pagination doesn\'t exist since our page is ' +
@@ -45,37 +38,7 @@ describe('<MessageBoard/>', () => {
   describe('If there is at least one message', () => {
     const pages = 4;
     before(() => {
-      const boardMessages = {
-        messages: [
-          {
-            id: 1,
-            body: 'world apart',
-            createdAt: new Date(),
-            User: {
-              username: 'johadi'
-            },
-            Group: {
-              id: '2',
-              name: 'andela'
-            }
-          },
-          {
-            id: 4,
-            body: 'hmmmmm not easy',
-            createdAt: new Date(),
-            User: {
-              username: 'ovenje'
-            },
-            Group: {
-              id: '4',
-              name: 'ferrari'
-            }
-          }
-        ],
-        pages,
-        count: 10
-      };
-      wrapper.setProps({ boardMessages });
+      wrapper.setProps({ boardMessages: newBoardMessages });
     });
     it('should check that Pagination exist since our pages is ' +
       'now 3,there is pagination', () => {

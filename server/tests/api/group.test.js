@@ -38,33 +38,33 @@ describe('Group API test', () => {
         });
     });
     // Test for creating group
-    it('Should return status code 400 and a message when input are invalid.' +
-      ' i.e some empty fields', (done) => {
-      const emptyGroupName = '';
-      request(app)
-        .post('/api/v1/group')
-        .send({ name: emptyGroupName, token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'Group name required');
-          done();
-        });
-    });
-    it('should return status code 400 and a message when group ' +
-      'already exists', (done) => {
-      const existingGroup = name;
-      request(app)
-        .post('/api/v1/group')
-        .send({ name: existingGroup, token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'This Group already exists');
-          done();
-        });
-    });
-    it('Should return status code 201 and create Group if all is well', (done) => {
+    it('Should return status 400 and error message when group name is empty',
+      (done) => {
+        const emptyGroupName = '';
+        request(app)
+          .post('/api/v1/group')
+          .send({ name: emptyGroupName, token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'Group name required');
+            done();
+          });
+      });
+    it('should return status code 400 and a message when group already exists',
+      (done) => {
+        const existingGroup = name;
+        request(app)
+          .post('/api/v1/group')
+          .send({ name: existingGroup, token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'This Group already exists');
+            done();
+          });
+      });
+    it('Should return status code 201 and create group if all is well', (done) => {
       const newGroup = 'Class29';
       request(app)
         .post('/api/v1/group')
@@ -115,8 +115,7 @@ describe('Group API test', () => {
           done();
         });
     });
-    it('Should return status code 400 and a message when groupId ' +
-      'is not a number.', (done) => {
+    it('Should return status 400 when groupId is not a number.', (done) => {
       const invalidGroupId = 'x';
       request(app)
         .post(`/api/v1/group/${invalidGroupId}/user`)
@@ -128,7 +127,7 @@ describe('Group API test', () => {
           done();
         });
     });
-    it('Should return status code 400 and a message if group name field is empty',
+    it('Should return status 400 and a message if user input is empty',
       (done) => {
         const emptyUser = '';
         request(app)
@@ -141,20 +140,19 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return status code 400 and a message when User tries to add ' +
-      'himself to group he belongs.', (done) => {
-      request(app)
-        .post('/api/v1/group/99/user')
-        .send({ user: username, token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'You can\'t add yourself to group you already belong');
-          done();
-        });
-    });
-    it('Should return status code 400 and a ' +
-      'message when User tries to add user to group he doesn\'t belongs.',
+    it('Should return status 400 when user wants to add himself to group he belongs.',
+      (done) => {
+        request(app)
+          .post('/api/v1/group/99/user')
+          .send({ user: username, token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'You can\'t add yourself to group you already belong');
+            done();
+          });
+      });
+    it('Should return status code 400 when user adding not in a group',
       (done) => {
         request(app)
           .post('/api/v1/group/100/user')
@@ -166,19 +164,19 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return status code 400 and a ' +
-      'message when User tries to add user already in a group.', (done) => {
-      const existingUser = 'oman';
-      request(app)
-        .post('/api/v1/group/99/user')
-        .send({ user: existingUser, token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'User already belongs to this group');
-          done();
-        });
-    });
+    it('Should return status code 400 when user to be added already in a group',
+      (done) => {
+        const existingUser = 'oman';
+        request(app)
+          .post('/api/v1/group/99/user')
+          .send({ user: existingUser, token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'User already belongs to this group');
+            done();
+          });
+      });
     it('Should return status code 404 and a ' +
       'message when User tries to add user that doesn\'t exist.', (done) => {
       const invalidUser = 'sanni';
@@ -273,8 +271,7 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return 400 when a user access route without query string ' +
-      'named page that indicate pagination.', (done) => {
+    it('Should return 400 when user access route without "page" query.', (done) => {
       request(app)
         .get('/api/v1/group/99/group-users')
         .set({ 'x-auth': token })
@@ -286,8 +283,7 @@ describe('Group API test', () => {
           done();
         });
     });
-    it('Should return 400 when a user access route with query string ' +
-      'named page but not a number value.', (done) => {
+    it('Should return 400 when route has "page" query that isn\'t number.', (done) => {
       request(app)
         .get('/api/v1/group/99/group-users?page=x')
         .set({ 'x-auth': token })
@@ -310,21 +306,19 @@ describe('Group API test', () => {
           done();
         });
     });
-    it('Should return status code 400 when user tries to get users of a' +
-      ' group he doesn\'t belong', (done) => {
-      request(app)
-        .get('/api/v1/group/100/group-users?page=1')
-        .set({ 'x-auth': token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
-          done();
-        });
-    });
-    it('Should return status code 200 and the users in the group when user ' +
-      'tries to get users of a' +
-      ' group he/she belongs on page 1', (done) => {
+    it('Should return status 400 when user requests users in group he doesn\'t belong',
+      (done) => {
+        request(app)
+          .get('/api/v1/group/100/group-users?page=1')
+          .set({ 'x-auth': token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
+            done();
+          });
+      });
+    it('Should return status 200 and users in the group', (done) => {
       request(app)
         .get('/api/v1/group/99/group-users?page=1')
         .set({ 'x-auth': token })
@@ -402,8 +396,8 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return 404 if user access a route with a valid token but decoded ' +
-      'detail in the token not found in database.', (done) => {
+    // In case if the user was issued a token but has been deleted from database
+    it('Should return 404 for valid token but details not in database', (done) => {
       // Let us remove a user from database and use his token for testing here
       models.User.destroy({
         where: { username: groupSeeder.newUserDetails.username } })
@@ -421,8 +415,7 @@ describe('Group API test', () => {
           }
         });
     });
-    it('Should return 200 if user provide a valid token that matches ' +
-      'database record.', (done) => {
+    it('Should return 200 if user provides token that matches database record.', (done) => {
       request(app)
         .get('/api/v1/verify-token')
         .set({ 'x-auth': token })

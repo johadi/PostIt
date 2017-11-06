@@ -27,6 +27,20 @@ body, #app {
   /*background-image: url("../images/fam3.jpg");*/
   /*background-size: 100% 100%;*/ }
 
+.signup-wrapper .cover-div {
+  border-radius: 10px; }
+
+@media (max-width: 992px) {
+  .signup-wrapper .cover-div {
+    padding-left: 40px;
+    padding-right: 40px; } }
+@media (max-width: 767px) {
+  .signup-wrapper {
+    height: auto; }
+
+  .signup-wrapper .cover-div {
+    padding-left: 30px;
+    padding-right: 30px; } }
 .body2 {
   color: #fff;
   text-align: center;

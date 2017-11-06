@@ -122,27 +122,28 @@ export class AddUserToGroup extends React.Component {
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-12">
-              <table className="table table-striped">
-                <caption>
-                  <h4>Search result appears here</h4>
-                  {this.props.addUserSuccess && <h4 className="text-center text-success">
-                    User added successfully</h4>
-                  }
-                </caption>
-                <thead>
-                <tr>
-                  <th>Username</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Add</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                  !!usersSearch && usersSearch.allUsers.map((user) => {
-                    if (lodash.includes(usersSearch.groupUsersId, user.id)) {
-                      return (
+            <div className="col-lg-12 col-xs-12">
+              <div className="table-responsive">
+                <table className="table table-striped">
+                  <caption>
+                    <h4>Search result appears here</h4>
+                    {this.props.addUserSuccess && <h4 className="text-center text-success">
+                      User added successfully</h4>
+                    }
+                  </caption>
+                  <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Add</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    !!usersSearch && usersSearch.allUsers.map((user) => {
+                      if (lodash.includes(usersSearch.groupUsersId, user.id)) {
+                        return (
                           <tr key={user.id}>
                             <td>{user.username}</td>
                             <td>{user.fullname}</td>
@@ -153,27 +154,28 @@ export class AddUserToGroup extends React.Component {
                               </a>
                             </td>
                           </tr>
+                        );
+                      }
+                      return (
+                        <tr key={user.id}>
+                          <td>{user.username}</td>
+                          <td>{user.fullname}</td>
+                          <td>{user.email}</td>
+                          <td>
+                            <a onClick={event => this.handleAddUser(event)}
+                               id={user.username}
+                               className="btn btn-primary btn-sm btn-block" href="">
+                              Add
+                            </a>
+                          </td>
+                        </tr>
                       );
-                    }
-                    return (
-                          <tr key={user.id}>
-                            <td>{user.username}</td>
-                            <td>{user.fullname}</td>
-                            <td>{user.email}</td>
-                            <td>
-                              <a onClick={event => this.handleAddUser(event)}
-                                   id={user.username}
-                                   className="btn btn-primary btn-sm btn-block" href="">
-                                Add
-                              </a>
-                            </td>
-                          </tr>
-                    );
-                  })
-                }
-                {pagination}
-                </tbody>
-              </table>
+                    })
+                  }
+                  {pagination}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </form>

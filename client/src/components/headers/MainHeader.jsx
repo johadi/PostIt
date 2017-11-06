@@ -15,7 +15,7 @@ const MainHeader = () => {
   return (
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div className="navbar-header">
-          <button type="button" className="navbar-toggle"
+          <button type="button" className="navbar-toggle collapsed"
                   data-toggle="collapse" data-target=".navbar-ex1-collapse">
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
@@ -24,7 +24,7 @@ const MainHeader = () => {
           </button>
           <span className="navbar-brand"><strong>PostIt</strong></span>
         </div>
-        <div className="collapse navbar-collapse navbar-ex1-collapse">
+        <div className="collapse navbar-collapse navbar-ex1-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav main-header-ul">
             <li>
               <Link activeClassName="main-header" to="/dashboard">

@@ -72,9 +72,10 @@ export class SignupPage extends React.Component {
       <div className="body">
         <div className="site-wrapper">
           <div className="site-wrapper-inner">
-            <div className="cover-container">
+            <div className="cover-container signup-div">
               <IndexHeader/>
-              <div className="col-lg-12 col-sm-offset-1 col-sm-10 inner cover cover-div">
+              <div className="col-lg-12 col-md-offset-1
+              col-md-10 col-sm-offset-1 col-sm-10 inner cover cover-div">
                 <h1 className="cover-heading text-signup">
                   <strong>Sign up for PostIt,</strong>
                 </h1>
@@ -86,7 +87,7 @@ export class SignupPage extends React.Component {
                         role="form" className="form-horizontal">
                     { this.props.signupState.fails ? <ErrorComponent
                       fails={this.props.signupState.fails} /> : null }
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 col-md-6">
                       <FormField errors={this.props.signupState.errors}
                                  onChange={event => this.handleChange(event)}
                                  value={this.state.user.fullname}
@@ -110,7 +111,7 @@ export class SignupPage extends React.Component {
                                  auth="any"
                       />
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 col-md-6">
                       <FormField errors={this.props.signupState.errors}
                                  onChange={event => this.handleChange(event)}
                                  value={this.state.user.username}

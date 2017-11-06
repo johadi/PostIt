@@ -93,7 +93,13 @@ const client = twilio(accountSid, authToken);
 const sendSMS = (from, to, body) => {
   client.messages.create({ to, from, body });
 };
-
+/**
+ * Helper function that paginates results
+ * @function paginateResult
+ * @param {number} page
+ * @param {number} itemsPerPage
+ * @return {object} pagination meta data
+ */
 const paginateResult = (page, itemsPerPage) => {
   // convert the query to standard number for use
   // Let the page query default to one if user never passes page query

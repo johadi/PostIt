@@ -65,7 +65,7 @@ export class MessageBoard extends React.Component {
     const { messages, pages, count } = this.props.boardMessages;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2><strong>Notification board</strong></h2>
+          <h3><strong>Notification board</strong></h3>
           <small className="text-red">{count === 1 ?
             `(${count}) notification` :
             `(${count}) notifications`} you have not read</small>

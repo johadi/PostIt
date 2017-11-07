@@ -76,7 +76,7 @@ export class Notification extends React.Component {
     }
     return (
       <div className="col-md-12" id="message-board-div">
-        <h2><span className="text-capitalize">{name}</span> group</h2>
+        <h3><span className="text-capitalize">{name}</span> group</h3>
         <p>Sent by <span className="text-green">
           {message.User.username}
         </span>

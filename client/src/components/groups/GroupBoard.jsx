@@ -68,7 +68,7 @@ export class GroupBoard extends React.Component {
     const { count, rows, pages } = this.props.groupState.groupMessages;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2 className="text-capitalize">{this.props.name} Group </h2>
+          <h3 className="text-capitalize">{this.props.name} Group </h3>
           <p>({count}) {count === 1 ? 'notification' : 'notifications'}</p>
           <hr/>
           {rows.map((message) => {

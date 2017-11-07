@@ -42,7 +42,7 @@ export class GroupUsers extends React.Component {
     const { name, users, count, pages } = this.props.groupUsers;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2 className="text-capitalize">{name} group members</h2>
+          <h3 className="text-capitalize">{name} group members</h3>
           <p className="text-display">
             <strong>{count} {count === 1 ? 'member' : 'members'}</strong>
           </p>

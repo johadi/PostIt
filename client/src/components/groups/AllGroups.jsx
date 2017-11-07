@@ -50,7 +50,7 @@ export class AllGroups extends React.Component {
     const { pages, count, groups } = this.props.userGroups;
     return (
         <div className="col-md-12 yo" id="message-board-div">
-          <h2>Your Groups</h2>
+          <h3>Your Groups</h3>
           <p className="text-display"><strong className="group-count">
             Total groups you joined: {count}</strong></p>
           <hr/>

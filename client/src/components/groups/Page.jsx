@@ -60,7 +60,8 @@ export class Page extends React.Component {
           </div>
         </nav>
         <div id="group-body" className="row">
-          <button className="btn btn-default visible-xs pull-right btn-do" data-toggle="offcanvas" data-target="#myNavmenu">
+          <button className="btn btn-default visible-xs pull-right btn-nav"
+                  data-toggle="offcanvas" data-target="#myNavmenu">
             <strong>...</strong>
           </button>
           <div className="col-md-push-1 col-md-7

@@ -95,4 +95,10 @@ a:hover {
 .main-header-logout {
   margin-right: 10px; }
 
+.btn-nav {
+  background-color: #e3e3e3 !important;
+  padding-top: 2px;
+  margin-right: 5px;
+  margin-bottom: 5px; }
+
 /*# sourceMappingURL=group-custom.css.map */

@@ -64,23 +64,24 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return status code 201 and create group if all is well', (done) => {
-      const newGroup = 'Class29';
-      request(app)
-        .post('/api/v1/group')
-        .send({ name: newGroup, token })
-        .expect(201)
-        .end((err) => {
-          if (err) return done(err);
-          models.Group.findOne({
-            where: { name: newGroup.toLowerCase() } // NOTE: Class must be lowercase
-          })
-            .then((group) => {
-              assert.equal(group.name, newGroup.toLowerCase());
-              done();
-            });
-        });
-    });
+    it('Should return status code 201 and create group if all is well',
+      (done) => {
+        const newGroup = 'Class29';
+        request(app)
+          .post('/api/v1/group')
+          .send({ name: newGroup, token })
+          .expect(201)
+          .end((err) => {
+            if (err) return done(err);
+            models.Group.findOne({
+              where: { name: newGroup.toLowerCase() } // NOTE: Class must be lowercase
+            })
+              .then((group) => {
+                assert.equal(group.name, newGroup.toLowerCase());
+                done();
+              });
+          });
+      });
   });
   // Test suit for adding user to group
   describe('Add Users to Group', () => {
@@ -123,7 +124,8 @@ describe('Group API test', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'Invalid request. Parameter groupId must be a number');
+          assert.equal(res.body,
+            'Invalid request. Parameter groupId must be a number');
           done();
         });
     });
@@ -148,7 +150,8 @@ describe('Group API test', () => {
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'You can\'t add yourself to group you already belong');
+            assert.equal(res.body,
+              'You can\'t add yourself to group you already belong');
             done();
           });
       });
@@ -160,7 +163,8 @@ describe('Group API test', () => {
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'Invalid operation: you do not belong to this group');
+            assert.equal(res.body,
+              'Invalid operation: you do not belong to this group');
             done();
           });
       });
@@ -179,7 +183,7 @@ describe('Group API test', () => {
       });
     it('Should return status code 404 and a ' +
       'message when User tries to add user that doesn\'t exist.', (done) => {
-      const invalidUser = 'sanni';
+      const invalidUser = 'sannik';
       request(app)
         .post('/api/v1/group/99/user')
         .send({ user: invalidUser, token })
@@ -267,7 +271,8 @@ describe('Group API test', () => {
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'Invalid request. Parameter groupId must be a number');
+            assert.equal(res.body,
+              'Invalid request. Parameter groupId must be a number');
             done();
           });
       });
@@ -278,8 +283,9 @@ describe('Group API test', () => {
         .expect(400)
         .end((err, res) => {
           if (err) return done(err);
-          assert.equal(res.body, 'Oops! Error. Request url must ' +
-            'have query string named page with number as value');
+          assert.equal(res.body,
+            'Oops! Error. Request url must have query string named page ' +
+            'with number as value');
           done();
         });
     });
@@ -415,21 +421,22 @@ describe('Group API test', () => {
           }
         });
     });
-    it('Should return 200 if user provides token that matches database record.', (done) => {
-      request(app)
-        .get('/api/v1/verify-token')
-        .set({ 'x-auth': token })
-        .expect(200)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body.id, id);
-          assert.equal(res.body.fullname, fullname);
-          assert.equal(res.body.username, username);
-          assert.equal(res.body.email, email);
-          assert.equal(res.body.mobile, mobile);
-          assert.notExists(res.body.password);
-          done();
-        });
-    });
+    it('Should return 200 if user provides token that matches database record.',
+      (done) => {
+        request(app)
+          .get('/api/v1/verify-token')
+          .set({ 'x-auth': token })
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body.id, id);
+            assert.equal(res.body.fullname, fullname);
+            assert.equal(res.body.username, username);
+            assert.equal(res.body.email, email);
+            assert.equal(res.body.mobile, mobile);
+            assert.notExists(res.body.password);
+            done();
+          });
+      });
   });
 });

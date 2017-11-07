@@ -222,7 +222,7 @@ export default {
   viewMessage(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10)) ||
       isNaN(parseInt(req.params.messageId, 10))) {
-      return handleError('Invalid request. Parameter groupId must be a number', res);
+      return handleError('Invalid request. Parameter groupId and messageId must be numbers', res);
     }
     if (req.user && req.params.groupId && req.params.messageId) {
       const userId = req.user.id;
@@ -268,7 +268,7 @@ export default {
   updateReadMessage(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.messageId, 10))) {
-      return handleError('Invalid request. Parameter groupId must be a number', res);
+      return handleError('Invalid request. Parameter messageId must be a number', res);
     }
     if (req.user && req.params.messageId) {
       const userId = req.user.id;

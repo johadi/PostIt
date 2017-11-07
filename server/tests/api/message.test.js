@@ -56,22 +56,24 @@ describe('Message API test', () => {
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'Invalid request. Parameter groupId must be a number');
+            assert.equal(res.body,
+              'Invalid request. Parameter groupId must be a number');
             done();
           });
       });
-    it('Should return status 400 and error message if no message body', (done) => {
-      const emptyMessage = '';
-      request(app)
-        .post('/api/v1/group/99/message')
-        .send({ message: emptyMessage, token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'Message body required');
-          done();
-        });
-    });
+    it('Should return status 400 and error message if no message body',
+      (done) => {
+        const emptyMessage = '';
+        request(app)
+          .post('/api/v1/group/99/message')
+          .send({ message: emptyMessage, token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'Message body required');
+            done();
+          });
+      });
     it('Should return 400 if priority level neither normal, urgent nor critical',
       (done) => {
         const priority = 'abnormal';
@@ -97,18 +99,19 @@ describe('Message API test', () => {
           done();
         });
     });
-    it('Should return 400 and a message if user doesn\'t belong to a group', (done) => {
-      request(app)
-        .post('/api/v1/group/100/message')
-        .send({ message: 'I love NodeJS', priority: 'critical', token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'Invalid Operation: ' +
-            'You can\'t post to group You don\'t belong');
-          done();
-        });
-    });
+    it('Should return 400 and a message if user doesn\'t belong to a group',
+      (done) => {
+        request(app)
+          .post('/api/v1/group/100/message')
+          .send({ message: 'I love NodeJS', priority: 'critical', token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body, 'Invalid Operation: ' +
+              'You can\'t post to group You don\'t belong');
+            done();
+          });
+      });
     it('Should return 201 and a message if message was successfully posted',
       (done) => {
         request(app)
@@ -170,7 +173,8 @@ describe('Message API test', () => {
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'Invalid request. Parameter groupId must be a number');
+            assert.equal(res.body,
+              'Invalid request. Parameter groupId must be a number');
             done();
           });
       });
@@ -263,17 +267,19 @@ describe('Message API test', () => {
           done();
         });
     });
-    it('Should return 400 when a user access route with invalid groupId.', (done) => {
-      request(app)
-        .get('/api/v1/group/x/message/1')
-        .set({ 'x-auth': token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'Invalid request. Parameter groupId must be a number');
-          done();
-        });
-    });
+    it('Should return 400 when a user access route with invalid groupId.',
+      (done) => {
+        request(app)
+          .get('/api/v1/group/x/message/1')
+          .set({ 'x-auth': token })
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            assert.equal(res.body,
+              'Invalid request. Parameter groupId and messageId must be numbers');
+            done();
+          });
+      });
     it('Should return 400 when a user access route with invalid messageId.',
       (done) => {
         request(app)
@@ -282,7 +288,8 @@ describe('Message API test', () => {
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'Invalid request. Parameter groupId must be a number');
+            assert.equal(res.body,
+              'Invalid request. Parameter groupId and messageId must be numbers');
             done();
           });
       });
@@ -384,7 +391,8 @@ describe('Message API test', () => {
           .expect(400)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'Invalid request. Parameter groupId must be a number');
+            assert.equal(res.body,
+              'Invalid request. Parameter messageId must be a number');
             done();
           });
       });

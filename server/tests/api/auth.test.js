@@ -203,7 +203,8 @@ describe('Authentication API test', () => {
           .expect(404)
           .end((err, res) => {
             if (err) return done(err);
-            assert.equal(res.body, 'Sorry! this email doesn\'t match our records');
+            assert.equal(res.body,
+              'Sorry! this email doesn\'t match our records');
             done();
           });
       });

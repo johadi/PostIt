@@ -19,6 +19,8 @@ const FormField = props => (
         className="form-control" name={ props.name }
         id={ props.name } placeholder={ props.placeholder }
         value={ props.value }
+        pattern={ props.pattern }
+        title={ props.title }
       />
       { props.errors && props.auth === 'signin' ?
         <span id="show-error" className="show-error help-block error-bg">
@@ -38,6 +40,8 @@ FormField.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string,
   errors: PropTypes.object,
-  auth: PropTypes.string
+  auth: PropTypes.string,
+  pattern: PropTypes.string,
+  title: PropTypes.string
 };
 export default FormField;

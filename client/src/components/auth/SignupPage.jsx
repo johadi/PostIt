@@ -106,9 +106,12 @@ export class SignupPage extends React.Component {
                                    onChange={event => this.handleChange(event)}
                                    value={this.state.user.mobile}
                                    name="mobile"
-                                   placeholder="Mobile No. event.g +23480123456789"
+                                   placeholder="Mobile No. e.g +23480123456789"
                                    required='required'
                                    auth="any"
+                                   pattern="\+[0-9]{13}"
+                                   title="Must start with + followed by number of length
+                                    13 (i.e +2348156341290)"
                         />
                       </div>
                       <div className="col-lg-6 col-sm-6">

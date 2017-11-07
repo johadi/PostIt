@@ -27,10 +27,7 @@ export default {
           where: { userId },
           limit,
           offset,
-          include: [{
-            model: models.Group,
-            attributes: ['id', 'name', 'creatorId']
-          }]
+          include: [{ model: models.Group, attributes: ['id', 'name', 'creatorId'] }]
         })
           .then((result) => {
             // round off i.e 3/2 = 1.5 = 2
@@ -105,10 +102,7 @@ export default {
               offset,
               limit,
               order: [['createdAt', 'DESC']],
-              include: [{
-                model: models.User,
-                attributes: ['username', 'fullname']
-              }, {
+              include: [{ model: models.User, attributes: ['username', 'fullname'] }, {
                 model: models.Group,
                 attributes: ['id', 'name']
               }]

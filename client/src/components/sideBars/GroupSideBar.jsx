@@ -16,7 +16,7 @@ class GroupSideBar extends React.Component {
    */
   render() {
     return (
-        <div className="col-md-push-2 col-md-3 col-sm-12 col-xs-12 well">
+        <div className="">
           <p>
             <p className="text-center btn-block btn-lg navy-header">
               Activities

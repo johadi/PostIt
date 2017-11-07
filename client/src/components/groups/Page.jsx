@@ -52,9 +52,19 @@ export class Page extends React.Component {
     return (
       <div className="container">
         <MainHeader/>
+        <nav id="myNavmenu" className="navmenu navmenu-default navmenu-fixed-left offcanvas">
+          <div className="col-xs-12">
+            { this.props.groupId ?
+              <GroupSideBar groupId={this.props.groupId}/> : <MainSideBar/>
+            }
+          </div>
+        </nav>
         <div id="group-body" className="row">
+          <button className="btn btn-default visible-xs pull-right btn-do" data-toggle="offcanvas" data-target="#myNavmenu">
+            <strong>...</strong>
+          </button>
           <div className="col-md-push-1 col-md-7
-            col-sm-12 col-xs-12 panel panel-default"
+            col-sm-7 col-xs-12 panel panel-default"
                id="page-panel">
             <div className="panel-body">
               <div className="row">
@@ -62,8 +72,11 @@ export class Page extends React.Component {
               </div>
             </div>
           </div>
-          { this.props.groupId ?
-            <GroupSideBar groupId={this.props.groupId}/> : <MainSideBar/> }
+          <div className="main side-bar col-md-push-2 col-md-3 col-sm-push-1 col-sm-4 hidden-xs well">
+            { this.props.groupId ?
+              <GroupSideBar groupId={this.props.groupId}/> : <MainSideBar/>
+            }
+          </div>
         </div>
         <MainFooter/>
         <SignupModal/>

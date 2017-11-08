@@ -17,7 +17,9 @@ export default {
    */
   signup(req, res) {
     const body = req.body;
-    const validator = new Validator(body, models.User.signupRules());
+    const validator = new Validator(body, models.User.signupRules(),
+      { regex: 'The :attribute field must start with + followed by numbers of length 13' });
+    validator.errors.first('mobile');
     if (validator.fails()) {
       return handleError({ validateError: validator.errors.all() }, res);
     }

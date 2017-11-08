@@ -11,7 +11,7 @@ const swaggerDefinition = {
   info: {
     title: 'Jimoh PostIt API',
     version: '1.0.0',
-    description: 'Jimoh Hadi Andela Checkpoint API documentation',
+    description: 'Jimoh Hadi PostIt API documentation',
   },
   host: process.env.API_HOST,
   basePath: '/',

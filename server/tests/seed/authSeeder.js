@@ -67,7 +67,7 @@ export default {
       fullname: 'jimoh hadi',
       username: 'ovenje',
       email: 'ovenje@yahoo.com',
-      mobile: '8163041269',
+      mobile: '+2345905849589',
       password: '11223344' })
         .then(() => done())
         .catch(err => done(err));
@@ -84,7 +84,7 @@ export default {
       fullname: 'jimoh hadi',
       username: 'jimoh',
       email: 'jimoh@yahoo.com',
-      mobile: '8163041269',
+      mobile: '+2345905849504',
       password: '11223344' })
       .then(() => done())
       .catch(err => done(err));
@@ -93,7 +93,7 @@ export default {
     username: 'johadi',
     fullname: 'jimoh hadi',
     email: 'jimoh@gmail.com',
-    mobile: '0908736521',
+    mobile: '+2345905849504',
     password: '11223344',
     confirmPassword: '11223344'
   },

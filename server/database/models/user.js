@@ -65,7 +65,8 @@ export default (sequelize, DataTypes) => {
         confirmPassword: 'required|min:6',
         username: 'required',
         email: 'required|email',
-        fullname: 'required'
+        fullname: 'required',
+        mobile: ['regex:/\\+[0-9]{13}$/']
       }),
       loginRules: () => ({
         password: 'required|min:6',

@@ -16,7 +16,7 @@ export class MainSideBar extends React.Component {
    */
   render() {
     return (
-        <div>
+        <div className="main-sidebar">
           <p>
             <div className="text-center navy-header btn-lg btn-block">Quick Links</div>
             <Link to="/create-group" className="btn btn-default btn-block">

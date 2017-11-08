@@ -21,8 +21,8 @@ describe('<GroupSideBar/>', () => {
     store = mockStore(storeStateMock);
     wrapper = mount(<Provider store={store}><GroupSideBar /></Provider>);
   });
-  it('should check that the div with well class exist', () => {
-    expect(wrapper.find('.well').length).toBe(1);
+  it('should check that the div with group-sidebar class exist', () => {
+    expect(wrapper.find('.group-sidebar').length).toBe(1);
   });
   it('should check that activities header exists', () => {
     expect(wrapper.find('p').at(1).text()).toBe('Activities');

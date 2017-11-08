@@ -73,7 +73,7 @@ export class Page extends React.Component {
               </div>
             </div>
           </div>
-          <div className="main side-bar col-md-push-2 col-md-3 col-sm-push-1 col-sm-4 hidden-xs well">
+          <div className="side-bar col-md-push-2 col-md-3 col-sm-push-1 col-sm-4 hidden-xs well">
             { this.props.groupId ?
               <GroupSideBar groupId={this.props.groupId}/> : <MainSideBar/>
             }

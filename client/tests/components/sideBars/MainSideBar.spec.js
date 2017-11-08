@@ -21,8 +21,8 @@ describe('<MainSideBar/>', () => {
     store = mockStore(storeStateMock);
     wrapper = mount(<Provider store={store}><MainSideBar /></Provider>);
   });
-  it('should check that the div with main class exist', () => {
-    expect(wrapper.find('.main').length).toBe(1);
+  it('should check that the div with main-sidebar class exist', () => {
+    expect(wrapper.find('.main-sidebar').length).toBe(1);
   });
   it('should check that quick link header exists', () => {
     expect(wrapper.find('div').at(1).text()).toBe('Quick Links');

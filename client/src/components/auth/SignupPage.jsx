@@ -109,8 +109,7 @@ export class SignupPage extends React.Component {
                                    placeholder="Mobile No. e.g +23480123456789"
                                    required='required'
                                    auth="any"
-                                   pattern="\+[0-9]{13}"
-                                   title="Must start with + followed by number of length
+                                   title="Must start with + followed by numbers of length
                                     13 (i.e +2348156341290)"
                         />
                       </div>

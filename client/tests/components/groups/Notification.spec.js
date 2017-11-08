@@ -29,7 +29,7 @@ describe('<Notification/>', () => {
       .text()).toEqual('jimoh');
   });
   it('Should show the group name the message was sent to', () => {
-    expect(messageDiv.find('h2').at(0).text()).toEqual('andela group');
+    expect(messageDiv.find('h3').at(0).text()).toEqual('andela group');
   });
   it('Should check that message body is displayed', () => {
     expect(messageDiv.find('p').at(2).text()).toEqual('lord of the ring');

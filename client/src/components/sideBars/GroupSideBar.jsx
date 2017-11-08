@@ -16,7 +16,7 @@ class GroupSideBar extends React.Component {
    */
   render() {
     return (
-        <div className="">
+        <div className="group-sidebar">
           <p>
             <p className="text-center btn-block btn-lg navy-header">
               Activities

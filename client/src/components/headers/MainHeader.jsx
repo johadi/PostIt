@@ -36,7 +36,7 @@ const MainHeader = () => {
           <ul className="nav navbar-nav navbar-right">
             <li className="main-header-logout">
               <Link to="#" onClick={logout}>
-                <i className="fa fa-lg fa-sign-out" aria-hidden="true"></i>Logout
+                <i className="fa fa-lg fa-sign-out" aria-hidden="true"></i> Logout
               </Link>
             </li>
           </ul>

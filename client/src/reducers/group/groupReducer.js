@@ -205,7 +205,7 @@ const groupReducer = (state = initialState, action) => {
         usersSearchErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_USERS_SEARCH_ERROR:
+    case actionTypes.CLEAR_USERS_SEARCH:
       state = {
         ...state,
         usersSearch: null,

@@ -216,7 +216,7 @@ export const getBoardMessages = pageNumber => (dispatch) => {
  * @return {void}
  */
 export const getUsersSearch = (groupId, searchTerm, pageNumber) => (dispatch) => {
-  const search = searchTerm || '';
+  const search = searchTerm || '""';
   const id = groupId || 0;
   const page = pageNumber || 1;
   return axios.get(`/api/v1/users?page=${page}&search=${search}&groupId=${id}`,
@@ -232,6 +232,17 @@ export const getUsersSearch = (groupId, searchTerm, pageNumber) => (dispatch) =>
         }
       });
 };
+
+/**
+ * Action creator for clearing errors when searching users
+ * in the application
+ * @function clearUsersSearch
+ * @return {void}
+ */
+export const clearUsersSearch = () => ({
+  type: actionTypes.CLEAR_USERS_SEARCH
+});
+
 /**
  * Action creator for updating message status when a user read a message
  * @function updateReadMessage

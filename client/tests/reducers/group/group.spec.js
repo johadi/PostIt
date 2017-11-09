@@ -276,9 +276,9 @@ describe('groupReducer', () => {
       expect(newState.usersSearchErr).toEqual(groupActionDispatch.payload);
     });
     it('should clear values for usersSearchErr when Type ' +
-      'is CLEAR_USERS_SEARCH_ERROR', () => {
+      'is CLEAR_USERS_SEARCH', () => {
       const groupActionDispatch = {
-        type: actionTypes.CLEAR_USERS_SEARCH_ERROR,
+        type: actionTypes.CLEAR_USERS_SEARCH,
       };
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.usersSearchErr).toEqual(null);

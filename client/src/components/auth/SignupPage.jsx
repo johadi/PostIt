@@ -106,7 +106,7 @@ export class SignupPage extends React.Component {
                                    onChange={event => this.handleChange(event)}
                                    value={this.state.user.mobile}
                                    name="mobile"
-                                   placeholder="Mobile No. e.g +23480123456789"
+                                   placeholder="Mobile No. e.g +2348012345678"
                                    required='required'
                                    auth="any"
                                    title="Must start with + followed by numbers of length

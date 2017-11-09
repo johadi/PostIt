@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import lodash from 'lodash';
 import { Pagination } from 'react-bootstrap';
-import { getUsersSearch } from '../../actions/group/groupActions';
+import { getUsersSearch, clearUsersSearch } from '../../actions/group/groupActions';
 
 /**
  * AddUserToGroup class declaration
@@ -28,7 +28,8 @@ export class AddUserToGroup extends React.Component {
    * @return {void}
    */
   componentWillUnmount() {
-    this.props.getUsersSearch(this.props.groupId, '', '');
+    // this.props.getUsersSearch(this.props.groupId, '', '');
+    this.props.clearUsersSearch();
   }
   /**
    * Handle select for pagination
@@ -189,12 +190,13 @@ AddUserToGroup.propTypes = {
   addUserSuccess: PropTypes.bool,
   groupState: PropTypes.object.isRequired,
   getUsersSearch: PropTypes.func.isRequired,
-  groupId: PropTypes.string.isRequired
+  groupId: PropTypes.string.isRequired,
+  clearUsersSearch: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getUsersSearch }, dispatch);
+  getUsersSearch, clearUsersSearch }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AddUserToGroup);
 

@@ -10,7 +10,7 @@ describe('PasswordRecovery Model', () => {
   after(modelSeeder.emptyPasswordRecovery);
 
   describe('Validations', () => {
-    it('should throw validation error if no email is provided', (done) => {
+    it('Should throw validation error if no email is provided', (done) => {
       const invalidRecoveryDetails = { ...modelSeeder.passwordRecoveryDetails };
       invalidRecoveryDetails.email = '';
       models.PasswordRecovery.create(invalidRecoveryDetails)
@@ -20,7 +20,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
 
-    it('should throw validation error if email is invalid', (done) => {
+    it('Should throw validation error if email is invalid', (done) => {
       const invalidRecoveryDetails = { ...modelSeeder.passwordRecoveryDetails };
       invalidRecoveryDetails.email = 'jimoh.hadi';
       models.PasswordRecovery.create(invalidRecoveryDetails)
@@ -35,7 +35,7 @@ describe('PasswordRecovery Model', () => {
     const newRecoveryDetails = { ...modelSeeder.passwordRecoveryDetails };
     newRecoveryDetails.email = 'johadi@mail.com';
 
-    it('should be able to create passwordRecoveryDetails', (done) => {
+    it('Should be able to add new password recovery details', (done) => {
       models.PasswordRecovery.create(newRecoveryDetails)
         .then((createdRecovery) => {
           assert.equal(createdRecovery.email, newRecoveryDetails.email);
@@ -44,7 +44,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
 
-    it('should be able to read data from passwordRecovery model', (done) => {
+    it('Should be able to get password recovery details', (done) => {
       models.PasswordRecovery.findOne({ where: { email: newRecoveryDetails.email } })
         .then((foundRecovery) => {
           assert.equal(foundRecovery.email, newRecoveryDetails.email);
@@ -53,7 +53,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
 
-    it('should be able to update data in passwordRecovery model', (done) => {
+    it('Should be able to update password recovery details', (done) => {
       const newHashed = 'xyhhjjsajsjksaksaklkslalksalksalsal';
       models.PasswordRecovery.update(
         { hashed: newHashed },
@@ -70,7 +70,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
 
-    it('should be able to delete data from passwordRecovery model', (done) => {
+    it('Should be able to delete password recovery details', (done) => {
       models.PasswordRecovery.destroy({ where: { email: newRecoveryDetails.email } })
         .then((deletedRows) => {
           assert.equal(deletedRows, 1);

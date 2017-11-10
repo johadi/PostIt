@@ -72,7 +72,7 @@ describe('UserGroupAdd Model', () => {
     };
     const newGroupId = 8;
 
-    it('should be able to create userGroupAdd data', (done) => {
+    it('should be able to add new data to userGroupAdd', (done) => {
       models.UserGroupAdd.create(newUserAddDetails)
         .then((createdUserAdd) => {
           assert.equal(createdUserAdd.addedToId, newUserAddDetails.addedToId);
@@ -82,7 +82,7 @@ describe('UserGroupAdd Model', () => {
         });
     });
 
-    it('should be able to read data from userGroupAdd model', (done) => {
+    it('should be able to get data from userGroupAdd', (done) => {
       models.UserGroupAdd.findOne({ where: { addedToId: newUserAddDetails.addedToId,
         groupId: newUserAddDetails.groupId } })
         .then((foundUserAdd) => {
@@ -93,7 +93,7 @@ describe('UserGroupAdd Model', () => {
         });
     });
 
-    it('should be able to update data in userGroupAdd model', (done) => {
+    it('should be able to update data in userGroupAdd', (done) => {
       models.UserGroupAdd.update(
         { groupId: newGroupId },
         {

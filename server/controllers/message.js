@@ -195,7 +195,10 @@ export default {
           // perPage = limit you want to display per page
           const itemsPerPage = Constants.GET_MESSAGES_PER_PAGE;
           const page = req.query.page;
-          const { offset, limit } = paginateResult(page, itemsPerPage);
+          // get pagination meta data
+          const {
+            offset, limit, currentPage, previousPage, nextPage, hasPreviousPage
+          } = paginateResult(page, itemsPerPage);
           return models.Message.findAndCountAll({
             where: { groupId },
             offset,
@@ -206,10 +209,16 @@ export default {
             .then((messages) => {
               // to round up i.e 3/2 = 1.5 = 2
               const pages = Math.ceil(messages.count / limit);
+              const hasNextPage = nextPage <= pages;
               const getMessagesDetails = {
                 count: messages.count,
+                rows: messages.rows,
                 pages,
-                rows: messages.rows
+                currentPage,
+                previousPage,
+                nextPage,
+                hasPreviousPage,
+                hasNextPage
               };
               return handleSuccess(200, getMessagesDetails, res);
             })

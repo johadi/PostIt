@@ -117,6 +117,13 @@ const paginateResult = (page, itemsPerPage) => {
   const offset = limit * (currentPage - 1);
   const previousPage = currentPage - 1;
   const nextPage = currentPage + 1;
-  return { limit, offset, currentPage, previousPage, nextPage };
+  const hasPreviousPage = previousPage >= 1;
+  // hasNextPage can only be calculated when the number of pages is known.
+  // i.e from the database query result we can implement pages as thus:
+  // const pages = Math.ceil(databaseResult.count / limit);
+  // since we can't get pages now until database is queried, hasNextPage should be
+  // implemented in the block where pages is obtained as thus
+  // const hasNextPage = nextPage <= pages;
+  return { limit, offset, currentPage, previousPage, nextPage, hasPreviousPage };
 };
 export { sendSMS, sendMail, handleError, handleSuccess, paginateResult };

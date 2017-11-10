@@ -215,7 +215,10 @@ export default {
               const group = foundUserAndGroup[1];
               const page = req.query.page;
               const itemsPerPage = Constants.GROUP_USERS_PER_PAGE;
-              const { limit, offset } = paginateResult(page, itemsPerPage);
+              // get pagination meta data
+              const {
+                limit, offset, currentPage, previousPage, nextPage, hasPreviousPage
+              } = paginateResult(page, itemsPerPage);
               models.UserGroup.findAndCountAll({
                 where: { groupId },
                 offset,
@@ -226,14 +229,20 @@ export default {
                 }]
               })
                 .then((groupWithMembers) => {
-                  // to round up i.e 3/2 = 1.5 = 2
                   const pages = Math.ceil(groupWithMembers.count / limit);
+                  const hasNextPage = nextPage <= pages;
+                  // database result with the pagination metadata
                   const groupUsersDetails = {
                     id: group.id,
                     name: group.name,
-                    pages,
                     users: groupWithMembers.rows,
-                    count: groupWithMembers.count
+                    count: groupWithMembers.count,
+                    pages,
+                    currentPage,
+                    previousPage,
+                    nextPage,
+                    hasPreviousPage,
+                    hasNextPage
                   };
                   return handleSuccess(200, groupUsersDetails, res);
                 })

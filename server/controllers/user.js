@@ -23,7 +23,10 @@ export default {
         // convert the query to standard number for use
         const page = req.query.page;
         const itemsPerPage = Constants.USER_GROUPS_PER_PAGE;
-        const { limit, offset } = paginateResult(page, itemsPerPage);
+        // get pagination meta data
+        const {
+          limit, offset, currentPage, previousPage, nextPage, hasPreviousPage
+        } = paginateResult(page, itemsPerPage);
         models.UserGroup.findAndCountAll({
           where: { userId },
           limit,
@@ -33,13 +36,19 @@ export default {
           .then((result) => {
             // round off i.e 3/2 = 1.5 = 2
             const pages = Math.ceil(result.count / limit);
+            const hasNextPage = nextPage <= pages;
             const groupUsersDetails = {
               groups: result.rows,
-              count: result.count,
-              pages,
               id: req.user.id,
               username: req.user.username,
-              fullname: req.user.fullname
+              fullname: req.user.fullname,
+              count: result.count,
+              pages,
+              currentPage,
+              previousPage,
+              nextPage,
+              hasPreviousPage,
+              hasNextPage
             };
             return handleSuccess(200, groupUsersDetails, res);
           })
@@ -85,7 +94,10 @@ export default {
             // convert the query to standard number for use
             const page = req.query.page;
             const itemsPerPage = Constants.BOARD_MESSAGES_PER_PAGE;
-            const { limit, offset } = paginateResult(page, itemsPerPage);
+            // get pagination meta data
+            const {
+              limit, offset, currentPage, previousPage, nextPage, hasPreviousPage
+            } = paginateResult(page, itemsPerPage);
             // get all unread messages of a user in all groups
             // he/she joined (Unread only). good for getting count of
             // all user unread messages in all his/her joined groups
@@ -95,6 +107,7 @@ export default {
             // pages the unread messages in all joined groups formed
             // to round off i.e 3/2 = 1.5 = 2
             const pages = Math.ceil(userGroupUnreadMessages.length / limit);
+            const hasNextPage = nextPage <= pages;
             // Fetch user unread messages using pagination information
             // like offset and limit. similar to the one above but this time,
             // we are fetching by pagination detail
@@ -118,9 +131,14 @@ export default {
                   // paginated messages obtained using offset
                   // and limit i.e (4 messages)
                   messages: userUnreadMessages,
-                  // count of all messages users have not read (i.e 15)
+                  // count of all messages user has not read (i.e 15)
                   count: userGroupUnreadMessages.length,
-                  pages
+                  pages,
+                  currentPage,
+                  previousPage,
+                  nextPage,
+                  hasPreviousPage,
+                  hasNextPage
                 };
                 return handleSuccess(200, messageBoardDetails, res);
               })
@@ -147,7 +165,10 @@ export default {
       if (req.query.search) {
         const page = req.query.page;
         const itemsPerPage = Constants.SEARCHED_RESULT_PER_PAGE;
-        const { limit, offset } = paginateResult(page, itemsPerPage);
+        // get pagination meta data
+        const {
+          limit, offset, currentPage, previousPage, nextPage, hasPreviousPage
+        } = paginateResult(page, itemsPerPage);
         const searchedQuery = req.query.search.toLowerCase();
         const search = `%${searchedQuery}%`;
         models.User.findAndCountAll(
@@ -194,14 +215,20 @@ export default {
                 .then((groupUsers) => {
                   // pages - to round off i.e 3/2 = 1.5 = 2
                   const pages = Math.ceil(users.count / limit);
+                  const hasNextPage = nextPage <= pages;
                   // converts the array of userId objects to standard array of Ids
                   const groupUsersIdInArray = groupUsers
                     .map(groupUser => groupUser.userId);
                   const allUsersDetails = {
                     allUsers: users.rows,
-                    pages,
+                    groupUsersId: groupUsersIdInArray,
                     count: users.count,
-                    groupUsersId: groupUsersIdInArray
+                    pages,
+                    currentPage,
+                    previousPage,
+                    nextPage,
+                    hasPreviousPage,
+                    hasNextPage
                   };
                   return handleSuccess(200, allUsersDetails, res);
                 })

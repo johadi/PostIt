@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import models from '../database/models';
 import Constants from '../helpers/constants';
 import { sendSMS, sendMail, handleError,
-  handleSuccess } from '../helpers/helpers';
+  handleSuccess, paginateResult } from '../helpers/helpers';
 
 dotenv.config();
 export default {
@@ -18,19 +18,23 @@ export default {
   postMessage(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.groupId, 10))) {
-      return handleError('Invalid request. Parameter groupId must be a number', res);
+      return handleError({ code: 400,
+        message: 'Invalid request. Parameter groupId must be a number' },
+        res);
     }
     if (req.user && req.params.groupId) {
       if (!req.body.message) {
-        return handleError('Message body required', res);
+        return handleError({ code: 400,
+          message: 'Message body required' }, res);
       }
       let priority = 'normal';
       if (req.body.priority) {
         const priorities = ['normal', 'urgent', 'critical'];
         if (!(lodash.includes(priorities,
             req.body.priority.toLowerCase()))) {
-          return handleError('Message priority level can only ' +
-            'be normal or urgent or critical', res);
+          return handleError({ code: 422,
+            message: 'Message priority level can only be normal or urgent or critical' },
+            res);
         }
         // make priority a lowercase letter
         priority = req.body.priority.toLowerCase();
@@ -53,16 +57,16 @@ export default {
         }))
         .then((foundUserAndGroup) => {
           if (!foundUserAndGroup) {
-            return Promise.reject('Invalid Operation: You can\'t post ' +
-              'to group You don\'t belong');
+            return Promise.reject({ code: 403,
+              message: 'Invalid Operation: You can\'t post to group You don\'t belong' });
           }
           // Create Message if he belongs to this group
           return models.Message.create({ userId, body, priority, groupId });
         })
         .then((messageCreated) => {
           if (!messageCreated) {
-            return Promise.reject({ code: 400,
-              message: 'Problem creating message...Try again' });
+            // Error code will automatically be 500
+            return Promise.reject('Problem creating message...Try again');
           }
           // Since he is the sender let make him a person that has read the post
           // readersId keeps track of all users that have read the post.
@@ -160,16 +164,18 @@ export default {
    */
   getMessages(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10))) {
-      return handleError('Invalid request. Parameter groupId must be a number', res);
+      return handleError({ code: 400,
+        message: 'Invalid request. Parameter groupId must be a number' },
+        res);
     }
     if (req.user && req.params.groupId) {
       const userId = req.user.id;
       const groupId = req.params.groupId;
       if (!req.query.page || isNaN(parseInt(req.query.page, 10))) {
-        return handleError('This request is invalid. Request URL must contain ' +
-          'query parameter named page with number as value', res);
+        return handleError({ code: 400,
+          message: 'This request is invalid. Request URL must contain ' +
+          'query parameter named page with number as value' }, res);
       }
-      const query = parseInt(req.query.page, 10);
       models.Group.findById(req.params.groupId)
         .then((group) => {
           if (!group) {
@@ -182,24 +188,24 @@ export default {
         })
         .then((foundUserAndGroup) => {
           if (!foundUserAndGroup) {
-            return Promise.reject('Invalid Operation: You don\'t belong ' +
-              'to this group');
+            return Promise.reject({ code: 403,
+              message: 'Invalid Operation: You don\'t belong to this group' });
           }
           // Let the user view messages if he/she belongs to the group
           // perPage = limit you want to display per page
-          const perPage = Constants.GET_MESSAGES_PER_PAGE;
-          const currentPage = query < 1 ? 1 : query;
-          const offset = perPage * (currentPage - 1); // items to skip
+          const itemsPerPage = Constants.GET_MESSAGES_PER_PAGE;
+          const page = req.query.page;
+          const { offset, limit } = paginateResult(page, itemsPerPage);
           return models.Message.findAndCountAll({
             where: { groupId },
             offset,
-            limit: perPage,
+            limit,
             order: [['createdAt', 'DESC']],
             include: [{ model: models.User, attributes: ['id', 'username', 'fullname'] }]
           })
             .then((messages) => {
               // to round up i.e 3/2 = 1.5 = 2
-              const pages = Math.ceil(messages.count / perPage);
+              const pages = Math.ceil(messages.count / limit);
               const getMessagesDetails = {
                 count: messages.count,
                 pages,
@@ -222,7 +228,9 @@ export default {
   viewMessage(req, res) {
     if (isNaN(parseInt(req.params.groupId, 10)) ||
       isNaN(parseInt(req.params.messageId, 10))) {
-      return handleError('Invalid request. Parameter groupId and messageId must be numbers', res);
+      return handleError({ code: 400,
+        message: 'Invalid request. Parameter groupId and messageId must be numbers' },
+        res);
     }
     if (req.user && req.params.groupId && req.params.messageId) {
       const userId = req.user.id;
@@ -240,8 +248,8 @@ export default {
         })
         .then((foundUserAndGroup) => {
           if (!foundUserAndGroup) {
-            return Promise.reject('Invalid Operation: You don\'t belong ' +
-              'to this group');
+            return Promise.reject({ code: 403,
+              message: 'Invalid Operation: You don\'t belong to this group' });
           }
           // Let the user read the message since he satisfies all the criteria
           return models.Message.findOne({
@@ -251,7 +259,7 @@ export default {
         })
         .then((message) => {
           if (!message) {
-            return Promise.reject('message not found');
+            return Promise.reject({ code: 404, message: 'message not found' });
           }
           return handleSuccess(200, message, res);
         })
@@ -268,7 +276,9 @@ export default {
   updateReadMessage(req, res) {
     // Check to ensure groupId is not a String
     if (isNaN(parseInt(req.params.messageId, 10))) {
-      return handleError('Invalid request. Parameter messageId must be a number', res);
+      return handleError({ code: 400,
+        message: 'Invalid request. Parameter messageId must be a number' },
+        res);
     }
     if (req.user && req.params.messageId) {
       const userId = req.user.id;
@@ -286,7 +296,8 @@ export default {
           })
             .then((foundUserAndGroup) => {
               if (!foundUserAndGroup) {
-                return Promise.reject('You don\'t belong to this group');
+                return Promise.reject({ code: 403,
+                  message: 'You don\'t belong to this group' });
               }
               // if all went well. update the readersId status
               message.readersId.push(userId); // readersId is an array

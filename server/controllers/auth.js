@@ -18,13 +18,16 @@ export default {
   signup(req, res) {
     const body = req.body;
     const validator = new Validator(body, models.User.signupRules(),
-      { regex: 'The :attribute field must start with + followed by numbers of length 13' });
+      { regex:
+        'The :attribute field must start with + followed by numbers of length 13'
+      });
     validator.errors.first('mobile');
     if (validator.fails()) {
-      return handleError({ validateError: validator.errors.all() }, res);
+      return handleError({ code: 400,
+        message: { validateError: validator.errors.all() } }, res);
     }
     if (body.confirmPassword !== body.password) {
-      return handleError('passwords not matched', res);
+      return handleError({ code: 422, message: 'passwords not matched' }, res);
     }
     models.User.findOne({
       where: {
@@ -40,7 +43,7 @@ export default {
           if (existingUser.username === body.username) {
             message = 'This Username has been used';
           }
-          return Promise.reject(message);
+          return Promise.reject({ code: 422, message });
         }
         // if user does not exist and he/she registering for the first time
         if (!req.body.mobile) {
@@ -71,7 +74,8 @@ export default {
     const body = req.body;
     const validator = new Validator(body, models.User.loginRules());
     if (validator.fails()) {
-      return handleError({ validateError: validator.errors.all() }, res);
+      return handleError({ code: 400,
+        message: { validateError: validator.errors.all() } }, res);
     }
     models.User.findOne({
       where: {
@@ -83,7 +87,7 @@ export default {
             return Promise.reject({ code: 404, message: 'User not found' });
           }
           if (!user.comparePassword(body.password)) {
-            return Promise.reject('Incorrect password');
+            return Promise.reject({ code: 422, message: 'Incorrect password' });
           }
           // Give the user a token
           const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
@@ -104,7 +108,8 @@ export default {
     };
     const validator = new Validator(req.body, recoveryRules);
     if (validator.fails()) {
-      return handleError({ validateError: validator.errors.all() }, res);
+      return handleError({ code: 400,
+        message: { validateError: validator.errors.all() } }, res);
     }
     models.User.findOne({
       where: {
@@ -154,6 +159,7 @@ export default {
                     'Password recovery link sent to your email', res);
                 })
                 .catch(() => {
+                  // will automatically use error status code 500 in handleError()
                   const errorMessage = 'Error occurred while sending your ' +
                     'Password recovery link. Try again';
                   return handleError(errorMessage, res);
@@ -182,10 +188,11 @@ export default {
     };
     const validator = new Validator(req.body, resetRules);
     if (!validator.passes()) {
-      return handleError({ validateError: validator.errors.all() }, res);
+      return handleError({ code: 400,
+        message: { validateError: validator.errors.all() } }, res);
     }
     if (req.body.password !== req.body.confirmPassword) {
-      return handleError('Passwords not matched', res);
+      return handleError({ code: 422, message: 'Passwords not matched' }, res);
     }
     const userInfo = req.reset;
     models.User.findById(userInfo.id)
@@ -196,6 +203,7 @@ export default {
       })
       .then(() => handleSuccess(200, 'Password changed successfully', res))
       .catch(() => {
+        // will automatically use error status code 500 in handleError()
         const errorMessage = 'Error occurred while processing your ' +
           'request. Try again';
         return handleError(errorMessage, res);

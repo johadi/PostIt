@@ -13,10 +13,16 @@ dotenv.config();
  */
 const handleError = (err, res) => {
   switch (err.code) {
+    case 400:
+      return res.status(400).json(err.message);
+    case 403:
+      return res.status(403).json(err.message);
     case 404:
       return res.status(404).json(err.message);
+    case 422:
+      return res.status(422).json(err.message);
     default:
-      return res.status(400).json(err);
+      return res.status(500).json(err);
   }
 };
 

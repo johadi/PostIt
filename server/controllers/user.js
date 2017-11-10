@@ -16,8 +16,9 @@ export default {
       const userId = req.user.id;
       if (req.query.page) {
         if (isNaN(parseInt(req.query.page, 10))) {
-          return handleError('Oops! Something went wrong, page query ' +
-            'value must be a number', res);
+          return handleError({ code: 400,
+            message: 'Oops! Something went wrong, page query value must be a number' },
+            res);
         }
         // convert the query to standard number for use
         const page = req.query.page;
@@ -44,8 +45,9 @@ export default {
           })
           .catch(err => handleError(err, res));
       } else {
-        return handleError('Oops! Error. Request url must have ' +
-          'query string named page with number as value', res);
+        return handleError({ code: 400,
+          message: 'Oops! Error. Request url must have query string named' +
+          ' page with number as value' }, res);
       }
     }
   },
@@ -126,8 +128,9 @@ export default {
           })
           .catch(err => handleError(err, res));
       } else {
-        return handleError('This request is invalid.' +
-          'Request URL must have a query named page with number as value', res);
+        return handleError({ code: 400,
+          message: 'This request is invalid.Request URL must have a query named ' +
+          'page with number as value' }, res);
       }
     }
   },
@@ -160,7 +163,8 @@ export default {
             // users in the application and all users of a certain group
             if (req.query.groupId) { // To get ids of Users in a group
               if (isNaN(parseInt(req.query.groupId, 10))) {
-                return Promise.reject('Query groupId must be a number');
+                return Promise.reject({ code: 400,
+                  message: 'Query groupId must be a number' });
               }
               // get userId of all users in a particular
               // group by the given groupId as object
@@ -178,8 +182,8 @@ export default {
                 })
                 .then((foundUserAndGroup) => {
                   if (!foundUserAndGroup) {
-                    return Promise.reject('Invalid Operation: You don\'t belong ' +
-                      'to this group');
+                    return Promise.reject({ code: 403,
+                      message: 'Invalid Operation: You don\'t belong to this group' });
                   }
                   // get the userId of users that belongs to this group
                   return models.UserGroup.findAll({
@@ -210,8 +214,9 @@ export default {
           })
           .catch(err => handleError(err, res));
       } else {
-        return handleError('This request is invalid. Request URL must have a ' +
-          'query named search with value', res);
+        return handleError({ code: 400,
+          message: 'This request is invalid. Request URL must have a query named ' +
+          'search with value' }, res);
       }
     }
   }

@@ -115,6 +115,8 @@ const paginateResult = (page, itemsPerPage) => {
   const currentPage = pageQuery < 1 ? 1 : pageQuery;
   // Number of items to skip
   const offset = limit * (currentPage - 1);
-  return { limit, offset };
+  const previousPage = currentPage - 1;
+  const nextPage = currentPage + 1;
+  return { limit, offset, currentPage, previousPage, nextPage };
 };
 export { sendSMS, sendMail, handleError, handleSuccess, paginateResult };

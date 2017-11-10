@@ -51,13 +51,13 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('should return status code 400 and a message when group already exists',
+    it('should return status code 422 and a message when group already exists',
       (done) => {
         const existingGroup = name;
         request(app)
           .post('/api/v1/group')
           .send({ name: existingGroup, token })
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'This Group already exists');
@@ -133,7 +133,7 @@ describe('Group API test', () => {
       (done) => {
         const emptyUser = '';
         request(app)
-          .post('/api/v1/group/1/user')
+          .post('/api/v1/group/99/user')
           .send({ user: emptyUser, token })
           .expect(400)
           .end((err, res) => {
@@ -142,12 +142,12 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return status 400 when user wants to add himself to group he belongs.',
+    it('Should return status 422 when user wants to add himself to group he belongs.',
       (done) => {
         request(app)
           .post('/api/v1/group/99/user')
           .send({ user: username, token })
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body,
@@ -155,12 +155,12 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return status code 400 when user adding not in a group',
+    it('Should return status code 403 when user adding not in that group',
       (done) => {
         request(app)
           .post('/api/v1/group/100/user')
           .send({ user: username, token })
-          .expect(400)
+          .expect(403)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body,
@@ -168,21 +168,21 @@ describe('Group API test', () => {
             done();
           });
       });
-    it('Should return status code 400 when user to be added already in a group',
+    it('Should return status code 422 when user to be added already in a group',
       (done) => {
         const existingUser = 'oman';
         request(app)
           .post('/api/v1/group/99/user')
           .send({ user: existingUser, token })
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'User already belongs to this group');
             done();
           });
       });
-    it('Should return status code 404 and a ' +
-      'message when User tries to add user that doesn\'t exist.', (done) => {
+    it('Should return status code 404 when User tries to add ' +
+      'user that doesn\'t exist.', (done) => {
       const invalidUser = 'sannik';
       request(app)
         .post('/api/v1/group/99/user')
@@ -312,12 +312,12 @@ describe('Group API test', () => {
           done();
         });
     });
-    it('Should return status 400 when user requests users in group he doesn\'t belong',
+    it('Should return status 403 when user requests users in group he doesn\'t belong',
       (done) => {
         request(app)
           .get('/api/v1/group/100/group-users?page=1')
           .set({ 'x-auth': token })
-          .expect(400)
+          .expect(403)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');

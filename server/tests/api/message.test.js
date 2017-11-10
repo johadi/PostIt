@@ -74,13 +74,13 @@ describe('Message API test', () => {
             done();
           });
       });
-    it('Should return 400 if priority level neither normal, urgent nor critical',
+    it('Should return 422 if priority level neither normal, urgent nor critical',
       (done) => {
         const priority = 'abnormal';
         request(app)
           .post('/api/v1/group/99/message')
           .send({ message: 'I love NodeJS', priority, token })
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body,
@@ -99,12 +99,12 @@ describe('Message API test', () => {
           done();
         });
     });
-    it('Should return 400 and a message if user doesn\'t belong to a group',
+    it('Should return 403 and a message if user doesn\'t belong to that group',
       (done) => {
         request(app)
           .post('/api/v1/group/100/message')
           .send({ message: 'I love NodeJS', priority: 'critical', token })
-          .expect(400)
+          .expect(403)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'Invalid Operation: ' +
@@ -197,12 +197,12 @@ describe('Message API test', () => {
           done();
         });
     });
-    it('Should return status 400 when user gets messages from group he doesn\'t belong',
+    it('Should return status 403 when user gets messages from group he doesn\'t belong',
       (done) => {
         request(app)
           .get('/api/v1/group/100/message?page=1')
           .set({ 'x-auth': token })
-          .expect(400)
+          .expect(403)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
@@ -304,12 +304,12 @@ describe('Message API test', () => {
           done();
         });
     });
-    it('Should return status 400 when user views message from group he doesn\'t belong',
+    it('Should return status 403 when user views message from group he doesn\'t belong',
       (done) => {
         request(app)
           .get('/api/v1/group/100/message/9')
           .set({ 'x-auth': token })
-          .expect(400)
+          .expect(403)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');
@@ -321,7 +321,7 @@ describe('Message API test', () => {
         request(app)
           .get('/api/v1/group/99/message/25')
           .set({ 'x-auth': token })
-          .expect(400)
+          .expect(404)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'message not found');
@@ -408,12 +408,12 @@ describe('Message API test', () => {
             done();
           });
       });
-    it('Should return 400 when user provides messageId of group he doesn\'t belong.',
+    it('Should return 403 when user provides messageId of group he doesn\'t belong.',
       (done) => {
         request(app)
           .post('/api/v1/group/message-read/9')
           .set({ 'x-auth': token })
-          .expect(400)
+          .expect(403)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'You don\'t belong to this group');

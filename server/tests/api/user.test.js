@@ -258,12 +258,12 @@ describe('User API test', () => {
           done();
         });
     });
-    it('Should return status code 400 when user doesn\'t belong to the group',
+    it('Should return status code 403 when user doesn\'t belong to the group',
       (done) => {
         request(app)
           .get('/api/v1/users?search=oman@gma&groupId=100')
           .set({ 'x-auth': token })
-          .expect(400)
+          .expect(403)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'Invalid Operation: You don\'t belong to this group');

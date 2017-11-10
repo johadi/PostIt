@@ -32,7 +32,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
-    it('should throw error message with status 400 when passwords not matched',
+    it('should throw error message with status 422 when passwords not matched',
       (done) => {
         const newPassword = '123456';
         const newConfirmPassword = '11223344';
@@ -40,35 +40,35 @@ describe('Authentication API test', () => {
           .post('/api/v1/user/signup')
           .send(authSeeder.setUserDetails(fullname, username, email,
             mobile, newPassword, newConfirmPassword))
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'passwords not matched');
             done();
           });
       });
-    it('Should throw error message with status 400 for existing username',
+    it('Should throw error message with status 422 for existing username',
       (done) => {
         const existingUsername = 'ovenje';
         request(app)
           .post('/api/v1/user/signup')
           .send(authSeeder.setUserDetails(fullname, existingUsername, email,
             mobile, password, confirmPassword))
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'This Username has been used');
             done();
           });
       });
-    it('Should throw error message with status 400 for existing email',
+    it('Should throw error message with status 422 for existing email',
       (done) => {
         const existingEmail = 'ovenje@yahoo.com';
         request(app)
           .post('/api/v1/user/signup')
           .send(authSeeder.setUserDetails(fullname, username, existingEmail,
             mobile, password, confirmPassword))
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'A user with this email already exists');
@@ -145,13 +145,13 @@ describe('Authentication API test', () => {
             done();
           });
       });
-    it('Should return status code 400 and a message when password is incorrect.',
+    it('Should return status code 422 and a message when password is incorrect.',
       (done) => {
         const incorrectPassword = '11223366';
         request(app)
           .post('/api/v1/user/signin')
           .send(authSeeder.setLoginDetails(username, incorrectPassword))
-          .expect(400)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err);
             assert.equal(res.body, 'Incorrect password');

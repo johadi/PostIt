@@ -17,7 +17,7 @@ class GroupSideBar extends React.Component {
   render() {
     return (
         <div className="group-sidebar">
-          <p>
+          <div>
             <p className="text-center btn-block btn-lg navy-header">
               Activities
             </p>
@@ -41,7 +41,7 @@ class GroupSideBar extends React.Component {
               <i className="fa fa-users text-display" aria-hidden="true">
               </i> Group members
             </Link>
-          </p>
+          </div>
           <hr/>
           <UserDetail userDetail={this.props.tokenStatus.userDetail} />
         </div>

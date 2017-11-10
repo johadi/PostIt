@@ -17,7 +17,7 @@ export class MainSideBar extends React.Component {
   render() {
     return (
         <div className="main-sidebar">
-          <p>
+          <div>
             <div className="text-center navy-header btn-lg btn-block">Quick Links</div>
             <Link to="/create-group" className="btn btn-default btn-block">
               <i className="fa fa-lg fa-plus-circle text-display" aria-hidden="true">
@@ -27,7 +27,7 @@ export class MainSideBar extends React.Component {
               <i className="fa fa-users text-display" aria-hidden="true">
               </i> All My Groups
             </Link>
-          </p>
+          </div>
           <hr/>
           <UserDetail userDetail={this.props.tokenStatus.userDetail} />
         </div>

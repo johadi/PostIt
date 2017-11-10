@@ -13,6 +13,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Empty message Database
    * @function emptyMessage
@@ -24,6 +25,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Empty group Database
    * @function emptyGroup
@@ -35,6 +37,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Empty user-group Database
    * @function emptyUserGroup
@@ -46,6 +49,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Add user to Database function 1
    * @function addFirstUser
@@ -63,6 +67,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Add user to Database function 2
    * @function addSecondUser
@@ -80,6 +85,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Add user to Database function 3
    * @function addThirdUser
@@ -97,6 +103,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Create Group Database function 1
    * @function createFirstGroup
@@ -117,6 +124,7 @@ export default {
         })
         .catch(err => done(err));
   },
+
   /**
    * Create Group Database function 2
    * @function createSecondGroup
@@ -137,6 +145,7 @@ export default {
         })
         .catch(err => done(err));
   },
+
   /**
    * Create Group Database function 3
    * @function createThirdGroup
@@ -157,6 +166,7 @@ export default {
         })
         .catch(err => done(err));
   },
+
   /**
    * Add Message Database function 1
    * @function addFirstMessage
@@ -185,6 +195,7 @@ export default {
         })
         .catch(err => done(err));
   },
+
   /**
    * Add Message Database function 2
    * @function addSecondMessage
@@ -213,6 +224,7 @@ export default {
         })
         .catch(err => done(err));
   },
+
   /**
    * Add Message Database function 3
    * @function addThirdMessage
@@ -241,6 +253,7 @@ export default {
         })
         .catch(err => done(err));
   },
+
   /**
    * Add User to group function 1
    * @function addFirstUserGroup
@@ -265,6 +278,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Add User to group function 2
    * @function addSecondUserGroup
@@ -289,6 +303,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Add User to group function 3
    * @function addThirdUser
@@ -313,6 +328,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Add User to group function 4
    * @function addFourthUserGroup
@@ -337,10 +353,12 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   loginDetails: {
     username: 'johadi10',
     password: '11223344'
   },
+
   validUserDetails: {
     id: 5,
     fullname: 'jimoh hadi',
@@ -348,21 +366,25 @@ export default {
     email: 'johadi10@yahoo.com',
     mobile: '81630412699'
   },
+
   newUserDetails: {
     username: 'sherif',
     password: '11223344'
   },
+
   firstGroupDetails: {
     id: 99,
     name: 'andela',
     creatorId: 1
   },
+
   secondUserDetails: {
     id: 20,
     username: 'oman',
     fullname: 'jack oman',
     email: 'oman@gmail.com'
   },
+
   thirdUserDetails: {
     id: 30,
     username: 'sherif',

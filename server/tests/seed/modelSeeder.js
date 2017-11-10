@@ -14,6 +14,7 @@ const modelSeed = {
       .then(() => done())
       .catch(error => done(error));
   },
+
   /**
    * Empty group Database
    * @function emptyGroup
@@ -24,14 +25,17 @@ const modelSeed = {
     models.Group.destroy({ truncate: true })
       .then(() => done());
   },
+
   groupDetails: {
     name: 'fruits',
     creatorId: 3
   },
+
   groupInvalidDetails: {
     name: '',
     creatorId: 3
   },
+
   /**
    * Reset Message Database
    * @function resetMessage
@@ -45,6 +49,7 @@ const modelSeed = {
       .then(() => done())
       .catch(error => done(error));
   },
+
   /**
    * Empty Message Database
    * @function emptyMessage
@@ -55,6 +60,7 @@ const modelSeed = {
     models.Message.destroy({ truncate: true })
       .then(() => done());
   },
+
   messageDetails: {
     body: 'How was your day?',
     userId: 3,
@@ -62,6 +68,7 @@ const modelSeed = {
     priority: 'normal',
     readersId: [3]
   },
+
   /**
    * Reset User Database
    * @function resetUser
@@ -75,6 +82,7 @@ const modelSeed = {
       .then(() => done())
       .catch(error => done(error));
   },
+
   /**
    * Empty User Database
    * @function emptyUser
@@ -85,6 +93,7 @@ const modelSeed = {
     models.User.destroy({ truncate: true })
       .then(() => done());
   },
+
   userDetails: {
     fullname: 'jimoh hady',
     username: 'johady',
@@ -92,6 +101,7 @@ const modelSeed = {
     password: '112233',
     mobile: '09065748390'
   },
+
   newUserDetails: {
     fullname: 'Jimoh Ali',
     username: 'ali',
@@ -99,6 +109,7 @@ const modelSeed = {
     password: '112233',
     mobile: '09065748390'
   },
+
   /**
    * Reset passwordRecovery Database
    * @function resetresetPasswordRecovery
@@ -112,6 +123,7 @@ const modelSeed = {
       .then(() => done())
       .catch(error => done(error));
   },
+
   /**
    * Empty passwordRecovery Database
    * @function emptyPasswordRecovery
@@ -122,13 +134,16 @@ const modelSeed = {
     models.PasswordRecovery.destroy({ truncate: true })
       .then(() => done());
   },
+
   passwordRecoveryDetails: {
     email: 'jim.hadi@gmail.com',
     hashed: 'xjsdjksjkdskdskdskdslkdsldsldlkslkdsjhdsjkdsjsdjkjkdsd'
   },
+
   longEmail: 'jkdfkldkdskldklskldskldskldskdshjdsiueuyieuhdhjsjusdisda' +
   'sopssdhvdshjsdhjshjdshjdshjsdhjdjhsdjhdsjhdsjkdskjjksdjkdskjdsbhefj' +
   'fhjjkdskjsdkdsklkdlskldskldsklsdkldsklkdlshdfjhjimoh@gmail.com',
+
   /**
    * Reset UserGroupAdd Database
    * @function resetUserGroupAdd
@@ -142,6 +157,7 @@ const modelSeed = {
       .then(() => done())
       .catch(error => done(error));
   },
+
   /**
    * Empty UserGroupAdd Database
    * @function emptyUserGroupAdd
@@ -152,6 +168,7 @@ const modelSeed = {
     models.UserGroupAdd.destroy({ truncate: true })
       .then(() => done());
   },
+
   userGroupAddDetails: {
     addedById: 4,
     addedToId: 6,

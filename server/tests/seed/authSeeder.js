@@ -13,6 +13,7 @@ export default {
       .then(() => done())
       .catch(err => done(err));
   },
+
   /**
    * Empty password recovery Database
    * @function emptyPasswordRecovery
@@ -24,6 +25,7 @@ export default {
       .then(() => done())
       .catch(err => done(err));
   },
+
   /**
    * Set user's data
    * @function setUserDetails
@@ -45,6 +47,7 @@ export default {
       confirmPassword
     };
   },
+
   /**
    * Set login data
    * @function setLoginDetails
@@ -55,6 +58,7 @@ export default {
   setLoginDetails(username, password) {
     return { username, password };
   },
+
   /**
    * Add user to Database function 1
    * @function addUserToDB
@@ -72,6 +76,7 @@ export default {
         .then(() => done())
         .catch(err => done(err));
   },
+
   /**
    * Add user to Database function 2
    * @function addSecondUser
@@ -89,6 +94,7 @@ export default {
       .then(() => done())
       .catch(err => done(err));
   },
+
   userDetails: {
     username: 'johadi',
     fullname: 'jimoh hadi',
@@ -97,6 +103,7 @@ export default {
     password: '11223344',
     confirmPassword: '11223344'
   },
+
   loginDetails: {
     username: 'ovenje',
     password: '11223344'

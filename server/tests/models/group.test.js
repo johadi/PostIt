@@ -35,13 +35,13 @@ describe('Group Model', () => {
     });
   });
 
-  describe('CRUD operations on group model', () => {
+  describe('CRUD operations', () => {
     const newGroupDetails = {
       name: 'phones',
       creatorId: 4
     };
 
-    it('should CREATE group', (done) => {
+    it('should be able to create a group', (done) => {
       models.Group.create(newGroupDetails)
         .then((createdGroup) => {
           assert.equal(createdGroup.name, newGroupDetails.name);
@@ -50,7 +50,7 @@ describe('Group Model', () => {
         });
     });
 
-    it('should READ data from group model', (done) => {
+    it('should be able to read data from group', (done) => {
       models.Group.findOne({ where: { name: newGroupDetails.name } })
         .then((foundGroup) => {
           assert.equal(foundGroup.name, newGroupDetails.name);
@@ -59,7 +59,7 @@ describe('Group Model', () => {
         });
     });
 
-    it('should UPDATE data in group model', (done) => {
+    it('should be able to update data in a group', (done) => {
       models.Group.update(
         { name: 'music' },
         {
@@ -75,7 +75,7 @@ describe('Group Model', () => {
         });
     });
 
-    it('should DELETE data from group model', (done) => {
+    it('should be able to delete data from group', (done) => {
       models.Group.destroy({ where: { creatorId: newGroupDetails.creatorId } })
         .then((deletedRow) => {
           assert.equal(deletedRow, 1);

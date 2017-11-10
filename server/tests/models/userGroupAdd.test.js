@@ -64,7 +64,7 @@ describe('UserGroupAdd Model', () => {
         });
     });
   });
-  describe('CRUD operations on userGroupAdd model', () => {
+  describe('CRUD operations', () => {
     const newUserAddDetails = {
       addedToId: 11,
       addedById: 9,
@@ -72,7 +72,7 @@ describe('UserGroupAdd Model', () => {
     };
     const newGroupId = 8;
 
-    it('should CREATE userGroupAdd data', (done) => {
+    it('should be able to create userGroupAdd data', (done) => {
       models.UserGroupAdd.create(newUserAddDetails)
         .then((createdUserAdd) => {
           assert.equal(createdUserAdd.addedToId, newUserAddDetails.addedToId);
@@ -82,7 +82,7 @@ describe('UserGroupAdd Model', () => {
         });
     });
 
-    it('should READ data from userGroupAdd model', (done) => {
+    it('should be able to read data from userGroupAdd model', (done) => {
       models.UserGroupAdd.findOne({ where: { addedToId: newUserAddDetails.addedToId,
         groupId: newUserAddDetails.groupId } })
         .then((foundUserAdd) => {
@@ -93,7 +93,7 @@ describe('UserGroupAdd Model', () => {
         });
     });
 
-    it('should UPDATE data in userGroupAdd model', (done) => {
+    it('should be able to update data in userGroupAdd model', (done) => {
       models.UserGroupAdd.update(
         { groupId: newGroupId },
         {
@@ -113,7 +113,7 @@ describe('UserGroupAdd Model', () => {
         });
     });
 
-    it('should DELETE data from userGroupAdd model', (done) => {
+    it('should be able to delete data from userGroupAdd model', (done) => {
       models.UserGroupAdd.destroy({ where: { addedToId: newUserAddDetails.addedToId,
         groupId: newGroupId } })
         .then((deletedRow) => {

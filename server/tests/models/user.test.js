@@ -100,10 +100,10 @@ describe('User Model', () => {
       });
   });
 
-  describe('CRUD operations on user model', () => {
+  describe('CRUD operations', () => {
     const newUserDetails = modelSeeder.newUserDetails;
 
-    it('should CREATE new user', (done) => {
+    it('should be able to create new user', (done) => {
       models.User.create(newUserDetails)
         .then((createdUser) => {
           assert.equal(createdUser.username, newUserDetails.username);
@@ -114,7 +114,7 @@ describe('User Model', () => {
         });
     });
 
-    it('should READ data from user model', (done) => {
+    it('should be able to read data from user model', (done) => {
       models.User.findOne({ where: { username: newUserDetails.username } })
         .then((foundUser) => {
           assert.equal(foundUser.username, newUserDetails.username);
@@ -125,7 +125,7 @@ describe('User Model', () => {
         });
     });
 
-    it('should UPDATE data in user model', (done) => {
+    it('should be able to update data in user model', (done) => {
       const newEmail = 'alisuly@email.com';
       models.User.update(
         { email: newEmail },
@@ -144,7 +144,7 @@ describe('User Model', () => {
         });
     });
 
-    it('should DELETE data from user model', (done) => {
+    it('should be able to delete data from user model', (done) => {
       models.User.destroy({ where: { username: newUserDetails.username } })
         .then((deletedRow) => {
           assert.equal(deletedRow, 1);

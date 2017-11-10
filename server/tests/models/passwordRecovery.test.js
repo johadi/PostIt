@@ -31,11 +31,11 @@ describe('PasswordRecovery Model', () => {
     });
   });
 
-  describe('CRUD operations on passwordRecovery model', () => {
+  describe('CRUD operations', () => {
     const newRecoveryDetails = { ...modelSeeder.passwordRecoveryDetails };
     newRecoveryDetails.email = 'johadi@mail.com';
 
-    it('should CREATE passwordRecoveryDetails', (done) => {
+    it('should be able to create passwordRecoveryDetails', (done) => {
       models.PasswordRecovery.create(newRecoveryDetails)
         .then((createdRecovery) => {
           assert.equal(createdRecovery.email, newRecoveryDetails.email);
@@ -44,7 +44,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
 
-    it('should READ data from passwordRecovery model', (done) => {
+    it('should be able to read data from passwordRecovery model', (done) => {
       models.PasswordRecovery.findOne({ where: { email: newRecoveryDetails.email } })
         .then((foundRecovery) => {
           assert.equal(foundRecovery.email, newRecoveryDetails.email);
@@ -53,7 +53,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
 
-    it('should UPDATE data in passwordRecovery model', (done) => {
+    it('should be able to update data in passwordRecovery model', (done) => {
       const newHashed = 'xyhhjjsajsjksaksaklkslalksalksalsal';
       models.PasswordRecovery.update(
         { hashed: newHashed },
@@ -70,7 +70,7 @@ describe('PasswordRecovery Model', () => {
         });
     });
 
-    it('should DELETE data from passwordRecovery model', (done) => {
+    it('should be able to delete data from passwordRecovery model', (done) => {
       models.PasswordRecovery.destroy({ where: { email: newRecoveryDetails.email } })
         .then((deletedRows) => {
           assert.equal(deletedRows, 1);

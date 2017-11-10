@@ -68,11 +68,11 @@ describe('Message Model', () => {
         });
     });
   });
-  describe('CRUD operations on message model', () => {
+  describe('CRUD operations', () => {
     const messageValidDetails = modelSeeder.messageDetails;
     let messageId;
 
-    it('should CREATE message', (done) => {
+    it('should be able to create message', (done) => {
       models.Message.create(messageValidDetails)
         .then((createdMessage) => {
           messageId = createdMessage.id;
@@ -85,7 +85,7 @@ describe('Message Model', () => {
         });
     });
 
-    it('should READ data from message model', (done) => {
+    it('should be able to read data from message model', (done) => {
       models.Message.findById(messageId)
         .then((foundMessage) => {
           assert.equal(foundMessage.id, messageId);
@@ -98,7 +98,7 @@ describe('Message Model', () => {
         });
     });
 
-    it('should UPDATE data in message model', (done) => {
+    it('should be able to update data in message model', (done) => {
       const newBody = 'no man is an island';
       models.Message.update(
         { body: newBody },
@@ -119,7 +119,7 @@ describe('Message Model', () => {
         });
     });
 
-    it('should DELETE data from message model', (done) => {
+    it('should be able to delete data from message model', (done) => {
       models.Message.destroy({ where: { id: messageId } })
         .then((deletedRow) => {
           assert.equal(deletedRow, 1);

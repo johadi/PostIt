@@ -25,7 +25,7 @@ describe('<MainSideBar/>', () => {
     expect(wrapper.find('.main-sidebar').length).toBe(1);
   });
   it('should check that quick link header exists', () => {
-    expect(wrapper.find('div').at(1).text()).toBe('Quick Links');
+    expect(wrapper.find('div').at(2).text()).toBe('Quick Links');
   });
   it('should check that create group link exists', () => {
     expect(wrapper.find('Link').at(0).text()).toBe(' Create Group');

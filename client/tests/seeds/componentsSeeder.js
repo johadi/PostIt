@@ -14,7 +14,7 @@ export default {
       pages: 1,
       count: 0
     },
-    groupId: 1,
+    groupId: '1',
     name: 'sport',
     newGroupMessages: {
       rows: [

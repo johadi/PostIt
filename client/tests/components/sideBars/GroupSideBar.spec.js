@@ -25,7 +25,7 @@ describe('<GroupSideBar/>', () => {
     expect(wrapper.find('.group-sidebar').length).toBe(1);
   });
   it('should check that activities header exists', () => {
-    expect(wrapper.find('p').at(1).text()).toBe('Activities');
+    expect(wrapper.find('p').at(0).text()).toBe('Activities');
   });
   it('should check that group notification link exists', () => {
     expect(wrapper.find('Link').at(0).text()).toBe(' Group notifications');

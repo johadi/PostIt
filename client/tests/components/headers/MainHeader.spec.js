@@ -16,6 +16,6 @@ describe('<MainHeader/>', () => {
     expect(wrapper.find('Link').at(1).text()).toBe(' Groups');
   });
   it('should check that Logout link exists', () => {
-    expect(wrapper.find('Link').at(2).text()).toBe('Logout');
+    expect(wrapper.find('Link').at(2).text()).toBe(' Logout');
   });
 });

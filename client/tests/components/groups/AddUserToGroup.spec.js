@@ -12,6 +12,7 @@ describe('<AddUserToGroup/>', () => {
   const onAddUser = sinon.spy();
   const getGroupUsers = sinon.spy();
   const getUsersSearch = sinon.spy();
+  const clearUsersSearch = sinon.spy();
   sinon.spy(AddUserToGroup.prototype, 'handleSubmit');
   sinon.spy(AddUserToGroup.prototype, 'handleSearch');
   const props = {
@@ -19,6 +20,7 @@ describe('<AddUserToGroup/>', () => {
     onAddUser,
     getGroupUsers,
     getUsersSearch,
+    clearUsersSearch
   };
   const wrapper = mount(<AddUserToGroup{...props} />);
   it('should check if component contains form input of type' +

@@ -19,6 +19,7 @@ describe('<SendNotification/>', () => {
   = componentsSeeder.sendNotification;
   const props = {
     clearMessageError,
+    postMessage,
     groupId,
     name,
     groupState: { postMessageErr: '' }

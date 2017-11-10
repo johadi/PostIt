@@ -6,7 +6,9 @@ describe('PasswordRecovery Model', () => {
   before((done) => {
     modelSeeder.resetPasswordRecovery(modelSeeder.passwordRecoveryDetails, done);
   });
+
   after(modelSeeder.emptyPasswordRecovery);
+
   describe('Validations', () => {
     it('should throw validation error if no email is provided', (done) => {
       const invalidRecoveryDetails = { ...modelSeeder.passwordRecoveryDetails };
@@ -17,6 +19,7 @@ describe('PasswordRecovery Model', () => {
           done();
         });
     });
+
     it('should throw validation error if email is invalid', (done) => {
       const invalidRecoveryDetails = { ...modelSeeder.passwordRecoveryDetails };
       invalidRecoveryDetails.email = 'jimoh.hadi';
@@ -27,9 +30,11 @@ describe('PasswordRecovery Model', () => {
         });
     });
   });
+
   describe('CRUD operations on passwordRecovery model', () => {
     const newRecoveryDetails = { ...modelSeeder.passwordRecoveryDetails };
     newRecoveryDetails.email = 'johadi@mail.com';
+
     it('should CREATE passwordRecoveryDetails', (done) => {
       models.PasswordRecovery.create(newRecoveryDetails)
         .then((createdRecovery) => {
@@ -38,6 +43,7 @@ describe('PasswordRecovery Model', () => {
           done();
         });
     });
+
     it('should READ data from passwordRecovery model', (done) => {
       models.PasswordRecovery.findOne({ where: { email: newRecoveryDetails.email } })
         .then((foundRecovery) => {
@@ -46,6 +52,7 @@ describe('PasswordRecovery Model', () => {
           done();
         });
     });
+
     it('should UPDATE data in passwordRecovery model', (done) => {
       const newHashed = 'xyhhjjsajsjksaksaklkslalksalksalsal';
       models.PasswordRecovery.update(
@@ -62,6 +69,7 @@ describe('PasswordRecovery Model', () => {
           done();
         });
     });
+
     it('should DELETE data from passwordRecovery model', (done) => {
       models.PasswordRecovery.destroy({ where: { email: newRecoveryDetails.email } })
         .then((deletedRows) => {

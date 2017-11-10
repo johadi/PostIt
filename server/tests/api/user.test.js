@@ -40,6 +40,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return 400 when route has no query string named "page" for pagination',
       (done) => {
         request(app)
@@ -53,6 +54,7 @@ describe('User API test', () => {
             done();
           });
       });
+
     it('Should return 400 when user provides query string that is not a number',
       (done) => {
         request(app)
@@ -66,6 +68,7 @@ describe('User API test', () => {
             done();
           });
       });
+
     it('Should return status 200 and the paginated result for valid query string',
       (done) => {
         request(app)
@@ -86,6 +89,7 @@ describe('User API test', () => {
           });
       });
   });
+
   // Test suite for controllers that get all messages that are sent
   // to groups a user belongs to
   describe('Get User\'s messages in all joined group', () => {
@@ -122,6 +126,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return 400 when query string is not provided for pagination', (done) => {
       request(app)
         .get('/api/v1/group/user/board')
@@ -134,6 +139,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return 400 for "page" query that is not a number', (done) => {
       request(app)
         .get('/api/v1/group/user/board?page=x')
@@ -146,6 +152,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return status 200 and the unread messages when "page" query is valid',
       (done) => {
         request(app)
@@ -164,6 +171,7 @@ describe('User API test', () => {
           });
       });
   });
+
   // Test suite for controllers that get all users in the application by search term.
   describe('Search Users', () => {
     // Clear Test database
@@ -206,6 +214,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return 400 when route has no "page" query for pagination', (done) => {
       request(app)
         .get('/api/v1/users')
@@ -218,6 +227,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return status code 200 and the users based on search term',
       (done) => {
         request(app)
@@ -236,6 +246,7 @@ describe('User API test', () => {
             done();
           });
       });
+
     it('Should return status code 400 when groupId not a number', (done) => {
       request(app)
         .get('/api/v1/users?search=oman@gma&groupId=x')
@@ -247,6 +258,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return status code 400 when groupId is not valid', (done) => {
       request(app)
         .get('/api/v1/users?search=oman@gma&groupId=66')
@@ -258,6 +270,7 @@ describe('User API test', () => {
           done();
         });
     });
+
     it('Should return status code 403 when user doesn\'t belong to the group',
       (done) => {
         request(app)
@@ -270,6 +283,7 @@ describe('User API test', () => {
             done();
           });
       });
+
     it('Should return status code 200, the searched users and userIds in the group',
       (done) => {
         request(app)// CASE: user already a member of groupId 99
@@ -287,6 +301,7 @@ describe('User API test', () => {
             done();
           });
       });
+
     it('Should return status code 200, the searched users and userIds in the group',
       (done) => {
         request(app)// CASE: user not a member of groupId 99

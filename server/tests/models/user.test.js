@@ -6,6 +6,7 @@ describe('User Model', () => {
   before((done) => {
     modelSeeder.resetUser(modelSeeder.userDetails, done);
   });
+
   after(modelSeeder.emptyUser);
 
   describe('Validations', () => {
@@ -19,6 +20,7 @@ describe('User Model', () => {
             done();
           });
       });
+
     it('should throw validation error if username already exists', (done) => {
       const userInvalidDetails = { ...modelSeeder.userDetails };
       // we already used this data to create user in our before hook
@@ -28,6 +30,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should throw validation error if no fullname is provided', (done) => {
       const userInvalidDetails = { ...modelSeeder.userDetails };
       userInvalidDetails.fullname = '';
@@ -37,6 +40,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should throw validation error if no email is provided', (done) => {
       const userInvalidDetails = { ...modelSeeder.userDetails };
       userInvalidDetails.email = '';
@@ -46,6 +50,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should throw validation error if email is already used', (done) => {
       const userInvalidDetails = { ...modelSeeder.userDetails };
       // since username is used before,
@@ -58,6 +63,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should throw validation error if email is invalid', (done) => {
       const userInvalidDetails = { ...modelSeeder.userDetails };
       userInvalidDetails.email = 'john.samuel';
@@ -67,6 +73,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should throw validation error if password is empty', () => {
       const userInvalidDetails = { ...modelSeeder.userDetails };
       userInvalidDetails.username = 'samuel';
@@ -78,6 +85,7 @@ describe('User Model', () => {
             'Password must be at least 6 characters long');
         });
     });
+
     it('should throw validation error if password length not up to 6',
       () => {
         const userInvalidDetails = { ...modelSeeder.userDetails };
@@ -91,8 +99,10 @@ describe('User Model', () => {
           });
       });
   });
+
   describe('CRUD operations on user model', () => {
     const newUserDetails = modelSeeder.newUserDetails;
+
     it('should CREATE new user', (done) => {
       models.User.create(newUserDetails)
         .then((createdUser) => {
@@ -103,6 +113,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should READ data from user model', (done) => {
       models.User.findOne({ where: { username: newUserDetails.username } })
         .then((foundUser) => {
@@ -113,6 +124,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should UPDATE data in user model', (done) => {
       const newEmail = 'alisuly@email.com';
       models.User.update(
@@ -131,6 +143,7 @@ describe('User Model', () => {
           done();
         });
     });
+
     it('should DELETE data from user model', (done) => {
       models.User.destroy({ where: { username: newUserDetails.username } })
         .then((deletedRow) => {

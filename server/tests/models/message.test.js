@@ -20,6 +20,7 @@ describe('Message Model', () => {
             done();
           });
       });
+
     it('should throw validation error if userId is not provided', () => {
       const messageInvalidDetails = { ...modelSeeder.messageDetails };
       messageInvalidDetails.userId = '';
@@ -28,6 +29,7 @@ describe('Message Model', () => {
           assert.equal(error.errors[0].message, 'userId can\'t be empty');
         });
     });
+
     it('should throw validation error if userId is not a number', () => {
       const messageInvalidDetails = { ...modelSeeder.messageDetails };
       messageInvalidDetails.userId = 'y';
@@ -36,6 +38,7 @@ describe('Message Model', () => {
           assert.equal(error.errors[0].message, 'userId must be a number');
         });
     });
+
     it('should throw validation error if groupId is not provided', () => {
       const messageInvalidDetails = { ...modelSeeder.messageDetails };
       messageInvalidDetails.groupId = '';
@@ -44,6 +47,7 @@ describe('Message Model', () => {
           assert.equal(error.errors[0].message, 'groupId can\'t be empty');
         });
     });
+
     it('should throw validation error if groupId is not a number', () => {
       const messageInvalidDetails = { ...modelSeeder.messageDetails };
       messageInvalidDetails.groupId = 'q';
@@ -52,6 +56,7 @@ describe('Message Model', () => {
           assert.equal(error.errors[0].message, 'groupId must be a number');
         });
     });
+
     it('should throw validation error if priority is neither normal, ' +
       'urgent nor critical', () => {
       const messageInvalidDetails = { ...modelSeeder.messageDetails };
@@ -66,6 +71,7 @@ describe('Message Model', () => {
   describe('CRUD operations on message model', () => {
     const messageValidDetails = modelSeeder.messageDetails;
     let messageId;
+
     it('should CREATE message', (done) => {
       models.Message.create(messageValidDetails)
         .then((createdMessage) => {
@@ -78,6 +84,7 @@ describe('Message Model', () => {
           done();
         });
     });
+
     it('should READ data from message model', (done) => {
       models.Message.findById(messageId)
         .then((foundMessage) => {
@@ -90,6 +97,7 @@ describe('Message Model', () => {
           done();
         });
     });
+
     it('should UPDATE data in message model', (done) => {
       const newBody = 'no man is an island';
       models.Message.update(
@@ -110,6 +118,7 @@ describe('Message Model', () => {
           done();
         });
     });
+
     it('should DELETE data from message model', (done) => {
       models.Message.destroy({ where: { id: messageId } })
         .then((deletedRow) => {

@@ -6,6 +6,7 @@ import app from '../../../app';
 import groupSeeder from '../seed/groupSeeder';
 
 dotenv.config();
+
 describe('Message API test', () => {
   // Test suite for posting a message
   describe('Post Message to a Group', () => {
@@ -48,6 +49,7 @@ describe('Message API test', () => {
           done();
         });
     });
+
     it('Should return error messages with status 400 when groupId is not number',
       (done) => {
         request(app)
@@ -61,6 +63,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return status 400 and error message if no message body',
       (done) => {
         const emptyMessage = '';
@@ -74,6 +77,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 422 if priority level neither normal, urgent nor critical',
       (done) => {
         const priority = 'abnormal';
@@ -88,6 +92,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 404 and a message if group is invalid', (done) => {
       request(app)
         .post('/api/v1/group/70/message')
@@ -99,6 +104,7 @@ describe('Message API test', () => {
           done();
         });
     });
+
     it('Should return 403 and a message if user doesn\'t belong to that group',
       (done) => {
         request(app)
@@ -112,6 +118,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 201 and a message if message was successfully posted',
       (done) => {
         request(app)
@@ -125,6 +132,7 @@ describe('Message API test', () => {
           });
       });
   });
+
   // Test suite for getting messages in a particular group
   describe('Get Messages in a Group', () => {
     // Clear Test database
@@ -165,6 +173,7 @@ describe('Message API test', () => {
           done();
         });
     });
+
     it('Should return 400 and error message when a user access invalid route.',
       (done) => {
         request(app)
@@ -178,6 +187,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 400 when user provide no query parameter "page" for paginated result.',
       (done) => {
         request(app)
@@ -186,6 +196,7 @@ describe('Message API test', () => {
           .expect(400)
           .end(done);
       });
+
     it('Should return 400 when a user access invalid group.', (done) => {
       request(app)
         .get('/api/v1/group/33/message?page=1')
@@ -197,6 +208,7 @@ describe('Message API test', () => {
           done();
         });
     });
+
     it('Should return status 403 when user gets messages from group he doesn\'t belong',
       (done) => {
         request(app)
@@ -209,6 +221,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return status code 200 and messages paginated from user\'s groups',
       (done) => {
         request(app)
@@ -226,6 +239,7 @@ describe('Message API test', () => {
           });
       });
   });
+
   // Test suite for Viewing a single message
   describe('View a Message', () => {
     // Clear Test database
@@ -267,6 +281,7 @@ describe('Message API test', () => {
           done();
         });
     });
+
     it('Should return 400 when a user access route with invalid groupId.',
       (done) => {
         request(app)
@@ -280,6 +295,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 400 when a user access route with invalid messageId.',
       (done) => {
         request(app)
@@ -293,6 +309,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 400 when a user accesses invalid group.', (done) => {
       request(app)
         .get('/api/v1/group/40/message/8')
@@ -304,6 +321,7 @@ describe('Message API test', () => {
           done();
         });
     });
+
     it('Should return status 403 when user views message from group he doesn\'t belong',
       (done) => {
         request(app)
@@ -316,6 +334,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return status 404 when user views message that doesn\'t exist',
       (done) => {
         request(app)
@@ -328,6 +347,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return status 200 and message when user views message in his group',
       (done) => {
         request(app)
@@ -342,6 +362,7 @@ describe('Message API test', () => {
           });
       });
   });
+
   // Test suite for controller that update Read status of message
   describe('Update Message status when read', () => {
     // Clear Test database
@@ -383,6 +404,7 @@ describe('Message API test', () => {
           done();
         });
     });
+
     it('Should return 400 when a user accesses route with invalid messageId.',
       (done) => {
         request(app)
@@ -396,6 +418,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 404 and error message when user provides invalid messageId',
       (done) => {
         request(app)
@@ -408,6 +431,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return 403 when user provides messageId of group he doesn\'t belong.',
       (done) => {
         request(app)
@@ -420,6 +444,7 @@ describe('Message API test', () => {
             done();
           });
       });
+
     it('Should return status 200 with value true when message read status is updated',
       (done) => {
         request(app)

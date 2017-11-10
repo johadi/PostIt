@@ -8,6 +8,7 @@ import authSeeder from '../seed/authSeeder';
 import models from '../../database/models';
 
 dotenv.config();
+
 describe('Authentication API test', () => {
   // Test for Signup route
   describe('User Signup', () => {
@@ -17,6 +18,7 @@ describe('Authentication API test', () => {
     } = authSeeder.userDetails;
     beforeEach(authSeeder.emptyUser);
     beforeEach(authSeeder.addFirstUser);
+
     it('Should throw validation error message with status 400 for invalid inputs',
       (done) => {
         const invalidUsername = '';
@@ -32,6 +34,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('should throw error message with status 422 when passwords not matched',
       (done) => {
         const newPassword = '123456';
@@ -47,6 +50,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should throw error message with status 422 for existing username',
       (done) => {
         const existingUsername = 'ovenje';
@@ -61,6 +65,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should throw error message with status 422 for existing email',
       (done) => {
         const existingEmail = 'ovenje@yahoo.com';
@@ -75,6 +80,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should return token with status 201 when inputs are valid', (done) => {
       const newUsername = 'johadi11';
       request(app)
@@ -93,6 +99,7 @@ describe('Authentication API test', () => {
           done();
         });
     });
+
     it('it Should return true if password is hashed in database', (done) => {
       const newUsername = 'johadi10';
       request(app)
@@ -112,12 +119,13 @@ describe('Authentication API test', () => {
         });
     });
   });
-  // Test for Signin route
+
   describe('User Signin', () => {
     const { username, password } = authSeeder.loginDetails;
     // Empty our database
     before(authSeeder.emptyUser);
     before(authSeeder.addFirstUser);
+
     it('Should throw validation error with status 400 when input is invalid',
       (done) => {
         const invalidUsername = '';
@@ -132,6 +140,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should return status code 404 and a message if User not found',
       (done) => {
         const notFoundUsername = 'jimoh';
@@ -145,6 +154,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should return status code 422 and a message when password is incorrect.',
       (done) => {
         const incorrectPassword = '11223366';
@@ -158,6 +168,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should return 200 and give the user token if credentials are correct.',
       (done) => {
         request(app)
@@ -175,12 +186,13 @@ describe('Authentication API test', () => {
           });
       });
   });
-  // Password recovery test
+
   describe('User Recover Password', () => {
     // Empty our database
     before(authSeeder.emptyUser);
     before(authSeeder.emptyPasswordRecovery);
     before(authSeeder.addFirstUser);
+
     it('Should return status 400 and error message when input is invalid',
       (done) => {
         request(app)
@@ -194,6 +206,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should return status 404 with error message if email not found',
       (done) => {
         const invalidEmail = 'xyz@gmail.com';
@@ -209,13 +222,14 @@ describe('Authentication API test', () => {
           });
       });
   });
-// Password reset
+
   describe('User reset password', () => {
     // Empty our database
     before(authSeeder.emptyUser);
     before(authSeeder.emptyPasswordRecovery);
     // Add user to Database
     before(authSeeder.addFirstUser);
+
     it('Should return status code 400 and a message when link has no token',
       (done) => {
         request(app)
@@ -228,6 +242,7 @@ describe('Authentication API test', () => {
             done();
           });
       });
+
     it('Should return status 400 with error message when input is invalid',
       (done) => {
         request(app)

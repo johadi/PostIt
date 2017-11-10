@@ -6,7 +6,9 @@ describe('UserGroupAdd Model', () => {
   before((done) => {
     modelSeeder.resetUserGroupAdd(modelSeeder.userGroupAddDetails, done);
   });
+
   after(modelSeeder.emptyUserGroupAdd);
+
   describe('Validations', () => {
     it('should throw validation error if addedById is not provided', () => {
       const invalidUserAdd = { ...modelSeeder.userGroupAddDetails };
@@ -16,6 +18,7 @@ describe('UserGroupAdd Model', () => {
           assert.equal(error.errors[0].message, 'addedById can\'t be empty');
         });
     });
+
     it('should throw validation error if addedById is not a number', () => {
       const invalidUserAdd = { ...modelSeeder.userGroupAddDetails };
       invalidUserAdd.addedById = 'x';
@@ -24,6 +27,7 @@ describe('UserGroupAdd Model', () => {
           assert.equal(error.errors[0].message, 'addedById must be a number');
         });
     });
+
     it('should throw validation error if addedToId is not provided', () => {
       const invalidUserAdd = { ...modelSeeder.userGroupAddDetails };
       invalidUserAdd.addedToId = '';
@@ -32,6 +36,7 @@ describe('UserGroupAdd Model', () => {
           assert.equal(error.errors[0].message, 'addedToId can\'t be empty');
         });
     });
+
     it('should throw validation error if addedToId is not a number', () => {
       const invalidUserAdd = { ...modelSeeder.userGroupAddDetails };
       invalidUserAdd.addedToId = 'y';
@@ -40,6 +45,7 @@ describe('UserGroupAdd Model', () => {
           assert.equal(error.errors[0].message, 'addedToId must be a number');
         });
     });
+
     it('should throw validation error if groupId is not provided', () => {
       const invalidUserAdd = { ...modelSeeder.userGroupAddDetails };
       invalidUserAdd.groupId = '';
@@ -48,6 +54,7 @@ describe('UserGroupAdd Model', () => {
           assert.equal(error.errors[0].message, 'groupId can\'t be empty');
         });
     });
+
     it('should throw validation error if groupId is not a number', () => {
       const invalidUserAdd = { ...modelSeeder.userGroupAddDetails };
       invalidUserAdd.groupId = 'z';
@@ -64,6 +71,7 @@ describe('UserGroupAdd Model', () => {
       groupId: 7
     };
     const newGroupId = 8;
+
     it('should CREATE userGroupAdd data', (done) => {
       models.UserGroupAdd.create(newUserAddDetails)
         .then((createdUserAdd) => {
@@ -73,6 +81,7 @@ describe('UserGroupAdd Model', () => {
           done();
         });
     });
+
     it('should READ data from userGroupAdd model', (done) => {
       models.UserGroupAdd.findOne({ where: { addedToId: newUserAddDetails.addedToId,
         groupId: newUserAddDetails.groupId } })
@@ -83,6 +92,7 @@ describe('UserGroupAdd Model', () => {
           done();
         });
     });
+
     it('should UPDATE data in userGroupAdd model', (done) => {
       models.UserGroupAdd.update(
         { groupId: newGroupId },
@@ -102,6 +112,7 @@ describe('UserGroupAdd Model', () => {
           done();
         });
     });
+
     it('should DELETE data from userGroupAdd model', (done) => {
       models.UserGroupAdd.destroy({ where: { addedToId: newUserAddDetails.addedToId,
         groupId: newGroupId } })

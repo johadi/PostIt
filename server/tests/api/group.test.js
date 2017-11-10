@@ -7,6 +7,7 @@ import groupSeeder from '../seed/groupSeeder';
 import models from '../../database/models';
 
 dotenv.config();
+
 describe('Group API test', () => {
   const { username, fullname, id, email, mobile } = groupSeeder.validUserDetails;
   // Test suit for creating group route and controller
@@ -37,6 +38,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     // Test for creating group
     it('Should return status 400 and error message when group name is empty',
       (done) => {
@@ -51,6 +53,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('should return status code 422 and a message when group already exists',
       (done) => {
         const existingGroup = name;
@@ -64,6 +67,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('Should return status code 201 and create group if all is well',
       (done) => {
         const newGroup = 'Class29';
@@ -83,6 +87,7 @@ describe('Group API test', () => {
           });
       });
   });
+
   // Test suit for adding user to group
   describe('Add Users to Group', () => {
     // Clear Test database
@@ -116,6 +121,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return status 400 when groupId is not a number.', (done) => {
       const invalidGroupId = 'x';
       request(app)
@@ -129,6 +135,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return status 400 and a message if user input is empty',
       (done) => {
         const emptyUser = '';
@@ -142,6 +149,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('Should return status 422 when user wants to add himself to group he belongs.',
       (done) => {
         request(app)
@@ -155,6 +163,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('Should return status code 403 when user adding not in that group',
       (done) => {
         request(app)
@@ -168,6 +177,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('Should return status code 422 when user to be added already in a group',
       (done) => {
         const existingUser = 'oman';
@@ -181,6 +191,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('Should return status code 404 when User tries to add ' +
       'user that doesn\'t exist.', (done) => {
       const invalidUser = 'sannik';
@@ -194,6 +205,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return 404 and a message if groupId is invalid.', (done) => {
       const invalidGroupId = 6;
       const validUser = 'oman';
@@ -207,6 +219,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return 201 and information of who added user and who was added.',
       (done) => {
         const existingUser = 'sherif';
@@ -224,7 +237,8 @@ describe('Group API test', () => {
             done();
           });
       });
-  }); // end
+  });
+
   // Test suite for controllers that get all users of a group
   describe('Get Users in a Group', () => {
     // Clear Test database
@@ -263,6 +277,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return 400 when a user access route with invalid groupId.',
       (done) => {
         request(app)
@@ -276,6 +291,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('Should return 400 when user access route without "page" query.', (done) => {
       request(app)
         .get('/api/v1/group/99/group-users')
@@ -289,6 +305,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return 400 when route has "page" query that isn\'t number.', (done) => {
       request(app)
         .get('/api/v1/group/99/group-users?page=x')
@@ -301,6 +318,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return 404 when a user access invalid group.', (done) => {
       request(app)
         .get('/api/v1/group/40/group-users?page=1')
@@ -312,6 +330,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return status 403 when user requests users in group he doesn\'t belong',
       (done) => {
         request(app)
@@ -324,6 +343,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     it('Should return status 200 and users in the group', (done) => {
       request(app)
         .get('/api/v1/group/99/group-users?page=1')
@@ -343,6 +363,7 @@ describe('Group API test', () => {
         });
     });
   });
+
   // Verify if a User has token or not
   describe('Verify User\'s token', () => {
     // Clear Test database
@@ -379,6 +400,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return 401 if user access a route without a token.', (done) => {
       request(app)
         .get('/api/v1/verify-token')
@@ -389,6 +411,7 @@ describe('Group API test', () => {
           done();
         });
     });
+
     it('Should return 400 if user access a route with an invalid token.',
       (done) => {
         const testToken = 'xyzjjkjsksdkkldsdskllsdklkdsjcjcjkkjdkj.iiiiw';
@@ -402,6 +425,7 @@ describe('Group API test', () => {
             done();
           });
       });
+
     // In case if the user was issued a token but has been deleted from database
     it('Should return 404 for valid token but details not in database', (done) => {
       // Let us remove a user from database and use his token for testing here
@@ -421,6 +445,7 @@ describe('Group API test', () => {
           }
         });
     });
+
     it('Should return 200 if user provides token that matches database record.',
       (done) => {
         request(app)

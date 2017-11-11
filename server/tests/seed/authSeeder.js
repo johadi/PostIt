@@ -95,17 +95,34 @@ export default {
       .catch(err => done(err));
   },
 
-  userDetails: {
-    username: 'johadi',
-    fullname: 'jimoh hadi',
-    email: 'jimoh@gmail.com',
-    mobile: '+2345905849504',
-    password: '11223344',
-    confirmPassword: '11223344'
+  signup: {
+    userDetails: {
+      username: 'johadi',
+      fullname: 'jimoh hadi',
+      email: 'jimoh@gmail.com',
+      mobile: '+2345905849504',
+      password: '11223344',
+      confirmPassword: '11223344'
+    },
+    newPassword: '123456',
+    newConfirmPassword: '11223344',
+    existingUsername: 'ovenje',
+    existingEmail: 'ovenje@yahoo.com',
+    newUsername: 'johadi11',
+    returnedPassword: { password: '11223344' },
+    invalidUsername: ''
   },
 
-  loginDetails: {
-    username: 'ovenje',
-    password: '11223344'
+  signin: {
+    loginDetails: {
+      username: 'ovenje',
+      password: '11223344'
+    },
+    invalidUsername: '',
+    notFoundUsername: 'jimoh',
+    incorrectPassword: '11223366'
+  },
+  recoverPassword: {
+    invalidEmail: 'xyz@gmail.com'
   }
 };

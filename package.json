@@ -19,7 +19,7 @@
     "apidoc": "apidoc -i server/routes/ -o public/apidoc",
     "test:dev": "export NODE_ENV=test && mocha --compilers js:babel-register server/tests/*.test.js",
     "test": "export NODE_ENV=test && sequelize db:migrate && nyc --reporter=html mocha --compilers js:babel-register server/tests/**/*.test.js && nyc report",
-    "test2": "export NODE_ENV=test && sequelize db:migrate && mocha --compilers js:babel-register server/tests/models/*.test.js",
+    "test2": "export NODE_ENV=test && sequelize db:migrate && mocha --compilers js:babel-register server/tests/api/group.test.js",
     "coverage": "nyc -e .jsx report --reporter=text-lcov | coveralls",
     "clean-production": "npm run remove-production && mkdir production",
     "remove-production": "rimraf ./production",

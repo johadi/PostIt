@@ -3,36 +3,36 @@ import dotenv from 'dotenv';
 import request from 'supertest';
 import { assert } from 'chai';
 import app from '../../../app';
-import groupSeeder from '../seed/groupSeeder';
+import userSeeder from '../seed/userSeeder';
 
 dotenv.config();
 describe('User API test', () => {
   // Test suite for controllers that get groups a user belongs to
   describe('Get User\'s Groups', () => {
     // Clear Test database
-    before(groupSeeder.emptyUser);
-    before(groupSeeder.emptyMessage);
-    before(groupSeeder.emptyGroup);
-    before(groupSeeder.emptyUserGroup);
+    before(userSeeder.emptyUser);
+    before(userSeeder.emptyMessage);
+    before(userSeeder.emptyGroup);
+    before(userSeeder.emptyUserGroup);
     // Add users to Database
     // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(groupSeeder.addFirstUser);
+    before(userSeeder.addFirstUser);
     // {id: 20, username: oman, email: oman@gmail.com} User
-    before(groupSeeder.addSecondUser);
+    before(userSeeder.addSecondUser);
     // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(groupSeeder.addThirdUser);
+    before(userSeeder.addThirdUser);
     // Create a group
-    before(groupSeeder.createFirstGroup);
-    before(groupSeeder.createSecondGroup);
+    before(userSeeder.createFirstGroup);
+    before(userSeeder.createSecondGroup);
     // Add users to groups
-    before(groupSeeder.addFirstUserGroup);
-    before(groupSeeder.addSecondUserGroup);
-    before(groupSeeder.addFourthUserGroup);
+    before(userSeeder.addFirstUserGroup);
+    before(userSeeder.addSecondUserGroup);
+    before(userSeeder.addFourthUserGroup);
     let token = ''; // Hold token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.loginDetails)
+        .send(userSeeder.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -94,31 +94,31 @@ describe('User API test', () => {
   // to groups a user belongs to
   describe('Get User\'s messages in all joined group', () => {
     // Clear Test database
-    before(groupSeeder.emptyUser);
-    before(groupSeeder.emptyMessage);
-    before(groupSeeder.emptyGroup);
-    before(groupSeeder.emptyUserGroup);
+    before(userSeeder.emptyUser);
+    before(userSeeder.emptyMessage);
+    before(userSeeder.emptyGroup);
+    before(userSeeder.emptyUserGroup);
     // Add users to Database
     // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(groupSeeder.addFirstUser);
+    before(userSeeder.addFirstUser);
     // {id: 20, username: oman, email: oman@gmail.com} User
-    before(groupSeeder.addSecondUser);
+    before(userSeeder.addSecondUser);
     // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(groupSeeder.addThirdUser);
+    before(userSeeder.addThirdUser);
     // Create a group
-    before(groupSeeder.createFirstGroup);
-    before(groupSeeder.createSecondGroup);
-    before(groupSeeder.createThirdGroup);
+    before(userSeeder.createFirstGroup);
+    before(userSeeder.createSecondGroup);
+    before(userSeeder.createThirdGroup);
     // Add users to groups
-    before(groupSeeder.addFirstUserGroup);
-    before(groupSeeder.addSecondUserGroup);
-    before(groupSeeder.addThirdUserGroup);
-    before(groupSeeder.addFourthUserGroup);
+    before(userSeeder.addFirstUserGroup);
+    before(userSeeder.addSecondUserGroup);
+    before(userSeeder.addThirdUserGroup);
+    before(userSeeder.addFourthUserGroup);
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.loginDetails)
+        .send(userSeeder.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -175,38 +175,38 @@ describe('User API test', () => {
   // Test suite for controllers that get all users in the application by search term.
   describe('Search Users', () => {
     // Clear Test database
-    before(groupSeeder.emptyUser);
-    before(groupSeeder.emptyMessage);
-    before(groupSeeder.emptyGroup);
-    before(groupSeeder.emptyUserGroup);
+    before(userSeeder.emptyUser);
+    before(userSeeder.emptyMessage);
+    before(userSeeder.emptyGroup);
+    before(userSeeder.emptyUserGroup);
     // Add users to Database
     // {id: 5, username: johadi10, email: johadi10@yahoo.com}
-    before(groupSeeder.addFirstUser);
+    before(userSeeder.addFirstUser);
     // {id: 20, username: oman, email: oman@gmail.com}
-    before(groupSeeder.addSecondUser);
+    before(userSeeder.addSecondUser);
     // {id: 30, username: sherif, email: sherif@gmail.com}
-    before(groupSeeder.addThirdUser);
+    before(userSeeder.addThirdUser);
     // Create a group
     // {id: 99, name: andela, creatorId: 1}
-    before(groupSeeder.createFirstGroup);
+    before(userSeeder.createFirstGroup);
     // {id: 100, name: react, creatorId: 7}
-    before(groupSeeder.createSecondGroup);
+    before(userSeeder.createSecondGroup);
     // {id: 101, name: react, creatorId: 7}
-    before(groupSeeder.createThirdGroup);
+    before(userSeeder.createThirdGroup);
     // Add users to groups
     // {groupId: 100, userId: 10} UserGroup
-    before(groupSeeder.addFirstUserGroup);
+    before(userSeeder.addFirstUserGroup);
     // {groupId: 99, userId: 5} UserGroup
-    before(groupSeeder.addSecondUserGroup);
+    before(userSeeder.addSecondUserGroup);
     // {groupId: 101, userId: 5} UserGroup
-    before(groupSeeder.addThirdUserGroup);
+    before(userSeeder.addThirdUserGroup);
     // {groupId: 99, userId: 20} UserGroup
-    before(groupSeeder.addFourthUserGroup);
+    before(userSeeder.addFourthUserGroup);
     let token = ''; // Hold token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.loginDetails)
+        .send(userSeeder.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -236,7 +236,9 @@ describe('User API test', () => {
           .expect(200)
           .end((err, res) => {
             if (err) return done(err);
-            const { id, username, email, fullname } = groupSeeder.validUserDetails;
+            const {
+              id, username, email, fullname
+            } = userSeeder.searchUser.validUserDetails;
             const user = {
               id, username, fullname, email
             };
@@ -286,7 +288,7 @@ describe('User API test', () => {
 
     it('Should return status code 200, the searched users and userIds in the group',
       (done) => {
-        request(app)// CASE: user already a member of groupId 99
+        request(app)// CASE: search by email
           .get('/api/v1/users?search=oman@gma&groupId=99')
           .set({ 'x-auth': token })
           .expect(200)
@@ -295,7 +297,7 @@ describe('User API test', () => {
             // check if the Array of users returned include
             // this user which is a registered user in the application
             assert.include(JSON.stringify(res.body.allUsers),
-              JSON.stringify(groupSeeder.secondUserDetails));
+              JSON.stringify(userSeeder.searchUser.secondUserDetails));
             // already a member of groupId 99 . id should be in the groupUsersIds array
             assert.include(res.body.groupUsersId, 20);
             done();
@@ -304,7 +306,7 @@ describe('User API test', () => {
 
     it('Should return status code 200, the searched users and userIds in the group',
       (done) => {
-        request(app)// CASE: user not a member of groupId 99
+        request(app)// CASE: search by usernme
           .get('/api/v1/users?search=sherif&groupId=99')
           .set({ 'x-auth': token })
           .expect(200)
@@ -313,7 +315,7 @@ describe('User API test', () => {
             // check if the Array of users returned include
             // this user which is a registered user in the application
             assert.include(JSON.stringify(res.body.allUsers),
-              JSON.stringify(groupSeeder.thirdUserDetails));
+              JSON.stringify(userSeeder.searchUser.thirdUserDetails));
             // since he is not a member of groupId 99 .
             // id should not be in the groupUsersIds array
             assert.notInclude(res.body.groupUsersId, 30);

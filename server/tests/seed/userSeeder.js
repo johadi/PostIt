@@ -1,4 +1,4 @@
-// groupSeeder.js
+// userSeeder.js
 import models from './../../database/models';
 
 export default {
@@ -10,8 +10,8 @@ export default {
    */
   emptyUser(done) {
     models.User.destroy({ truncate: true })
-        .then(() => done())
-        .catch(err => done(err));
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -22,8 +22,8 @@ export default {
    */
   emptyMessage(done) {
     models.Message.destroy({ truncate: true })
-        .then(() => done())
-        .catch(err => done(err));
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -34,8 +34,8 @@ export default {
    */
   emptyGroup(done) {
     models.Group.destroy({ truncate: true })
-        .then(() => done())
-        .catch(err => done(err));
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -46,8 +46,8 @@ export default {
    */
   emptyUserGroup(done) {
     models.UserGroup.destroy({ truncate: true })
-        .then(() => done())
-        .catch(err => done(err));
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -64,8 +64,8 @@ export default {
       email: 'johadi10@yahoo.com',
       mobile: '81630412699',
       password: '11223344' })
-        .then(() => done())
-        .catch(err => done(err));
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -82,8 +82,8 @@ export default {
       email: 'oman@gmail.com',
       mobile: '08163041269',
       password: '11223344' })
-        .then(() => done())
-        .catch(err => done(err));
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -100,8 +100,8 @@ export default {
       email: 'sherif@gmail.com',
       mobile: '08163041269',
       password: '11223344' })
-        .then(() => done())
-        .catch(err => done(err));
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -116,13 +116,13 @@ export default {
       name: 'andela',
       creatorId: 1
     })
-        .then((group) => {
-          if (!group) {
-            return Promise.reject('Error');
-          }
-          return done();
-        })
-        .catch(err => done(err));
+      .then((group) => {
+        if (!group) {
+          return Promise.reject('Error');
+        }
+        return done();
+      })
+      .catch(err => done(err));
   },
 
   /**
@@ -137,13 +137,13 @@ export default {
       name: 'react',
       creatorId: 7
     })
-        .then((group) => {
-          if (!group) {
-            return Promise.reject('Error');
-          }
-          return done();
-        })
-        .catch(err => done(err));
+      .then((group) => {
+        if (!group) {
+          return Promise.reject('Error');
+        }
+        return done();
+      })
+      .catch(err => done(err));
   },
 
   /**
@@ -158,13 +158,13 @@ export default {
       name: 'lord',
       creatorId: 7
     })
-        .then((group) => {
-          if (!group) {
-            return Promise.reject('Error');
-          }
-          return done();
-        })
-        .catch(err => done(err));
+      .then((group) => {
+        if (!group) {
+          return Promise.reject('Error');
+        }
+        return done();
+      })
+      .catch(err => done(err));
   },
 
   /**
@@ -180,20 +180,20 @@ export default {
       groupId: 99,
       userId: 5
     })
-        .then((message) => {
-          if (!message) {
-            return Promise.reject('Error');
-          }
-          message.readersId.push(5);
-          message.update({
-            readersId: message.readersId
-          }, {
-            where: { id: message.id }
-          })
-              .then(() => done())
-              .catch(err => done(err));
+      .then((message) => {
+        if (!message) {
+          return Promise.reject('Error');
+        }
+        message.readersId.push(5);
+        message.update({
+          readersId: message.readersId
+        }, {
+          where: { id: message.id }
         })
-        .catch(err => done(err));
+          .then(() => done())
+          .catch(err => done(err));
+      })
+      .catch(err => done(err));
   },
 
   /**
@@ -209,20 +209,20 @@ export default {
       groupId: 100,
       userId: 20
     })
-        .then((message) => {
-          if (!message) {
-            return Promise.reject('Error');
-          }
-          message.readersId.push(20);
-          message.update({
-            readersId: message.readersId
-          }, {
-            where: { id: message.id }
-          })
-              .then(() => done())
-              .catch(err => done(err));
+      .then((message) => {
+        if (!message) {
+          return Promise.reject('Error');
+        }
+        message.readersId.push(20);
+        message.update({
+          readersId: message.readersId
+        }, {
+          where: { id: message.id }
         })
-        .catch(err => done(err));
+          .then(() => done())
+          .catch(err => done(err));
+      })
+      .catch(err => done(err));
   },
 
   /**
@@ -238,20 +238,20 @@ export default {
       groupId: 99,
       userId: 5
     })
-        .then((message) => {
-          if (!message) {
-            return Promise.reject('Error');
-          }
-          message.readersId.push(5);
-          message.update({
-            readersId: message.readersId
-          }, {
-            where: { id: message.id }
-          })
-              .then(() => done())
-              .catch(err => done(err));
+      .then((message) => {
+        if (!message) {
+          return Promise.reject('Error');
+        }
+        message.readersId.push(5);
+        message.update({
+          readersId: message.readersId
+        }, {
+          where: { id: message.id }
         })
-        .catch(err => done(err));
+          .then(() => done())
+          .catch(err => done(err));
+      })
+      .catch(err => done(err));
   },
 
   /**
@@ -265,18 +265,18 @@ export default {
       groupId: 100,
       userId: 10
     })
-        .then((userToGroup) => {
-          if (!userToGroup) {
-            return Promise.reject('Error');
-          }
-          return models.UserGroupAdd.create({
-            addedById: 1,
-            addedToId: 10,
-            groupId: 100
-          });
-        })
-        .then(() => done())
-        .catch(err => done(err));
+      .then((userToGroup) => {
+        if (!userToGroup) {
+          return Promise.reject('Error');
+        }
+        return models.UserGroupAdd.create({
+          addedById: 1,
+          addedToId: 10,
+          groupId: 100
+        });
+      })
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -290,18 +290,18 @@ export default {
       groupId: 99,
       userId: 5
     })
-        .then((userToGroup) => {
-          if (!userToGroup) {
-            return Promise.reject('Error');
-          }
-          return models.UserGroupAdd.create({
-            addedById: 5,
-            addedToId: 5,
-            groupId: 99
-          });
-        })
-        .then(() => done())
-        .catch(err => done(err));
+      .then((userToGroup) => {
+        if (!userToGroup) {
+          return Promise.reject('Error');
+        }
+        return models.UserGroupAdd.create({
+          addedById: 5,
+          addedToId: 5,
+          groupId: 99
+        });
+      })
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -315,18 +315,18 @@ export default {
       groupId: 101,
       userId: 5
     })
-        .then((userToGroup) => {
-          if (!userToGroup) {
-            return Promise.reject('Error');
-          }
-          return models.UserGroupAdd.create({
-            addedById: 7,
-            addedToId: 5,
-            groupId: 101
-          });
-        })
-        .then(() => done())
-        .catch(err => done(err));
+      .then((userToGroup) => {
+        if (!userToGroup) {
+          return Promise.reject('Error');
+        }
+        return models.UserGroupAdd.create({
+          addedById: 7,
+          addedToId: 5,
+          groupId: 101
+        });
+      })
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   /**
@@ -340,18 +340,18 @@ export default {
       groupId: 99,
       userId: 20
     })
-        .then((userToGroup) => {
-          if (!userToGroup) {
-            return Promise.reject('Error');
-          }
-          return models.UserGroupAdd.create({
-            addedById: 5,
-            addedToId: 20,
-            groupId: 99
-          });
-        })
-        .then(() => done())
-        .catch(err => done(err));
+      .then((userToGroup) => {
+        if (!userToGroup) {
+          return Promise.reject('Error');
+        }
+        return models.UserGroupAdd.create({
+          addedById: 5,
+          addedToId: 20,
+          groupId: 99
+        });
+      })
+      .then(() => done())
+      .catch(err => done(err));
   },
 
   loginDetails: {
@@ -359,31 +359,7 @@ export default {
     password: '11223344'
   },
 
-  createGroup: {
-    firstGroupDetails: {
-      id: 99,
-      name: 'andela',
-      creatorId: 1
-    },
-    emptyGroupName: ''
-  },
-  addUserToGroup: {
-    validUserDetails: {
-      username: 'johadi10',
-    },
-    emptyUser: '',
-    existingUser: 'oman',
-    secondExistingUser: 'sherif',
-    invalidUser: 'sannik',
-    invalidGroupId: 'x',
-    notFoundGroupId: 6
-  },
-  verifyToken: {
-    testToken: 'xyzjjkjsksdkkldsdskllsdklkdsjcjcjkkjdkj.iiiiw',
-    newUserDetails: {
-      username: 'sherif',
-      password: '11223344'
-    },
+  searchUser: {
     validUserDetails: {
       id: 5,
       fullname: 'jimoh hadi',
@@ -391,9 +367,19 @@ export default {
       email: 'johadi10@yahoo.com',
       mobile: '81630412699'
     },
-  },
-  newUserDetails: {
-    username: 'sherif',
-    password: '11223344'
+
+    secondUserDetails: {
+      id: 20,
+      username: 'oman',
+      fullname: 'jack oman',
+      email: 'oman@gmail.com'
+    },
+
+    thirdUserDetails: {
+      id: 30,
+      username: 'sherif',
+      fullname: 'muhammed sherif',
+      email: 'sherif@gmail.com'
+    }
   }
 };

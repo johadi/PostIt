@@ -13,15 +13,15 @@ describe('Authentication API test', () => {
   // Test for Signup route
   describe('User Signup', () => {
     const {
-      username, fullname, email, mobile,
-      password, confirmPassword
-    } = authSeeder.userDetails;
+      username, fullname, email, mobile, password, confirmPassword
+    } = authSeeder.signup.userDetails;
+
     beforeEach(authSeeder.emptyUser);
     beforeEach(authSeeder.addFirstUser);
 
     it('Should throw validation error message with status 400 for invalid inputs',
       (done) => {
-        const invalidUsername = '';
+        const { invalidUsername } = authSeeder.signup;
         request(app)
           .post('/api/v1/user/signup')
           .send(authSeeder.setUserDetails(fullname, invalidUsername,
@@ -37,8 +37,7 @@ describe('Authentication API test', () => {
 
     it('should throw error message with status 422 when passwords not matched',
       (done) => {
-        const newPassword = '123456';
-        const newConfirmPassword = '11223344';
+        const { newPassword, newConfirmPassword } = authSeeder.signup;
         request(app)
           .post('/api/v1/user/signup')
           .send(authSeeder.setUserDetails(fullname, username, email,
@@ -53,7 +52,7 @@ describe('Authentication API test', () => {
 
     it('Should throw error message with status 422 for existing username',
       (done) => {
-        const existingUsername = 'ovenje';
+        const { existingUsername } = authSeeder.signup;
         request(app)
           .post('/api/v1/user/signup')
           .send(authSeeder.setUserDetails(fullname, existingUsername, email,
@@ -68,7 +67,7 @@ describe('Authentication API test', () => {
 
     it('Should throw error message with status 422 for existing email',
       (done) => {
-        const existingEmail = 'ovenje@yahoo.com';
+        const { existingEmail } = authSeeder.signup;
         request(app)
           .post('/api/v1/user/signup')
           .send(authSeeder.setUserDetails(fullname, username, existingEmail,
@@ -82,7 +81,7 @@ describe('Authentication API test', () => {
       });
 
     it('Should return token with status 201 when inputs are valid', (done) => {
-      const newUsername = 'johadi11';
+      const { newUsername } = authSeeder.signup;
       request(app)
         .post('/api/v1/user/signup')
         .send(authSeeder.setUserDetails(fullname, newUsername, email,
@@ -101,7 +100,7 @@ describe('Authentication API test', () => {
     });
 
     it('it Should return true if password is hashed in database', (done) => {
-      const newUsername = 'johadi10';
+      const { newUsername } = authSeeder.signup;
       request(app)
         .post('/api/v1/user/signup')
         .send(authSeeder.setUserDetails(fullname, newUsername, email,
@@ -121,14 +120,14 @@ describe('Authentication API test', () => {
   });
 
   describe('User Signin', () => {
-    const { username, password } = authSeeder.loginDetails;
+    const { username, password } = authSeeder.signin.loginDetails;
     // Empty our database
     before(authSeeder.emptyUser);
     before(authSeeder.addFirstUser);
 
     it('Should throw validation error with status 400 when input is invalid',
       (done) => {
-        const invalidUsername = '';
+        const { invalidUsername } = authSeeder.signin;
         request(app)
           .post('/api/v1/user/signin')
           .send(authSeeder.setLoginDetails(invalidUsername, password))
@@ -143,7 +142,7 @@ describe('Authentication API test', () => {
 
     it('Should return status code 404 and a message if User not found',
       (done) => {
-        const notFoundUsername = 'jimoh';
+        const { notFoundUsername } = authSeeder.signin;
         request(app)
           .post('/api/v1/user/signin')
           .send(authSeeder.setLoginDetails(notFoundUsername, password))
@@ -157,7 +156,7 @@ describe('Authentication API test', () => {
 
     it('Should return status code 422 and a message when password is incorrect.',
       (done) => {
-        const incorrectPassword = '11223366';
+        const { incorrectPassword } = authSeeder.signin;
         request(app)
           .post('/api/v1/user/signin')
           .send(authSeeder.setLoginDetails(username, incorrectPassword))
@@ -209,7 +208,7 @@ describe('Authentication API test', () => {
 
     it('Should return status 404 with error message if email not found',
       (done) => {
-        const invalidEmail = 'xyz@gmail.com';
+        const { invalidEmail } = authSeeder.recoverPassword;
         request(app)
           .post('/api/v1/user/recover-password')
           .send({ email: invalidEmail })

@@ -113,7 +113,7 @@ describe('UserGroupAdd Model', () => {
         });
     });
 
-    it('should be able to delete data from userGroupAdd model', (done) => {
+    it('should be able to delete data from userGroupAdd', (done) => {
       models.UserGroupAdd.destroy({ where: { addedToId: newUserAddDetails.addedToId,
         groupId: newGroupId } })
         .then((deletedRow) => {

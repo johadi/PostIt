@@ -3,34 +3,27 @@ import dotenv from 'dotenv';
 import request from 'supertest';
 import { assert } from 'chai';
 import app from '../../../app';
-import groupSeeder from '../seed/groupSeeder';
+import groupMockData from '../seed/groupMockData';
 import models from '../../database/models';
+import emptyDatabases from '../seed/emptyDatabases';
+import seedDatabases from '../seed/seedDatabases';
 
 dotenv.config();
 
 describe('Group API test', () => {
-  // const { username, fullname, id, email, mobile } = groupSeeder.validUserDetails;
+  // const { username, fullname, id, email, mobile } = groupMockData.validUserDetails;
   // Test suit for creating group route and controller
   describe('Create Group', () => {
-    const { name } = groupSeeder.createGroup.firstGroupDetails;
+    const { name } = groupMockData.createGroup.firstGroupDetails;
     // Clear Test database
-    before(groupSeeder.emptyUser);
-    before(groupSeeder.emptyMessage);
-    before(groupSeeder.emptyGroup);
-    before(groupSeeder.emptyUserGroup);
-    // Start adding users to Database
-    // username = johadi10
-    before(groupSeeder.addFirstUser);
-    // username = oman
-    before(groupSeeder.addSecondUser);
-    // Create a group
-    // {name=andela creatorId = 1 id = 1}
-    before(groupSeeder.createFirstGroup);
+    emptyDatabases();
+    seedDatabases();
+
     let token = ''; // Hold token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.loginDetails)
+        .send(groupMockData.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -42,7 +35,7 @@ describe('Group API test', () => {
     // Test for creating group
     it('Should return status 400 and error message when group name is empty',
       (done) => {
-        const { emptyGroupName } = groupSeeder.createGroup;
+        const { emptyGroupName } = groupMockData.createGroup;
         request(app)
           .post('/api/v1/group')
           .send({ name: emptyGroupName, token })
@@ -90,33 +83,16 @@ describe('Group API test', () => {
 
   // Test suit for adding user to group
   describe('Add Users to Group', () => {
-    // Clear Test database
-    before(groupSeeder.emptyUser);
-    before(groupSeeder.emptyMessage);
-    before(groupSeeder.emptyGroup);
-    before(groupSeeder.emptyUserGroup);
-    // Start adding users to Database
-    // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(groupSeeder.addFirstUser);
-    // {id: 20, username: oman, email: oman@gmail.com} User
-    before(groupSeeder.addSecondUser);
-    // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(groupSeeder.addThirdUser);
-    // Create a group
-    before(groupSeeder.createFirstGroup);
-    before(groupSeeder.createSecondGroup);
-    // Add users to groups
-    before(groupSeeder.addFirstUserGroup);
-    before(groupSeeder.addSecondUserGroup);
-    before(groupSeeder.addFourthUserGroup);
+    emptyDatabases();
+    seedDatabases();
 
-    const { username } = groupSeeder.addUserToGroup.validUserDetails;
+    const { username } = groupMockData.addUserToGroup.validUserDetails;
     let token = ''; // To hold our token for authentication
 
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.loginDetails)
+        .send(groupMockData.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -126,7 +102,7 @@ describe('Group API test', () => {
     });
 
     it('Should return status 400 when groupId is not a number.', (done) => {
-      const { invalidGroupId } = groupSeeder.addUserToGroup;
+      const { invalidGroupId } = groupMockData.addUserToGroup;
       request(app)
         .post(`/api/v1/group/${invalidGroupId}/user`)
         .send({ user: username, token })
@@ -141,7 +117,7 @@ describe('Group API test', () => {
 
     it('Should return status 400 and a message if user input is empty',
       (done) => {
-        const { emptyUser } = groupSeeder.addUserToGroup;
+        const { emptyUser } = groupMockData.addUserToGroup;
         request(app)
           .post('/api/v1/group/99/user')
           .send({ user: emptyUser, token })
@@ -183,7 +159,7 @@ describe('Group API test', () => {
 
     it('Should return status code 422 when user to be added already in a group',
       (done) => {
-        const { existingUser } = groupSeeder.addUserToGroup;
+        const { existingUser } = groupMockData.addUserToGroup;
         request(app)
           .post('/api/v1/group/99/user')
           .send({ user: existingUser, token })
@@ -197,7 +173,7 @@ describe('Group API test', () => {
 
     it('Should return status code 404 when User tries to add ' +
       'user that doesn\'t exist.', (done) => {
-      const { invalidUser } = groupSeeder.addUserToGroup;
+      const { invalidUser } = groupMockData.addUserToGroup;
       request(app)
         .post('/api/v1/group/99/user')
         .send({ user: invalidUser, token })
@@ -210,7 +186,7 @@ describe('Group API test', () => {
     });
 
     it('Should return 404 and a message if groupId is invalid.', (done) => {
-      const { notFoundGroupId } = groupSeeder.addUserToGroup;
+      const { notFoundGroupId } = groupMockData.addUserToGroup;
       const validUser = 'oman';
       request(app)
         .post(`/api/v1/group/${notFoundGroupId}/user`)
@@ -225,7 +201,7 @@ describe('Group API test', () => {
 
     it('Should return 201 and information of who added user and who was added.',
       (done) => {
-        const { secondExistingUser } = groupSeeder.addUserToGroup;
+        const { secondExistingUser } = groupMockData.addUserToGroup;
         request(app)
           .post('/api/v1/group/99/user')
           .send({ user: secondExistingUser, token })
@@ -244,35 +220,14 @@ describe('Group API test', () => {
 
   // Test suite for controllers that get all users of a group
   describe('Get Users in a Group', () => {
-    // Clear Test database
-    before(groupSeeder.emptyUser);
-    before(groupSeeder.emptyMessage);
-    before(groupSeeder.emptyGroup);
-    before(groupSeeder.emptyUserGroup);
-    // Add users to Database
-    // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(groupSeeder.addFirstUser);
-    // {id: 20, username: oman, email: oman@gmail.com} User
-    before(groupSeeder.addSecondUser);
-    // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(groupSeeder.addThirdUser);
-    // Create a group
-    // {id: 99, name: andela, creatorId: 1} Group
-    before(groupSeeder.createFirstGroup);
-    // {id: 100, name: react, creatorId: 7} Group
-    before(groupSeeder.createSecondGroup);
-    // Add users to groups
-    // {groupId: 100, userId: 10} UserGroup
-    before(groupSeeder.addFirstUserGroup);
-    // {groupId: 99, userId: 5} UserGroup
-    before(groupSeeder.addSecondUserGroup);
-    // {groupId: 99, userId: 20} UserGroup
-    before(groupSeeder.addFourthUserGroup);
+    emptyDatabases();
+    seedDatabases();
+
     let token = ''; // Hold token for authentication
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.loginDetails)
+        .send(groupMockData.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -369,21 +324,14 @@ describe('Group API test', () => {
 
   // Verify if a User has token or not
   describe('Verify User\'s token', () => {
-    // Clear Test database
-    before(groupSeeder.emptyUser);
-    before(groupSeeder.emptyMessage);
-    before(groupSeeder.emptyGroup);
-    before(groupSeeder.emptyUserGroup);
-    // Add users to Database
-    // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
-    before(groupSeeder.addFirstUser);
-    // {id: 30, username: sherif, email: sherif@gmail.com} User
-    before(groupSeeder.addThirdUser);
+    emptyDatabases();
+    seedDatabases();
+
     let sherifToken = '';
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.newUserDetails)
+        .send(groupMockData.newUserDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -395,7 +343,7 @@ describe('Group API test', () => {
     before((done) => {
       request(app)
         .post('/api/v1/user/signin')
-        .send(groupSeeder.loginDetails)
+        .send(groupMockData.loginDetails)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err);
@@ -417,7 +365,7 @@ describe('Group API test', () => {
 
     it('Should return 400 if user access a route with an invalid token.',
       (done) => {
-        const { testToken } = groupSeeder.verifyToken;
+        const { testToken } = groupMockData.verifyToken;
         request(app)
           .get('/api/v1/verify-token')
           .set({ 'x-auth': testToken })
@@ -432,7 +380,7 @@ describe('Group API test', () => {
     // In case if the user was issued a token but has been deleted from database
     it('Should return 404 for valid token but details not in database', (done) => {
       // Let us remove a user from database and use his token for testing here
-      const { username } = groupSeeder.verifyToken.newUserDetails;
+      const { username } = groupMockData.verifyToken.newUserDetails;
       models.User.destroy({
         where: { username } })
         .then((rowDeleted) => {
@@ -454,7 +402,7 @@ describe('Group API test', () => {
       (done) => {
         const {
         id, fullname, username, email, mobile
-      } = groupSeeder.verifyToken.validUserDetails;
+      } = groupMockData.verifyToken.validUserDetails;
         request(app)
           .get('/api/v1/verify-token')
           .set({ 'x-auth': token })

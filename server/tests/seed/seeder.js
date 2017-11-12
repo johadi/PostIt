@@ -1,4 +1,4 @@
-// userSeeder.js
+// messageSeeder.js
 import models from './../../database/models';
 
 export default {
@@ -52,6 +52,24 @@ export default {
 
   /**
    * Add user to Database function 1
+   * @function addUserToDB
+   * @param {function} done
+   * @return {*} any
+   */
+  addNewUser(done) {
+    models.User.create({
+      id: 4,
+      fullname: 'jimoh hadi',
+      username: 'ovenje',
+      email: 'ovenje@yahoo.com',
+      mobile: '+2345905849589',
+      password: '11223344' })
+      .then(() => done())
+      .catch(err => done(err));
+  },
+
+  /**
+   * Add user to Database function 1
    * @function addFirstUser
    * @param {function} done
    * @return {*} any
@@ -63,7 +81,8 @@ export default {
       username: 'johadi10',
       email: 'johadi10@yahoo.com',
       mobile: '81630412699',
-      password: '11223344' })
+      password: '11223344'
+    })
       .then(() => done())
       .catch(err => done(err));
   },
@@ -81,7 +100,8 @@ export default {
       username: 'oman',
       email: 'oman@gmail.com',
       mobile: '08163041269',
-      password: '11223344' })
+      password: '11223344'
+    })
       .then(() => done())
       .catch(err => done(err));
   },
@@ -99,7 +119,8 @@ export default {
       username: 'sherif',
       email: 'sherif@gmail.com',
       mobile: '08163041269',
-      password: '11223344' })
+      password: '11223344'
+    })
       .then(() => done())
       .catch(err => done(err));
   },
@@ -354,32 +375,15 @@ export default {
       .catch(err => done(err));
   },
 
-  loginDetails: {
-    username: 'johadi10',
-    password: '11223344'
-  },
-
-  searchUser: {
-    validUserDetails: {
-      id: 5,
-      fullname: 'jimoh hadi',
-      username: 'johadi10',
-      email: 'johadi10@yahoo.com',
-      mobile: '81630412699'
-    },
-
-    secondUserDetails: {
-      id: 20,
-      username: 'oman',
-      fullname: 'jack oman',
-      email: 'oman@gmail.com'
-    },
-
-    thirdUserDetails: {
-      id: 30,
-      username: 'sherif',
-      fullname: 'muhammed sherif',
-      email: 'sherif@gmail.com'
-    }
+  /**
+   * Empty password recovery Database
+   * @function emptyPasswordRecovery
+   * @param {function} done
+   * @return {*} any
+   */
+  emptyPasswordRecovery(done) {
+    models.PasswordRecovery.destroy({ truncate: true })
+      .then(() => done())
+      .catch(err => done(err));
   }
 };

@@ -6,6 +6,7 @@ import { groupInitialState } from '../../seeds/reducersSeeder';
 describe('groupReducer', () => {
   // initial state
   const initialState = groupInitialState;
+
   describe('CREATE GROUP', () => {
     it('should set error to null when Type is CREATE_GROUP_SUCCESS', () => {
       const groupActionDispatch = {
@@ -24,6 +25,7 @@ describe('groupReducer', () => {
       expect(newState.error).toEqual(groupActionDispatch.payload);
     });
   });
+
   describe('ADD USER TO GROUP', () => {
     it('should set addUserSuccess to true when Type is ADD_USER_SUCCESSFUL', () => {
       const groupActionDispatch = {
@@ -44,6 +46,7 @@ describe('groupReducer', () => {
       expect(newState.addUserErr).toEqual(groupActionDispatch.payload);
       expect(newState.addUserSuccess).toEqual(false);
     });
+
     it('should clear values for addUserSuccess and addUserErr when Type ' +
       'is CLEAR_ADD_USER_ERROR', () => {
       const groupActionDispatch = {
@@ -54,6 +57,7 @@ describe('groupReducer', () => {
       expect(newState.addUserErr).toEqual(null);
     });
   });
+
   describe('POST MESSAGE TO GROUP', () => {
     it('should set postMessageErr to null when Type is POST_MESSAGE_SUCCESSFUL',
       () => {
@@ -73,6 +77,7 @@ describe('groupReducer', () => {
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.postMessageErr).toEqual(groupActionDispatch.payload);
     });
+
     it('should clear values for postMessageErr when Type ' +
       'is CLEAR_POST_MESSAGE_ERROR', () => {
       const groupActionDispatch = {
@@ -82,6 +87,7 @@ describe('groupReducer', () => {
       expect(newState.groupMessagesErr).toEqual(null);
     });
   });
+
   describe('GET GROUP MESSAGES', () => {
     it('should set value for groupMessages and set groupMessagesErr ' +
       'to null when Type is GET_GROUP_MESSAGES_SUCCESSFUL',
@@ -104,6 +110,7 @@ describe('groupReducer', () => {
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.groupMessagesErr).toEqual(groupActionDispatch.payload);
     });
+
     it('should clear values for postMessageErr when Type ' +
       'is CLEAR_GROUP_MESSAGES_ERROR', () => {
       const groupActionDispatch = {
@@ -113,6 +120,7 @@ describe('groupReducer', () => {
       expect(newState.groupMessagesErr).toEqual(null);
     });
   });
+
   describe('VIEW A MESSAGE IN A GROUP', () => {
     it('should set value for groupViewMessage and set groupViewMessageErr ' +
       'to null when Type is VIEW_MESSAGE_SUCCESSFUL',
@@ -135,6 +143,7 @@ describe('groupReducer', () => {
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.groupViewMessageErr).toEqual(groupActionDispatch.payload);
     });
+
     it('should clear values for groupViewMessageErr when Type ' +
       'is CLEAR_VIEW_MESSAGE_ERROR', () => {
       const groupActionDispatch = {
@@ -144,6 +153,7 @@ describe('groupReducer', () => {
       expect(newState.groupViewMessageErr).toEqual(null);
     });
   });
+
   describe('GET USERS IN A GROUP', () => {
     it('should set value for groupUsersStore and set groupUsersError ' +
       'to null when Type is GET_GROUP_USERS_SUCCESSFUL',
@@ -166,6 +176,7 @@ describe('groupReducer', () => {
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.groupUsersError).toEqual(groupActionDispatch.payload);
     });
+
     it('should clear values for groupUsersError when Type ' +
       'is CLEAR_GROUP_USERS_ERROR', () => {
       const groupActionDispatch = {
@@ -175,6 +186,7 @@ describe('groupReducer', () => {
       expect(newState.groupUsersError).toEqual(null);
     });
   });
+
   describe('GET USERS IN A GROUP PAGINATED', () => {
     it('should set value for groupUsersStore and set groupUsersError ' +
       'to null when Type is GROUP_USERS_SUCCESS',
@@ -221,6 +233,7 @@ describe('groupReducer', () => {
       expect(newState.userGroupsError).toEqual(groupActionDispatch.payload);
     });
   });
+
   describe('GET MESSAGES FOR MESSAGE BOARD', () => {
     it('should set value for boardMessagesStore and set ' +
       'boardMessagesError to null when Type is BOARD_MESSAGES_SUCCESS',
@@ -243,6 +256,7 @@ describe('groupReducer', () => {
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.boardMessagesError).toEqual(groupActionDispatch.payload);
     });
+
     it('should clear values for boardMessagesError when Type ' +
       'is CLEAR_BOARD_MESSAGES_ERROR', () => {
       const groupActionDispatch = {
@@ -252,6 +266,7 @@ describe('groupReducer', () => {
       expect(newState.boardMessagesError).toEqual(null);
     });
   });
+
   describe('GET SEARCH RESULT OF USERS', () => {
     it('should set value for usersSearch and set usersSearchErr ' +
       'to null when Type is USERS_SEARCH_SUCCESSFUL',
@@ -275,6 +290,7 @@ describe('groupReducer', () => {
       const newState = groupReducer(initialState, groupActionDispatch);
       expect(newState.usersSearchErr).toEqual(groupActionDispatch.payload);
     });
+
     it('should clear values for usersSearchErr when Type ' +
       'is CLEAR_USERS_SEARCH', () => {
       const groupActionDispatch = {
@@ -284,6 +300,7 @@ describe('groupReducer', () => {
       expect(newState.usersSearchErr).toEqual(null);
     });
   });
+
   describe('STATUS WHEN MESSAGE IS READ', () => {
     it('should set value for messageRead and set messageReadErr ' +
       'to null when Type is MESSAGE_READ_SUCCESSFUL',
@@ -307,6 +324,7 @@ describe('groupReducer', () => {
         expect(newState.messageReadErr).toEqual(groupActionDispatch.payload);
       });
   });
+
   it('should return initial state if no action is passed', () => {
     const action = {};
     const newState = groupReducer(initialState, action);

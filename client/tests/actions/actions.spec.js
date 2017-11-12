@@ -23,6 +23,7 @@ describe('Authentication Actions', () => {
       mock.reset();
     });
     const { signupDetails, signupReply } = actionsSeeder;
+
     it('should dispatch SIGNUP_SUCCESSFUL action when user is created',
       (done) => {
         const expectedActions = [{ type: actionTypes.SIGNUP_SUCCESSFUL }];
@@ -36,6 +37,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch SIGNUP_VALIDATION_ERROR action when any user' +
       'input is invalid', (done) => {
       const expectedActions = [{
@@ -54,6 +56,7 @@ describe('Authentication Actions', () => {
         done();
       }, 1000);
     });
+
     it('should dispatch SIGNUP_UNSUCCESSFUL action when user already exists',
       (done) => {
         const expectedActions = [{
@@ -75,11 +78,13 @@ describe('Authentication Actions', () => {
         }, 1000);
       });
   });
+
   describe('SigninAction', () => {
     beforeEach(() => {
       mock.reset();
     });
     const { signinDetails } = actionsSeeder;
+
     it('should dispatch SIGNIN_SUCCESSFUL action when user is logged in ',
       (done) => {
         const expectedActions = [{ type: actionTypes.SIGNIN_SUCCESSFUL }];
@@ -94,6 +99,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch SIGNIN_VALIDATION_ERROR action when any user' +
       'input is invalid', (done) => {
       const expectedActions = [{
@@ -112,6 +118,7 @@ describe('Authentication Actions', () => {
         done();
       }, 1000);
     });
+
     it('should dispatch SIGNIN_UNSUCCESSFUL action when password is incorrect',
       (done) => {
         const expectedActions = [{
@@ -129,6 +136,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch SIGNIN_UNSUCCESSFUL action when other error is thrown',
       (done) => {
         const expectedActions = [{
@@ -150,11 +158,13 @@ describe('Authentication Actions', () => {
         }, 1000);
       });
   });
+
   describe('recoverPasswordAction', () => {
     beforeEach(() => {
       mock.reset();
     });
     const { userEmail } = actionsSeeder;
+
     it('should dispatch RECOVERY_SUCCESSFUL action when user is logged in ',
       (done) => {
         const expectedActions = [{
@@ -172,6 +182,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch RECOVERY_VALIDATION_ERROR action when ' +
       'any user input is invalid',
       (done) => {
@@ -191,6 +202,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch RECOVERY_UNSUCCESSFUL action when email is not found',
       (done) => {
         const expectedActions = [{
@@ -212,12 +224,14 @@ describe('Authentication Actions', () => {
         }, 1000);
       });
   });
+
   describe('resetPasswordAction', () => {
     beforeEach(() => {
       mock.reset();
     });
     const { passwordDetails } = actionsSeeder;
     const queryParam = 'xxxyyyzzz';
+
     it('should dispatch RESET_SUCCESSFUL action when password is successfully reset ',
       (done) => {
         const expectedActions = [{
@@ -235,6 +249,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch RESET_VALIDATION_ERROR action when ' +
       'any user input is invalid',
       (done) => {
@@ -254,6 +269,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch RESET_UNSUCCESSFUL action when passwords not matched',
       (done) => {
         const expectedActions = [{
@@ -274,6 +290,7 @@ describe('Authentication Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch RESET_UNSUCCESSFUL action when other error occurred',
       (done) => {
         const expectedActions = [{
@@ -296,6 +313,7 @@ describe('Authentication Actions', () => {
       });
   });
 });
+
 describe('Message Actions', () => {
   describe('postMessage', () => {
     beforeEach(() => {
@@ -304,6 +322,7 @@ describe('Message Actions', () => {
     const message = 'how is react';
     const priority = 'normal';
     const groupId = 2;
+
     it('should dispatch POST_MESSAGE_SUCCESSFUL action when message is sent ',
       (done) => {
         const expectedActions = [{
@@ -320,6 +339,7 @@ describe('Message Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch POST_MESSAGE_ERROR action when ' +
       'message is not sent',
       (done) => {
@@ -339,6 +359,7 @@ describe('Message Actions', () => {
         }, 1000);
       });
   });
+
   describe('viewMessage', () => {
     beforeEach(() => {
       mock.reset();
@@ -347,6 +368,7 @@ describe('Message Actions', () => {
     const messageId = 3;
     const { viewBody, viewGroupId } = actionsSeeder;
     const payload = { body: viewBody, groupId: viewGroupId };
+
     it('should dispatch VIEW_MESSAGE_SUCCESSFUL action a message is retrieved ',
       (done) => {
         const expectedActions = [{
@@ -364,6 +386,7 @@ describe('Message Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch VIEW_MESSAGE_SUCCESSFUL action when ' +
       'a message can\'t be retrieved',
       (done) => {
@@ -383,11 +406,13 @@ describe('Message Actions', () => {
         }, 1000);
       });
   });
+
   describe('getBoardMessages', () => {
     beforeEach(() => {
       mock.reset();
     });
     const payload = { rows: ['who is he?', 'he is a superman'] };
+
     it('should dispatch BOARD_MESSAGES_SUCCESS action when ' +
       'getBoardMessages method is called ',
       (done) => {
@@ -406,6 +431,7 @@ describe('Message Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch BOARD_MESSAGES_ERROR action when ' +
       'error occurred after getBoardMessages is called',
       (done) => {
@@ -425,12 +451,14 @@ describe('Message Actions', () => {
         }, 1000);
       });
   });
+
   describe('updateReadMessage', () => {
     beforeEach(() => {
       mock.reset();
     });
     const payload = true;
     const messageId = 3;
+
     it('should dispatch MESSAGE_READ_SUCCESSFUL action when ' +
       'updateReadMessage method is called ',
       (done) => {
@@ -449,6 +477,7 @@ describe('Message Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch MESSAGE_READ_ERROR action when ' +
       'error occurred after updateReadMessage is called',
       (done) => {
@@ -469,6 +498,7 @@ describe('Message Actions', () => {
       });
   });
 });
+
 describe('User Actions', () => {
   describe('getUserGroups', () => {
     beforeEach(() => {
@@ -476,6 +506,7 @@ describe('User Actions', () => {
     });
     const { userGroupsPayload } = actionsSeeder;
     const payload = userGroupsPayload;
+
     it('should dispatch USER_GROUPS_SUCCESS action when ' +
       'getUserGroups method is called ',
       (done) => {
@@ -494,6 +525,7 @@ describe('User Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch USER_GROUPS_ERROR action when ' +
       'error occurred after getUserGroups is called',
       (done) => {
@@ -513,6 +545,7 @@ describe('User Actions', () => {
         }, 1000);
       });
   });
+
   describe('getUsersSearch', () => {
     beforeEach(() => {
       mock.reset();
@@ -522,6 +555,7 @@ describe('User Actions', () => {
     const search = searchTerm;
     const id = 3;
     const page = 1;
+
     it('should dispatch USERS_SEARCH_SUCCESSFUL action when ' +
       'getUsersSearch method is called ',
       (done) => {
@@ -540,6 +574,7 @@ describe('User Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch USERS_SEARCH_ERROR action when ' +
       'error occurred after getUsersSearch is called',
       (done) => {
@@ -560,12 +595,14 @@ describe('User Actions', () => {
       });
   });
 });
+
 describe('Group Actions', () => {
   describe('createGroup', () => {
     beforeEach(() => {
       mock.reset();
     });
     const name = 'andela';
+
     it('should dispatch CREATE_GROUP_SUCCESS action when group is created ',
       (done) => {
         const expectedActions = [{
@@ -582,6 +619,7 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch CREATE_GROUP_ERROR action when ' +
       'group is not created',
       (done) => {
@@ -600,6 +638,7 @@ describe('Group Actions', () => {
         }, 1000);
       });
   });
+
   describe('addUserToGroup', () => {
     beforeEach(() => {
       mock.reset();
@@ -607,6 +646,7 @@ describe('Group Actions', () => {
     const { addUser, addUserGroupId } = actionsSeeder;
     const user = addUser;
     const groupId = addUserGroupId;
+
     it('should dispatch ADD_USER_SUCCESSFUL action when user is added to group ',
       (done) => {
         const expectedActions = [{
@@ -623,6 +663,7 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch ADD_USER_ERROR action when ' +
       'user is not added to group',
       (done) => {
@@ -642,12 +683,14 @@ describe('Group Actions', () => {
         }, 1000);
       });
   });
+
   describe('getGroupMessages', () => {
     beforeEach(() => {
       mock.reset();
     });
     const { groupId, messagePayload } = actionsSeeder;
     const payload = messagePayload;
+
     it('should dispatch GET_GROUP_MESSAGES_SUCCESSFUL ' +
       'action when messages are retrieved ',
       (done) => {
@@ -666,6 +709,7 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch GET_GROUP_MESSAGES_ERROR action when ' +
       'messages can\'t be retrieved',
       (done) => {
@@ -685,12 +729,14 @@ describe('Group Actions', () => {
         }, 1000);
       });
   });
+
   describe('getGroupUsers', () => {
     beforeEach(() => {
       mock.reset();
     });
     const { groupId, getUsersPayload } = actionsSeeder;
     const payload = getUsersPayload;
+
     it('should dispatch GROUP_USERS_PAGINATED_SUCCESSFUL action when ' +
       'getGroupUsers method is called ',
       (done) => {
@@ -709,6 +755,7 @@ describe('Group Actions', () => {
           done();
         }, 1000);
       });
+
     it('should dispatch GROUP_USERS_ERROR action when ' +
       'error occurred after getGroupUsers is called',
       (done) => {

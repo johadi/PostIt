@@ -14,7 +14,8 @@ describe('<SignupPage/>', () => {
     signupAction
   };
   const wrapper = mount(<SignupPage { ...props} />);
-  it('should check if all FormFields are defined', () => {
+
+  it('should check that all FormFields are defined', () => {
     expect(wrapper.find('FormField').at(0).props().name).toBe('fullname');
     expect(wrapper.find('FormField').at(1).props().name).toBe('email');
     expect(wrapper.find('FormField').at(2).props().name).toBe('mobile');
@@ -22,32 +23,39 @@ describe('<SignupPage/>', () => {
     expect(wrapper.find('FormField').at(4).props().name).toBe('password');
     expect(wrapper.find('FormField').at(5).props().name).toBe('confirmPassword');
   });
-  it('Should check if number of form fields is equal to 6', () => {
+
+  it('Should check that number of form fields is equal to 6', () => {
     expect(wrapper.find('FormField').length).toBe(6);
   });
-  it('Should check if SignupPage component has header defined', () => {
+
+  it('Should check that IndexHeader is defined', () => {
     expect(wrapper.find('IndexHeader').length).toBe(1);
   });
-  it('Should check if SignupPage component has footer defined',
+
+  it('Should check that IndexFooter is defined',
     () => {
       expect(wrapper.find('IndexFooter').length).toBe(1);
     });
-  it('Should check if there is submit button with text Sign up', () => {
+
+  it('Should check that there is sign up submit button', () => {
     const button = wrapper.find('button');
     expect(button.props().type).toEqual('submit');
     expect(button.text()).toEqual('Sign up');
   });
-  it('Should check if handleSubmit is called', () => {
+
+  it('Should check that handleSubmit is called', () => {
     wrapper.find('form').simulate('submit');
     expect(SignupPage.prototype.handleSubmit.calledOnce).toBe(true);
   });
-  it('Should check if signupAction is called', () => {
+
+  it('Should check that signupAction is called', () => {
     // trigger an event by Signup form
     wrapper.find('form').simulate('submit');
     // singupAction inside handleSubmit is called
     expect(signupAction.called).toBe(true);
   });
-  it('Should check if ErrorComponent exists when error is thrown', () => {
+
+  it('Should check that ErrorComponent exists when error is thrown', () => {
     const signupState = {
       fails: 'invalid username'
     };

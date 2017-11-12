@@ -6,6 +6,7 @@ import { signupInitialState } from '../../seeds/reducersSeeder';
 describe('signUpReducer', () => {
   // initial state
   const initialState = signupInitialState;
+
   it('should set welcome to true when Type is SIGNUP_SUCCESSFUL', () => {
     const signUpDispatch = {
       type: actionTypes.SIGNUP_SUCCESSFUL
@@ -27,6 +28,7 @@ describe('signUpReducer', () => {
     expect(newState.errors).toEqual(signUpDispatch.payload);
     expect(newState.success).toEqual(false);
   });
+
   it('should set value for fails and set success to false when Type ' +
     'is SIGNUP_UNSUCCESSFUL', () => {
     const signUpDispatch = {
@@ -37,6 +39,7 @@ describe('signUpReducer', () => {
     expect(newState.fails).toEqual(signUpDispatch.payload);
     expect(newState.success).toEqual(false);
   });
+
   it('should set welcome to false when Type is CANCEL_MODAL', () => {
     const signUpDispatch = {
       type: actionTypes.CANCEL_MODAL,
@@ -47,6 +50,7 @@ describe('signUpReducer', () => {
     const newState = signUpReducer(initialState, signUpDispatch);
     expect(newState.welcome).toEqual(signUpDispatch.payload);
   });
+
   it('should return initial state if no action is passed', () => {
     const action = {};
     const newState = signUpReducer(initialState, action);

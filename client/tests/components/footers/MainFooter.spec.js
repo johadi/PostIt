@@ -6,10 +6,11 @@ import MainFooter from '../../../src/components/footers/MainFooter';
 
 const wrapper = mount(<MainFooter/>);
 describe('<MainFooter/>', () => {
-  it('should check that the div with footer-div class exists', () => {
+  it('should check the div with footer-div class exists', () => {
     expect(wrapper.find('.footer-div').length).toBe(1);
   });
-  it('should check that a p tag exist with appropriate text', () => {
+
+  it('should check that footer text exists', () => {
     expect(wrapper.find('footer p').text()).toBe('Copyright © Johadi PostIt 2017');
   });
 });

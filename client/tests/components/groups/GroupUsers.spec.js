@@ -20,31 +20,35 @@ describe('<GroupUsers/>', () => {
     groupState: {}
   };
   const wrapper = mount(<GroupUsers{ ...props} />);
+
   describe('Group Users with No pagination', () => {
-    it('should check that Pagination doesn\'t exist since our page ' +
-      'is just 1, no pagination', () => {
-      expect(wrapper.find('Pagination').length).toBe(0);
-    });
-    it('Should check that only one member is in the list since our ' +
+    it('should check Pagination doesn\'t exist if number of pages is just 1',
+      () => {
+        expect(wrapper.find('Pagination').length).toBe(0);
+      });
+
+    it('Should check that only one member is in the list when' +
       'users array is length one', () => {
       expect(wrapper.find('Link').length).toBe(1);
     });
   });
-  describe('Implementation of pagination if number of pages is ' +
-    'more than 1', () => {
+  describe('Group Users with Pagination', () => {
     const pages = 3;
     before(() => {
       wrapper.setProps({ groupUsers: newGroupUsers });
     });
-    it('should check that Pagination exist since our pages ' +
-      'is now 3.there is pagination', () => {
-      expect(wrapper.find('Pagination').length).toBe(1);
-    });
-    it('Should check that 2 Link elements exist since we have array' +
-      ' of 2 users available', () => {
-      expect(wrapper.find('Link').length).toBe(2);
-    });
-    it('Should check whether our pages are paginated correctly', () => {
+
+    it('should check that Pagination exist since our pages is now 3.',
+      () => {
+        expect(wrapper.find('Pagination').length).toBe(1);
+      });
+
+    it('Should check that 2 Links exist since we now have array of 2 users',
+      () => {
+        expect(wrapper.find('Link').length).toBe(2);
+      });
+
+    it('Should check that our pages are paginated correctly', () => {
       // assert that items is equal to no of our pages
       expect(wrapper.find('Pagination').props().items).toBe(pages);
     });

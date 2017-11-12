@@ -28,21 +28,21 @@ describe('<SendNotification/>', () => {
   it('should check that post message div exists', () => {
     expect(wrapper.find('div').first()).toExist();
   });
-  it('Should check that message form element exists',
+  it('Should check that form element exists',
     () => {
       expect(wrapper.find('form')).toExist();
     });
-  it('Should check that group name (andela) for the message exists',
+  it('Should check the group name for the message exists',
     () => {
       expect(wrapper.find('form').find('p').first().find('span')
-        .text()).toBe('andela group');// eslint-disable-line newline-per-chained-call
+        .text()).toBe('andela group');
     });
-  it('Should check that textarea and select required for sending message exist',
+  it('Should check textarea and select fields exist',
     () => {
       expect(wrapper.find('form').find('textarea').length).toBe(1);
       expect(wrapper.find('form').find('select').length).toBe(1);
     });
-  it('Should check that there is a button of type submit', () => {
+  it('Should check a submit button exists', () => {
     expect(wrapper.find('form').find('button').props().type).toBe('submit');
   });
   describe('User wants to send message with no message body', () => {
@@ -54,9 +54,10 @@ describe('<SendNotification/>', () => {
       wrapper.setState({ input });
     });
     wrapper.find('form').simulate('submit');
-    it('should display a message that message body is required', () => {
-      expect(wrapper.find('h4').text()).toBe('Notification body required.');
-    });
+    it('should display message body is required when body is empty',
+      () => {
+        expect(wrapper.find('h4').text()).toBe('Notification body required.');
+      });
     it('Should trigger handleSubmit event handler', () => {
       expect(SendNotification.prototype.handleSubmit.called).toBe(true);
     });
@@ -73,23 +74,28 @@ describe('<SendNotification/>', () => {
       wrapper.setState({ input });
     });
     wrapper.find('form').simulate('submit');
+
     it('Should trigger handleSubmit event handler', () => {
       expect(SendNotification.prototype.handleSubmit.called).toBe(true);
     });
+
     it('Should change the state of message body from nothing to hello',
       () => {
         expect(wrapper.state(['input']).message).toBe('hello');
       });
   });
+
   describe('handleChange event', () => {
     it('Should trigger handleChange method when textarea changes', () => {
       wrapper.find('textarea').simulate('change');
       expect(SendNotification.prototype.handleChange.called).toBe(true);
     });
+
     it('Should trigger handleKeyUp when typing in textarea', () => {
       wrapper.find('textarea').simulate('keyup');
       expect(SendNotification.prototype.handleKeyUp.called).toBe(true);
     });
+
     it('Should trigger handlechange when select option changes', () => {
       wrapper.find('select').simulate('change');
       expect(SendNotification.prototype.handleChange.called).toBe(true);

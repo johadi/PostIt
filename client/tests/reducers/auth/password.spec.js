@@ -29,6 +29,7 @@ describe('passwordReducer', () => {
       expect(newState.errors).toEqual(passwordDispatch.payload);
       expect(newState.success).toEqual(false);
     });
+
     it('should set value for fails and set success to false when Type ' +
       'is RECOVERY_UNSUCCESSFUL', () => {
       const passwordDispatch = {
@@ -40,6 +41,7 @@ describe('passwordReducer', () => {
       expect(newState.success).toEqual(false);
     });
   });
+
   describe('PASSWORD RESET', () => {
     it('should set welcome to true when Type is RESET_SUCCESSFUL', () => {
       const passwordDispatch = {
@@ -63,6 +65,7 @@ describe('passwordReducer', () => {
       expect(newState.resetErrors).toEqual(passwordDispatch.payload);
       expect(newState.resetSuccess).toEqual(false);
     });
+
     it('should set value for fails and set success to false when Type ' +
       'is RESET_UNSUCCESSFUL', () => {
       const passwordDispatch = {
@@ -74,6 +77,7 @@ describe('passwordReducer', () => {
       expect(newState.resetSuccess).toEqual(false);
     });
   });
+
   it('should return initial state if no action is passed', () => {
     const action = {};
     const newState = passwordReducer(initialState, action);

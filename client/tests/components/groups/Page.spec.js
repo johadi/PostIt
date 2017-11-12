@@ -30,13 +30,16 @@ describe('<Page/>', () => {
     store = mockStore(storeStateMock);
     wrapper = shallow(<Page {...props} store={store} />).shallow();
   });
-  it('should check that the div with container class exist', () => {
+
+  it('should check the div with container class exists', () => {
     expect(wrapper.find('.container').length).toBe(1);
   });
-  it('should check that header section exists', () => {
+
+  it('should check the MainHeader exists', () => {
     expect(wrapper.find('MainHeader').length).toBe(1);
   });
-  it('should check that footer section exists', () => {
+
+  it('should check the MainFooter exists', () => {
     expect(wrapper.find('MainFooter').length).toBe(1);
   });
 });

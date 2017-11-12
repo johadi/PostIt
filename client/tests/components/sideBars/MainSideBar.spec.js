@@ -21,19 +21,23 @@ describe('<MainSideBar/>', () => {
     store = mockStore(storeStateMock);
     wrapper = mount(<Provider store={store}><MainSideBar /></Provider>);
   });
-  it('should check that the div with main-sidebar class exist', () => {
+  it('should check the div with main-sidebar class exist', () => {
     expect(wrapper.find('.main-sidebar').length).toBe(1);
   });
-  it('should check that quick link header exists', () => {
+
+  it('should check the quick link header exists', () => {
     expect(wrapper.find('div').at(2).text()).toBe('Quick Links');
   });
-  it('should check that create group link exists', () => {
+
+  it('should check the create group link exists', () => {
     expect(wrapper.find('Link').at(0).text()).toBe(' Create Group');
   });
-  it('should check that all my group link exists', () => {
+
+  it('should check the all my group link exists', () => {
     expect(wrapper.find('Link').at(1).text()).toBe(' All My Groups');
   });
-  it('should check that UserDetail component exists', () => {
+
+  it('should check the UserDetail component exists', () => {
     expect(wrapper.find('UserDetail').length).toBe(1);
   });
 });

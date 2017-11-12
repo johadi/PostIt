@@ -1,4 +1,3 @@
-// authSeeder.js
 export default {
    /**
    * Set user's data

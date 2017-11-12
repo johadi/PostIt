@@ -1,4 +1,3 @@
-// groupSeeder.js
 export default {
   loginDetails: {
     username: 'johadi10',

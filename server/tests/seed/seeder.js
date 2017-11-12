@@ -1,4 +1,3 @@
-// messageSeeder.js
 import models from './../../database/models';
 
 export default {

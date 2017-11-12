@@ -1,5 +1,10 @@
 import seeder from './seeder';
 
+/**
+ * seed the models in the database for test
+ * @function seedDatabase
+ * @return {void} void
+ */
 const seedDatabase = () => {
   // Add users to Database
   // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
@@ -30,6 +35,12 @@ const seedDatabase = () => {
   // {groupId: 99, userId: 5, body: 'Learners are leaders .....'}
   before(seeder.addThirdMessage);
 };
+
+/**
+ * seed the auth models in the database for test
+ * @function seedAuthDatabase
+ * @return {void} void
+ */
 const seedAuthDatabase = () => {
   before(seeder.addNewUser);
 };

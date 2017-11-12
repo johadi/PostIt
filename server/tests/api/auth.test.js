@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import app from '../../../app';
 import authMockData from '../seed/authMockData';
 import models from '../../database/models';
-import { emptyAuthDatabases } from '../seed/emptyDatabases';
+import { emptyAuthDatabase } from '../seed/emptyDatabases';
 import { seedAuthDatabase } from '../seed/seedDatabase';
 
 dotenv.config();
@@ -18,7 +18,7 @@ describe('Authentication API test', () => {
       username, fullname, email, mobile, password, confirmPassword
     } = authMockData.signup.userDetails;
 
-    emptyAuthDatabases();
+    emptyAuthDatabase();
     seedAuthDatabase();
 
     it('Should throw validation error message with status 400 for invalid inputs',
@@ -126,7 +126,7 @@ describe('Authentication API test', () => {
   describe('User Signin', () => {
     const { username, password } = authMockData.signin.loginDetails;
 
-    emptyAuthDatabases();
+    emptyAuthDatabase();
     seedAuthDatabase();
 
     it('Should throw validation error with status 400 when input is invalid',
@@ -191,7 +191,7 @@ describe('Authentication API test', () => {
   });
 
   describe('User Recover Password', () => {
-    emptyAuthDatabases();
+    emptyAuthDatabase();
     seedAuthDatabase();
 
     it('Should return status 400 and error message when input is invalid',
@@ -225,7 +225,7 @@ describe('Authentication API test', () => {
   });
 
   describe('User reset password', () => {
-    emptyAuthDatabases();
+    emptyAuthDatabase();
     seedAuthDatabase();
 
     it('Should return status code 400 and a message when link has no token',

@@ -7,9 +7,9 @@ const emptyDatabases = () => {
   before(seeder.emptyGroup);
   before(seeder.emptyUserGroup);
 };
-const emptyAuthDatabases = () => {
+const emptyAuthDatabase = () => {
   before(seeder.emptyUser);
   before(seeder.emptyPasswordRecovery);
 };
-export { emptyAuthDatabases };
+export { emptyAuthDatabase };
 export default emptyDatabases;

@@ -1,6 +1,6 @@
 import seeder from './seeder';
 
-const seedDatabases = () => {
+const seedDatabase = () => {
   // Add users to Database
   // {id: 5, username: johadi10, email: johadi10@yahoo.com} User
   before(seeder.addFirstUser);
@@ -34,4 +34,4 @@ const seedAuthDatabase = () => {
   before(seeder.addNewUser);
 };
 export { seedAuthDatabase };
-export default seedDatabases;
+export default seedDatabase;

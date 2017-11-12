@@ -5,7 +5,7 @@ import { assert } from 'chai';
 import app from '../../../app';
 import messageMockData from '../seed/messageMockData';
 import emptyDatabases from '../seed/emptyDatabases';
-import seedDatabases from '../seed/seedDatabases';
+import seedDatabase from '../seed/seedDatabase';
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ describe('Message API test', () => {
   // Test suite for posting a message
   describe('Post Message to a Group', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
@@ -116,7 +116,7 @@ describe('Message API test', () => {
   // Test suite for getting messages in a particular group
   describe('Get Messages in a Group', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
     let token = ''; // Hold token for authentication
     before((done) => {
       request(app)
@@ -199,7 +199,7 @@ describe('Message API test', () => {
   // Test suite for Viewing a single message
   describe('View a Message', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
@@ -297,7 +297,7 @@ describe('Message API test', () => {
   // Test suite for controller that update Read status of message
   describe('Update Message status when read', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)

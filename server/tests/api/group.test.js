@@ -6,7 +6,7 @@ import app from '../../../app';
 import groupMockData from '../seed/groupMockData';
 import models from '../../database/models';
 import emptyDatabases from '../seed/emptyDatabases';
-import seedDatabases from '../seed/seedDatabases';
+import seedDatabase from '../seed/seedDatabase';
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ describe('Group API test', () => {
     const { name } = groupMockData.createGroup.firstGroupDetails;
     // Clear Test database
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
 
     let token = ''; // Hold token for authentication
     before((done) => {
@@ -84,7 +84,7 @@ describe('Group API test', () => {
   // Test suit for adding user to group
   describe('Add Users to Group', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
 
     const { username } = groupMockData.addUserToGroup.validUserDetails;
     let token = ''; // To hold our token for authentication
@@ -221,7 +221,7 @@ describe('Group API test', () => {
   // Test suite for controllers that get all users of a group
   describe('Get Users in a Group', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
 
     let token = ''; // Hold token for authentication
     before((done) => {
@@ -325,7 +325,7 @@ describe('Group API test', () => {
   // Verify if a User has token or not
   describe('Verify User\'s token', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
 
     let sherifToken = '';
     before((done) => {

@@ -7,7 +7,7 @@ import app from '../../../app';
 import authMockData from '../seed/authMockData';
 import models from '../../database/models';
 import { emptyAuthDatabases } from '../seed/emptyDatabases';
-import { seedAuthDatabase } from '../seed/seedDatabases';
+import { seedAuthDatabase } from '../seed/seedDatabase';
 
 dotenv.config();
 

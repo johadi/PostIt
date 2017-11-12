@@ -5,14 +5,14 @@ import { assert } from 'chai';
 import app from '../../../app';
 import userMockData from '../seed/userMockData';
 import emptyDatabases from '../seed/emptyDatabases';
-import seedDatabases from '../seed/seedDatabases';
+import seedDatabase from '../seed/seedDatabase';
 
 dotenv.config();
 describe('User API test', () => {
   // Test suite for controllers that get groups a user belongs to
   describe('Get User\'s Groups', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
     let token = ''; // Hold token for authentication
     before((done) => {
       request(app)
@@ -79,7 +79,7 @@ describe('User API test', () => {
   // to groups a user belongs to
   describe('Get User\'s messages in all joined group', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
     let token = ''; // To hold our token for authentication
     before((done) => {
       request(app)
@@ -141,7 +141,7 @@ describe('User API test', () => {
   // Test suite for controllers that get all users in the application by search term.
   describe('Search Users', () => {
     emptyDatabases();
-    seedDatabases();
+    seedDatabase();
     let token = ''; // Hold token for authentication
     before((done) => {
       request(app)

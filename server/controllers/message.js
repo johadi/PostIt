@@ -202,7 +202,6 @@ export default {
           })
             .then((messages) => {
               const getMessagesDetails = {
-                count: messages.count,
                 rows: messages.rows,
                 metaData: getPaginationMeta(messages, offset, limit)
               };

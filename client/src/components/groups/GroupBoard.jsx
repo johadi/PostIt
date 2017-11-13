@@ -65,11 +65,12 @@ export class GroupBoard extends React.Component {
    * @return {XML} JSX
    */
   render() {
-    const { count, rows, pages } = this.props.groupState.groupMessages;
+    const { rows, metaData } = this.props.groupState.groupMessages;
+    const { totalCount, totalPages } = metaData;
     return (
         <div className="col-md-12" id="message-board-div">
           <h3 className="text-capitalize">{this.props.name} Group </h3>
-          <p>({count}) {count === 1 ? 'notification' : 'notifications'}</p>
+          <p>({totalCount}) {totalCount === 1 ? 'notification' : 'notifications'}</p>
           <hr/>
           {rows.map((message) => {
             let priority = <span className="badge text-capitalize notification-normal">
@@ -113,7 +114,7 @@ export class GroupBoard extends React.Component {
               </div>
             );
           })}
-          {pages <= 1 ? null :
+          {totalPages <= 1 ? null :
               <Pagination
                   prev
                   next
@@ -121,7 +122,7 @@ export class GroupBoard extends React.Component {
                   last
                   ellipsis
                   boundaryLinks
-                  items={pages}
+                  items={totalPages}
                   maxButtons={10}
                   activePage={this.state.activePage}
                   onSelect={event => this.handleSelect(event)}

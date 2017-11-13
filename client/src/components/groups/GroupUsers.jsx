@@ -39,12 +39,13 @@ export class GroupUsers extends React.Component {
    * @return {XML} JSX
    */
   render() {
-    const { name, users, count, pages } = this.props.groupUsers;
+    const { name, users, metaData } = this.props.groupUsers;
+    const { totalCount, totalPages } = metaData;
     return (
         <div className="col-md-12" id="message-board-div">
           <h3 className="text-capitalize">{name} group members</h3>
           <p className="text-display">
-            <strong>{count} {count === 1 ? 'member' : 'members'}</strong>
+            <strong>{totalCount} {totalCount === 1 ? 'member' : 'members'}</strong>
           </p>
           <hr/>
           <div className="list-group">
@@ -57,7 +58,7 @@ export class GroupUsers extends React.Component {
             ))}
           </div>
           <hr/>
-          {pages <= 1 ? null :
+          {totalPages <= 1 ? null :
               <Pagination
                   prev
                   next
@@ -65,7 +66,7 @@ export class GroupUsers extends React.Component {
                   last
                   ellipsis
                   boundaryLinks
-                  items={pages}
+                  items={totalPages}
                   maxButtons={10}
                   activePage={this.state.activePage}
                   onSelect={event => this.handleSelect(event)}

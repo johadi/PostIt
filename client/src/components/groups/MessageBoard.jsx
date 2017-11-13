@@ -62,13 +62,14 @@ export class MessageBoard extends React.Component {
    * @return {XML} JSX
    */
   render() {
-    const { messages, pages, count } = this.props.boardMessages;
+    const { messages, metaData } = this.props.boardMessages;
+    const { totalCount, totalPages } = metaData;
     return (
         <div className="col-md-12" id="message-board-div">
           <h3><strong>Notification board</strong></h3>
-          <small className="text-red">{count === 1 ?
-            `(${count}) notification` :
-            `(${count}) notifications`} you have not read</small>
+          <small className="text-red">{totalCount === 1 ?
+            `(${totalCount}) notification` :
+            `(${totalCount}) notifications`} you have not read</small>
           <hr/>
           {
             messages.map((message) => {
@@ -121,7 +122,7 @@ export class MessageBoard extends React.Component {
               );
             })
           }
-          {pages <= 1 ? null :
+          {totalPages <= 1 ? null :
               <Pagination
                   prev
                   next
@@ -129,14 +130,14 @@ export class MessageBoard extends React.Component {
                   last
                   ellipsis
                   boundaryLinks
-                  items={pages}
+                  items={totalPages}
                   maxButtons={10}
                   activePage={this.state.activePage}
                   onSelect={event => this.handleSelect(event)}
               />
           }
           {
-            count === 0 ? <p className="no-message">
+            totalCount === 0 ? <p className="no-message">
               You have no unread notifications yet. Only
               notifications you have not read are shown here.</p> : null
           }

@@ -82,7 +82,7 @@ export class AddUserToGroup extends React.Component {
     const { usersSearch } = this.props.groupState;
     // check if search result page is more than one and
     // display the pagination buttons
-    if (usersSearch && usersSearch.pages > 1) {
+    if (usersSearch && usersSearch.metaData.totalPages > 1) {
       pagination = <tr><td colSpan="4">
         <Pagination
           prev
@@ -91,7 +91,7 @@ export class AddUserToGroup extends React.Component {
           last
           ellipsis
           boundaryLinks
-          items={usersSearch.pages}
+          items={usersSearch.metaData.totalPages}
           maxButtons={10}
           activePage={this.state.activePage}
           onSelect={event => this.handleSelect(event)}

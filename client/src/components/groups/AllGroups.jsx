@@ -47,12 +47,14 @@ export class AllGroups extends React.Component {
    * @return {XML} JSX
    */
   render() {
-    const { pages, count, groups } = this.props.userGroups;
+    const { metaData, groups } = this.props.userGroups;
+    const { totalCount, totalPages } = metaData;
+
     return (
         <div className="col-md-12 yo" id="message-board-div">
           <h3>Your Groups</h3>
           <p className="text-display"><strong className="group-count">
-            Total groups you joined: {count}</strong></p>
+            Total groups you joined: {totalCount}</strong></p>
           <hr/>
           <div className="list-group">
             {groups.map(userGroup => (
@@ -64,7 +66,7 @@ export class AllGroups extends React.Component {
             ))}
           </div>
           <hr/>
-          {pages <= 1 ? null :
+          {totalPages <= 1 ? null :
               <Pagination
               prev
               next
@@ -72,7 +74,7 @@ export class AllGroups extends React.Component {
               last
               ellipsis
               boundaryLinks
-              items={pages}
+              items={totalPages}
               maxButtons={10}
               activePage={this.state.activePage}
               onSelect={event => this.handleSelect(event)}

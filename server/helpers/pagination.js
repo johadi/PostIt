@@ -1,4 +1,5 @@
 import constants from './constants';
+
 /**
  * Helper function to get limit and offset for pagination
  * @function paginateResult
@@ -29,19 +30,9 @@ const paginateResult = (req) => {
     }
     offset = limit * (page - 1);
   }
-  // convert the query to standard number for use
-  // Let the page query default to one if user never passes page query
-  // const pageQuery = parseInt(page, 10) || 1;
-  // // limit you want to display per page
-  // const limit = itemsPerPage;
-  // const currentPage = pageQuery < 1 ? 1 : pageQuery;
-  // // Number of items to skip
-  // const offset = limit * (currentPage - 1);
-  // const previousPage = currentPage - 1;
-  // const nextPage = currentPage + 1;
-  // const hasPreviousPage = previousPage >= 1;
   return { limit, offset };
 };
+
 /**
  * Helper function to get pagination meta data
  * @function getPaginationMeta

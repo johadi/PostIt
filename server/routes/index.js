@@ -34,9 +34,9 @@ const apiRoutes = (app) => {
   });
   // API routes
   app.get('/api', (req, res) => res.status(200)
-      .send('Welcome to PostIt API. An App for Sending notification ' +
-        'to loved ones.<a href="/api-docs">Click</a> here to know more ' +
-        'about how to use our API'));
+      .send('Welcome to PostIt API. An App for Sending notification to loved ones.' +
+        'To use this API, <a href="/api-docs">Click</a> here to view the ' +
+        'API documentation'));
   app.use('/api', authRoutes);
   app.use('/api', groupRoutes);
   app.use('/api', userRoutes);

@@ -11,8 +11,10 @@ export default {
   groupBoard: {
     groupMessages: {
       rows: [],
-      pages: 1,
-      count: 0
+      metaData: {
+        totalPages: 1,
+        totalCount: 0
+      }
     },
     groupId: '1',
     name: 'sport',
@@ -45,15 +47,19 @@ export default {
           }
         }
       ],
-      pages: 4,
-      count: 0
+      metaData: {
+        totalPages: 4,
+        totalCount: 0
+      }
     }
   },
   allGroups: {
     userGroups: {
       groups: [],
-      count: 0,
-      pages: 1
+      metaData: {
+        totalPages: 1,
+        totalCount: 0
+      }
     },
     newUserGroups: {
       groups: [
@@ -70,8 +76,10 @@ export default {
           }
         }
       ],
-      count: 20,
-      pages: 3
+      metaData: {
+        totalPages: 3,
+        totalCount: 20
+      }
     }
   },
   groupUsers: {
@@ -84,8 +92,10 @@ export default {
           }
         }
       ],
-      count: 3,
-      pages: 1
+      metaData: {
+        totalPages: 1,
+        totalCount: 3
+      }
     },
     name: 'andela',
     groupId: '1',
@@ -104,15 +114,19 @@ export default {
           }
         }
       ],
-      count: 8,
-      pages: 3
+      metaData: {
+        totalPages: 3,
+        totalCount: 8
+      }
     }
   },
   messageBoard: {
     boardMessages: {
       messages: [],
-      pages: 1,
-      count: 0
+      metaData: {
+        totalPages: 1,
+        totalCount: 0
+      }
     },
     newBoardMessages: {
       messages: [
@@ -141,8 +155,10 @@ export default {
           }
         }
       ],
-      pages: 4,
-      count: 10
+      metaData: {
+        totalPages: 4,
+        totalCount: 10
+      }
     }
   },
   notification: {

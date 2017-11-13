@@ -52,72 +52,71 @@ export default {
   userMessageBoard(req, res) {
     if (req.user) {
       const userId = req.user.id;
-      if (req.query.page && !isNaN(parseInt(req.query.page, 10))) {
-        // Let us find all groupIds this user belongs to first
-        models.UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
-          .then((result) => {
-            // We then convert the groupIds from array
-            // of objects to plain arrays [23, 67, 89]
-            const userGroupIds = result.map(userGroup => userGroup.groupId);
-            return userGroupIds; // arrays of group Ids i.e [23,67,89]
-          })
-          .then((userGroupIds) => {
-            // get all messages of a user in all groups
-            // he/she joined (read and unread)
-            const allUserGroupMessages = models.Message
-              .findAndCountAll({ where: { groupId: userGroupIds } });
-            return Promise.all([allUserGroupMessages, userGroupIds]);
-          })
-          .then((allResolvedPromise) => {
-            // user messages in all groups
-            const allUserGroupMessages = allResolvedPromise[0];
-            const userGroupIds = allResolvedPromise[1]; // user groups Id
-            const { limit, offset } = paginateResult(req);
-            // get all unread messages of a user in all groups
-            // he/she joined (Unread only). good for getting count of
-            // all user unread messages in all his/her joined groups
-            const userGroupUnreadMessages = allUserGroupMessages
-              .rows.filter(message =>
-                !(lodash.includes(message.readersId, userId)));
-            // Fetch user unread messages using pagination information
-            // like offset and limit. similar to the one above but this time,
-            // we are fetching by pagination detail
-            models.Message.findAll({
-              // return messages that has groupIds like in [3,5,7,8,9]
-              where: { groupId: userGroupIds },
-              offset,
-              limit,
-              order: [['createdAt', 'DESC']],
-              include: [{ model: models.User, attributes: ['username', 'fullname'] }, {
-                model: models.Group,
-                attributes: ['id', 'name']
-              }]
-            })
-              .then((messages) => {
-                // Get list of messages that have not been
-                // read by a user with this limit and offset
-                const filteredUnreadMessages = messages.filter(message =>
-                  !(lodash.includes(message.readersId, userId)));
-                const userUnreadMessages = {
-                  count: userGroupUnreadMessages.length,
-                  rows: filteredUnreadMessages
-                };
-                const messageBoardDetails = {
-                  messages: userUnreadMessages.rows,
-                  metaData: getPaginationMeta(userUnreadMessages, offset, limit)
-                };
-                return handleSuccess(200, messageBoardDetails, res);
-              })
-              .catch(err => handleError(err, res));
-          })
-          .catch(err => handleError(err, res));
-      } else {
+      if (req.query.page && isNaN(parseInt(req.query.page, 10))) {
         return handleError({
           code: 400,
           message: 'This request is invalid.Request URL must have a query named ' +
           'page with number as value'
         }, res);
       }
+      // Let us find all groupIds this user belongs to first
+      models.UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
+        .then((result) => {
+          // We then convert the groupIds from array
+          // of objects to plain arrays [23, 67, 89]
+          const userGroupIds = result.map(userGroup => userGroup.groupId);
+          return userGroupIds; // arrays of group Ids i.e [23,67,89]
+        })
+        .then((userGroupIds) => {
+          // get all messages of a user in all groups
+          // he/she joined (read and unread)
+          const allUserGroupMessages = models.Message
+            .findAndCountAll({ where: { groupId: userGroupIds } });
+          return Promise.all([allUserGroupMessages, userGroupIds]);
+        })
+        .then((allResolvedPromise) => {
+          // user messages in all groups
+          const allUserGroupMessages = allResolvedPromise[0];
+          const userGroupIds = allResolvedPromise[1]; // user groups Id
+          const { limit, offset } = paginateResult(req);
+          // get all unread messages of a user in all groups
+          // he/she joined (Unread only). good for getting count of
+          // all user unread messages in all his/her joined groups
+          const userGroupUnreadMessages = allUserGroupMessages
+            .rows.filter(message =>
+              !(lodash.includes(message.readersId, userId)));
+          // Fetch user unread messages using pagination information
+          // like offset and limit. similar to the one above but this time,
+          // we are fetching by pagination detail
+          models.Message.findAll({
+            // return messages that has groupIds like in [3,5,7,8,9]
+            where: { groupId: userGroupIds },
+            offset,
+            limit,
+            order: [['createdAt', 'DESC']],
+            include: [{ model: models.User, attributes: ['username', 'fullname'] }, {
+              model: models.Group,
+              attributes: ['id', 'name']
+            }]
+          })
+            .then((messages) => {
+              // Get list of messages that have not been
+              // read by a user with this limit and offset
+              const filteredUnreadMessages = messages.filter(message =>
+                !(lodash.includes(message.readersId, userId)));
+              const userUnreadMessages = {
+                count: userGroupUnreadMessages.length,
+                rows: filteredUnreadMessages
+              };
+              const messageBoardDetails = {
+                messages: userUnreadMessages.rows,
+                metaData: getPaginationMeta(userUnreadMessages, offset, limit)
+              };
+              return handleSuccess(200, messageBoardDetails, res);
+            })
+            .catch(err => handleError(err, res));
+        })
+        .catch(err => handleError(err, res));
     }
   },
   /**

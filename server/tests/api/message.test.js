@@ -144,15 +144,6 @@ describe('Message API test', () => {
           });
       });
 
-    it('Should return 400 when user provide no query parameter "page" for paginated result.',
-      (done) => {
-        request(app)
-          .get('/api/v1/group/99/message')
-          .set({ 'x-auth': token })
-          .expect(400)
-          .end(done);
-      });
-
     it('Should return 400 when a user access invalid group.', (done) => {
       request(app)
         .get('/api/v1/group/33/message?page=1')
@@ -186,9 +177,9 @@ describe('Message API test', () => {
           .expect(200)
           .end((err, res) => {
             if (err) return done(err);
-            assert.exists(res.body.pages);
+            assert.exists(res.body.metaData.totalPages);
             // total count of messages
-            assert.exists(res.body.count);
+            assert.exists(res.body.metaData.totalCount);
             // array of messages as returned by Sequelize
             assert.exists(res.body.rows);
             done();

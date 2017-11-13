@@ -26,20 +26,6 @@ describe('User API test', () => {
         });
     });
 
-    it('Should return 400 when route has no query string named "page" for pagination',
-      (done) => {
-        request(app)
-          .get('/api/v1/group/user/groups')
-          .set({ 'x-auth': token })
-          .expect(400)
-          .end((err, res) => {
-            if (err) return done(err);
-            assert.equal(res.body, 'Oops! Error. Request url must have query string ' +
-              'named page with number as value');
-            done();
-          });
-      });
-
     it('Should return 400 when user provides query string that is not a number',
       (done) => {
         request(app)
@@ -67,9 +53,9 @@ describe('User API test', () => {
             // username of the person requesting his/her groups
             assert.exists(res.body.username);
             // pages the groups can make
-            assert.exists(res.body.pages);
+            assert.exists(res.body.metaData.totalPages);
             // number of groups user belongs
-            assert.exists(res.body.count);
+            assert.exists(res.body.metaData.totalCount);
             done();
           });
       });
@@ -89,19 +75,6 @@ describe('User API test', () => {
         .end((err, res) => {
           if (err) return done(err);
           token = res.body;
-          done();
-        });
-    });
-
-    it('Should return 400 when query string is not provided for pagination', (done) => {
-      request(app)
-        .get('/api/v1/group/user/board')
-        .set({ 'x-auth': token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body, 'This request is invalid.Request URL must have a query ' +
-            'named page with number as value');
           done();
         });
     });
@@ -130,9 +103,9 @@ describe('User API test', () => {
             // Array of Messages of all groups that user hasn't read
             assert.exists(res.body.messages);
             // Pages the unread messages can make
-            assert.exists(res.body.pages);
+            assert.exists(res.body.metaData.totalPages);
             // Number of all messages in all groups that user hasn't read
-            assert.exists(res.body.count);
+            assert.exists(res.body.metaData.totalCount);
             done();
           });
       });

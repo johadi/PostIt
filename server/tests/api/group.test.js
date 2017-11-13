@@ -250,20 +250,6 @@ describe('Group API test', () => {
           });
       });
 
-    it('Should return 400 when user access route without "page" query.', (done) => {
-      request(app)
-        .get('/api/v1/group/99/group-users')
-        .set({ 'x-auth': token })
-        .expect(400)
-        .end((err, res) => {
-          if (err) return done(err);
-          assert.equal(res.body,
-            'Oops! Error. Request url must have query string named page ' +
-            'with number as value');
-          done();
-        });
-    });
-
     it('Should return 400 when route has "page" query that isn\'t number.', (done) => {
       request(app)
         .get('/api/v1/group/99/group-users?page=x')
@@ -314,9 +300,9 @@ describe('Group API test', () => {
           // name of the group
           assert.exists(res.body.name);
           // pages the users can make per page
-          assert.exists(res.body.pages);
+          assert.exists(res.body.metaData.totalPages);
           // number of users in the group
-          assert.exists(res.body.count);
+          assert.exists(res.body.metaData.totalCount);
           done();
         });
     });

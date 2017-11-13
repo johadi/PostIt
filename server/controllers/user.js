@@ -1,7 +1,7 @@
 import lodash from 'lodash';
 import models from '../database/models';
-import Constants from '../helpers/constants';
-import { handleError, handleSuccess, paginateResult } from '../helpers/helpers';
+import { handleError, handleSuccess } from '../helpers/helpers';
+import { paginateResult, getPaginationMeta } from '../helpers/pagination';
 
 export default {
   /**
@@ -14,50 +14,31 @@ export default {
   getUserGroups(req, res) {
     if (req.user) {
       const userId = req.user.id;
-      if (req.query.page) {
-        if (isNaN(parseInt(req.query.page, 10))) {
-          return handleError({ code: 400,
-            message: 'Oops! Something went wrong, page query value must be a number' },
-            res);
-        }
-        // convert the query to standard number for use
-        const page = req.query.page;
-        const itemsPerPage = Constants.USER_GROUPS_PER_PAGE;
-        // get pagination meta data
-        const {
-          limit, offset, currentPage, previousPage, nextPage, hasPreviousPage
-        } = paginateResult(page, itemsPerPage);
-        models.UserGroup.findAndCountAll({
-          where: { userId },
-          limit,
-          offset,
-          include: [{ model: models.Group, attributes: ['id', 'name', 'creatorId'] }]
-        })
-          .then((result) => {
-            // round off i.e 3/2 = 1.5 = 2
-            const pages = Math.ceil(result.count / limit);
-            const hasNextPage = nextPage <= pages;
-            const groupUsersDetails = {
-              groups: result.rows,
-              id: req.user.id,
-              username: req.user.username,
-              fullname: req.user.fullname,
-              count: result.count,
-              pages,
-              currentPage,
-              previousPage,
-              nextPage,
-              hasPreviousPage,
-              hasNextPage
-            };
-            return handleSuccess(200, groupUsersDetails, res);
-          })
-          .catch(err => handleError(err, res));
-      } else {
-        return handleError({ code: 400,
-          message: 'Oops! Error. Request url must have query string named' +
-          ' page with number as value' }, res);
+      if (req.query.page && isNaN(parseInt(req.query.page, 10))) {
+        return handleError({
+          code: 400,
+          message: 'Oops! Something went wrong, page query value must be a number'
+        },
+          res);
       }
+      const { limit, offset } = paginateResult(req);
+      models.UserGroup.findAndCountAll({
+        where: { userId },
+        limit,
+        offset,
+        include: [{ model: models.Group, attributes: ['id', 'name', 'creatorId'] }]
+      })
+        .then((result) => {
+          const groupUsersDetails = {
+            groups: result.rows,
+            id: req.user.id,
+            username: req.user.username,
+            fullname: req.user.fullname,
+            metaData: getPaginationMeta(result, offset, limit)
+          };
+          return handleSuccess(200, groupUsersDetails, res);
+        })
+        .catch(err => handleError(err, res));
     }
   },
   /**
@@ -91,23 +72,13 @@ export default {
             // user messages in all groups
             const allUserGroupMessages = allResolvedPromise[0];
             const userGroupIds = allResolvedPromise[1]; // user groups Id
-            // convert the query to standard number for use
-            const page = req.query.page;
-            const itemsPerPage = Constants.BOARD_MESSAGES_PER_PAGE;
-            // get pagination meta data
-            const {
-              limit, offset, currentPage, previousPage, nextPage, hasPreviousPage
-            } = paginateResult(page, itemsPerPage);
+            const { limit, offset } = paginateResult(req);
             // get all unread messages of a user in all groups
             // he/she joined (Unread only). good for getting count of
             // all user unread messages in all his/her joined groups
             const userGroupUnreadMessages = allUserGroupMessages
               .rows.filter(message =>
                 !(lodash.includes(message.readersId, userId)));
-            // pages the unread messages in all joined groups formed
-            // to round off i.e 3/2 = 1.5 = 2
-            const pages = Math.ceil(userGroupUnreadMessages.length / limit);
-            const hasNextPage = nextPage <= pages;
             // Fetch user unread messages using pagination information
             // like offset and limit. similar to the one above but this time,
             // we are fetching by pagination detail
@@ -125,20 +96,15 @@ export default {
               .then((messages) => {
                 // Get list of messages that have not been
                 // read by a user with this limit and offset
-                const userUnreadMessages = messages.filter(message =>
+                const filteredUnreadMessages = messages.filter(message =>
                   !(lodash.includes(message.readersId, userId)));
-                const messageBoardDetails = {
-                  // paginated messages obtained using offset
-                  // and limit i.e (4 messages)
-                  messages: userUnreadMessages,
-                  // count of all messages user has not read (i.e 15)
+                const userUnreadMessages = {
                   count: userGroupUnreadMessages.length,
-                  pages,
-                  currentPage,
-                  previousPage,
-                  nextPage,
-                  hasPreviousPage,
-                  hasNextPage
+                  rows: filteredUnreadMessages
+                };
+                const messageBoardDetails = {
+                  messages: userUnreadMessages.rows,
+                  metaData: getPaginationMeta(userUnreadMessages, offset, limit)
                 };
                 return handleSuccess(200, messageBoardDetails, res);
               })
@@ -146,9 +112,11 @@ export default {
           })
           .catch(err => handleError(err, res));
       } else {
-        return handleError({ code: 400,
+        return handleError({
+          code: 400,
           message: 'This request is invalid.Request URL must have a query named ' +
-          'page with number as value' }, res);
+          'page with number as value'
+        }, res);
       }
     }
   },
@@ -163,18 +131,15 @@ export default {
   getUsers(req, res) {
     if (req.user) {
       if (req.query.search) {
-        const page = req.query.page;
-        const itemsPerPage = Constants.SEARCHED_RESULT_PER_PAGE;
-        // get pagination meta data
-        const {
-          limit, offset, currentPage, previousPage, nextPage, hasPreviousPage
-        } = paginateResult(page, itemsPerPage);
+        const { limit, offset } = paginateResult(req);
         const searchedQuery = req.query.search.toLowerCase();
         const search = `%${searchedQuery}%`;
         models.User.findAndCountAll(
           {
-            where: { $or: [{ username: { like: search } },
-              { email: { like: search } }] },
+            where: {
+              $or: [{ username: { like: search } },
+                { email: { like: search } }]
+            },
             offset,
             limit,
             attributes: ['id', 'username', 'fullname', 'email'],
@@ -184,8 +149,10 @@ export default {
             // users in the application and all users of a certain group
             if (req.query.groupId) { // To get ids of Users in a group
               if (isNaN(parseInt(req.query.groupId, 10))) {
-                return Promise.reject({ code: 400,
-                  message: 'Query groupId must be a number' });
+                return Promise.reject({
+                  code: 400,
+                  message: 'Query groupId must be a number'
+                });
               }
               // get userId of all users in a particular
               // group by the given groupId as object
@@ -203,8 +170,10 @@ export default {
                 })
                 .then((foundUserAndGroup) => {
                   if (!foundUserAndGroup) {
-                    return Promise.reject({ code: 403,
-                      message: 'Invalid Operation: You don\'t belong to this group' });
+                    return Promise.reject({
+                      code: 403,
+                      message: 'Invalid Operation: You don\'t belong to this group'
+                    });
                   }
                   // get the userId of users that belongs to this group
                   return models.UserGroup.findAll({
@@ -213,22 +182,13 @@ export default {
                   });
                 })
                 .then((groupUsers) => {
-                  // pages - to round off i.e 3/2 = 1.5 = 2
-                  const pages = Math.ceil(users.count / limit);
-                  const hasNextPage = nextPage <= pages;
                   // converts the array of userId objects to standard array of Ids
                   const groupUsersIdInArray = groupUsers
                     .map(groupUser => groupUser.userId);
                   const allUsersDetails = {
                     allUsers: users.rows,
                     groupUsersId: groupUsersIdInArray,
-                    count: users.count,
-                    pages,
-                    currentPage,
-                    previousPage,
-                    nextPage,
-                    hasPreviousPage,
-                    hasNextPage
+                    metaData: getPaginationMeta(users, offset, limit)
                   };
                   return handleSuccess(200, allUsersDetails, res);
                 })
@@ -236,14 +196,20 @@ export default {
             } else {
               // If a client just want all users in the
               // application that match the searched term
-              return handleSuccess(200, users, res);
+              const userDetails = {
+                users: users.rows,
+                metaData: getPaginationMeta(users, offset, limit)
+              };
+              return handleSuccess(200, userDetails, res);
             }
           })
           .catch(err => handleError(err, res));
       } else {
-        return handleError({ code: 400,
+        return handleError({
+          code: 400,
           message: 'This request is invalid. Request URL must have a query named ' +
-          'search with value' }, res);
+          'search with value'
+        }, res);
       }
     }
   }

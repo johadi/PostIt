@@ -99,31 +99,5 @@ const client = twilio(accountSid, authToken);
 const sendSMS = (from, to, body) => {
   client.messages.create({ to, from, body });
 };
-/**
- * Helper function that paginates results
- * @function paginateResult
- * @param {number} page
- * @param {number} itemsPerPage
- * @return {object} pagination meta data
- */
-const paginateResult = (page, itemsPerPage) => {
-  // convert the query to standard number for use
-  // Let the page query default to one if user never passes page query
-  const pageQuery = parseInt(page, 10) || 1;
-  // limit you want to display per page
-  const limit = itemsPerPage;
-  const currentPage = pageQuery < 1 ? 1 : pageQuery;
-  // Number of items to skip
-  const offset = limit * (currentPage - 1);
-  const previousPage = currentPage - 1;
-  const nextPage = currentPage + 1;
-  const hasPreviousPage = previousPage >= 1;
-  // hasNextPage can only be calculated when the number of pages is known.
-  // i.e from the database query result we can implement pages as thus:
-  // const pages = Math.ceil(databaseResult.count / limit);
-  // since we can't get pages now until database is queried, hasNextPage should be
-  // implemented in the block where pages is obtained as thus
-  // const hasNextPage = nextPage <= pages;
-  return { limit, offset, currentPage, previousPage, nextPage, hasPreviousPage };
-};
-export { sendSMS, sendMail, handleError, handleSuccess, paginateResult };
+
+export { sendSMS, sendMail, handleError, handleSuccess };

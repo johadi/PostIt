@@ -2,9 +2,9 @@ import lodash from 'lodash';
 import bluebird from 'bluebird';
 import dotenv from 'dotenv';
 import models from '../database/models';
-import Constants from '../helpers/constants';
 import { sendSMS, sendMail, handleError,
-  handleSuccess, paginateResult } from '../helpers/helpers';
+  handleSuccess } from '../helpers/helpers';
+import { paginateResult, getPaginationMeta } from '../helpers/pagination';
 
 dotenv.config();
 export default {
@@ -171,7 +171,7 @@ export default {
     if (req.user && req.params.groupId) {
       const userId = req.user.id;
       const groupId = req.params.groupId;
-      if (!req.query.page || isNaN(parseInt(req.query.page, 10))) {
+      if (req.query.page && isNaN(parseInt(req.query.page, 10))) {
         return handleError({ code: 400,
           message: 'This request is invalid. Request URL must contain ' +
           'query parameter named page with number as value' }, res);
@@ -192,13 +192,7 @@ export default {
               message: 'Invalid Operation: You don\'t belong to this group' });
           }
           // Let the user view messages if he/she belongs to the group
-          // perPage = limit you want to display per page
-          const itemsPerPage = Constants.GET_MESSAGES_PER_PAGE;
-          const page = req.query.page;
-          // get pagination meta data
-          const {
-            offset, limit, currentPage, previousPage, nextPage, hasPreviousPage
-          } = paginateResult(page, itemsPerPage);
+          const { offset, limit } = paginateResult(req);
           return models.Message.findAndCountAll({
             where: { groupId },
             offset,
@@ -207,18 +201,10 @@ export default {
             include: [{ model: models.User, attributes: ['id', 'username', 'fullname'] }]
           })
             .then((messages) => {
-              // to round up i.e 3/2 = 1.5 = 2
-              const pages = Math.ceil(messages.count / limit);
-              const hasNextPage = nextPage <= pages;
               const getMessagesDetails = {
                 count: messages.count,
                 rows: messages.rows,
-                pages,
-                currentPage,
-                previousPage,
-                nextPage,
-                hasPreviousPage,
-                hasNextPage
+                metaData: getPaginationMeta(messages, offset, limit)
               };
               return handleSuccess(200, getMessagesDetails, res);
             })

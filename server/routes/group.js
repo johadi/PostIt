@@ -146,7 +146,7 @@ router.route('/v1/group/:groupId/group-users')
  *         type: integer
  *       - name: limit
  *         description: optional pagination limit query
- *         in: path
+ *         in: query
  *         type: integer
  *     responses:
  *       200:

@@ -25,7 +25,7 @@ router.route('/v1/group/user/groups')
  *         type: integer
  *       - name: limit
  *         description: optional pagination limit query
- *         in: path
+ *         in: query
  *         type: integer
  *     responses:
  *       200:
@@ -66,7 +66,7 @@ router.route('/v1/group/user/board')
  *         type: integer
  *       - name: limit
  *         description: optional pagination limit query
- *         in: path
+ *         in: query
  *         type: integer
  *     responses:
  *       200:
@@ -105,7 +105,7 @@ router.route('/v1/users')
  *         type: integer
  *       - name: limit
  *         description: optional pagination limit query
- *         in: path
+ *         in: query
  *         type: integer
  *       - name: groupId
  *         description: optional groupId query to get id of users in the group

@@ -24,17 +24,23 @@ router.route('/v1/group/:groupId/message')
  *         description: authentication token
  *         required: true
  *         type: string
+ *       - name: offset
+ *         description: optional pagination offset query
+ *         in: query
+ *         type: integer
+ *       - name: limit
+ *         description: optional pagination limit query
+ *         in: path
+ *         type: integer
  *     responses:
  *       200:
  *         description: Array of messages in a group with this groupId parameter
  *         schema:
  *           properties:
- *             count:
- *               type: integer
- *             pages:
- *               type: integer
  *             rows:
  *               type: array
+ *             metaData:
+ *               type: object
  */
   .get(authenticate, messageController.getMessages);
 router.route('/v1/group/:groupId/message')

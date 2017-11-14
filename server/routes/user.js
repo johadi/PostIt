@@ -19,6 +19,14 @@ router.route('/v1/group/user/groups')
  *         description: authentication token
  *         required: true
  *         type: string
+ *       - name: offset
+ *         description: optional pagination offset query
+ *         in: query
+ *         type: integer
+ *       - name: limit
+ *         description: optional pagination limit query
+ *         in: path
+ *         type: integer
  *     responses:
  *       200:
  *         description: Array of user groups
@@ -30,10 +38,8 @@ router.route('/v1/group/user/groups')
  *               type: string
  *             fullname:
  *               type: string
- *             count:
- *               type: integer
- *             pages:
- *               type: integer
+ *             metaData:
+ *               type: object
  *             groups:
  *               type: array
  */
@@ -54,15 +60,21 @@ router.route('/v1/group/user/board')
  *         description: authentication token
  *         required: true
  *         type: string
+ *       - name: offset
+ *         description: optional pagination offset query
+ *         in: query
+ *         type: integer
+ *       - name: limit
+ *         description: optional pagination limit query
+ *         in: path
+ *         type: integer
  *     responses:
  *       200:
  *         description: Array of user's unread messages
  *         schema:
  *           properties:
- *             count:
- *               type: integer
- *             pages:
- *               type: integer
+ *             metaData:
+ *               type: object
  *             messages:
  *               type: array
  */
@@ -87,6 +99,18 @@ router.route('/v1/users')
  *         in: query
  *         description: search term
  *         type: string
+ *       - name: offset
+ *         description: optional pagination offset query
+ *         in: query
+ *         type: integer
+ *       - name: limit
+ *         description: optional pagination limit query
+ *         in: path
+ *         type: integer
+ *       - name: groupId
+ *         description: optional groupId query to get id of users in the group
+ *         in: query
+ *         type: integer
  *     responses:
  *       200:
  *         description: Array of users that match the search term
@@ -94,6 +118,10 @@ router.route('/v1/users')
  *           properties:
  *             allUsers:
  *               type: array
+ *             groupUsersId:
+ *                type: array
+ *             metaData:
+ *                type: object
  */
   .get(authenticate, userController.getUsers);
 export default router;

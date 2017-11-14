@@ -140,6 +140,14 @@ router.route('/v1/group/:groupId/group-users')
  *         description: authentication token
  *         required: true
  *         type: string
+ *       - name: offset
+ *         description: optional pagination offset query
+ *         in: query
+ *         type: integer
+ *       - name: limit
+ *         description: optional pagination limit query
+ *         in: path
+ *         type: integer
  *     responses:
  *       200:
  *         description: Array of group members
@@ -149,12 +157,10 @@ router.route('/v1/group/:groupId/group-users')
  *               type: integer
  *             name:
  *               type: string
- *             count:
- *               type: integer
- *             pages:
- *               type: integer
  *             users:
  *               type: array
+ *             metaData:
+ *               type: object
  */
   .get(authenticate, groupController.getGroupUsers);
 export default router;

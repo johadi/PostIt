@@ -16,7 +16,7 @@ describe('Message Model', () => {
         models.Message.create(messageInvalidDetails)
           .catch((error) => {
             assert.equal(error.errors[0].message,
-              'Message body can\' be empty');
+              'Message body can\'t be empty');
             done();
           });
       });

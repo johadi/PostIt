@@ -30,6 +30,27 @@ body, #app {
     /*background-image: url("../images/fam3.jpg");*/
     /*background-size: 100% 100%;*/
 }
+.signup-wrapper .cover-div {
+    border-radius: 10px;
+}
+.signup-wrapper{
+
+}
+@media (max-width: 992px) {
+    .signup-wrapper .cover-div {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+@media (max-width: 767px) {
+    .signup-wrapper {
+        height: auto;
+    }
+    .signup-wrapper .cover-div {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
 .body2 {
     color: #fff;
     text-align: center;
@@ -92,12 +113,17 @@ body, #app {
     border-bottom-color: #a9a9a9;
     border-bottom-color: rgba(255,255,255,.25);
 }
-.masthead-nav > .active > a,
-.masthead-nav > .active > a:hover,
-.masthead-nav > .active > a:focus {
-    color: #fff;
-    border-bottom-color: #fff;
+// react-router active class name
+.index-active {
+    color: #fff !important;
+    border-bottom-color: #fff !important;
 }
+//.masthead-nav > .active > a,
+//.masthead-nav > .active > a:hover,
+//.masthead-nav > .active > a:focus {
+//    color: #fff;
+//    border-bottom-color: #fff;
+//}
 
 @media (min-width: 768px) {
     .masthead-brand {
@@ -127,8 +153,7 @@ body, #app {
  */
 
 .mastfoot {
-    color: #999; /* IE8 proofing */
-    color: rgba(255,255,255,.5);
+    color: #fff;
 }
 
 
@@ -165,3 +190,10 @@ body, #app {
         width: 700px;
     }
 }
+//@media (min-width: 2024px) {
+//    .masthead,
+//    .mastfoot,
+//    .cover-container {
+//        width: 700px;
+//    }
+//}

@@ -1,6 +1,12 @@
 import React from 'react';
 
-const SignupModal = props => (
+/**
+ * Signup modal
+ * @function SignupModal
+ * @param {object} props
+ * @return {XML} JSX
+ */
+const SignupModal = () => (
       <div className="modal fade" id="myModal" tabIndex="-1"
            role="dialog" aria-labelledby="myModalLabel">
         <div className="modal-dialog" role="document">
@@ -16,12 +22,12 @@ const SignupModal = props => (
             </div>
             <div className="modal-body">
               <h4 className="text-center text-success">
-                We are excited you joined <strong>PostIt
-              </strong>. A simple notification application for love ones.
+                We are excited you joined <strong>PostIt</strong>.
+                 A simple notification application for loved ones.
               </h4>
               <p className="text-center">
                 <strong>
-                Create groups and share every bit of your moment with love ones.
+                Create groups and share every bit of your moment with loved ones.
                 </strong>
               </p>
             </div>

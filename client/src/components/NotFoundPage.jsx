@@ -1,21 +1,24 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import NotFoundHeader from './headers/NotFoundHeader.jsx';
+import { NotFoundHeader } from './headers';
 /**
  * NotFoundPage class declaration
+ * @class NotFoundPage
+ * @extends {React.Component}
  */
 export default class NotFoundPage extends React.Component {
   /**
-   * renders component
-   * @param {object} e
-   * @return {void} void
+   * Handles click to go back home
+   * @param {object} event - event
+   * @return {void}
    */
-  handleClick(e) {
-    browserHistory.goBack();
+  handleClick(event) {
+    event.preventDefault();
+    browserHistory.push('/');
   }
   /**
-   * renders component
-   * @return {XML} XML/JSX
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     return (

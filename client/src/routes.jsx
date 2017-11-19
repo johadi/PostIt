@@ -1,39 +1,43 @@
-/* eslint-disable import/extensions, import/no-unresolved */
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './App';
-import AuthPages from './components/auth';
-import groupPages from './components/groups/groupContainers';
-import IndexPage from './components/IndexPage.jsx';
-import NotFoundPage from './components/NotFoundPage.jsx';
+import {
+  SignupPage, SigninPage, RecoverPasswordPage, ResetPasswordPage }
+  from './components/auth';
+import { AuthenticateUser, DashboardContainer, NotificationViewContainer,
+  SendNotificationContainer, GroupBoardContainer, CreateGroupContainer,
+  AddUserGroupContainer, GroupsContainer, GroupUsersContainer }
+  from './components/groups/groupContainers';
+import IndexPage from './components/IndexPage';
+import NotFoundPage from './components/NotFoundPage';
 
 export default (
     <Route path='/' component={App}>
       <IndexRoute component={IndexPage}/>
-      <Route path="/signup" component={AuthPages.SignupPage}/>
-      <Route path="/signin" component={AuthPages.SigninPage}/>
+      <Route path="/signup" component={SignupPage}/>
+      <Route path="/signin" component={SigninPage}/>
       <Route path="/recover-password"
-             component={AuthPages.RecoverPasswordPage}/>
+             component={RecoverPasswordPage}/>
       <Route path="/reset-password"
-             component={AuthPages.ResetPasswordPage}/>
+             component={ResetPasswordPage}/>
 
-      <Route component={groupPages.AuthenticateUser}>
+      <Route component={AuthenticateUser}>
         <Route path="/dashboard"
-               component={groupPages.DashboardContainer}/>
+               component={DashboardContainer}/>
         <Route path="/message/:groupId/:messageId"
-               component={groupPages.NotificationViewContainer}/>
+               component={NotificationViewContainer}/>
         <Route path="/group/:groupId/message"
-               component={groupPages.SendNotificationContainer}/>
+               component={SendNotificationContainer}/>
         <Route path="/group/:groupId/board"
-               component={groupPages.GroupBoardContainer}/>
+               component={GroupBoardContainer}/>
         <Route path="/create-group"
-               component={groupPages.CreateGroupContainer}/>
+               component={CreateGroupContainer}/>
         <Route path="/group/:groupId/add"
-               component={groupPages.AddUserGroupContainer}/>
+               component={AddUserGroupContainer}/>
         <Route path="/groups"
-               component={groupPages.GroupsContainer}/>
+               component={GroupsContainer}/>
         <Route path="/group/:groupId/users"
-               component={groupPages.GroupUsersContainer}/>
+               component={GroupUsersContainer}/>
       </Route>
       <Route path="*" component={NotFoundPage}/>
     </Route>

@@ -1,12 +1,19 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const PasswordRecovery = sequelize.define('PasswordRecovery', {
-    email: DataTypes.STRING,
-    hashed: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: (models) => {
-        // associations can be defined here
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'email can\'t be empty'
+        },
+        isEmail: {
+          msg: 'This email is invalid'
+        }
       }
+    },
+    hashed: {
+      type: DataTypes.STRING,
     }
   });
   return PasswordRecovery;

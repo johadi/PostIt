@@ -1,16 +1,39 @@
-require('dotenv').config();
-const nodemailer = require('nodemailer');
-const twilio = require('twilio');
-// error message handler
+import nodemailer from 'nodemailer';
+import twilio from 'twilio';
+import handlebars from 'nodemailer-express-handlebars';
+import dotenv from 'dotenv';
+
+dotenv.config();
+/**
+ * Helper function that handles error messages
+ * @function handleError
+ * @param {object} err - error parameter
+ * @param {object} res - response parameter
+ * @return {object} response detail
+ */
 const handleError = (err, res) => {
   switch (err.code) {
+    case 400:
+      return res.status(400).json(err.message);
+    case 403:
+      return res.status(403).json(err.message);
     case 404:
       return res.status(404).json(err.message);
+    case 422:
+      return res.status(422).json(err.message);
     default:
-      return res.status(400).json(err);
+      return res.status(500).json(err);
   }
 };
-// success message handler
+
+/**
+ * Helper function that handles success messages
+ * @function handleSuccess
+ * @param {number} code - success code parameter
+ * @param {object} body - response body
+ * @param {object} res - response parameter
+ * @return {object} response detail
+ */
 const handleSuccess = (code, body, res) => {
   switch (code) {
     case 201:
@@ -19,8 +42,15 @@ const handleSuccess = (code, body, res) => {
       return res.status(200).json(body);
   }
 };
-// create reusable transporter object using the default SMTP transport
+
 // Sending Email
+// Create handlebars options
+const handlebarsOptions = {
+  viewPath: 'server/emails',
+  extName: '.hbs'
+};
+
+// create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   port: 465,
@@ -30,21 +60,44 @@ const transporter = nodemailer.createTransport({
     pass: process.env.MAIL_PASSWORD
   }
 });
-const sendMail = (from, to, subject, message) => {
+// Tells transport to use handlebars
+transporter.use('compile', handlebars(handlebarsOptions));
+
+/**
+ * Helper function that handles send mail
+ * @function sendMail
+ * @param {string} from
+ * @param {string|array} to
+ * @param {string} subject
+ * @param {string} template
+ * @param {string} context
+ * @return {*} any
+ */
+const sendMail = (from, to, subject, template, context) => {
   const mailOptions = {
     from,
     to,
     subject,
-    html: message
+    template,
+    context
   };
   return transporter.sendMail(mailOptions);
 };
+
 // Sending SMS
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
-
+/**
+ * Helper function that handles send SMS
+ * @function sendSMS
+ * @param {string} from
+ * @param {string} to
+ * @param {string} body
+ * @return {void}
+ */
 const sendSMS = (from, to, body) => {
   client.messages.create({ to, from, body });
 };
-module.exports = { sendSMS, sendMail, handleError, handleSuccess };
+
+export { sendSMS, sendMail, handleError, handleSuccess };

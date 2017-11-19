@@ -3,99 +3,64 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { MessageBoard } from '../../../src/components/groups/MessageBoard.jsx';
+import { MessageBoard } from '../../../src/components/groups/MessageBoard';
+import componentsSeeder from '../../seeds/componentsSeeder';
 
 describe('<MessageBoard/>', () => {
-  const getUserGroups = sinon.spy();
-  const getBoardMessagesPaginated = sinon.spy();
-  sinon.spy(MessageBoard.prototype, 'componentDidMount');
+  const getBoardMessages = sinon.spy();
   sinon.spy(MessageBoard.prototype, 'handleSelect');
+  const { boardMessages, newBoardMessages } = componentsSeeder.messageBoard;
   const props = {
-    getUserGroups,
-    getBoardMessagesPaginated,
-    boardMessagesPagination: {
-      messages: [],
-      pages: 1,
-      count: 0
-    },
+    getBoardMessages,
+    boardMessages,
     groupState: {}
   };
   const wrapper = mount(<MessageBoard{ ...props} />);
-  it('Should check if componentDidMount is called', () => {
-    expect(MessageBoard.prototype.componentDidMount.calledOnce).toBe(true);
-  });
+
   describe('No Messages', () => {
     before(() => {
-      const boardMessagesPagination = {
-        messages: [],
-        pages: 1,
-        count: 0
-      };
-      wrapper.setProps({ boardMessagesPagination });
+      wrapper.setProps({ boardMessages });
     });
-    it('should check that Pagination doesn\'t exist since our page is ' +
-      'just 1, no pagination', () => {
+
+    it('should check Pagination doesn\'t exist when our number of pages is ' +
+      'just 1', () => {
       expect(wrapper.find('Pagination').length).toNotExist();
       // expect(wrapper.find('input').first().props().type).toBe('text');
     });
-    it('Should return a default statement if there is no message. moreover,' +
-      ' count is zero', () => {
+
+    it('Should return a default statement when there is no message', () => {
       expect(wrapper.find('.no-message').text()).toBe('You have no unread ' +
         'notifications yet. Only notifications you have not read are shown here.');
     });
-    it('Should check that no message div exists since our messages array' +
+
+    it('Should check that no message div exists when our messages array' +
       ' is empty', () => {
       expect(wrapper.find('.message').length).toBe(0);
     });
   });
-  describe('If there is at least one message', () => {
+
+  describe('Messages with Pagination', () => {
     const pages = 4;
     before(() => {
-      const boardMessagesPagination = {
-        messages: [
-          {
-            id: 1,
-            body: 'world apart',
-            createdAt: new Date(),
-            User: {
-              username: 'johadi'
-            },
-            Group: {
-              id: '2',
-              name: 'andela'
-            }
-          },
-          {
-            id: 4,
-            body: 'hmmmmm not easy',
-            createdAt: new Date(),
-            User: {
-              username: 'ovenje'
-            },
-            Group: {
-              id: '4',
-              name: 'ferrari'
-            }
-          }
-        ],
-        pages,
-        count: 10
-      };
-      wrapper.setProps({ boardMessagesPagination });
+      wrapper.setProps({ boardMessages: newBoardMessages });
     });
-    it('should check that Pagination exist since our pages is ' +
-      'now 3,there is pagination', () => {
-      expect(wrapper.find('Pagination').length).toBe(1);
-    });
-    it('Should not return any default statement if messages ' +
-      'are available', () => {
-      expect(wrapper.find('.no-message').length).toBe(0);
-    });
-    it('Should check that 2 message divs exist since we have array ' +
-      'of 2 messages available', () => {
-      expect(wrapper.find('.message').length).toBe(2);
-    });
-    it('Should check whether our pages are paginated correctly', () => {
+
+    it('should check that Pagination exist when our number of pages is now 3',
+      () => {
+        expect(wrapper.find('Pagination').length).toBe(1);
+      });
+
+    it('Should not return any default statement when messages are available',
+      () => {
+        expect(wrapper.find('.no-message').length).toBe(0);
+      });
+
+    it('Should check 2 message divs exist since the array now has 2 messages',
+      () => {
+        expect(wrapper.find('.message').length).toBe(2);
+      });
+
+    it('Should check that our pages are paginated correctly', () => {
       // assert that items is equal to no of our pages
       expect(wrapper.find('Pagination').props().items).toBe(pages);
     });

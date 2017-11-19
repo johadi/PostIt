@@ -2,18 +2,22 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
-import IndexHeader from '../headers/IndexHeader.jsx';
 import { resetPasswordAction } from '../../actions/auth/passwordAction';
-import FormField from './ResetPasswordFormField.jsx';
-import ErrorComponent from '../ErrorComponent.jsx';
+import FormField from './FormField';
+import ErrorComponent from '../ErrorComponent';
+import { IndexHeader } from '../headers';
+import { IndexFooter } from '../footers';
 
 /**
  * ResetPasswordPage class declaration
+ * @class ResetPasswordPage
+ * @extends {React.Component}
  */
-class ResetPasswordPage extends React.Component {
+export class ResetPasswordPage extends React.Component {
   /**
-   * class cpnstructor
+   * class constructor
    * @param {object} props
+   * @memberOf ResetPasswordPage
    */
   constructor(props) {
     super(props);
@@ -25,29 +29,30 @@ class ResetPasswordPage extends React.Component {
     };
   }
   /**
-   * handles submit
-   * @param {object} e
+   * Handles submit
+   * @method handleSubmit
+   * @param {object} event - event
    * @return {void} void
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.resetPasswordAction(this.props.location.query.token,
       this.state.user);
   }
   /**
-   * handles change
-   * @param {object} e
+   * Handles change
+   * @method handleChange
+   * @param {object} event - event
    * @return {void} void
    */
-  handleChange(e) {
+  handleChange(event) {
     const user = this.state.user;
-    user[e.target.name] = e.target.value;
+    user[event.target.name] = event.target.value;
     this.setState({ user });
   }
   /**
-   * renders component
-   * @param {object} e
-   * @return {void} void
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     return (
@@ -56,11 +61,10 @@ class ResetPasswordPage extends React.Component {
           <div className="site-wrapper-inner">
             <div className="cover-container">
               <IndexHeader/>
-              <div className="inner cover"
-                   style={{ opacity: 0.8, backgroundColor: 'whitesmoke' }}>
+              <div className="inner cover cover-div">
                 <h2 className="cover-heading text-signup">Reset Password for PostIt</h2>
                 <div className="row">
-                  <form onSubmit={e => this.handleSubmit(e)}
+                  <form onSubmit={event => this.handleSubmit(event)}
                         role="form" className="form-horizontal">
                     { this.props.resetState.resetFails ?
                       <ErrorComponent fails={this.props.resetState.resetFails} /> : null
@@ -76,16 +80,20 @@ class ResetPasswordPage extends React.Component {
                     <div className="col-lg-offset-2 col-lg-8">
                       <FormField type="password"
                                  errors={this.props.resetState.resetErrors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.password}
                                  name="password"
-                                 placeholder="Password"/>
+                                 placeholder="Password"
+                                 auth="any"
+                      />
                       <FormField type="password"
                                  errors={this.props.resetState.resetErrors}
-                                 onChange={e => this.handleChange(e)}
+                                 onChange={event => this.handleChange(event)}
                                  value={this.state.user.confirmPassword}
                                  name="confirmPassword"
-                                 placeholder="Confirm password"/>
+                                 placeholder="Confirm password"
+                                 auth="any"
+                      />
                     </div>
                     <div className="col-lg-offset-2 col-lg-8">
                       <div className="form-group lead">
@@ -100,11 +108,7 @@ class ResetPasswordPage extends React.Component {
                 </div>
 
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Designed by Johadi</p>
-                </div>
-              </div>
+              <IndexFooter/>
             </div>
           </div>
         </div>

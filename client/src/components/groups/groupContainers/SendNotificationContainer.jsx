@@ -3,15 +3,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { getGroupUsers } from '../../../actions/group/groupActions';
+import Page from '../Page';
 
-import NullPage from '../NullPage.jsx';
-import SendNotificationPage from '../SendNotificationPage.jsx';
+import NullComponent from '../NullComponent';
+import SendNotification from '../SendNotification';
 
 /**
  * SendNotificationContainer class declaration
+ * @class SendNotificationContainer
+ * @extends {React.Component}
  */
 class SendNotificationContainer extends React.Component {
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -19,15 +23,18 @@ class SendNotificationContainer extends React.Component {
   }
 
   /**
-   * renders the component
-   * @return {XML} XML
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { groupUsersStore } = this.props.groupState;
     return this.props.tokenStatus.success && groupUsersStore ?
-      <SendNotificationPage
-        groupUsers={groupUsersStore}
-        groupId={this.props.params.groupId}/> : <NullPage/>;
+      <Page groupId={this.props.params.groupId}>
+        <SendNotification
+          name={groupUsersStore.name}
+          groupId={this.props.params.groupId}
+        />
+      </Page> : <NullComponent/>;
   }
 }
 SendNotificationContainer.propTypes = {

@@ -4,15 +4,18 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
 import { Pagination } from 'react-bootstrap';
-import { getUserGroups, getUserGroupsPaginated } from '../../actions/group/groupActions';
+import { getUserGroups } from '../../actions/group/groupActions';
 
 /**
  * GroupsContainer class declaration
+ * @class GroupsContainer
+ * @extends {React.Component}
  */
 export class AllGroups extends React.Component {
   /**
    * class constructor
    * @param {object} props
+   * @memberOf GroupsContainer
    */
   constructor(props) {
     super(props);
@@ -20,37 +23,42 @@ export class AllGroups extends React.Component {
       activePage: 1
     };
   }
-
   /**
    * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
-    this.props.getUserGroups();
+    this.props.getUserGroups(1);
   }
-
   /**
+   * Handles Select for pagination buttons
+   * @method handleSelect
+   * @param {number} paginationNumber
    * @return {void} void
-   * @param {number} eventKey
    */
-  handleSelect(eventKey) {
-    this.setState({ activePage: eventKey });
-    this.props.getUserGroupsPaginated(eventKey);
+  handleSelect(paginationNumber) {
+    this.setState({ activePage: paginationNumber });
+    this.props.getUserGroups(paginationNumber);
   }
 
   /**
-   * renders the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
-    const { pages, count, groups } = this.props.userGroupsPagination;
+    const { metaData, groups } = this.props.userGroups;
+    const { totalCount, totalPages } = metaData;
+
     return (
-        <div className="col-md-12" id="message-board-div">
-          <h2>Your Groups</h2>
+        <div className="col-md-12 yo" id="message-board-div">
+          <h3>Your Groups</h3>
           <p className="text-display"><strong className="group-count">
-            Total groups you joined: {count}</strong></p>
+            Total groups you joined: {totalCount}</strong></p>
           <hr/>
           <div className="list-group">
             {groups.map(userGroup => (
+                !!userGroup.Group &&
                 <Link to={`/group/${userGroup.Group.id}/board`}
                       key={userGroup.Group.id} className="group-div list-group-item">
                   <h5 className="list-group-item-heading">{userGroup.Group.name}</h5>
@@ -58,7 +66,7 @@ export class AllGroups extends React.Component {
             ))}
           </div>
           <hr/>
-          {pages <= 1 ? null :
+          {totalPages <= 1 ? null :
               <Pagination
               prev
               next
@@ -66,10 +74,10 @@ export class AllGroups extends React.Component {
               last
               ellipsis
               boundaryLinks
-              items={pages}
+              items={totalPages}
               maxButtons={10}
               activePage={this.state.activePage}
-              onSelect={e => this.handleSelect(e)}
+              onSelect={event => this.handleSelect(event)}
           />
           }
         </div>
@@ -79,13 +87,12 @@ export class AllGroups extends React.Component {
 AllGroups.propTypes = {
   groupState: PropTypes.object.isRequired,
   getUserGroups: PropTypes.func.isRequired,
-  getUserGroupsPaginated: PropTypes.func.isRequired,
-  userGroupsPagination: PropTypes.object.isRequired
+  userGroups: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getUserGroups, getUserGroupsPaginated }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getUserGroups }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AllGroups);
 

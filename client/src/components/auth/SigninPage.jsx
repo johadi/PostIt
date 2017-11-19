@@ -3,19 +3,22 @@ import { Link, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import IndexHeader from '../headers/IndexHeader.jsx';
-import { signinAction } from '../../actions/auth/signinAction';
-import FormField from './SignInFormField.jsx';
-import ErrorComponent from '../ErrorComponent.jsx';
+import signinAction from '../../actions/auth/signinAction';
+import FormField from './FormField';
+import ErrorComponent from '../ErrorComponent';
+import { IndexHeader } from '../headers';
+import { IndexFooter } from '../footers';
 
 /**
- * Signin class declaration
+ * SigninPage class declaration
+ * @class SigninPage
+ * @extends {React.Component}
  */
 export class SigninPage extends React.Component {
   /**
    * Component constructor
    * @param {object} props
-   * @return {void} void
+   * @memberOf SigninPage
    */
   constructor(props) {
     super(props);
@@ -28,6 +31,7 @@ export class SigninPage extends React.Component {
   }
 
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -36,26 +40,28 @@ export class SigninPage extends React.Component {
     }
   }
   /**
-   * handle submit
-   * @param {e} e
+   * Handle submit
+   * @method handleSubmit
+   * @param {object} event - event
    * @return {void} void
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.signinAction(this.state.credentials);
   }
   /**
-   * handle change
-   * @param {e} e
+   * Handle change
+   * @method handleChange
+   * @param {event} event - event
    * @return {void} void
    */
-  handleChange(e) {
+  handleChange(event) {
     const credentials = this.state.credentials;
-    credentials[e.target.name] = e.target.value;
+    credentials[event.target.name] = event.target.value;
     this.setState({ credentials });
   }
   /**
-   * renders component
+   * Renders component
    * @return {XML} JSX
    */
   render() {
@@ -72,7 +78,7 @@ export class SigninPage extends React.Component {
                 <p className="lead">
                   Share your moment with colleagues and friends.
                 </p>
-                <form onSubmit={e => this.handleSubmit(e)}
+                <form onSubmit={event => this.handleSubmit(event)}
                       className="form-horizontal" role="form">
                   { this.props.signinState.fails ?
                     <ErrorComponent
@@ -81,16 +87,20 @@ export class SigninPage extends React.Component {
                     /> : null
                   }
                   <FormField errors={this.props.signinState.errors}
-                             onChange={e => this.handleChange(e)}
+                             onChange={event => this.handleChange(event)}
                              value={this.state.credentials.username}
                              name="username"
-                             placeholder="Username"/>
+                             placeholder="Username"
+                             auth="signin"
+                  />
                   <FormField type="password"
                              errors={this.props.signinState.errors}
-                             onChange={e => this.handleChange(e)}
+                             onChange={event => this.handleChange(event)}
                              value={this.state.credentials.password}
                              name="password"
-                             placeholder="Password"/>
+                             placeholder="Password"
+                             auth="signin"
+                  />
                   <div className="form-group lead">
                     <div className="col-lg-offset-2
                     col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-2 col-sm-8">
@@ -117,12 +127,7 @@ export class SigninPage extends React.Component {
                   </div>
                 </form>
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Designed by Johadi</p>
-                </div>
-              </div>
-
+              <IndexFooter/>
             </div>
 
           </div>

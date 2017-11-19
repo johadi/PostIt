@@ -2,42 +2,47 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getBoardMessagesPaginated } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
-import DashboardPage from '../DashboardPage.jsx';
+import { getBoardMessages } from '../../../actions/group/groupActions';
+import NullComponent from '../NullComponent';
+import MessageBoard from '../MessageBoard';
+import Page from '../Page';
 
 /**
  * DashboardContainer class declaration
+ * @class DashboardContainer
+ * @extends {React.Component}
  */
 class DashboardContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
-    this.props.getBoardMessagesPaginated();
+    this.props.getBoardMessages();
   }
 
   /**
    * Renders component
-   * @return {XML} XML
+   * @return {XML} JSX
    */
   render() {
-    const { boardMessagesPaginated } = this.props.groupState;
-    return this.props.tokenStatus.success && boardMessagesPaginated ?
-        <DashboardPage
-          boardMessagesPagination={boardMessagesPaginated}/> : <NullPage/>;
+    const { boardMessagesStore } = this.props.groupState;
+    return this.props.tokenStatus.success && boardMessagesStore ?
+      <Page>
+        <MessageBoard boardMessages={boardMessagesStore}/>
+      </Page> : <NullComponent/>;
   }
 }
 DashboardContainer.propTypes = {
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
-  getBoardMessagesPaginated: PropTypes.func.isRequired
+  getBoardMessages: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   tokenStatus: state.verifyTokenReducer,
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getBoardMessagesPaginated }, dispatch);
+  getBoardMessages }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
 

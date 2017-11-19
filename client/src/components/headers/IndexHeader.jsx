@@ -1,15 +1,21 @@
 import React from 'react';
 import { IndexLink, Link } from 'react-router';
 
-const IndexHeader = props => (
-    <div className="masthead clearfix">
+/**
+ * Index header component
+ * @function IndexHeader
+ * @param {object} props
+ * @return {XML} JSX
+ */
+const IndexHeader = () => (
+    <div className="masthead">
       <div className="inner">
         <h2 className="masthead-brand">PostIt</h2>
         <nav>
           <ul className="nav masthead-nav">
-            <li className="active"><IndexLink to="/">Home</IndexLink></li>
-            <li><Link to="/signin">Login</Link></li>
-            <li><Link to="/signup">Sign up</Link></li>
+            <li><IndexLink activeClassName = "index-active" to="/">Home</IndexLink></li>
+            <li><Link activeClassName = "index-active" to="/signin">Login</Link></li>
+            <li><Link activeClassName = "index-active" to="/signup">Sign up</Link></li>
           </ul>
         </nav>
       </div>

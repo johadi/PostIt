@@ -3,7 +3,7 @@ import React from 'react';
 import expect from 'expect';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { CreateGroup } from '../../../src/components/groups/CreateGroup.jsx';
+import { CreateGroup } from '../../../src/components/groups/CreateGroup';
 
 
 describe('<CreateGroup/>', () => {
@@ -16,14 +16,17 @@ describe('<CreateGroup/>', () => {
     createGroup
   };
   const wrapper = mount(<CreateGroup { ...props} />);
-  it('should check if component contains form input for group name', () => {
+
+  it('should check that there is a text field with group name', () => {
     expect(wrapper.find('input').first().props().name).toBe('name');
   });
-  it('Should check if a form has a button of type submit', () => {
+
+  it('Should check that there is a create group submit button', () => {
     expect(wrapper.find('button').text()).toBe('Create group');
     expect(wrapper.find('button').props().type).toBe('submit');
   });
-  it('Should check if handleCreateGroup is called when form is submitted', () => {
+
+  it('Should check that handleCreateGroup is called when form is submitted', () => {
     wrapper.find('form').simulate('submit'); // trigger an event by form
     // handleCreateGroup is called
     expect(CreateGroup.prototype.handleCreateGroup.calledOnce).toBe(true);

@@ -2,18 +2,22 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import IndexHeader from '../headers/IndexHeader.jsx';
 import { recoverPasswordAction } from '../../actions/auth/passwordAction';
-import FormField from './RecoverPasswordFormField.jsx';
-import ErrorComponent from '../ErrorComponent.jsx';
+import FormField from './FormField';
+import ErrorComponent from '../ErrorComponent';
+import { IndexHeader } from '../headers';
+import { IndexFooter } from '../footers';
 
 /**
  * RecoverPasswordPage class declaration
+ * @class RecoverPasswordPage
+ * @extends {React.Component}
  */
-class RecoverPasswordPage extends React.Component {
+export class RecoverPasswordPage extends React.Component {
   /**
-   * class constructor
+   * Class constructor
    * @param {object} props
+   * @memberOf RecoverPasswordPage
    */
   constructor(props) {
     super(props);
@@ -25,28 +29,29 @@ class RecoverPasswordPage extends React.Component {
   }
 
   /**
-   * handles submit
-   * @param {object} e
-   * @return {void} void
+   * Handles submit
+   * @method handleSubmit
+   * @param {object} event - event
+   * @return {void}
    */
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.props.recoverPasswordAction(this.state.user);
   }
   /**
-   * handles change
-   * @param {object} e
-   * @return {void} void
+   * Handles change
+   * @method handleChange
+   * @param {object} event - event
+   * @return {void}
    */
-  handleChange(e) {
+  handleChange(event) {
     const user = this.state.user;
-    user[e.target.name] = e.target.value;
+    user[event.target.name] = event.target.value;
     this.setState({ user });
   }
   /**
-   * renders component
-   * @param {object} e
-   * @return {void} void
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     return (
@@ -55,11 +60,10 @@ class RecoverPasswordPage extends React.Component {
           <div className="site-wrapper-inner">
             <div className="cover-container">
               <IndexHeader/>
-              <div className="inner cover col-sm-offset-1 col-sm-10" style={{ opacity: 0.8,
-                backgroundColor: 'whitesmoke' }}>
+              <div className="inner cover col-sm-offset-1 col-sm-10 cover-div">
                 <h2 className="cover-heading text-signup">Recover Password for PostIt</h2>
                 <div className="row">
-                  <form onSubmit={e => this.handleSubmit(e)}
+                  <form onSubmit={event => this.handleSubmit(event)}
                         role="form" className="form-horizontal">
                     { this.props.recoveryState.fails ?
                       <ErrorComponent fails={this.props.recoveryState.fails} /> : null }
@@ -72,10 +76,15 @@ class RecoverPasswordPage extends React.Component {
                         { this.props.recoveryState.message }
                       </div>}
                     <div className="col-lg-offset-2 col-lg-8">
-                      <FormField type="email" errors={this.props.recoveryState.errors}
-                                 onChange={e => this.handleChange(e)}
-                                 value={this.state.user.email} name="email"
-                                 placeholder="Enter email you used for registration"/>
+                      <FormField
+                        type="email"
+                        errors={this.props.recoveryState.errors}
+                        onChange={event => this.handleChange(event)}
+                        value={this.state.user.email}
+                        name="email"
+                        placeholder="Enter email you used for registration"
+                        auth="any"
+                      />
                     </div>
                     <div className="col-lg-offset-2 col-lg-8">
                       <div className="form-group lead">
@@ -90,11 +99,7 @@ class RecoverPasswordPage extends React.Component {
                 </div>
 
               </div>
-              <div className="mastfoot">
-                <div className="inner">
-                  <p>Designed by Johadi</p>
-                </div>
-              </div>
+              <IndexFooter/>
             </div>
           </div>
         </div>

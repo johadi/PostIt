@@ -7,52 +7,55 @@ const initialState = {
   postMessageErr: null,
   groupMessagesErr: null,
   groupMessages: null,
-  groupViewMessage: null, // hold a single message detail for view
+  groupViewMessage: null,
   groupViewMessageErr: null,
   groupUsersStore: null,
   groupUsersError: null,
-  groupUsersPaginated: null,
-  groupUsersPaginatedErr: null,
-  groupsUserBelongs: null,
-  groupsUserBelongsErr: null,
-  userGroupsPaginated: null,
-  userGroupsPaginatedErr: null,
-  boardMessagesPaginated: null,
-  boardMessagesPaginatedErr: null,
+  userGroupsStore: null,
+  userGroupsError: null,
+  boardMessagesStore: null,
+  boardMessagesError: null,
   usersSearch: null,
   usersSearchErr: null,
   messageRead: false,
   messageReadErr: null
 };
+/**
+ * Reducer function for group related operations
+ * @function groupReducer
+ * @param {object} state
+ * @param {object} action
+ * @return {object} state - the new state
+ */
 const groupReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GROUP_CREATE_SUCCESSFUL:
+    case actionTypes.CREATE_GROUP_SUCCESS:
       state = {
         ...state,
         error: null
       };
       break;
-    case actionTypes.GROUP_CREATE_ERROR:
+    case actionTypes.CREATE_GROUP_ERROR:
       state = {
         ...state,
         error: action.payload
       };
       break;
-    case actionTypes.GROUP_ADD_USER_SUCCESSFUL:
+    case actionTypes.ADD_USER_SUCCESSFUL:
       state = {
         ...state,
         addUserErr: null,
         addUserSuccess: true
       };
       break;
-    case actionTypes.GROUP_ADD_USER_ERROR:
+    case actionTypes.ADD_USER_ERROR:
       state = {
         ...state,
         addUserSuccess: false,
         addUserErr: action.payload
       };
       break;
-    case actionTypes.ADD_USER_TO_GROUP_CLEAR:
+    case actionTypes.CLEAR_ADD_USER_ERROR:
       state = {
         ...state,
         addUserSuccess: false,
@@ -92,7 +95,7 @@ const groupReducer = (state = initialState, action) => {
         groupMessagesErr: action.payload
       };
       break;
-    case actionTypes.GET_GROUP_MESSAGES_CLEAR:
+    case actionTypes.CLEAR_GROUP_MESSAGES_ERROR:
       state = {
         ...state,
         groupMessages: null,
@@ -139,88 +142,53 @@ const groupReducer = (state = initialState, action) => {
         groupUsersError: null
       };
       break;
-    case actionTypes.GROUP_USERS_PAGINATED_SUCCESS:
+    case actionTypes.GROUP_USERS_SUCCESS:
       state = {
         ...state,
-        groupUsersPaginated: action.payload,
-        groupUsersPaginatedErr: null
+        groupUsersStore: action.payload,
+        groupUsersError: null
       };
       break;
-    case actionTypes.GROUP_USERS_PAGINATED_ERROR:
+    case actionTypes.GROUP_USERS_ERROR:
       state = {
         ...state,
-        groupUsersPaginated: null,
-        groupUsersPaginatedErr: action.payload
+        groupUsersStore: null,
+        groupUsersError: action.payload
       };
       break;
-    case actionTypes.GROUP_USERS_PAGINATED_CLEAR:
+    case actionTypes.USER_GROUPS_SUCCESS:
       state = {
         ...state,
-        groupUsersPaginated: null,
-        groupUsersPaginatedErr: null
+        userGroupsStore: action.payload,
+        userGroupsError: null
       };
       break;
-    case actionTypes.GET_USER_GROUPS_SUCCESS:
+    case actionTypes.USER_GROUPS_ERROR:
       state = {
         ...state,
-        groupsUserBelongs: action.payload,
-        groupsUserBelongsErr: null
+        userGroupsStore: null,
+        userGroupsError: action.payload
       };
       break;
-    case actionTypes.GET_USER_GROUPS_ERROR:
+    case actionTypes.BOARD_MESSAGES_SUCCESS:
       state = {
         ...state,
-        groupsUserBelongs: null,
-        groupsUserBelongsErr: action.payload
+        boardMessagesStore: action.payload,
+        boardMessagesError: null
       };
       break;
-    case actionTypes.GET_USER_GROUPS_CLEAR:
+    case actionTypes.BOARD_MESSAGES_ERROR:
       state = {
         ...state,
-        groupsUserBelongs: null,
-        groupsUserBelongsErr: null
-      };
-      break;
-    case actionTypes.USER_GROUPS_PAGINATED_SUCCESS:
-      state = {
-        ...state,
-        userGroupsPaginated: action.payload,
-        userGroupsPaginatedErr: null
-      };
-      break;
-    case actionTypes.USER_GROUPS_PAGINATED_ERROR:
-      state = {
-        ...state,
-        userGroupsPaginated: null,
-        userGroupsPaginatedErr: action.payload
-      };
-      break;
-    case actionTypes.USER_GROUPS_PAGINATED_CLEAR:
-      state = {
-        ...state,
-        userGroupsPaginated: null,
-        userGroupsPaginatedErr: null
-      };
-      break;
-    case actionTypes.GET_BOARD_MESSAGES_SUCCESS:
-      state = {
-        ...state,
-        boardMessagesPaginated: action.payload,
-        boardMessagesPaginatedErr: null
-      };
-      break;
-    case actionTypes.GET_BOARD_MESSAGES_ERROR:
-      state = {
-        ...state,
-        boardMessagesPaginated: null,
-        boardMessagesPaginatedErr: action.payload
+        boardMessagesStore: null,
+        boardMessagesError: action.payload
       };
       break;
     case actionTypes.CLEAR_BOARD_MESSAGES_ERROR:
       state = {
         ...state,
-        boardMessagesPaginated: null,
-        boardMessagesPaginatedErr: null
+        boardMessagesStore: null,
+        boardMessagesError: null
       };
       break;
     case actionTypes.USERS_SEARCH_SUCCESSFUL:
@@ -237,7 +205,7 @@ const groupReducer = (state = initialState, action) => {
         usersSearchErr: action.payload
       };
       break;
-    case actionTypes.CLEAR_USERS_SEARCH_ERROR:
+    case actionTypes.CLEAR_USERS_SEARCH:
       state = {
         ...state,
         usersSearch: null,

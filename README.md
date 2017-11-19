@@ -54,7 +54,7 @@
   * Users cannot add themselves to other groups they don't belong. They can only be added by other registered users that are already member of the group.
   
 ## API Documentation Links
-- Access the API Documentation at [https://jimoh-postit.herokuapp.com/api-docs/](https://jimoh-postit.herokuapp.com/apidoc/)
+- Access the API Documentation at [https://jimoh-postit.herokuapp.com/api-docs/](https://jimoh-postit.herokuapp.com/api-docs/)
 
 ## Want to Contribute ?
   * Fork the repository

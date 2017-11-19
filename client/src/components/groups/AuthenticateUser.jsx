@@ -2,15 +2,18 @@ import React from 'react';
 import PropTypes from 'react-proptypes';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { verifyToken } from '../../actions/verifyTokenAction';
-import NullPage from './NullPage.jsx';
+import verifyToken from '../../actions/verifyTokenAction';
+import NullComponent from './NullComponent';
 
 /**
  * AuthenticateUser class declaration
+ * @class AuthenticateUser
+ * @extends {React.Component}
  */
 class AuthenticateUser extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.verifyToken();
@@ -18,11 +21,11 @@ class AuthenticateUser extends React.Component {
 
   /**
    * renders component
-   * @return {XML} XML
+   * @return {XML} JSX
    */
   render() {
     return this.props.tokenStatus.success ?
-      this.props.children : <NullPage/>;
+      this.props.children : <NullComponent/>;
   }
 }
 AuthenticateUser.propTypes = {

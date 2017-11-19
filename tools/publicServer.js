@@ -1,21 +1,30 @@
-const express = require('express');
-const path = require('path');
-const compression = require('compression');
-const favicon = require('serve-favicon');
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const apiRoutes = require('../server/routes/index');
+import express from 'express';
+import path from 'path';
+import compression from 'compression';
+import favicon from 'serve-favicon';
+import bodyParser from 'body-parser';
+import morganLogger from 'morgan';
+import winston from 'winston';
+import dotenv from 'dotenv';
+import apiRoutes from '../server/routes/index';
 
+dotenv.config();
 const port = process.env.PORT || 3000;
 const app = express();
+// Create winston logger
+const logger = new (winston.Logger)({
+  transports: [
+    new (winston.transports.Console)({ colorize: true })
+  ]
+});
 
-app.use(logger('dev'));
+app.use(morganLogger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
-app.use('/apidoc', express.static('public/apidoc'));
+app.use(express.static('public'));
 app.use(express.static('production'));
-app.use(favicon(path.join(__dirname, 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'favicon2.ico')));
 apiRoutes(app);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../production/index.html'));
@@ -23,9 +32,7 @@ app.get('*', (req, res) => {
 
 app.listen(port, (err) => {
   if (err) {
-    // uncomment to see error message
-    // return console.log(err);
+    return logger.error(err);
   }
-  // Uncomment to see app running message
-  // console.log('app running on port', port);
+  logger.info('app running on port', port);
 });

@@ -2,6 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'react-proptypes';
 
+/**
+ * Error component
+ * @function ErrorComponent
+ * @param {object} props
+ * @return {XML} JSX
+ */
 const ErrorComponent = props => (
      <div id='error'
           className={classnames('alert alert-danger alert-dismissible',

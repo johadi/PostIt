@@ -6,18 +6,18 @@ import PropTypes from 'react-proptypes';
 import jwtDecode from 'jwt-decode';
 import Moment from 'react-moment';
 import { Pagination } from 'react-bootstrap';
-import {
-  getUserGroups,
-  getBoardMessagesPaginated } from '../../actions/group/groupActions';
+import { getBoardMessages } from '../../actions/group/groupActions';
 
 /**
  * MessageBoard class declaration
+ * @class MessageBoard
+ * @extends {React.Component}
  */
 export class MessageBoard extends React.Component {
   /**
    * class constructor
-   * @return {void} void
    * @param {object} props
+   * @memberOf MessageBoard
    */
   constructor(props) {
     super(props);
@@ -34,27 +34,21 @@ export class MessageBoard extends React.Component {
     };
     this.userDetail = jwtDecode(window.sessionStorage.token);
   }
-
   /**
+   * Handle select for pagination
+   * @method handleSelect
    * @return {void} void
+   * @param {number} paginationNumber
    */
-  componentDidMount() {
-    this.props.getUserGroups();
+  handleSelect(paginationNumber) {
+    this.setState({ activePage: paginationNumber });
+    this.props.getBoardMessages(paginationNumber);
   }
 
   /**
-   * handle select for pagination
-   * @return {void} void
-   * @param {number} eventKey
-   */
-  handleSelect(eventKey) {
-    this.setState({ activePage: eventKey });
-    this.props.getBoardMessagesPaginated(eventKey);
-  }
-
-  /**
-   * Perform time calculation
-   * @param {date} date
+   * Performs time calculation for message
+   * @method showTime
+   * @param {string} date
    * @return {number} number
    */
   showTime(date) {
@@ -64,33 +58,34 @@ export class MessageBoard extends React.Component {
   }
 
   /**
-   * render the component
-   * @return {XML} XML/JSX
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
-    const { messages, pages, count } = this.props.boardMessagesPagination;
+    const { messages, metaData } = this.props.boardMessages;
+    const { totalCount, totalPages } = metaData;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2><strong>Notification board</strong></h2>
-          <small style={{ color: 'red' }}>{count === 1 ?
-            `(${count}) notification` :
-            `(${count}) notifications`} you have not read</small>
+          <h3><strong>Notification board</strong></h3>
+          <small className="text-red">{totalCount === 1 ?
+            `(${totalCount}) notification` :
+            `(${totalCount}) notifications`} you have not read</small>
           <hr/>
           {
             messages.map((message) => {
-              let priority = <span style={{ backgroundColor: 'green' }}
-                                   className="badge text-capitalize">
+              let priority = <span
+                className="badge text-capitalize notification-normal">
                 {message.priority}
                 </span>;
               if (message.priority === 'urgent') {
-                priority = <span style={{ backgroundColor: 'orange' }}
-                                 className="badge text-capitalize">
+                priority = <span
+                  className="badge text-capitalize notification-urgent">
                   {message.priority}
                   </span>;
               }
               if (message.priority === 'critical') {
-                priority = <span style={{ backgroundColor: 'darkred' }}
-                                 className="badge text-capitalize">
+                priority = <span
+                  className="badge text-capitalize notification-critical">
                   {message.priority}
                   </span>;
               }
@@ -127,7 +122,7 @@ export class MessageBoard extends React.Component {
               );
             })
           }
-          {pages <= 1 ? null :
+          {totalPages <= 1 ? null :
               <Pagination
                   prev
                   next
@@ -135,14 +130,14 @@ export class MessageBoard extends React.Component {
                   last
                   ellipsis
                   boundaryLinks
-                  items={pages}
+                  items={totalPages}
                   maxButtons={10}
                   activePage={this.state.activePage}
-                  onSelect={e => this.handleSelect(e)}
+                  onSelect={event => this.handleSelect(event)}
               />
           }
           {
-            count === 0 ? <p className="no-message">
+            totalCount === 0 ? <p className="no-message">
               You have no unread notifications yet. Only
               notifications you have not read are shown here.</p> : null
           }
@@ -151,14 +146,11 @@ export class MessageBoard extends React.Component {
   }
 }
 MessageBoard.propTypes = {
-  getUserGroups: PropTypes.func.isRequired,
-  getBoardMessagesPaginated: PropTypes.func.isRequired,
-  boardMessagesPagination: PropTypes.object.isRequired
+  getBoardMessages: PropTypes.func.isRequired,
+  boardMessages: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getUserGroups,
-  getBoardMessagesPaginated }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getBoardMessages }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(MessageBoard);

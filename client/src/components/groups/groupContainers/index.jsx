@@ -1,14 +1,14 @@
-import DashboardContainer from './DashboardContainer.jsx';
-import NotificationViewContainer from './NotificationViewContainer.jsx';
-import SendNotificationContainer from './SendNotificationContainer.jsx';
-import GroupBoardContainer from './GroupBoardContainer.jsx';
-import CreateGroupContainer from './CreateGroupContainer.jsx';
-import AddUserGroupContainer from './AddUserGroupContainer.jsx';
-import GroupsContainer from './GroupsContainer.jsx';
-import GroupUsersContainer from './GroupUsersContainer.jsx';
-import AuthenticateUser from '../AuthenticateUser.jsx';
+import DashboardContainer from './DashboardContainer';
+import NotificationViewContainer from './NotificationViewContainer';
+import SendNotificationContainer from './SendNotificationContainer';
+import GroupBoardContainer from './GroupBoardContainer';
+import CreateGroupContainer from './CreateGroupContainer';
+import AddUserGroupContainer from './AddUserGroupContainer';
+import GroupsContainer from './GroupsContainer';
+import GroupUsersContainer from './GroupUsersContainer';
+import AuthenticateUser from '../AuthenticateUser';
 
-export default {
+export {
   DashboardContainer,
   NotificationViewContainer,
   SendNotificationContainer,

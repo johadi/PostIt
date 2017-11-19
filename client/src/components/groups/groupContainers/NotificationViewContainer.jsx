@@ -6,14 +6,18 @@ import {
   getGroupUsers,
   viewMessage,
   clearViewMessageError } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
-import NotificationViewPage from '../NotificationViewPage.jsx';
+import NullComponent from '../NullComponent';
+import Page from '../Page';
+import Notification from '../Notification';
 
 /**
  * NotificationViewContainer class declaration
+ * @class NotificationViewContainer
+ * @extends {React.Component}
  */
 class NotificationViewContainer extends React.Component {
   /**
+   * @method componentWillMount
    * @return {void} void
    */
   componentWillMount() {
@@ -23,6 +27,7 @@ class NotificationViewContainer extends React.Component {
   }
 
   /**
+   * @method componentWillUnmount
    * @return {void} void
    */
   componentWillUnmount() {
@@ -30,16 +35,15 @@ class NotificationViewContainer extends React.Component {
   }
 
   /**
-   * renders component
-   * @return {XML} XML/JSX
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
     const { groupViewMessage, groupUsersStore } = this.props.groupState;
     return this.props.tokenStatus.success && groupViewMessage && groupUsersStore ?
-        <NotificationViewPage
-          groupId={this.props.params.groupId}
-          groupUsers={groupUsersStore}
-          message={groupViewMessage}/> : <NullPage/>;
+      <Page groupId={this.props.params.groupId}>
+        <Notification name={groupUsersStore.name} message={groupViewMessage}/>
+      </Page> : <NullComponent/>;
   }
 }
 NotificationViewContainer.propTypes = {

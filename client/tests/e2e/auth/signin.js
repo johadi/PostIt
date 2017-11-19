@@ -3,8 +3,6 @@ import config from '../config';
 
 const username = faker.internet.userName();
 const password = 'andela29';
-const username2 = 'joseph82';
-
 export default {
   before: (browser) => {
     browser
@@ -37,8 +35,8 @@ export default {
       .click('#signin')
       .pause(2000)
       // Remains in the same page since Signup is invalid
-      .waitForElementVisible('#error', 1000)
-      .assert.containsText('#error', 'Incorrect password')
+      .waitForElementVisible('form > .show-error', 1000)
+      .assert.containsText('form > .show-error', 'Incorrect password')
       .assert.urlEquals(`${config.baseUrl}/signin`)
       .end();
   },

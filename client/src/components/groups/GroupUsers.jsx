@@ -4,15 +4,18 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 import { Pagination } from 'react-bootstrap';
-import { getGroupUsersPaginated } from '../../actions/group/groupActions';
+import { getGroupUsers } from '../../actions/group/groupActions';
 
 /**
  * GroupUsers class declaration
+ * @class GroupUsers
+ * @extends {React.Component}
  */
 export class GroupUsers extends React.Component {
   /**
-   * class constructor
+   * Class constructor
    * @param {object} props
+   * @memberOf GroupUsers
    */
   constructor(props) {
     super(props);
@@ -21,25 +24,28 @@ export class GroupUsers extends React.Component {
     };
   }
   /**
+   * Handles select for pagination buttons
+   * @method handleSelect
    * @return {void} void
    * @param {number} eventKey
    */
   handleSelect(eventKey) {
     this.setState({ activePage: eventKey });
-    this.props.getGroupUsersPaginated(this.props.groupId, eventKey);
+    this.props.getGroupUsers(this.props.groupId, eventKey);
   }
 
   /**
-   * renders the component
-   * @return {XML} XML
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
-    const { name, users, count, pages } = this.props.groupUsersPagination;
+    const { name, users, metaData } = this.props.groupUsers;
+    const { totalCount, totalPages } = metaData;
     return (
         <div className="col-md-12" id="message-board-div">
-          <h2 className="text-capitalize">{name} group members</h2>
+          <h3 className="text-capitalize">{name} group members</h3>
           <p className="text-display">
-            <strong>{count} {count === 1 ? 'member' : 'members'}</strong>
+            <strong>{totalCount} {totalCount === 1 ? 'member' : 'members'}</strong>
           </p>
           <hr/>
           <div className="list-group">
@@ -52,7 +58,7 @@ export class GroupUsers extends React.Component {
             ))}
           </div>
           <hr/>
-          {pages <= 1 ? null :
+          {totalPages <= 1 ? null :
               <Pagination
                   prev
                   next
@@ -60,10 +66,10 @@ export class GroupUsers extends React.Component {
                   last
                   ellipsis
                   boundaryLinks
-                  items={pages}
+                  items={totalPages}
                   maxButtons={10}
                   activePage={this.state.activePage}
-                  onSelect={e => this.handleSelect(e)}
+                  onSelect={event => this.handleSelect(event)}
               />
           }
         </div>
@@ -72,14 +78,14 @@ export class GroupUsers extends React.Component {
 }
 GroupUsers.propTypes = {
   groupState: PropTypes.object.isRequired,
-  getGroupUsersPaginated: PropTypes.func.isRequired,
+  getGroupUsers: PropTypes.func.isRequired,
   groupId: PropTypes.string.isRequired,
-  groupUsersPagination: PropTypes.object.isRequired,
+  groupUsers: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupUsersPaginated }, dispatch);
+  getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupUsers);
 

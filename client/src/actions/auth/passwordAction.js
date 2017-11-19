@@ -2,6 +2,12 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import actionTypes from '../actionTypes';
 
+/**
+ * Action creator for password recovery
+ * @function recoverPasswordAction
+ * @param {string} userEmail user's email
+ * @return {void}
+ */
 export const recoverPasswordAction = userEmail =>
   dispatch => axios.post('/api/v1/user/recover-password', userEmail)
     .then((res) => {
@@ -33,6 +39,13 @@ export const recoverPasswordAction = userEmail =>
         });
       }
     });
+/**
+ * Action creator for reset password
+ * @function resetPasswordAction
+ * @param {string} queryParam reset password token sent to user
+ * @param {object} passwordDetail user's new password detail
+ * @return {void}
+ */
 export const resetPasswordAction = (queryParam, passwordDetail) =>
   dispatch => axios.post(`/api/v1/user/reset-password?token=${queryParam}`,
     passwordDetail)

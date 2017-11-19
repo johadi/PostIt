@@ -2,36 +2,42 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'react-proptypes';
-import { getGroupUsersPaginated } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
-import GroupUsersPage from '../GroupUsersPage.jsx';
+import { getGroupUsers } from '../../../actions/group/groupActions';
+import NullComponent from '../NullComponent';
+import GroupUsers from '../GroupUsers';
+import Page from '../Page';
 
 /**
  * GroupUsersContainer class declaration
+ * @class GroupUsersContainer
+ * @extends {React.Component}
  */
 class GroupUsersContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
-    this.props.getGroupUsersPaginated(this.props.params.groupId, 1);
+    this.props.getGroupUsers(this.props.params.groupId, 1);
   }
 
   /**
-   * renders component
-   * @return {XML} XML
+   * Renders component
+   * @return {XML} JSX
    */
   render() {
-    const { groupUsersPaginated } = this.props.groupState;
-    return this.props.tokenStatus.success && groupUsersPaginated ?
-        <GroupUsersPage
-          groupUsersPagination={groupUsersPaginated}
+    const { groupUsersStore } = this.props.groupState;
+    return this.props.tokenStatus.success && groupUsersStore ?
+      <Page groupId={ this.props.params.groupId}>
+        <GroupUsers
+          groupUsers={groupUsersStore}
           groupId={this.props.params.groupId}
-        /> : <NullPage/>;
+        />
+      </Page> : <NullComponent/>;
   }
 }
 GroupUsersContainer.propTypes = {
-  getGroupUsersPaginated: PropTypes.func.isRequired,
+  getGroupUsers: PropTypes.func.isRequired,
   groupState: PropTypes.object.isRequired,
   tokenStatus: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired
@@ -41,6 +47,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupUsersPaginated }, dispatch);
+  getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupUsersContainer);
 

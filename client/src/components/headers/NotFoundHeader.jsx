@@ -1,6 +1,12 @@
 import React from 'react';
 
-const NotFoundHeader = props => (
+/**
+ * Not Found header component
+ * @function NotFoundHeader
+ * @param {object} props
+ * @return {XML} JSX
+ */
+const NotFoundHeader = () => (
     <nav className="navbar navbar-inverse navbar-fixed-top"
          role="navigation" id="error404-header">
       <div className="navbar-header">

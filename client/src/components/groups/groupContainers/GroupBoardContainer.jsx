@@ -5,30 +5,38 @@ import PropTypes from 'react-proptypes';
 import {
   getGroupUsers,
   getGroupMessages,
-  getGroupMessagesClear } from '../../../actions/group/groupActions';
-import NullPage from '../NullPage.jsx';
-import GroupNotificationBoard from '../GroupNotificationBoardPage.jsx';
+  clearGroupMessagesError } from '../../../actions/group/groupActions';
+import NullComponent from '../NullComponent';
+import GroupBoard from '../GroupBoard';
+import Page from '../Page';
 
 /**
  * GroupBoardContainer class declaration
+ * @class GroupBoardContainer
+ * @extends {React.Component}
  */
 class GroupBoardContainer extends React.Component {
   /**
-   * @return {void} void
+   * @method componentWillMount
+   * @return {void}
    */
   componentWillMount() {
     this.props.getGroupMessages(this.props.params.groupId);
     this.props.getGroupUsers(this.props.params.groupId);
   }
   /**
-   * renders the component
-   * @return {XML} XML
+   * Renders the component
+   * @return {XML} JSX
    */
   render() {
     const { groupUsersStore, groupMessages } = this.props.groupState;
     return this.props.tokenStatus.success && groupMessages && groupUsersStore ?
-        <GroupNotificationBoard groupUsers={groupUsersStore}
-                                groupId={this.props.params.groupId}/> : <NullPage/>;
+      <Page groupId={this.props.params.groupId}>
+        <GroupBoard
+          name={groupUsersStore.name}
+          groupId={this.props.params.groupId}
+        />
+      </Page> : <NullComponent/>;
   }
 }
 GroupBoardContainer.propTypes = {
@@ -43,6 +51,6 @@ const mapStateToProps = state => ({
   groupState: state.groupReducer
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getGroupMessages, getGroupMessagesClear, getGroupUsers }, dispatch);
+  getGroupMessages, clearGroupMessagesError, getGroupUsers }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GroupBoardContainer);
 

@@ -21,11 +21,12 @@ export class CreateGroup extends React.Component {
 
   /**
    * handle create Group
-   * @return {void} void
-   * @param {e} e
+   * @method handleCreateGroup
+   * @return {void}
+   * @param {object} event - event
    */
-  handleCreateGroup(e) {
-    e.preventDefault();
+  handleCreateGroup(event) {
+    event.preventDefault();
     if (this.name.value) {
       // calls action creator to create group
       this.props.createGroup(this.name.value);
@@ -37,13 +38,22 @@ export class CreateGroup extends React.Component {
 
   /**
    * renders the component
-   * @return {XML} XML/JSX
+   * @return {XML} JSX
    */
   render() {
+    const createGroupError = this.props.groupState.error ?
+      <div
+        className='alert alert-danger alert-dismissible text-center'>
+        <button type="button" className="close"
+                data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">x</span>
+        </button>
+        {this.props.groupState.error}
+      </div> : null;
     return (
         <div className="col-sm-offset-2 col-sm-8 well well-lg"
              id="create-group-div">
-          <form onSubmit={e => this.handleCreateGroup(e)}
+          <form onSubmit={event => this.handleCreateGroup(event)}
                 className="form-horizontal" role="form">
             <p className="text-center">
               <strong>Create Your Group and start adding members</strong>
@@ -55,16 +65,7 @@ export class CreateGroup extends React.Component {
                   <span aria-hidden="true">x</span>
                 </button>
                 Group name required
-              </div> :
-                (this.props.groupState.error ?
-                  <div
-                    className='alert alert-danger alert-dismissible text-center'>
-                    <button type="button" className="close"
-                            data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">x</span>
-                    </button>
-                    {this.props.groupState.error}
-                  </div> : null)
+              </div> : createGroupError
             }
             <div className="form-group">
               <div className="col-lg-12">

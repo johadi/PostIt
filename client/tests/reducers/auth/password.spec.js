@@ -1,18 +1,11 @@
 import expect from 'expect';
 import actionTypes from '../../../src/actions/actionTypes';
 import passwordReducer from '../../../src/reducers/auth/passwordReducer';
+import { passwordInitialState } from '../../seeds/reducersSeeder';
 
 describe('passwordReducer', () => {
-  const initialState = {
-    message: null,
-    success: false,
-    errors: null,
-    fails: null,
-    resetMessage: null,
-    resetSuccess: false,
-    resetErrors: null,
-    resetFails: null
-  };
+  // Initial state
+  const initialState = passwordInitialState;
   describe('PASSWORD RECOVERY', () => {
     it('should set welcome to true when Type is RECOVERY_SUCCESSFUL', () => {
       const passwordDispatch = {
@@ -36,6 +29,7 @@ describe('passwordReducer', () => {
       expect(newState.errors).toEqual(passwordDispatch.payload);
       expect(newState.success).toEqual(false);
     });
+
     it('should set value for fails and set success to false when Type ' +
       'is RECOVERY_UNSUCCESSFUL', () => {
       const passwordDispatch = {
@@ -47,6 +41,7 @@ describe('passwordReducer', () => {
       expect(newState.success).toEqual(false);
     });
   });
+
   describe('PASSWORD RESET', () => {
     it('should set welcome to true when Type is RESET_SUCCESSFUL', () => {
       const passwordDispatch = {
@@ -70,6 +65,7 @@ describe('passwordReducer', () => {
       expect(newState.resetErrors).toEqual(passwordDispatch.payload);
       expect(newState.resetSuccess).toEqual(false);
     });
+
     it('should set value for fails and set success to false when Type ' +
       'is RESET_UNSUCCESSFUL', () => {
       const passwordDispatch = {
@@ -81,6 +77,7 @@ describe('passwordReducer', () => {
       expect(newState.resetSuccess).toEqual(false);
     });
   });
+
   it('should return initial state if no action is passed', () => {
     const action = {};
     const newState = passwordReducer(initialState, action);

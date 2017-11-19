@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -103,7 +104,8 @@ if (TARGET === 'build:dev' || !TARGET) {
       }
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new DashboardPlugin()
     ]
   });
 }

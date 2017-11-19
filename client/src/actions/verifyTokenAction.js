@@ -1,16 +1,23 @@
-/* eslint-disable import/prefer-default-export */
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import actionTypes from './actionTypes';
 
-export const verifyToken = () => (dispatch) => {
+/**
+ * Action creator for verifying a user's token
+ * @function verifyToken
+ * @return {void}
+ */
+const verifyTokenAction = () => (dispatch) => {
   if (window.sessionStorage.token) {
     axios.get('/api/v1/verify-token',
       { headers: { 'x-auth': window.sessionStorage.token } })
           .then((res) => {
             if (res.status === 200) {
-              return dispatch({ type: actionTypes.VERIFY_TOKEN,
-                payload: !!window.sessionStorage.token });
+              const payload = {
+                verified: !!window.sessionStorage.token,
+                userDetail: res.data
+              };
+              return dispatch({ type: actionTypes.VERIFY_TOKEN, payload });
             }
             // Remove an invalid token if there exists one
             if (window.sessionStorage.token) {
@@ -35,3 +42,5 @@ export const verifyToken = () => (dispatch) => {
       payload: false });
   }
 };
+
+export default verifyTokenAction;

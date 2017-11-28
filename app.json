@@ -1,0 +1,44 @@
+{
+  "name": "PostIt",
+  "scripts": {
+  },
+  "env": {
+    "API_HOST": {
+      "required": true
+    },
+    "DEV_DB_PASSWORD": {
+      "required": true
+    },
+    "JWT_SECRET": {
+      "required": true
+    },
+    "MAIL_PASSWORD": {
+      "required": true
+    },
+    "MAIL_USERNAME": {
+      "required": true
+    },
+    "TWILIO_ACCOUNT_SID": {
+      "required": true
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "required": true
+    },
+    "TWILIO_FROM_NUMBER": {
+      "required": true
+    },
+    "TWILIO_TO_SAMPLE_NUMBER": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

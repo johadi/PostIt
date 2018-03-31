@@ -50,7 +50,7 @@ This installation guide is for development purpose. For production, check the ne
 ## Installation on production
 This installation guide assumes you are using heroku for your deployment. However, If you are using another platform, you can check the `package.json` and adjust the neccesary scripts to suit your platform.
 
--   Check Heroku deployment guide to Use either of the two ways to deploy the application to heroku. Linke here [Heoku Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) .You could use Heroku CLI or Heroku Dashbaord.
+-   Check Heroku deployment guide to Use either of the two ways to deploy the application to heroku. Linke here [Heroku Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) .You could use Heroku CLI or Heroku Dashbaord.
 -   In either ways you use, ensure you set up your Postgres database and add all the required enviromental variables using the pattern in the `env.sample` file in the project.
 -   The scripts for Heroku to deploy the application has already been set up. All you will likely need is to set up the database, add environmental variables and then push the code to Heroku using Heroku CLI or Connect Heroku to your Github version of this project and the application should be live.
 

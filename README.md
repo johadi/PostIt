@@ -32,7 +32,8 @@
 - [Webpack](https://webpack.js.org/) A JavaScript tool for bundling scripts, images, styles and other assets
 - [Babel](https://babeljs.io/) A JavaScript compiler for converting codes written in ES6 or JSX to ES5 that is supported by many browsers
 
-## Installation
+## Installation on development
+This installation guide is for development purpose. For production, check the next section which is `Installation on production`
 
 -   Install [Node js](https://nodejs.org/en/) and [Postgres](https://www.postgresql.org/) on your machine
 -   Clone the repository `git clone https://github.com/johadi10/postit.git`
@@ -42,7 +43,18 @@
 -   Create a `.env` file in your root directory and follow the pattern in the .env.sample file to create environmental variables
 -   Migrate your database by running this command `sequelize db:migrate`
 -   You can undo your migrations by running this command `sequelize db:migrate:undo:all`.
--   Run `npm start` to start the application
+-   Open a terminal and run `npm run start:dev` to start the application server side.
+-   Open another terminal and run `npm run build:dev` to start the application client side.
+-   Navigate to `localhost:8080` on your browser to open the application
+
+## Installation on production
+This installation guide assumes you are using heroku for your deployment. However, If you are using another platform, you can check the `package.json` and adjust the neccesary scripts to suit your platform.
+
+-   Check Heroku deployment guide to Use either of the two ways to deploy the application to heroku. Linke here [Heoku Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) .You could use Heroku CLI or Heroku Dashbaord.
+-   In either ways you use, ensure you set up your Postgres database and add all the required enviromental variables using the pattern in the `env.sample` file in the project.
+-   The scripts for Heroku to deploy the application has already been set up. All you will likely need is to set up the database, add environmental variables and then push the code to Heroku using Heroku CLI or Connect Heroku to your Github version of this project and the application should be live.
+
+
 
 ## Testing
 -   Use separate DB's for testing and development as shown in the .env.sample file

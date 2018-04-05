@@ -4,5 +4,11 @@
 /*.xml
 /playground
 .env
-server/database/config/config.json
 npm-debug.log
+bin/
+/reports
+screenshots/
+.DS_Store
+/coverage
+/production
+/.nyc_output

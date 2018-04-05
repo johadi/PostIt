@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         unique: false
       },
-      creator_id: {
+      creatorId: {
         type: Sequelize.INTEGER,
         allowNull: false
       },

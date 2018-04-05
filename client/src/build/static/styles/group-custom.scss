@@ -1,0 +1,108 @@
+
+#group-body{
+  margin-top: 70px;
+}
+#create-group-div{
+  height: auto;
+  margin-top: 20px;
+}
+#add-user-div{
+  height: auto;
+  margin-top: 20px;
+}
+#post-message-div{
+  margin-top: 20px;
+}
+#message-board-panel{
+  margin-top: 20px;
+  padding: 0 0 0 0;
+}
+.btn-post{
+  background-color: #19b698 !important;
+  color: #ffffff;
+}
+.navy-header, .navy-header:hover{
+  color: #19b698
+}
+.navy-header {
+  cursor: default !important;
+}
+a,
+a:focus,
+a:hover {
+  color: #19b698;
+}
+
+.main-header, .navbar-nav> li> a:focus, .navbar-nav> li> a:hover {
+  color: #fff !important;
+  background-color: #080808 !important;
+}
+.navbar-nav> li> a:hover {
+  color: #ffffff !important;
+}
+.text-overflow {
+  white-space: nowrap;
+  width: 45em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
+.text-display{
+  color: #19b698 !important;
+}
+.text-white{
+  color: #ffffff !important;
+}
+.profile-header {
+  background-color: #e9e9e9 !important;
+  color: black;
+  border-color: lightgray !important;
+  margin-bottom: 0 !important;
+}
+.profile {
+  color: black !important;
+}
+.profile-items-header {
+  margin-bottom: 7px !important;
+}
+.profile-items {
+  margin-top: 0 !important;
+}
+@media (min-width: 1170px) {
+  .side-bar{
+    height: 500px;
+  }
+}
+.footer-div{
+  margin-top: 20px;
+}
+.notification-normal{
+  background-color: green;
+}
+.notification-urgent{
+  background-color: orange;
+}
+.notification-critical{
+  background-color: darkred;
+}
+.text-red {
+  color: red;
+}
+.text-green {
+  color: green
+}
+.error-bg {
+  background-color: #ffe6f0
+}
+.main-header-logout {
+  margin-right:15px;
+}
+.btn-nav{
+  background-color: rgb(227, 227, 227) !important;
+  padding-top: 2px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}

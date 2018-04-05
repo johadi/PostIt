@@ -1,0 +1,55 @@
+// smaller devices
+.body{
+  background-image: url("../images/android.png");
+  background-repeat: no-repeat;
+  background-size: cover
+}
+// for tabs
+@media only screen and (min-device-width: 768px)  {
+  .body{
+    background-image: url("../images/ipad.png");
+    background-repeat: no-repeat;
+    background-size: cover
+  }
+}
+// for larger screens
+@media only screen and (min-width: 1030px)  {
+  .body{
+    background-image: url("../images/web.png");
+    background-repeat: no-repeat;
+    background-size: cover
+  }
+}
+.text-signup{
+  color: black;
+  padding-top: 20px;
+}
+.text-signin, .text-signin:focus, .text-signin:hover{
+  color: #fff;
+}
+.text-underline{
+  text-decoration: underline;
+}
+.heading-text{
+  text-shadow: 3px 2px green;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 60px;
+}
+#not-found-body{
+  background: url("../images/error404.gif");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: inherit;
+  width: inherit;
+}
+#not-found-div{
+  height: 100%;
+  width: 100%;
+}
+#error404-header-txt{
+  color: #ffffff !important;
+}
+.cover-div {
+  opacity: 0.8;
+  background-color: whitesmoke
+}

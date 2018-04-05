@@ -12,6 +12,14 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
+      priority: {
+        type: Sequelize.STRING,
+        defaultValue: 'normal'
+      },
+      readersId: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        defaultValue: []
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

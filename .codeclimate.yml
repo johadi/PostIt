@@ -15,5 +15,10 @@ ratings:
   - "server/**/*.js"
 exclude_paths:
 - node_modules/
-- server/database/
+- server/database/migrations
+- server/database/config
 - server/tests/
+- client
+- coverage
+- production
+- tools

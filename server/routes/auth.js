@@ -1,58 +1,152 @@
-const router = require('express').Router();
-const authController = require('../controllers/auth');
+import express from 'express';
+import authController from '../controllers/auth';
+import verifyRecoveryLink from '../middlewares/verifyRecoveryLink';
 
-router.route('/api/user/signup')
+const router = express.Router();
+router.route('/v1/user/signup')
 /**
- * @api {post} /api/user/signup Register a new user
- * @apiGroup User
- * @apiParam {String} username User name
- * @apiParam {String} fullname Name of user
- * @apiParam {String} mobile Mobile number of user
- * @apiParam {String} email User email
- * @apiParam {String} password User password
- * @apiParamExample {json} Input
- *    {
-   *      "fullname": "Jimoh Hadi",
-   *      "username": "Johadi",
-   *      "mobile": "0816304xxxx",
-   *      "email": "jimoh@program.com",
-   *      "password": "123456"
-   *    }
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    {
-   *      "status": 200,
-   *      "data": {
-   *       "id": 1,
-   *      "fullname": "Jimoh Hadi",
-   *      "email": "john@program.com",
-   *      "username": "Johdi",
-   *      "mobile": "0816304xxxx"
-   *      }
-   *    }
+ * @swagger
+ * /api/v1/user/signup:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Register a new user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: fullname
+ *         description: User full name
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: username
+ *         description: Username of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: email
+ *         description: User email
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: password
+ *         description: User password
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: confirmPassword
+ *         description: User confirm password
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: mobile
+ *         description: User mobile number
+ *         in: formData
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Token of authenticated user
+ *         schema:
+ *           properties:
+ *             token:
+ *               type: string
  */
+
     .post(authController.signup);
-router.route('/api/user/signin')
+router.route('/v1/user/signin')
 /**
- * @api {post} /api/user/signin Login user
- * @apiGroup Authentication
- * @apiParam {String} username Username of registered user
- * @apiParam {String} password User password
- * @apiParamExample {json} Input
- *    {
-   *      "username": "johadi",
-   *      "password": "123456"
-   *    }
- * @apiSuccess {String} token Token of authenticated user
- * @apiSuccessExample {json} Success
- *    HTTP/1.1 200 OK
- *    {
-     *     "status": 200,
-     *     "data": {
-     *        "token": "xyz.abc.123.hgf"
-     *        "message": "Sign in successful"
-     *     }
-     *  }
+ * @swagger
+ * /api/v1/user/signin:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Login a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: username
+ *         description: Username of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: password
+ *         description: Password of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Token of authenticated user
+ *         schema:
+ *           properties:
+ *             token:
+ *               type: string
  */
     .post(authController.signin);
-module.exports = router;
+router.route('/v1/user/recover-password')
+/**
+ * @swagger
+ * /api/v1/user/recover-password:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Recover password of a user
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: email
+ *         description: Valid email of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Message for recovery sent email
+ *         schema:
+ *           properties:
+ *             message:
+ *               type: string
+ */
+  .post(authController.passwordRecovery);
+router.route('/v1/user/reset-password')
+/**
+ * @swagger
+ * /api/v1/user/reset-password:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     description: Reset user password
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: password
+ *         description: New password of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: confirmPassword
+ *         description: Confirm new password of the user
+ *         in: formData
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Password reset message
+ *         schema:
+ *           properties:
+ *             message:
+ *               type: string
+ */
+  .post(verifyRecoveryLink, authController.resetPasswordPost);
+export default router;

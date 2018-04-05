@@ -1,69 +1,94 @@
-# PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=master)](https://coveralls.io/github/johadi10/PostIt?branch=master) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=master)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
+# PostIt [![Coverage Status](https://coveralls.io/repos/github/johadi10/PostIt/badge.svg?branch=develop)](https://coveralls.io/github/johadi10/PostIt?branch=develop) [![Build Status](https://travis-ci.org/johadi10/PostIt.svg?branch=develop)](https://travis-ci.org/johadi10/PostIt) [![Code Climate](https://codeclimate.com/github/johadi10/PostIt/badges/gpa.svg)](https://codeclimate.com/github/johadi10/PostIt)
 
+**Postit** is an Application where registered users send notifications to one another via groups they belong to. It involves In-App, Email and SMS notification methods. It also includes API with well-structured documentation that can be reused by anyone. Everything about this application is detailed below:
+  
+## Application Features
 
-**Postit** is an Andela Application where friends and colleagues send notifications to one another via groups they belong to. It also includes API with well-structured documentation that can be reused by anyone. Everything about this application is detailed below:
-
-## What Users can do with this project
-
-* User can sign up for the system
-* Users can login to access all operations available to them.
-* Users can create groups and add other registered users to them.
-* Users can read messages sent to groups they belong to
-* Users can read messages they have created in a particular group.
+* Sign up for the system
+* Login with your credentials
+* Create group
+* Search and add other registered users to groups you joined
+* Send notification to groups you joined
+* Read notifications sent by other users from your notification board
+* Receive Email notifications if urgent messages are sent to groups you joined
+* Receive SMS and Email notifications if critical messages are sent to groups you joined
+* Read all notifications available in the groups you joined
+* View list of all groups you joined
+* View list of members in a particular group you joined
+* Logout of the application any time you wish
+* Reset password if forgotten
 
 ## Technology Stack
-* NodeJS
-* Sequelize ORM
-* Postgres relational database
-* Bootstrap
-* ReactJS
-* Redux
 
-## How to install this project
+#### Backend
+- [Node js](https://nodejs.org/en/) is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+- [Express js](http://expressjs.com/) handles backend routing.
+- [Sequelize](http://docs.sequelizejs.com/) Sequelize is a promise-based ORM for Node.js and io.js. It supports the dialects PostgreSQL, MySQL, MariaDB, SQLite and MSSQL and features solid transaction support, relations and many more.
+- [PostgreSQL](https://www.postgresql.org/) A powerful, open source object-relational database system.
+#### Frontend
+- [Bootstrap](https://getbootstrap.com/) makes styling responsive web pages faster and easier.
+- [React](https://facebook.github.io/react/) A JavaScript library for building user interfaces.
+- [Redux](http://redux.js.org/) A predictable state container for JavaScript apps.
+- [Webpack](https://webpack.js.org/) A JavaScript tool for bundling scripts, images, styles and other assets
+- [Babel](https://babeljs.io/) A JavaScript compiler for converting codes written in ES6 or JSX to ES5 that is supported by many browsers
 
--   Install NodeJs and Postgres on your machine
--   Clone the repository `$ git clone https://github.com/johadi10/PostIt.git`
--   Change into the directory `$ cd /PostIt`
--   Install all required dependencies with `$ npm install`
--   Create a `.env` file in your root directory and follow the pattern in the .env sample file depicted below to create environmental variables
+## Installation on development
+This installation guide is for development purpose. For production, check the next section which is `Installation on production`
+
+-   Install [Node js](https://nodejs.org/en/) and [Postgres](https://www.postgresql.org/) on your machine
+-   Clone the repository `git clone https://github.com/johadi10/postit.git`
+-   Change into the directory `cd /postit`
+-   Install all required dependencies with `npm install`
+-   For easier accessibility, Install sequelize-cli globally for database migrations `npm install -g sequelize-cli`
+-   Create a `.env` file in your root directory and follow the pattern in the .env.sample file to create environmental variables
 -   Migrate your database by running this command `sequelize db:migrate`
--   You can undo your migrations by running this command `sequelize db:migrate:undo`.
--   Run `npm start` to start the application
+-   You can undo your migrations by running this command `sequelize db:migrate:undo:all`.
+-   Open a terminal and run `npm run start:dev` to start the application server side.
+-   Open another terminal and run `npm run build:dev` to start the application client side.
+-   Navigate to `localhost:8080` on your browser to open the application
 
->   .env sample file
-```DEV_DB_PASSWORD=yourpassword
-     DEV_DB_NAME=yourdbname
-     TEST_DB_PASSWORD=yourtestdbpassword
-     TEST_DB_NAME=yourtestdbname
-     DEV_HOST=localhost
-     NODE_ENV=development
-     JWT_SECRET=yoursecret 
-```
-   
+## Installation on production
+This installation guide assumes you are using heroku for your deployment. However, If you are using another platform, you can check the `package.json` and adjust the neccesary scripts to suit your platform.
+
+-   Check Heroku deployment guide to use either of the two ways to deploy the application to heroku. Link here [Heroku Guide](https://devcenter.heroku.com/articles/getting-started-with-nodejs) .You could use Heroku CLI or Heroku Dashbaord.
+-   In either ways you use, ensure you set up your Postgres database and add all the required enviromental variables using the pattern in the `env.sample` file in the project.
+-   The scripts for Heroku to deploy the application has already been set up. All you will likely need is to set up the database, add environmental variables and then push the code to Heroku using Heroku CLI or Connect Heroku to your Github version of this project using the Heroku dashboard.
+ If you follow this guide, the application should be live.
+
+
+
 ## Testing
--   Run Test `npm test`
-
--   `Use separate DB's for testing and development`
-
-##  Project Limitations
-  * Users can only create account once with their username, email, full name, password and mobile number.
-  * Users can login and obtain a token which is verified on every request
-  * Users can sign out of the application whenever they want. However Users will not be automatically logged in whenever they closed the browser. They will have to login again.
-  * On successful logged in, Users can add other registered users to group they belong.
-  * On successful logged in, Users can create message in a group they belong to
-  * On successful logged in, Users can create a group and add other users to it
-  * Users cannot add themselves to a group they already belong
-  * Users cannot access protected routes until they return a token given to them when they signed in
-  * Invalid group Id in any route ,like `api/group/y/user` will be rejected
-  * Invalid routes are rejected
-  # Web Site
-  * You can visit the website at [https://jimoh-postit.herokuapp.com/](https://jimoh-postit.herokuapp.com)
-  # API Documentation
-  * You can find the API Documentation at [https://jimoh-postit.herokuapp.com/apidoc/](https://jimoh-postit.herokuapp.com/apidoc/)
-  * You can Access API at [https://jimoh-postit.herokuapp.com/api/](https://jimoh-postit.herokuapp.com/api)
+-   Use separate DB's for testing and development as shown in the .env.sample file
+-   Run server-side test with `npm test`
+-   Run client-side test withh `npm run test:client`
+## Limitations of the project
+  * User's logged in session expires when the browser is closed.
+  * Users cannot create account with same username or email if already used.
+  * Users cannot add themselves to other groups they don't belong. They can only be added by other registered users that are already member of the group.
   
-  # Want to Contribute ?
+## API Documentation Links
+- Access the API Documentation at [https://jimoh-postit.herokuapp.com/api-docs/](https://jimoh-postit.herokuapp.com/api-docs/)
+
+## Want to Contribute ?
   * Fork the repository
   * Make your contributions
-  * Make sure you test your work
-  * Create Pull request 
+  * Make sure your work is well tested
+  * Create Pull request against the **develop** branch.
+
+## FAQ
+
+* What language is used to build this application ?
+  - The application (both front-end and back-end) is entirely built with javascript
+* Is this an open-source project ?
+  - Yes, Is an open-source project.
+* Who can contribute ?
+  - Anyone can contribute as long as you would follow the contribution guides outlined above
+* Is the application hosted online ?
+  - Yes, the application is hosted on heroku platform. You can always visit it via this link [https://jimoh-postit.herokuapp.com](https://jimoh-postit.herokuapp.com)
+* Does the application have an API ?
+  - Yes, The application has a well documented API that can be viewed via a link in the API documentation section above
+* Is the application licensed ? 
+  - Yes, the application and its contents is under MIT license which  you can view in the license section below
+  
+## License
+[MIT](https://github.com/johadi10/PostIt/blob/develop/LICENSE)

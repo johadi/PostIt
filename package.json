@@ -24,7 +24,7 @@
     "test2": "export NODE_ENV=test && sequelize db:migrate && mocha --compilers js:babel-register server/tests/api/auth.test.js",
     "coverage": "nyc -e .jsx report --reporter=text-lcov | coveralls",
     "clean-production": "npm run remove-production && mkdir production",
-    "remove-production": "rimraf ./production",
+    "remove-production": "rm -rf ./production",
     "build:html": "npm install && node tools/buildTools/buildHtml.js",
     "heroku-prebuild": "npm run clean-production && npm run build:html",
     "heroku-postbuild": "webpack -p --config ./webpack.config.prod.js --progress",

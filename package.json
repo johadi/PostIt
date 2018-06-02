@@ -13,6 +13,7 @@
     ]
   },
   "scripts": {
+    "migrate": "sequelize db:migrate",
     "build:client": "webpack-dashboard webpack-dev-server",
     "build:dev": "webpack-dev-server",
     "start:dev": "nodemon --watch dist/server --exec babel-node -- app.js",

@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import morganLogger from 'morgan';
 import winston from 'winston';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import apiRoutes from '../server/routes/index';
 
 dotenv.config();
@@ -19,6 +20,7 @@ const logger = new (winston.Logger)({
 });
 
 app.use(morganLogger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());

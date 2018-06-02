@@ -6,11 +6,13 @@ import path from 'path';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import winston from 'winston';
+import cors from 'cors';
 import apiRoutes from './server/routes';
 
 dotenv.config();
 const app = express();
 app.use(morganLogger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 4000);

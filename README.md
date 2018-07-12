@@ -36,7 +36,7 @@
 This installation guide is for development purpose. For production, check the next section which is `Installation on production`
 
 -   Install [Node js](https://nodejs.org/en/) and [Postgres](https://www.postgresql.org/) on your machine
--   Clone the repository `git clone https://github.com/johadi10/postit.git`
+-   Clone the repository `git clone https://github.com/johadi/postit.git`
 -   Change into the directory `cd /postit`
 -   Install all required dependencies with `npm install`
 -   For easier accessibility, Install sequelize-cli globally for database migrations `npm install -g sequelize-cli`
@@ -60,7 +60,7 @@ This installation guide assumes you are using heroku for your deployment. Howeve
 ## Testing
 -   Use separate DB's for testing and development as shown in the .env.sample file
 -   Run server-side test with `npm test`
--   Run client-side test withh `npm run test:client`
+-   Run client-side test with `npm run test:client`
 ## Limitations of the project
   * User's logged in session expires when the browser is closed.
   * Users cannot create account with same username or email if already used.

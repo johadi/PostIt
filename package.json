@@ -13,7 +13,6 @@
     ]
   },
   "scripts": {
-    "man": "sequelize db:migrate && node tools/buildTools/publicServer.js",
     "migrate": "sequelize db:migrate",
     "build:client": "webpack-dashboard webpack-dev-server",
     "build:dev": "webpack-dev-server",

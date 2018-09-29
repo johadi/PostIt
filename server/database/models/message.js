@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: 'Message body can\'t be empty'
+          msg: 'Message body can\' be empty'
         }
       }
     },

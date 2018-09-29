@@ -43,6 +43,10 @@ export default (sequelize, DataTypes) => {
     mobile: {
       type: DataTypes.STRING
     },
+    avatarPath: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

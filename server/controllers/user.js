@@ -8,6 +8,7 @@ import {
   handleError, handleSuccess, uploadPictureLocally, uploadPictureToCloudinary, updateUserDetails
 } from '../helpers/helpers';
 import { paginateResult, getPaginationMeta } from '../helpers/pagination';
+import dotenv from 'dotenv';
 
 dotenv.config();
 export default {
@@ -23,17 +24,17 @@ export default {
       const userId = req.user.id;
       if (req.query.page && isNaN(parseInt(req.query.page, 10))) {
         return handleError({
-          code: 400,
-          message: 'Oops! Something went wrong, page query value must be a number'
-        },
+            code: 400,
+            message: 'Oops! Something went wrong, page query value must be a number'
+          },
           res);
       }
-      const { limit, offset } = paginateResult(req);
+      const {limit, offset} = paginateResult(req);
       models.UserGroup.findAndCountAll({
-        where: { userId },
+        where: {userId},
         limit,
         offset,
-        include: [{ model: models.Group, attributes: ['id', 'name', 'creatorId'] }]
+        include: [{model: models.Group, attributes: ['id', 'name', 'creatorId']}]
       })
         .then((result) => {
           const groupUsersDetails = {
@@ -67,7 +68,7 @@ export default {
         }, res);
       }
       // Let us find all groupIds this user belongs to first
-      models.UserGroup.findAll({ where: { userId }, attributes: ['groupId'] })
+      models.UserGroup.findAll({where: {userId}, attributes: ['groupId']})
         .then((result) => {
           // We then convert the groupIds from array
           // of objects to plain arrays [23, 67, 89]
@@ -78,14 +79,14 @@ export default {
           // get all messages of a user in all groups
           // he/she joined (read and unread)
           const allUserGroupMessages = models.Message
-            .findAndCountAll({ where: { groupId: userGroupIds } });
+            .findAndCountAll({where: {groupId: userGroupIds}});
           return Promise.all([allUserGroupMessages, userGroupIds]);
         })
         .then((allResolvedPromise) => {
           // user messages in all groups
           const allUserGroupMessages = allResolvedPromise[0];
           const userGroupIds = allResolvedPromise[1]; // user groups Id
-          const { limit, offset } = paginateResult(req);
+          const {limit, offset} = paginateResult(req);
           // get all unread messages of a user in all groups
           // he/she joined (Unread only). good for getting count of
           // all user unread messages in all his/her joined groups
@@ -97,7 +98,7 @@ export default {
           // we are fetching by pagination detail
           models.Message.findAll({
             // return messages that has groupIds like in [3,5,7,8,9]
-            where: { groupId: userGroupIds },
+            where: {groupId: userGroupIds},
             offset,
             limit,
             order: [['createdAt', 'DESC']],
@@ -137,14 +138,14 @@ export default {
   getUsers(req, res) {
     if (req.user) {
       if (req.query.search) {
-        const { limit, offset } = paginateResult(req);
+        const {limit, offset} = paginateResult(req);
         const searchedQuery = req.query.search.toLowerCase();
         const search = `%${searchedQuery}%`;
         models.User.findAndCountAll(
           {
             where: {
-              $or: [{ username: { like: search } },
-                { email: { like: search } }]
+              $or: [{username: {like: search}},
+                {email: {like: search}}]
             },
             offset,
             limit,
@@ -167,11 +168,11 @@ export default {
               models.Group.findById(groupId)
                 .then((group) => {
                   if (!group) {
-                    return Promise.reject({ code: 404, message: 'Invalid group' });
+                    return Promise.reject({code: 404, message: 'Invalid group'});
                   }
                   // Check if User belongs to the group
                   return models.UserGroup.findOne({
-                    where: { userId, groupId }
+                    where: {userId, groupId}
                   });
                 })
                 .then((foundUserAndGroup) => {
@@ -183,7 +184,7 @@ export default {
                   }
                   // get the userId of users that belongs to this group
                   return models.UserGroup.findAll({
-                    where: { groupId: req.query.groupId },
+                    where: {groupId: req.query.groupId},
                     attributes: ['userId']
                   });
                 })

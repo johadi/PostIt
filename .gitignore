@@ -12,3 +12,6 @@ screenshots/
 /coverage
 /production
 /.nyc_output
+/server2
+/server/uploads/*
+!server/uploads/default.png

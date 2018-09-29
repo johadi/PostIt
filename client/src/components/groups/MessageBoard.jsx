@@ -105,7 +105,7 @@ export class MessageBoard extends React.Component {
                         </Link>
                         <small> {priority} </small>
                         {this.showTime(message.createdAt) >= 23 ?
-                          <small> posted on {new Date(message.createdAt)
+                          <small> Sent on {new Date(message.createdAt)
                             .toLocaleString('en-us', this.dateOptions)}</small> :
                           <small> Sent <Moment fromNow>
                             {message.createdAt}</Moment>

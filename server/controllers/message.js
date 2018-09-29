@@ -198,7 +198,10 @@ export default {
             offset,
             limit,
             order: [['createdAt', 'DESC']],
-            include: [{ model: models.User, attributes: ['id', 'username', 'fullname'] }]
+            include: [
+              { model: models.User, attributes: ['id', 'username', 'fullname', 'avatarPath'] },
+              { model: models.Group, attributes: ['id', 'name'] }
+            ]
           })
             .then((messages) => {
               const getMessagesDetails = {
@@ -248,15 +251,30 @@ export default {
           // Let the user read the message since he satisfies all the criteria
           return models.Message.findOne({
             where: { id: messageId, groupId },
-            include: [{ model: models.User, attributes: ['id', 'username', 'fullname'] }]
+            include: [
+              { model: models.User, attributes: ['id', 'username', 'fullname'] },
+              { model: models.Group, attributes: ['id', 'name'] }
+              ]
           });
         })
         .then((message) => {
           if (!message) {
             return Promise.reject({ code: 404, message: 'message not found' });
           }
-          return handleSuccess(200, message, res);
+
+          // user already read the message no need to update.
+          if(message.readersId.includes(userId)) {
+            return Promise.resolve(message);
+          }
+
+          message.readersId.push(userId); // readersId is an array
+          return message.update({
+            readersId: message.readersId
+          }, {
+            where: { id: messageId }
+          });
         })
+        .then(message => handleSuccess(200, message, res))
         .catch(err => handleError(err, res));
     }
   },

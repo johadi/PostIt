@@ -92,8 +92,7 @@ export class GroupBoard extends React.Component {
                 <div className="media-body">
                   <h4 className="media-heading">{message.User.username}
                     {this.showTime(message.createdAt) >= 23 ?
-                      <small>
-                        posted on {new Date(message.createdAt)
+                      <small> Sent on {new Date(message.createdAt)
                         .toLocaleString('en-us', this.dateOptions)}
                       </small> :
                       <small> Sent <Moment fromNow>{message.createdAt}

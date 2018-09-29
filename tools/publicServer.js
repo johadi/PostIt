@@ -7,7 +7,7 @@ import morganLogger from 'morgan';
 import winston from 'winston';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import apiRoutes from '../server/routes/index';
+import apiRoutes from '../server/routes';
 
 dotenv.config();
 const port = process.env.PORT || 3000;

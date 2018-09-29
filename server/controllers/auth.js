@@ -27,7 +27,8 @@ export default {
         message: { validateError: validator.errors.all() } }, res);
     }
     if (body.confirmPassword !== body.password) {
-      return handleError({ code: 422, message: 'passwords not matched' }, res);
+      const errorMessage = { confirmPassword: 'passwords not matched'};
+      return handleError({ code: 400, message: { validateError: errorMessage} }, res);
     }
     models.User.findOne({
       where: {

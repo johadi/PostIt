@@ -35,11 +35,11 @@ router.route('/v1/verify-token')
  *             mobile:
  *               type: string
  */
-    .get(authenticate, (req, res) => {
-      if (req.user) {
-        return res.status(200).json(req.user);
-      }
-    });
+  .get(authenticate, (req, res) => {
+    if (req.user) {
+      return res.status(200).json(req.user);
+    }
+  });
 router.route('/v1/group')
 /**
  * @swagger
@@ -78,7 +78,7 @@ router.route('/v1/group')
  *             creatorId:
  *               type: integer
  */
-    .post(authenticate, groupController.createGroup);
+  .post(authenticate, groupController.createGroup);
 router.route('/v1/group/:groupId/user')
 /**
  * @swagger
@@ -118,7 +118,7 @@ router.route('/v1/group/:groupId/user')
  *             addedBy:
  *               type: string
  */
-    .post(authenticate, groupController.addUserToGroup);
+  .post(authenticate, groupController.addUserToGroup);
 router.route('/v1/group/:groupId/group-users')
 /**
  * @swagger
@@ -163,4 +163,42 @@ router.route('/v1/group/:groupId/group-users')
  *               type: object
  */
   .get(authenticate, groupController.getGroupUsers);
+router.route('/v1/group/:groupId')
+/**
+ * @swagger
+ * /api/v1/group/{groupId}:
+ *   get:
+ *     tags:
+ *       - Group
+ *     description: Get a group details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: groupId
+ *         description: Group ID parameter
+ *         in: path
+ *         required: true
+ *         type: integer
+ *       - name: x-auth
+ *         in: header
+ *         description: authentication token
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Array of group members
+ *         schema:
+ *           properties:
+ *             id:
+ *               type: integer
+ *             name:
+ *               type: string
+ *             creatorId:
+ *               type: integer
+ *             createdAt:
+ *               type: string
+ *             updatedAt:
+ *               type: string
+ */
+  .get(authenticate, groupController.getGroupDetails);
 export default router;

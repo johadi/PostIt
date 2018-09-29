@@ -124,4 +124,6 @@ router.route('/v1/users')
  *                type: object
  */
   .get(authenticate, userController.getUsers);
+router.route('/v1/user')
+  .post(authenticate, userController.updateUserProfile);
 export default router;

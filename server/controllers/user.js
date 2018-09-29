@@ -1,8 +1,15 @@
 import lodash from 'lodash';
+import formidable from 'formidable';
+import path from 'path';
+import fs from 'fs';
+import dotenv from 'dotenv';
 import models from '../database/models';
-import { handleError, handleSuccess } from '../helpers/helpers';
+import {
+  handleError, handleSuccess, uploadPictureLocally, uploadPictureToCloudinary, updateUserDetails
+} from '../helpers/helpers';
 import { paginateResult, getPaginationMeta } from '../helpers/pagination';
 
+dotenv.config();
 export default {
   /**
    * Get the groups that user belongs to
@@ -94,10 +101,10 @@ export default {
             offset,
             limit,
             order: [['createdAt', 'DESC']],
-            include: [{ model: models.User, attributes: ['username', 'fullname'] }, {
-              model: models.Group,
-              attributes: ['id', 'name']
-            }]
+            include: [
+              { model: models.User, attributes: ['id', 'username', 'fullname', 'avatarPath'] },
+              { model: models.Group, attributes: ['id', 'name'] }
+            ]
           })
             .then((messages) => {
               // Get list of messages that have not been
@@ -141,7 +148,7 @@ export default {
             },
             offset,
             limit,
-            attributes: ['id', 'username', 'fullname', 'email'],
+            attributes: ['id', 'username', 'fullname', 'email', 'avatarPath'],
           })
           .then((users) => { // users = foundUsers
             // If a client wants to work with all
@@ -211,5 +218,52 @@ export default {
         }, res);
       }
     }
+  },
+  /**
+   * Update the user profile.
+   *
+   * @function updateUserProfile
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
+  updateUserProfile(req, res) {
+    const uploadPath = path.join(__dirname, '../uploads');
+    const form = formidable.IncomingForm();
+    form.uploadDir = uploadPath;
+    form.keepExtensions = true;
+    form.parse(req, (err, fields, files) => {
+      if (err) return res.status(500).json(err);
+
+      // If image provided
+      if (files.avatar) {
+        const ext = files.avatar.name.split('.').pop().toLowerCase();
+        if (ext !== 'jpg' && ext !== 'jpeg' && ext !== 'png') {
+          fs.unlink(files.avatar.path);
+          return handleError({ code: 400, message: 'File must be in the format of either jpeg/jpg/png' }, res);
+        }
+
+        if (process.env.NODE_ENV === 'production') {
+          return uploadPictureToCloudinary(files.avatar.path, req.user.username)
+            .then((result) => {
+              fields.avatarPath = result.secure_url;
+              updateUserDetails(req, res, fields);
+            })
+            .catch(err => handleError(err, res));
+        }
+
+        const newPath = path.join(__dirname, `../uploads/${req.user.username}.${ext.toLowerCase()}`);
+        return uploadPictureLocally(files.avatar.path, newPath)
+          .then((imagePath) => {
+            const imageName = imagePath.split('/').pop().toLowerCase();
+            fields.avatarPath = `http://localhost:${process.env.PORT ? process.env.PORT : 4000}/uploads/${imageName}`;
+
+            updateUserDetails(req, res, fields);
+          })
+          .catch(err => handleError(err, res));
+      }
+
+      updateUserDetails(req, res, fields);
+    });
   }
 };

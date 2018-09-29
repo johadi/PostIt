@@ -245,7 +245,7 @@ export default {
             limit,
             include: [{
               model: models.User,
-              attributes: ['id', 'username', 'fullname']
+              attributes: ['id', 'username', 'fullname', 'avatarPath']
             }]
           })
             .then((groupWithMembers) => {
@@ -261,6 +261,41 @@ export default {
         })
         .catch(err => handleError(err, res));
     }
-  }
+  },
+  /**
+   * Get a group details controller function
+   * @function getGroupDetails
+   * @param {object} req - request parameter
+   * @param {object} res - response parameter
+   * @return {object} response detail
+   */
+  getGroupDetails(req, res) {
+    if (isNaN(parseInt(req.params.groupId, 10))) {
+      return handleError({ code: 400, message: 'Invalid request. Parameter groupId must be a number' }, res);
+    }
+
+    if (req.user && req.params.groupId) {
+      const userId = req.user.id;
+      const groupId = req.params.groupId;
+      models.Group.findById(req.params.groupId)
+        .then((group) => {
+          if (!group) {
+            return Promise.reject({ code: 404, message: 'invalid group' });
+          }
+          // Check if User belongs to the group
+          return models.UserGroup.findOne({
+            where: { userId, groupId }
+          })
+            .then(res => {
+              if(res) {
+                return Promise.resolve(group);
+              }
+              return Promise.reject({ code: 403, message: 'Hmm, Invalid Operation: You don\'t belong to this group' })
+            })
+        })
+        .then(message => handleSuccess(200, message, res))
+        .catch(err => handleError(err, res));
+    }
+  },
 };
 

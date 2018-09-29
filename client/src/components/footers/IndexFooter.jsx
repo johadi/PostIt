@@ -9,7 +9,7 @@ import React from 'react';
 const IndexFooter = () =>
   <div className="mastfoot">
     <div className="inner">
-      <p>Copyright &copy; Johadi PostIt 2017</p>
+      <p>Copyright &copy; Jimoh Hadi PostIt 2018</p>
     </div>
   </div>;
 export default IndexFooter;

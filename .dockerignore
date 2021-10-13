@@ -1,9 +1,13 @@
-
-.idea/
-/node_modules
+dist
+Dockerfile
+.dockerignore
+node_modules
+yarn-error.log
+.idea
+.nyc_output
+idea/
 /*.xml
 /playground
-.env
 npm-debug.log
 bin/
 /reports
@@ -11,8 +15,7 @@ screenshots/
 .DS_Store
 /coverage
 /production
-/.nyc_output
-/server2
+server2
 /server/uploads/*
 !server/uploads/default.png
 build

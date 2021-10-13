@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const config = {
   development: {
-    username: 'postgres',
+    username: 'jimoh',
     password: process.env.DEV_DB_PASSWORD,
     database: process.env.DEV_DB_NAME,
     host: process.env.DEV_HOST,
@@ -13,7 +13,7 @@ const config = {
     logging: false
   },
   test: {
-    username: 'postgres',
+    username: 'johadi',
     password: process.env.TEST_DB_PASSWORD,
     database: process.env.TEST_DB_NAME,
     host: process.env.DEV_HOST,

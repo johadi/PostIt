@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import webpack from 'webpack';
 import colors from 'colors';
 import winston from 'winston';
-import webpackConfig from '../webpack.config.prod';
+import webpackConfig from '../webpack.config.dev';
 
 dotenv.config();
 process.env.NODE_ENV = 'production';

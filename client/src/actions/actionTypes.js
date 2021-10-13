@@ -1,6 +1,6 @@
 import keymirror from 'keymirror';
 
-export default keymirror({
+const actionTypes = keymirror({
   SIGNUP_SUCCESSFUL: null,
   SIGNUP_UNSUCCESSFUL: null,
   SIGNUP_VALIDATION_ERROR: null,
@@ -45,3 +45,5 @@ export default keymirror({
   MESSAGE_READ_SUCCESSFUL: null,
   MESSAGE_READ_ERROR: null
 });
+
+export default actionTypes;

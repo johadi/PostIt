@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  # TODO: Logs.
+  database:
+    image: postgres:10.1-alpine
+    ports:
+    - '5432:5432'
+    environment:
+    - POSTGRES_USER=johadi
+    - POSTGRES_PASSWORD=null
+    - POSTGRES_DB=postit
+    volumes:
+    - data:/var/lib/postgresql/data
+  web:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    ports:
+    - "7000:7000"
+    #TODO: only expose in debug mode?
+    - "9229:9229"
+    depends_on:
+    - database
+
+volumes:
+  data:
+    external: true

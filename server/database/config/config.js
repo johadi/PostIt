@@ -25,7 +25,10 @@ const config = {
         dialect: 'postgres',
         logging: false,
         dialectOptions: {
-            ssl: true
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+            }
         }
     }
 };

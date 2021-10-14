@@ -20,7 +20,7 @@ const verifyRecoveryLink = (req, res, next) => {
     if (error) {
       return res.status(400).json('This link seems to have expired or invalid');
     }
-    models.User.findById(decoded.id)
+    models.User.findByPk(decoded.id)
       .then((user) => {
         if (!user) {
           return Promise.reject('User with this recovery link doesn\'t match our record');

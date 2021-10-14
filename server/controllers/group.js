@@ -1,4 +1,5 @@
 import models from '../database/models';
+import {Op} from 'sequelize';
 import { handleError, handleSuccess } from '../helpers/helpers';
 import { paginateResult, getPaginationMeta } from '../helpers/pagination';
 
@@ -95,7 +96,7 @@ export default {
     const user = req.body.user ? req.body.user : null;
     const groupId = req.params.groupId;
     // let us check if groupId is a valid group id
-    models.Group.findById(groupId)
+    models.Group.findByPk(groupId)
       .then((group) => {
         if (!group) {
           return Promise.reject({ code: 404, message: 'Invalid group' });
@@ -133,7 +134,7 @@ export default {
         // NOTE: The detail of a user can either be Username or Email
         return models.User.findOne({
           where: {
-            $or: [{ username: user }, { email: user }]
+            [Op.or]: [{ username: user }, { email: user }]
           }
         });
       })
@@ -209,7 +210,7 @@ export default {
         }, res);
       }
       // convert the query to standard number for use
-      models.Group.findById(req.params.groupId)
+      models.Group.findByPk(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });
@@ -277,7 +278,7 @@ export default {
     if (req.user && req.params.groupId) {
       const userId = req.user.id;
       const groupId = req.params.groupId;
-      models.Group.findById(req.params.groupId)
+      models.Group.findByPk(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });

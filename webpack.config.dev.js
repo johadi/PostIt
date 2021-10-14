@@ -32,7 +32,7 @@ module.exports = merge(webpackConfig, {
         port: process.env.PORT,
         proxy: {
             '/api/**': {
-                target: 'http://localhost:8000',
+                target: 'http://localhost:4000',
                 secure: false
             }
         }

@@ -43,7 +43,7 @@ export default {
       const body = req.body.message;
       const groupId = req.params.groupId;
       // Check if groupId is a valid group id
-      models.Group.findById(groupId)
+      models.Group.findByPk(groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'Invalid group' });
@@ -176,7 +176,7 @@ export default {
           message: 'This request is invalid. Request URL must contain ' +
           'query parameter named page with number as value' }, res);
       }
-      models.Group.findById(req.params.groupId)
+      models.Group.findByPk(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });
@@ -233,7 +233,7 @@ export default {
       const userId = req.user.id;
       const groupId = req.params.groupId;
       const messageId = req.params.messageId;
-      models.Group.findById(req.params.groupId)
+      models.Group.findByPk(req.params.groupId)
         .then((group) => {
           if (!group) {
             return Promise.reject({ code: 404, message: 'invalid group' });
@@ -296,7 +296,7 @@ export default {
       const userId = req.user.id;
       const messageId = req.params.messageId;
       // Check if groupId is a valid group id
-      models.Message.findById(messageId)
+      models.Message.findByPk(messageId)
         .then((message) => {
           if (!message) {
             return Promise.reject({ code: 404,

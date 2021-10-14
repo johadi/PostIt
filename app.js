@@ -8,6 +8,7 @@ import colors from 'colors';
 import winston from 'winston';
 import cors from 'cors';
 import apiRoutes from './server/routes';
+import favicon from "serve-favicon";
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 4000);
 app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static('production'));
+app.use(favicon(path.join(__dirname, 'favicon2.ico')));
 // Create winston logger
 const logger = new (winston.Logger)({
   transports: [
@@ -26,6 +29,9 @@ const logger = new (winston.Logger)({
 
 // Api routes
 apiRoutes(app);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './production/index.html'));
+});
 
 const server = http.createServer(app);
 

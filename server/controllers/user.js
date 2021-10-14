@@ -2,7 +2,7 @@ import lodash from 'lodash';
 import formidable from 'formidable';
 import path from 'path';
 import fs from 'fs';
-import dotenv from 'dotenv';
+import {Op} from 'sequelize';
 import models from '../database/models';
 import {
   handleError, handleSuccess, uploadPictureLocally, uploadPictureToCloudinary, updateUserDetails
@@ -144,8 +144,8 @@ export default {
         models.User.findAndCountAll(
           {
             where: {
-              $or: [{username: {like: search}},
-                {email: {like: search}}]
+              [Op.or]: [{username: {[Op.like]: search}},
+                {email: {[Op.like]: search}}]
             },
             offset,
             limit,
@@ -165,7 +165,7 @@ export default {
               // group by the given groupId as object
               const groupId = req.query.groupId;
               const userId = req.user.id;
-              models.Group.findById(groupId)
+              models.Group.findByPk(groupId)
                 .then((group) => {
                   if (!group) {
                     return Promise.reject({code: 404, message: 'Invalid group'});

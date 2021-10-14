@@ -86,7 +86,7 @@ describe('Message Model', () => {
     });
 
     it('Should be able to get message', (done) => {
-      models.Message.findById(messageId)
+      models.Message.findByPk(messageId)
         .then((foundMessage) => {
           assert.equal(foundMessage.id, messageId);
           assert.equal(foundMessage.body, messageValidDetails.body);

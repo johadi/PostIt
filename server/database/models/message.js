@@ -47,15 +47,14 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       defaultValue: []
     },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Message.belongsTo(models.User,
-          { foreignKey: 'userId', onDelete: 'CASCADE' });
-        Message.belongsTo(models.Group,
-          { foreignKey: 'groupId', onDelete: 'CASCADE' });
-      }
-    }
-  });
+  }, {});
+
+  Message.associate = (models) => {
+    Message.belongsTo(models.User,
+        { foreignKey: 'userId', onDelete: 'CASCADE' });
+    Message.belongsTo(models.Group,
+        { foreignKey: 'groupId', onDelete: 'CASCADE' });
+  }
+
   return Message;
 };

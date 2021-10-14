@@ -2,12 +2,12 @@ import jwt from 'jsonwebtoken';
 import lodash from 'lodash';
 import Validator from 'validatorjs';
 import bcrypt from 'bcrypt-nodejs';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import {Op} from 'sequelize';
 import models from '../database/models';
 import {sendMail, handleError, handleSuccess} from '../helpers/helpers';
 
-dotenv.config();
+// dotenv.config();
 export default {
     /**
      * Signup controller function
@@ -78,6 +78,7 @@ export default {
      * @return {object} response detail
      */
     signin(req, res) {
+        console.log('ENVIRONMENT ====', process.env.NODE_ENV);
         const body = req.body;
         const validator = new Validator(body, models.User.loginRules());
         if (validator.fails()) {

@@ -41,7 +41,6 @@ export default {
             }
         })
             .then((existingUser) => {
-                console.log('HELLLO', existingUser);
                 if (existingUser) {
                     let message = '';
                     if (existingUser.email === body.email) {
@@ -78,7 +77,6 @@ export default {
      * @return {object} response detail
      */
     signin(req, res) {
-        console.log('ENVIRONMENT ====', process.env.NODE_ENV);
         const body = req.body;
         const validator = new Validator(body, models.User.loginRules());
         if (validator.fails()) {

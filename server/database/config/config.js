@@ -24,12 +24,16 @@ const config = {
         use_env_variable: 'DATABASE_URL',
         dialect: 'postgres',
         logging: false,
-        dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false
-            }
-        }
+        /* If you're using heroku, add "PGSSLMODE=no-verify" to your config environmental variables to disable heroku ssl */
+
+        // Another option to try if the above doesn't disable ssl
+        // nattive: true
+        // dialectOptions: {
+        //     ssl: {
+        //         require: true,
+        //         rejectUnauthorized: false
+        //     }
+        // }
     }
 };
 module.exports = config[process.env.NODE_ENV || 'development'];

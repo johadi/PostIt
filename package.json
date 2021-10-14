@@ -43,8 +43,6 @@
   "author": "jimoh hadi",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.8",
     "@babel/node": "^7.15.8",
     "@babel/plugin-transform-modules-commonjs": "^7.15.4",
     "@babel/preset-env": "^7.15.8",
@@ -94,6 +92,8 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
     "@babel/polyfill": "^7.12.1",
     "@babel/register": "^7.15.3",
     "axios": "^0.23.0",

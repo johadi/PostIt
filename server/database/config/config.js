@@ -24,7 +24,6 @@ const config = {
         use_env_variable: 'DATABASE_URL',
         dialect: 'postgres',
         logging: false,
-        ssl: true,
         dialectOptions: {
             ssl: true
         }

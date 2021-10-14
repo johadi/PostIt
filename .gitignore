@@ -15,4 +15,4 @@ screenshots/
 /server2
 /server/uploads/*
 !server/uploads/default.png
-build
+/build
